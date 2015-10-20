@@ -202,6 +202,7 @@ class Notification(models.Model):
 	seen_date = models.DateTimeField(null = True)
 	rti_query = models.ForeignKey(RTI_query, null = True, on_delete = models.SET_NULL)
 	other_user = models.ForeignKey(User, on_delete = models.CASCADE, related_name='notified_by')
+	entry_date = models.DateTimeField(auto_now_add=True)
 
 class Relevance(models.Model):
 	def __unicode__(self):
