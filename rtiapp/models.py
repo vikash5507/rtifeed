@@ -54,6 +54,14 @@ class RTI_query(models.Model):
 	entry_date = models.DateTimeField()
 	update_date = models.DateTimeField(auto_now_add=True)
 
+class RTI_query_file(models.Model):
+	def __unicode__(self):
+		return self.rti_query
+
+	rti_query = models.ForeignKey(RTI_query, on_delete = models.CASCADE)
+	query_picture = models.ImageField(upload_to  = 'static/query_picture', default = 'static/query_picture/default.jpg')
+	query_document = models.FileField(upload_to  = 'static/query_document', null = True)
+
 # STATE RTI QUERIES
 class State_department(models.Model):
 	def __unicode__(self):
@@ -111,7 +119,15 @@ class RTI_response(models.Model):
 	rti_response_date = models.DateTimeField(null = True)
 	entry_date = models.DateTimeField()
 	update_date = models.DateTimeField(auto_now_add=True)
-	
+
+class RTI_response_file(models.Model):
+	def __unicode__(self):
+		return self.rti_response
+
+	rti_response = models.ForeignKey(RTI_response, on_delete = models.CASCADE)
+	query_picture = models.ImageField(upload_to  = 'static/response_picture', default = 'static/response_picture/default.jpg')
+	query_document = models.FileField(upload_to  = 'static/response_document', null = True)
+
 class Tag(models.Model):
 	def __unicode__(self):
 		return self.tag_text
