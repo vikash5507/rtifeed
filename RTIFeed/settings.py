@@ -86,7 +86,15 @@ SOCIAL_AUTH_FACEBOOK_SECRET           = '7a3c2e356b7dde957856279052f31e68'
 SOCIAL_AUTH_FACEBOOK_SCOPE = [
     'email',
     'user_friends',
+    # 'gender',
+    'public_profile'
 ]
+
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  # 'locale': 'ru_RU',
+  'fields': 'id, name, email, age_range, gender'
+}
+
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/home'
 # LOGIN_ERROR_URL = '/login-error/'

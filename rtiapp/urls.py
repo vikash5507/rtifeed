@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 from rtiapp.views import views_test, views_profile
-from rtiapp.views import views_login
+from rtiapp.views import views_login, views_home
 
 urlpatterns = patterns('',
 	url(r'^fblogintest$', views_test.fblogintest, name = 'fblogintest'),
@@ -10,7 +10,9 @@ urlpatterns = patterns('',
 	url(r'^$', views_login.login_page, name = 'loginpage'),
 	# url(r'^home$', views_home.home_page, name = 'homepage'),
 	url(r'^base$', views_test.base, name = 'basepage'),
-	url(r'^home$', views_test.home, name = 'homepage'),
+	url(r'^home$', views_home.home_page, name = 'homepage'),
+	url(r'^get_feed$', views_home.get_feed, name = 'get_feed'),
+	url(r'^post_comment$', views_home.post_comment, name = 'post_comment'),
 	url(r'^logout$', views_login.u_logout, name = 'logout'),
 	url(r'^profile/(?P<username>\w+)/$', views_profile.get_user_profile, name="detail_profile")
 

@@ -37,7 +37,7 @@ class User_profile(models.Model):
 	gender = models.CharField(max_length = 200, null = True)
 	date_of_birth = models.DateTimeField(null = True)
 	address = models.ForeignKey(Address, null = True)
-	bio_description = models.CharField(max_length = 200)
+	bio_description = models.CharField(max_length = 200, null = True)
 	entry_date = models.DateTimeField()
 	update_date = models.DateTimeField(auto_now_add=True)
 
@@ -51,6 +51,7 @@ class RTI_query(models.Model):
 	rti_file_date = models.DateTimeField()
 	response_status = models.BooleanField(default = False)
 	query_type = models.CharField(max_length = 50)
+	# type : centre, state
 	entry_date = models.DateTimeField()
 	update_date = models.DateTimeField(auto_now_add=True)
 
@@ -171,7 +172,7 @@ class Share(models.Model):
 class Comment(models.Model):
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	rti_query = models.ForeignKey(RTI_query, on_delete = models.CASCADE)
-	commment_text = models.TextField(null = True)
+	comment_text = models.TextField(null = True)
 	entry_date = models.DateTimeField(auto_now_add=True)
 
 

@@ -25,7 +25,7 @@ def login(request):
 
 def u_logout(request):
 	logout(request)
-	return HttpResponse('logged out')
+	return HttpResponseRedirect('/')
 
 def register(request):
 	return HttpResponse('registered')

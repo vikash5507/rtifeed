@@ -13,3 +13,6 @@ def base(request):
 @login_required
 def home(request):
     return render_to_response('Home/home.html')
+
+def getfeed(request):
+    return render_to_response('Home/feedbox.html')

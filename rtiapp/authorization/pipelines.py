@@ -1,13 +1,40 @@
 from django.http import HttpResponse
 import json
 import urllib2
+from datetime import datetime
+
+from rtiapp import models
+from time import mktime
 
 def get_user_avatar(backend, user, response, details, *args, **kwargs):
     a = 5
     print "TEST"
     url = None
-    # if backend.name == 'facebook':
-    #     url = "http://graph.facebook.com/%s/picture?type=large" % response['id']
+    profile = models.User_profile.objects.filter(user = user).first()
+
+    if not profile:
+        profile = models.User_profile()
+        profile.user = user
+        profile.entry_date = datetime.now()
+
+    if backend.name == 'facebook':
+        url = "http://graph.facebook.com/%s/picture?type=large" % response['id']
+        profile.profile_picture = url
+        print response
+        fb_data = {
+            # 'city': response['location']['name'],
+            'gender': str(response['gender']),
+            # 'locale': response['locale'],
+            # 'dob': response['birthday']
+        }
+        # profile.city = fb_data['city']
+        profile.gender = fb_data['gender']
+        print "gendefr", fb_data['gender']
+        # profile.city = fb_data['city']
+        # profile.date_of_birth = fb_data['dob']
+
+    profile.save()
+
 
     # elif backend.name == 'twitter':
     #     url = response.get('profile_image_url', '').replace('_normal', '')

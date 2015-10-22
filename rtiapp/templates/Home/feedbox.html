@@ -1,0 +1,88 @@
+<div class="box box-widget">
+  <div class="box-header with-border">
+    <div class="user-block">
+      <img class="img-circle" src="{{ rti_user_pic }}" alt="user image">
+      <span class="username"><a href="#">{{ rti_user }}</a></span>
+      <span class="description">Shared publicly on {{rti_entry_date}}</span>
+      {% if rti_query_type == "centre" %}
+      <span class="description">Issued to <b>{{ rti_department }}</b> on <b>{{rti_entry_date}}</b></span>
+      {% else %}
+      <span class="description">Issued in {{ rti_state }}</span>
+      <span class="description">to <b>{{ rti_department }}</b> on <b>{{rti_entry_date}}</b></span>
+      {% endif %}
+    </div><!-- /.user-block -->
+    <div class="box-tools">
+      <button class="btn btn-box-tool" data-toggle="tooltip" title="Mark as read"><i class="fa fa-circle-o"></i></button>
+      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+      <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+    </div><!-- /.box-tools -->
+  </div><!-- /.box-header -->
+  <div class="box-body">
+    <!-- post text -->
+    {{ rti_description }}
+
+    <!-- Attachment -->
+    <div class="attachment-block clearfix">
+      <img class="attachment-img" src="/static/dist/img/photo1.png" alt="attachment image">
+      <div class="attachment-pushed">
+        <h4 class="attachment-heading"><a href="http://www.lipsum.com/">RTI Query</a></h4>
+        <div class="attachment-text">
+          {{ rti_query_text }}<a href="#">more</a>
+        </div><!-- /.attachment-text -->
+      </div><!-- /.attachment-pushed -->
+    </div><!-- /.attachment-block -->
+
+    {% if rti_response_status %}
+
+    <div class="attachment-block clearfix">
+      <img class="attachment-img" src="/static/dist/img/photo1.png" alt="attachment image">
+      <div class="attachment-pushed">
+        <h4 class="attachment-heading"><a href="http://www.lipsum.com/">RTI Response</a></h4>
+        <div class="attachment-text">
+          {{ rti_response_text }}<a href="#">more</a>
+        </div><!-- /.attachment-text -->
+      </div><!-- /.attachment-pushed -->
+    </div><!-- /.attachment-block -->
+
+    {% endif %}
+    <!-- Social sharing buttons -->
+    <button class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
+    <button class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
+    <span class="pull-right text-muted">{{ no_likes}} likes - {{ no_comments }} comments</span>
+  </div><!-- /.box-body -->
+  <div class="box-footer box-comments">
+    {{ comment_html | safe}}
+    
+  </div>
+  <div class="box-footer">
+    <!-- <form action="#" method="post"> -->
+      <img class="img-responsive img-circle img-sm" src="{{ rti_user_pic }}" alt="alt text">
+      <!-- .img-push is used to add margin to elements next to floating images -->
+      <div class="img-push">
+        <input type="text" class="form-control input-sm" placeholder="Press enter to post comment" id = "comment{{ rti_id }}">
+      </div>
+    <!-- </form> -->
+  </div><!-- /.box-footer -->
+</div>
+
+<script type="text/javascript">
+  $('#comment{{ rti_id }}').on('keydown', function(e){
+    if(e.which == 13){
+      $.ajax({
+        url : '/post_comment',
+        data : {
+          comment_text : $(this).val(),
+          rti_query_id : {{ rti_id }}
+        },
+
+        success : function(data){
+          console.log(data);
+        },
+        error : function(err){
+          console.log(err);
+        }
+      });
+    }
+    
+  });
+</script>
