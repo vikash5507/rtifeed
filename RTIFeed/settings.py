@@ -81,22 +81,22 @@ SOCIAL_AUTH_PIPELINE = (
 # SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
 # SOCIAL_AUTH_PARTIAL_PIPELINE_KEY = 'partial_pipeline'
 SOCIAL_AUTH_FACEBOOK_KEY              = '1659360547643851'
-SOCIAL_AUTH_FACEBOOK_SECRET          = '7a3c2e356b7dde957856279052f31e68'
+SOCIAL_AUTH_FACEBOOK_SECRET           = '7a3c2e356b7dde957856279052f31e68'
 
 SOCIAL_AUTH_FACEBOOK_SCOPE = [
     'email',
     'user_friends',
-    'friends_location',
 ]
-# LOGIN_URL = '/login/'
-# LOGIN_REDIRECT_URL = '/home/'
+LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = '/home'
 # LOGIN_ERROR_URL = '/login-error/'
 
 ROOT_URLCONF = 'RTIFeed.urls'
 
 WSGI_APPLICATION = 'RTIFeed.wsgi.application'
 
-
+ACCOUNT_ACTIVATION_DAYS = 2
+REGISTRATION_OPEN = True
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases

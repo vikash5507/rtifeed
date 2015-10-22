@@ -32,7 +32,7 @@ class User_profile(models.Model):
 		return self.user.username
 
 	user = models.OneToOneField(User, primary_key = True)
-	profilePicture = models.ImageField(upload_to  = 'static/profile_picture', default = 'static/profile_picture/default.jpg')
+	profile_picture = models.ImageField(upload_to  = 'static/profile_picture', default = 'static/profile_picture/default.jpg')
 	reputation = models.FloatField(default = 10)
 	gender = models.CharField(max_length = 200, null = True)
 	date_of_birth = models.DateTimeField(null = True)
@@ -81,7 +81,7 @@ class State_RTI_query(models.Model):
 	def __unicode__(self):
 		return self.rti_query
 
-	rti_query = models.ForeignKey(RTI_query, primary_key = True)
+	rti_query = models.OneToOneField(RTI_query, primary_key = True)
 	department = models.ForeignKey(State_department, on_delete = models.SET_DEFAULT, default = 1)
 	authority = models.ForeignKey(State_authority, on_delete = models.SET_NULL, null = True)
 
@@ -103,7 +103,7 @@ class Central_RTI_query(models.Model):
 	def __unicode__(self):
 		return self.rti_query
 
-	rti_query = models.ForeignKey(RTI_query, primary_key = True)
+	rti_query = models.OneToOneField(RTI_query, primary_key = True)
 	department = models.ForeignKey(Central_department, on_delete = models.SET_DEFAULT, default = 1)
 	authority = models.ForeignKey(Central_authority, on_delete = models.SET_NULL, null = True)
 
@@ -112,7 +112,7 @@ class RTI_response(models.Model):
 	def __unicode__(self):
 		return self.description
 
-	rti_query = models.ForeignKey(RTI_query, primary_key = True, on_delete = models.CASCADE)
+	rti_query = models.OneToOneField(RTI_query, primary_key = True, on_delete = models.CASCADE)
 	response_text = models.TextField()
 	description = models.CharField(max_length = 200)
 	# check for response date > query date
