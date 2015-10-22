@@ -10,7 +10,7 @@ class State(models.Model):
 		return self.user.state_name
 
 	state_name = models.CharField(max_length = 200)
-	capital_name = models.CharField(max_length = 200)
+	capital_name = models.CharField(null = True, max_length = 200)
 	latitude = models.FloatField(null = True)
 	longitude = models.FloatField(null = True)
 
@@ -91,6 +91,7 @@ class Central_department(models.Model):
 		return self.department_name
 
 	department_name = models.CharField(max_length = 200)
+	website = models.CharField(max_length = 200, null = True)
 
 class Central_authority(models.Model):
 	def __unicode__(self):

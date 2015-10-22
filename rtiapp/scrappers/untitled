@@ -1,0 +1,5 @@
+statelist = open('train.csv')
+statelist = statelist.split('\n')
+print statelist
+
+	
