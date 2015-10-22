@@ -5,7 +5,7 @@ my_dir = os.path.dirname(__file__)
 department = open(os.path.join(my_dir, 'rtidepartment.csv'))
 department = department.read()
 department = department.split('\n')
-for row in department[1:]:
+for row in department[2:]:
 	# print row
 	row = row.split(',')
 	dep_name = row[2]
