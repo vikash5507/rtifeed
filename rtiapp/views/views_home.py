@@ -32,20 +32,22 @@ def get_feed(request):
 	for rel in rel_objects:
 		rti_list.append(rel.rti_query)
 
-	return get_feed_for_rtis(rti_list)
+	return get_feed_for_rtis(rti_list, user)
 
-def get_feed_for_rtis(rti_list):
+def get_feed_for_rtis(rti_list, user):
 	html_string = ""
 	for rti in rti_list:
-		rti_html = get_feed_for_rti(rti)
+		rti_html = get_feed_for_rti(rti, user)
 		html_string += rti_html.content
 	return HttpResponse(html_string)
 
 
-def get_feed_for_rti(rti):
+def get_feed_for_rti(rti, user):
 	profile = models.User_profile.objects.filter(user = rti.user).first()
-
+	user_profile = models.User_profile.objects.filter(user = user).first()
 	rti_context = {
+		'name_user' : user.first_name + " " + user.last_name,
+		'user_pic' : user_profile.profile_picture,
 		'rti_id' : rti.id,
 		'rti_user' : rti.user.first_name + " " + rti.user.last_name,
 		'rti_query_text' : rti.query_text,
@@ -88,22 +90,35 @@ def get_feed_for_rti(rti):
 	rti_context['no_shares'] = len(shares)
 
 	rti_context['top_comments'] = comments[0:2]
+
+	rti_context['top_comments'].reverse()
 	comment_html = ""
 	for comment in rti_context['top_comments']:
-		comment_html += get_comment_html(comment).content
+		comment_html += get_comment_html(comment, user).content
 
+	like_status = len(models.Like.objects.filter(user = user, rti_query = rti))
+	if like_status > 0:
+		like_status = True
+	else:
+		like_status = False
+
+	rti_context['like_status'] = like_status
 	rti_context['comment_html'] = comment_html
+
 	rti_html = render_to_response('Home/feedbox.html', rti_context)
 	return rti_html
 
-def get_comment_html(comment):
+def get_comment_html(comment, user):
 	profile = models.User_profile.objects.filter(user = comment.user).first()
 	context = {
+		'rti_id' : comment.rti_query.id,
+		'comment_id' : comment.id,
 		'comment_text' : comment.comment_text,
 		'comment_user_id' : comment.user.id,
 		'comment_user_pic' : profile.profile_picture,
 		'comment_name_user' : comment.user.first_name + " " + comment.user.last_name,
-		'comment_date' : comment.entry_date
+		'comment_date' : comment.entry_date,
+		'my_comment' : comment.user == user,
 	}
 	return render_to_response('Home/comment.html', context)
 
@@ -119,12 +134,84 @@ def post_comment(request):
 	comment.rti_query = rti_query
 	comment.save()
 
-	all_comments = models.Comment.objects.filter(rti_query = rti_query).order_by('-entry_date')[0:3]
+	top_comments = models.Comment.objects.filter(rti_query = rti_query).order_by('-entry_date')[0:3]
+	# top_comments.reverse()
+
+	print top_comments
 	comment_html = ""
-	for comment in all_comments:
-		comment_html += get_comment_html(comment).content
+	for comment in top_comments[::-1]:
+		print comment.comment_text
+		comment_html += get_comment_html(comment, user).content
 
-	return HttpResponse(comment_html)
+	comments = models.Comment.objects.filter(rti_query = rti_query )
+	likes = models.Like.objects.filter(rti_query = rti_query )
+	shares = models.Share.objects.filter(rti_query = rti_query )
 
 
+	context = {
+		'comment_html' : comment_html,
+		'no_comments' : len(comments),
+		'no_likes' : len(likes),
+		'no_shares' : len(shares)
+	}
+	return HttpResponse(json.dumps(context))
 
+@login_required
+def post_delete_comment(request):
+	user = request.user
+	comment = models.Comment.objects.filter(id = request.GET['comment_id']).first()
+	if comment.user == user:
+		comment.delete()
+		
+
+	rti_query = comment.rti_query
+	comments = models.Comment.objects.filter(rti_query = rti_query )
+	likes = models.Like.objects.filter(rti_query = rti_query )
+	shares = models.Share.objects.filter(rti_query = rti_query )
+
+	context = {
+		'no_comments' : len(comments),
+		'no_likes' : len(likes),
+		'no_shares' : len(shares)
+	}
+
+	return HttpResponse(json.dumps(context))
+
+@login_required
+def post_like(request):
+	user = request.user
+	rti_query = models.RTI_query.objects.filter(id = request.GET['rti_query_id']).first()
+	models.Like.objects.filter(user = user, rti_query = rti_query).delete()
+	like = models.Like()
+	like.user = user
+	like.rti_query = rti_query
+	like.save()
+
+	comments = models.Comment.objects.filter(rti_query = rti_query )
+	likes = models.Like.objects.filter(rti_query = rti_query )
+	shares = models.Share.objects.filter(rti_query = rti_query )
+
+	context = {
+		'no_comments' : len(comments),
+		'no_likes' : len(likes),
+		'no_shares' : len(shares)
+	}
+	return HttpResponse(json.dumps(context))
+
+@login_required
+def post_unlike(request):
+	user = request.user
+	rti_query = models.RTI_query.objects.filter(id = request.GET['rti_query_id']).first()
+	
+	models.Like.objects.filter(user = user, rti_query = rti_query).delete()
+
+	comments = models.Comment.objects.filter(rti_query = rti_query )
+	likes = models.Like.objects.filter(rti_query = rti_query )
+	shares = models.Share.objects.filter(rti_query = rti_query )
+
+	context = {
+		'no_comments' : len(comments),
+		'no_likes' : len(likes),
+		'no_shares' : len(shares)
+	}
+	return HttpResponse(json.dumps(context))

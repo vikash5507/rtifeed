@@ -13,6 +13,9 @@ urlpatterns = patterns('',
 	url(r'^home$', views_home.home_page, name = 'homepage'),
 	url(r'^get_feed$', views_home.get_feed, name = 'get_feed'),
 	url(r'^post_comment$', views_home.post_comment, name = 'post_comment'),
+	url(r'^post_delete_comment$', views_home.post_delete_comment, name = 'post_delete_comment'),
+	url(r'^post_like$', views_home.post_like, name = 'post_like'),
+	url(r'^post_unlike$', views_home.post_unlike, name = 'post_unlike'),
 	url(r'^logout$', views_login.u_logout, name = 'logout'),
 	url(r'^profile/(?P<username>\w+)/$', views_profile.get_user_profile, name="detail_profile")
 

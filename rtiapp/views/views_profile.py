@@ -12,6 +12,7 @@ def make_profile_context(user):
 		'first_name' : user.first_name,
 		'last_name' : user.last_name,
 		'email' : user.email,
+		'name_user' : user.first_name + " " + user.last_name
 	}
 
 	profile = models.User_profile.objects.filter(user = user).first()
@@ -20,8 +21,9 @@ def make_profile_context(user):
 		context['gender'] =  profile.gender
 		context['date_of_birth'] = profile.date_of_birth
 		context['bio_description'] = profile.bio_description
-		context['profile_picture'] = str(profile.profile_picture)
-	
+		context['profile_picture'] = profile.profile_picture
+		if profile.address and profile.address.state:
+			context['state'] = profile.state.state_name
 	context['num_followers'] = len(models.Follow_user.objects.filter(followee = user))
 	context['num_following'] = len(models.Follow_user.objects.filter(follower = user))
 
@@ -59,7 +61,9 @@ def get_user_profile(request, username):
 	context = {}
 	if user:
 		context = make_profile_context(user)
-	return HttpResponse(json.dumps(context))
+
+	# return HttpResponse(json.dumps(context))
+	return render_to_response('Profile/profile.html', context)
 
 def do_it():
 	u1 = models.User.objects.all().first()

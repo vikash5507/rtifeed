@@ -46,17 +46,23 @@
 
     {% endif %}
     <!-- Social sharing buttons -->
-    <button class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-    <button class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
-    <span class="pull-right text-muted">{{ no_likes}} likes - {{ no_comments }} comments</span>
+    <button class="btn btn-default btn-xs"><i class="fa fa-share"></i> </button>
+    <div id = "likecontainer{{ rti_id }}" style = "float : left">
+      {% if like_status %}
+      <button class="btn btn-default btn-xs" id = "unlike{{ rti_id }}"><i class="fa fa-thumbs-up"></i> Liked</button>
+      {% else %}
+      <button class="btn btn-default btn-xs" id = "like{{ rti_id }}"><i class="fa fa-thumbs-o-up"></i> Like</button>
+      {% endif %}
+    </div>
+    <span class="pull-right text-muted" id = "lc_count{{ rti_id }}">{{ no_likes}} likes - {{ no_comments }} comments</span>
   </div><!-- /.box-body -->
-  <div class="box-footer box-comments">
+  <div class="box-footer box-comments" id = "comment_container{{ rti_id }}">
     {{ comment_html | safe}}
     
   </div>
   <div class="box-footer">
     <!-- <form action="#" method="post"> -->
-      <img class="img-responsive img-circle img-sm" src="{{ rti_user_pic }}" alt="alt text">
+      <img class="img-responsive img-circle img-sm" src="{{ user_pic }}" alt="alt text">
       <!-- .img-push is used to add margin to elements next to floating images -->
       <div class="img-push">
         <input type="text" class="form-control input-sm" placeholder="Press enter to post comment" id = "comment{{ rti_id }}">
@@ -68,21 +74,91 @@
 <script type="text/javascript">
   $('#comment{{ rti_id }}').on('keydown', function(e){
     if(e.which == 13){
+      comment_text = $(this).val();
       $.ajax({
         url : '/post_comment',
         data : {
           comment_text : $(this).val(),
           rti_query_id : {{ rti_id }}
         },
-
+        dataType : 'json',
+        beforeSend : function(){
+          // $('#comment_container{{rti_id}}').append("test");
+          $('#comment_container{{rti_id}}').append('<div class="box-comment">'+
+                  
+              '<img class="img-circle img-sm" src="{{ user_pic }}" alt="user image">'+
+              '<div class="comment-text">'+
+                '<span class="username">'+
+                  '{{ name_user }}'+
+                  '<span class="text-muted pull-right"> </span>'+
+                '</span>'+
+                comment_text +
+              '</div>'+
+            '</div>');
+            $('#comment{{ rti_id }}').val("");
+        },
         success : function(data){
-          console.log(data);
+          // alert(data);
+          $('#lc_count{{ rti_id }}').html(data['no_likes']+ ' likes - ' + data['no_comments'] +'comments');
+          $('#comment_container{{rti_id}}').html(data['comment_html']);
+          $('#comment{{ rti_id }}').val("");
         },
         error : function(err){
           console.log(err);
         }
       });
     }
-    
   });
+  
+
+  $('#like{{ rti_id }}').click(like{{rti_id}});
+  $('#unlike{{ rti_id }}').click(unlike{{rti_id}});
+
+  function like{{rti_id}}(){
+    $.ajax({
+      url : '/post_like',
+      data : {
+        rti_query_id : {{ rti_id }},
+      },
+      dataType : 'json',
+      beforeSend : function(){
+
+      },
+      success : function(data){
+        $('#lc_count{{ rti_id }}').html(data['no_likes']+ ' likes - ' + data['no_comments'] +'comments');
+        $('#likecontainer{{ rti_id }}').html('<button class="btn btn-default btn-xs" id = "unlike{{ rti_id }}">'+
+          '<i class="fa fa-thumbs-up"></i> Liked</button>')
+        $('#unlike{{ rti_id }}').click(unlike{{rti_id}});
+      },
+      error : function(){
+
+      }
+    });
+  }
+
+  
+
+  function unlike{{rti_id}}(){
+    $.ajax({
+      url : '/post_unlike',
+      data : {
+        rti_query_id : {{ rti_id }},
+      },
+      dataType : 'json',
+      beforeSend : function(){
+
+      },
+      success : function(data){
+        $('#lc_count{{ rti_id }}').html(data['no_likes']+ ' likes - ' + data['no_comments'] +'comments');
+        $('#likecontainer{{ rti_id }}').html('<button class="btn btn-default btn-xs" id = "like{{ rti_id }}">'+
+          '<i class="fa fa-thumbs-o-up"></i> Like</button>');
+        $('#like{{ rti_id }}').click(like{{rti_id}});
+
+      },
+      error : function(){
+
+      }
+    });
+  
+  }
 </script>

@@ -1,11 +1,42 @@
-<div class="box-comment">
+<div class="box-comment" id = "comment_text{{ comment_id }}">
       <!-- User image -->
   <img class="img-circle img-sm" src="{{ comment_user_pic }}" alt="user image">
-  <div class="comment-text">
+  <div class="comment-text" >
     <span class="username">
       {{ comment_name_user }}
+      {% if my_comment %}
+        <span class="text-muted pull-right"><button class="btn btn-box-tool" 
+        id = "del_comment{{  comment_id }}"><i class="fa fa-times"></i></button></span>
+
+      {% endif %}
       <span class="text-muted pull-right">{{ comment_date }}</span>
+
     </span><!-- /.username -->
     {{  comment_text }}
+
   </div><!-- /.comment-text -->
 </div><!-- /.box-comment -->
+
+<script type="text/javascript">
+  $('#del_comment{{ comment_id }}').click(function(){
+    $.ajax({
+      url : '/post_delete_comment',
+      data : {
+        comment_id : {{ comment_id }}
+      },
+      dataType : 'json',
+      beforeSend : function(){
+
+      },
+      success : function(data){
+        // alert(data);
+        $('#comment_text{{ comment_id }}').remove();
+        $('#lc_count{{ rti_id }}').html(data['no_likes']+ ' likes - ' + data['no_comments'] +'comments');
+      },
+      error : function(err){
+        console.log(err);
+      }
+
+    })
+  });
+</script>
