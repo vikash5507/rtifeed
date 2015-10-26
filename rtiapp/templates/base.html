@@ -113,15 +113,15 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="{{ profile_picture }}" class="user-image display_pic" alt="User Image" class = "display_pic">
-                  <span class="hidden-xs rti_name">{{ name_user }}</span>
+                  <img src="/media/{{ my_profile.profile_picture }}" class="user-image display_pic" alt="User Image" class = "display_pic">
+                  <span class="hidden-xs rti_name">{{ my_profile.name_user }}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <img src="{{ profile_picture }}" class="img-circle display_pic" alt="User Image" class = "display_pic">
+                    <img src="/media/{{ my_profile.profile_picture }}" class="img-circle display_pic" alt="User Image" class = "display_pic">
                     <p class = "rti_name">
-                      {{ name_user }}
+                      {{ my_profile.name_user }}
                       <!-- <small>Member since Nov. 2012</small> -->
                     </p>
                   </li>
@@ -135,7 +135,7 @@
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
-                      <a href="profile.html" class="btn btn-default btn-flat">Profile</a>
+                      <a href="{{ my_profile.profile_url }}" class="btn btn-default btn-flat">Profile</a>
                     </div>
                     <div class="pull-right">
                       <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
@@ -159,10 +159,10 @@
           <!-- Sidebar user panel -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="{{ profile_picture }}" class="img-circle display_pic" alt="User Image" class = "display_pic">
+              <img src="/media/{{ my_profile.profile_picture }}" class="img-circle display_pic" alt="User Image" class = "display_pic">
             </div>
             <div class="pull-left info">
-              <p><a href="profile.html" class = "rti_name"></a>{{ name_user }}</p>
+              <p><a href="{{ my_profile.user_profile_link }}" class = "rti_name">{{ my_profile.name_user }}</a></p>
               <a href="profile.html"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
           </div>
@@ -183,12 +183,12 @@
             <li class="header">RTI Feed</li>
             
             <li>
-              <a href="newsfeed.html">
+              <a href="/home">
                 <i class="fa fa-th"></i> <span>News Feed</span> <small class="label pull-right bg-green">Hot</small>
               </a>
             </li>
             <li>
-              <a href="post_rti_query.html">
+              <a href="/share_rti_query">
                 <i class="fa fa-th"></i> <span>Share new RTI</span> 
               </a>
             </li>

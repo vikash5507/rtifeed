@@ -1,7 +1,7 @@
 <div class="box box-widget">
   <div class="box-header with-border">
     <div class="user-block">
-      <img class="img-circle" src="{{ rti_user_pic }}" alt="user image">
+      <img class="img-circle" src="/media/{{ rti_user_pic }}" alt="user image">
       <span class="username"><a href="#">{{ rti_user }}</a></span>
       <span class="description">Shared publicly on {{rti_entry_date}}</span>
       {% if rti_query_type == "centre" %}
@@ -23,11 +23,18 @@
 
     <!-- Attachment -->
     <div class="attachment-block clearfix">
-      <img class="attachment-img" src="/static/dist/img/photo1.png" alt="attachment image">
+      {% if rti_photo %}
+      <img class="attachment-img" src="/media/{{ rti_photo }}" alt="attachment image">
+      
+
       <div class="attachment-pushed">
-        <h4 class="attachment-heading"><a href="http://www.lipsum.com/">RTI Query</a></h4>
+      
+      {% else %}
+      <div class="attachment">
+      {% endif %}
+        <h4 class="attachment-heading"><a href="#!">RTI Query</a></h4>
         <div class="attachment-text">
-          {{ rti_query_text }}<a href="#">more</a>
+          {{ rti_query_text | safe}}<a href="#">more</a>
         </div><!-- /.attachment-text -->
       </div><!-- /.attachment-pushed -->
     </div><!-- /.attachment-block -->
@@ -46,119 +53,45 @@
 
     {% endif %}
     <!-- Social sharing buttons -->
-    <button class="btn btn-default btn-xs"><i class="fa fa-share"></i> </button>
-    <div id = "likecontainer{{ rti_id }}" style = "float : left">
+
+    <div id = "likecontainer{{ rti_id }}" class = "likecontainer{{ rti_id }}" style = "float : left">
       {% if like_status %}
-      <button class="btn btn-default btn-xs" id = "unlike{{ rti_id }}"><i class="fa fa-thumbs-up"></i> Liked</button>
+      <button class="btn btn-default btn-xs unlike{{ rti_id }}" id = "unlike{{ rti_id }}"><i class="fa fa-thumbs-up"></i> Liked</button>
       {% else %}
-      <button class="btn btn-default btn-xs" id = "like{{ rti_id }}"><i class="fa fa-thumbs-o-up"></i> Like</button>
+      <button class="btn btn-default btn-xs like{{ rti_id }}" id = "like{{ rti_id }}"><i class="fa fa-thumbs-o-up"></i> Like</button>
       {% endif %}
     </div>
-    <span class="pull-right text-muted" id = "lc_count{{ rti_id }}">{{ no_likes}} likes - {{ no_comments }} comments</span>
+
+    <div id = "followcontainer{{ rti_id }}" class = "followcontainer{{ rti_id }}" style = "float : left">
+      {% if follow_status %}
+      <button class="btn btn-default btn-xs unfollow{{ rti_id }}" id = "unfollow{{ rti_id }}"><i class="fa fa-star"></i> Unfollow </button>
+      {% else %}
+      <button class="btn btn-default btn-xs follow{{ rti_id }}" id = "follow{{ rti_id }}"><i class="fa fa-star-o"></i> Follow </button>
+      {% endif %}
+    </div>
+    
+    
+    <span class="pull-right text-muted lc_count{{ rti_id }}" id = "lc_count{{ rti_id }}">{{ no_likes}} likes - {{ no_comments }} comments</span>
+    <!-- {% if more_comments %} -->
+      
+    <!-- {% endif %} -->
   </div><!-- /.box-body -->
-  <div class="box-footer box-comments" id = "comment_container{{ rti_id }}">
+
+  <div class="box-footer box-comments comment_container{{ rti_id }}" id = "comment_container{{ rti_id }}">
     {{ comment_html | safe}}
     
   </div>
   <div class="box-footer">
     <!-- <form action="#" method="post"> -->
-      <img class="img-responsive img-circle img-sm" src="{{ user_pic }}" alt="alt text">
+      <img class="img-responsive img-circle img-sm" src="/media/{{ user_pic }}" alt="alt text">
       <!-- .img-push is used to add margin to elements next to floating images -->
       <div class="img-push">
-        <input type="text" class="form-control input-sm" placeholder="Press enter to post comment" id = "comment{{ rti_id }}">
+        <input type="text" class="form-control input-sm comment{{ rti_id }}" placeholder="Press enter to post comment" id = "comment{{ rti_id }}">
       </div>
     <!-- </form> -->
   </div><!-- /.box-footer -->
 </div>
 
 <script type="text/javascript">
-  $('#comment{{ rti_id }}').on('keydown', function(e){
-    if(e.which == 13){
-      comment_text = $(this).val();
-      $.ajax({
-        url : '/post_comment',
-        data : {
-          comment_text : $(this).val(),
-          rti_query_id : {{ rti_id }}
-        },
-        dataType : 'json',
-        beforeSend : function(){
-          // $('#comment_container{{rti_id}}').append("test");
-          $('#comment_container{{rti_id}}').append('<div class="box-comment">'+
-                  
-              '<img class="img-circle img-sm" src="{{ user_pic }}" alt="user image">'+
-              '<div class="comment-text">'+
-                '<span class="username">'+
-                  '{{ name_user }}'+
-                  '<span class="text-muted pull-right"> </span>'+
-                '</span>'+
-                comment_text +
-              '</div>'+
-            '</div>');
-            $('#comment{{ rti_id }}').val("");
-        },
-        success : function(data){
-          // alert(data);
-          $('#lc_count{{ rti_id }}').html(data['no_likes']+ ' likes - ' + data['no_comments'] +'comments');
-          $('#comment_container{{rti_id}}').html(data['comment_html']);
-          $('#comment{{ rti_id }}').val("");
-        },
-        error : function(err){
-          console.log(err);
-        }
-      });
-    }
-  });
-  
-
-  $('#like{{ rti_id }}').click(like{{rti_id}});
-  $('#unlike{{ rti_id }}').click(unlike{{rti_id}});
-
-  function like{{rti_id}}(){
-    $.ajax({
-      url : '/post_like',
-      data : {
-        rti_query_id : {{ rti_id }},
-      },
-      dataType : 'json',
-      beforeSend : function(){
-
-      },
-      success : function(data){
-        $('#lc_count{{ rti_id }}').html(data['no_likes']+ ' likes - ' + data['no_comments'] +'comments');
-        $('#likecontainer{{ rti_id }}').html('<button class="btn btn-default btn-xs" id = "unlike{{ rti_id }}">'+
-          '<i class="fa fa-thumbs-up"></i> Liked</button>')
-        $('#unlike{{ rti_id }}').click(unlike{{rti_id}});
-      },
-      error : function(){
-
-      }
-    });
-  }
-
-  
-
-  function unlike{{rti_id}}(){
-    $.ajax({
-      url : '/post_unlike',
-      data : {
-        rti_query_id : {{ rti_id }},
-      },
-      dataType : 'json',
-      beforeSend : function(){
-
-      },
-      success : function(data){
-        $('#lc_count{{ rti_id }}').html(data['no_likes']+ ' likes - ' + data['no_comments'] +'comments');
-        $('#likecontainer{{ rti_id }}').html('<button class="btn btn-default btn-xs" id = "like{{ rti_id }}">'+
-          '<i class="fa fa-thumbs-o-up"></i> Like</button>');
-        $('#like{{ rti_id }}').click(like{{rti_id}});
-
-      },
-      error : function(){
-
-      }
-    });
-  
-  }
+  make_handlers_for({{ rti_id }});
 </script>

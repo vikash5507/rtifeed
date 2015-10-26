@@ -2,9 +2,12 @@ from django.http import HttpResponse
 import json
 import urllib2
 from datetime import datetime
-
+from rtiapp.rtiengine import relevance
 from rtiapp import models
 from time import mktime
+from urllib2 import urlopen, HTTPError
+from django.template.defaultfilters import slugify
+from django.core.files.base import ContentFile
 
 def get_user_avatar(backend, user, response, details, *args, **kwargs):
     a = 5
@@ -19,7 +22,9 @@ def get_user_avatar(backend, user, response, details, *args, **kwargs):
 
     if backend.name == 'facebook':
         url = "http://graph.facebook.com/%s/picture?type=large" % response['id']
-        profile.profile_picture = url
+        avatar = urlopen(url)
+        profile.profile_picture.save(slugify(user.username + " social") + '.jpg', 
+                            ContentFile(avatar.read()))
         print response
         fb_data = {
             # 'city': response['location']['name'],
@@ -32,7 +37,8 @@ def get_user_avatar(backend, user, response, details, *args, **kwargs):
         print "gendefr", fb_data['gender']
         # profile.city = fb_data['city']
         # profile.date_of_birth = fb_data['dob']
-
+    if not models.Relevance.objects.filter(user = user).first():
+        relevance.make_relevance_for_user(user)
     profile.save()
 
 

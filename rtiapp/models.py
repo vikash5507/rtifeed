@@ -32,7 +32,7 @@ class User_profile(models.Model):
 		return self.user.username
 
 	user = models.OneToOneField(User, primary_key = True)
-	profile_picture = models.ImageField(upload_to  = 'static/profile_picture', default = 'static/profile_picture/default.jpg')
+	profile_picture = models.ImageField(upload_to  = 'profile_pictures', default = 'profile_pictures/default.jpg')
 	reputation = models.FloatField(default = 10)
 	gender = models.CharField(max_length = 200, null = True)
 	date_of_birth = models.DateTimeField(null = True)
@@ -60,8 +60,8 @@ class RTI_query_file(models.Model):
 		return self.rti_query
 
 	rti_query = models.ForeignKey(RTI_query, on_delete = models.CASCADE)
-	query_picture = models.ImageField(upload_to  = 'static/query_picture', default = 'static/query_picture/default.jpg')
-	query_document = models.FileField(upload_to  = 'static/query_document', null = True)
+	query_picture = models.ImageField(upload_to  = 'query_pictures', default = 'query_pictures/default.jpg')
+	query_document = models.FileField(upload_to  = 'query_docs', null = True)
 
 # STATE RTI QUERIES
 class State_department(models.Model):
@@ -105,7 +105,7 @@ class Central_RTI_query(models.Model):
 	def __unicode__(self):
 		return self.rti_query
 
-	rti_query = models.OneToOneField(RTI_query, primary_key = True)
+	rti_query = models.OneToOneField(RTI_query, primary_key = True, on_delete = models.CASCADE)
 	department = models.ForeignKey(Central_department, on_delete = models.SET_DEFAULT, default = 1)
 	authority = models.ForeignKey(Central_authority, on_delete = models.SET_NULL, null = True)
 
@@ -127,8 +127,8 @@ class RTI_response_file(models.Model):
 		return self.rti_response
 
 	rti_response = models.ForeignKey(RTI_response, on_delete = models.CASCADE)
-	query_picture = models.ImageField(upload_to  = 'static/response_picture', default = 'static/response_picture/default.jpg')
-	query_document = models.FileField(upload_to  = 'static/response_document', null = True)
+	query_picture = models.ImageField(upload_to  = 'response_pictures', default = 'response_pictures/default.jpg')
+	query_document = models.FileField(upload_to  = 'response_documents', null = True)
 
 class Tag(models.Model):
 	def __unicode__(self):
@@ -215,12 +215,6 @@ class Relevance(models.Model):
 	relevance = models.FloatField(default = 0.0)
 	views = models.IntegerField(default = 0)
 	update_date = models.DateTimeField(auto_now_add=True)
-
-
-
-
-
-
 
 
 

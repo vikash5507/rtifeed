@@ -5,19 +5,30 @@ from django.contrib.auth import authenticate,login, logout
 from django.http import HttpResponseRedirect, HttpRequest
 from django.contrib.auth.decorators import login_required
 from rtiapp import models
+from rtiapp.rtiengine import relevance
 import json
 
 @login_required
 def home_page(request):
 	user = request.user
-	user_profile = models.User_profile.objects.filter(user = user).first()
+	
 
+	context = {}
+	context['my_profile'] = get_profile_context(user)
+	
+	return render_to_response('Home/home.html', context)
+
+def get_profile_context(user):
+	user_profile = models.User_profile.objects.filter(user = user).first()
 	context = {
 		'uid' : user.id,
 		'name_user': user.first_name + " " + user.last_name,
-		'profile_picture' : user_profile.profile_picture
-		}
-	return render_to_response('Home/home.html', context)
+		'profile_picture' : user_profile.profile_picture,
+		'profile_url' : '/profile/'+user.username+'/',
+		'username' : user.username,
+		'user_profile_link' : '/profile/' + user.username
+	}
+	return context
 
 @login_required
 def get_feed(request):
@@ -45,6 +56,7 @@ def get_feed_for_rtis(rti_list, user):
 def get_feed_for_rti(rti, user):
 	profile = models.User_profile.objects.filter(user = rti.user).first()
 	user_profile = models.User_profile.objects.filter(user = user).first()
+	# rti_photo = models.RTI_query_file.objects.filter(rti_query = rti).first()
 	rti_context = {
 		'name_user' : user.first_name + " " + user.last_name,
 		'user_pic' : user_profile.profile_picture,
@@ -56,8 +68,12 @@ def get_feed_for_rti(rti, user):
 		'rti_file_date' : rti.rti_file_date,
 		'rti_entry_date' : rti.entry_date,
 		'rti_query_type' : rti.query_type,
-		'rti_response_status' : rti.response_status
+		'rti_response_status' : rti.response_status,
+		
 	}
+	
+	if models.RTI_query_file.objects.filter(rti_query = rti).first():
+		rti_context['rti_photo'] = models.RTI_query_file.objects.filter(rti_query = rti).first().query_picture
 	if profile:
 		rti_context['rti_user_pic'] = profile.profile_picture
 	if rti_context['rti_query_type'] == 'centre':
@@ -96,16 +112,19 @@ def get_feed_for_rti(rti, user):
 	for comment in rti_context['top_comments']:
 		comment_html += get_comment_html(comment, user).content
 
-	like_status = len(models.Like.objects.filter(user = user, rti_query = rti))
-	if like_status > 0:
-		like_status = True
-	else:
-		like_status = False
+	like_status = len(models.Like.objects.filter(user = user, rti_query = rti)) > 0
+	follow_status = len(models.Follow_query.objects.filter(user = user, rti_query = rti)) > 0
 
 	rti_context['like_status'] = like_status
+	rti_context['follow_status'] = follow_status
 	rti_context['comment_html'] = comment_html
 
 	rti_html = render_to_response('Home/feedbox.html', rti_context)
+
+	relevance = models.Relevance.objects.filter(user = user, rti_query = rti).first()
+	if relevance:
+		relevance.views += 1
+		relevance.save()
 	return rti_html
 
 def get_comment_html(comment, user):
@@ -154,7 +173,17 @@ def post_comment(request):
 		'no_likes' : len(likes),
 		'no_shares' : len(shares)
 	}
+	relevance.update_relevance_for_rti(rti_query)
 	return HttpResponse(json.dumps(context))
+
+@login_required
+def post_edit_comment(request):
+	user = request.user
+	comment = models.Comment.objects.filter(id = request.GET['comment_id']).first()
+	if comment and comment.rti_query.user == user:
+		comment.comment_text = request.GET['comment_text']
+		comment.save()
+	return HttpResponse('done')
 
 @login_required
 def post_delete_comment(request):
@@ -174,7 +203,7 @@ def post_delete_comment(request):
 		'no_likes' : len(likes),
 		'no_shares' : len(shares)
 	}
-
+	relevance.update_relevance_for_rti(rti_query)
 	return HttpResponse(json.dumps(context))
 
 @login_required
@@ -196,7 +225,9 @@ def post_like(request):
 		'no_likes' : len(likes),
 		'no_shares' : len(shares)
 	}
+	relevance.update_relevance_for_rti(rti_query)
 	return HttpResponse(json.dumps(context))
+
 
 @login_required
 def post_unlike(request):
@@ -214,4 +245,48 @@ def post_unlike(request):
 		'no_likes' : len(likes),
 		'no_shares' : len(shares)
 	}
+	relevance.update_relevance_for_rti(rti_query)
+	return HttpResponse(json.dumps(context))
+
+@login_required
+def post_follow_query(request):
+	user = request.user
+	rti_query = models.RTI_query.objects.filter(id = request.GET['rti_query_id']).first()
+	models.Follow_query.objects.filter(user = user, rti_query = rti_query).delete()
+	
+	follow = models.Follow_query()
+	follow.user = user
+	follow.rti_query = rti_query
+	follow.save()
+
+	comments = models.Comment.objects.filter(rti_query = rti_query )
+	likes = models.Like.objects.filter(rti_query = rti_query )
+	shares = models.Share.objects.filter(rti_query = rti_query )
+
+	context = {
+		'no_comments' : len(comments),
+		'no_likes' : len(likes),
+		'no_shares' : len(shares)
+	}
+	relevance.update_relevance_for_rti(rti_query)
+	return HttpResponse(json.dumps(context))
+
+@login_required
+def post_unfollow_query(request):
+	user = request.user
+	rti_query = models.RTI_query.objects.filter(id = request.GET['rti_query_id']).first()
+	
+	models.Follow_query.objects.filter(user = user, rti_query = rti_query).delete()
+
+	comments = models.Comment.objects.filter(rti_query = rti_query )
+	likes = models.Like.objects.filter(rti_query = rti_query )
+	shares = models.Share.objects.filter(rti_query = rti_query )
+
+	context = {
+		'no_comments' : len(comments),
+		'no_likes' : len(likes),
+		'no_shares' : len(shares)
+	}
+
+	relevance.update_relevance_for_rti(rti_query)
 	return HttpResponse(json.dumps(context))

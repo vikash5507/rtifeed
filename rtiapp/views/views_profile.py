@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect, HttpRequest
 from django.http import Http404
 from rtiapp import models
 import json
+import views_home
 
 def make_profile_context(user):
 	context = {
@@ -61,9 +62,25 @@ def get_user_profile(request, username):
 	context = {}
 	if user:
 		context = make_profile_context(user)
-
+	if request.user == user:
+		context['is_me'] = True
+	else:
+		context['is_me'] = False
+	context['my_profile'] = views_home.get_profile_context(request.user)
 	# return HttpResponse(json.dumps(context))
 	return render_to_response('Profile/profile.html', context)
+
+
+# @login_required
+def get_profile_feed(request):
+	user = models.User.objects.filter(id = request.GET['user_id']).first()
+	if not user:
+		return
+	startfeed = int(request.GET['startfeed'])
+	maxfeed = int(request.GET['maxfeed']) + startfeed
+	
+	rti_list = models.RTI_query.objects.filter(user = user).order_by('-entry_date')[startfeed: maxfeed]
+	return views_home.get_feed_for_rtis(rti_list, user)
 
 def do_it():
 	u1 = models.User.objects.all().first()
