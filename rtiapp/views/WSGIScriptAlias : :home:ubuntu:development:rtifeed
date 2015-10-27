@@ -1,0 +1,19 @@
+WSGIScriptAlias / /home/ubuntu/development/rtifeed/RTIFeed/wsgi.py
+WSGIPythonPath /home/ubuntu/development/rtifeed 
+<Directory /home/ubuntu/development/rtifeed/RTIFeed>
+    <Files wsgi.py>
+        Order deny,allow
+        Require all granted
+    </Files>
+</Directory>
+
+Alias /media/ /home/ubuntu/development/rtifeed/media/ 
+Alias /static/ /home/ubuntu/development/rtifeed/static/
+
+<Directory /home/ubuntu/development/rtifeed/static>
+    Require all granted
+</Directory>
+
+<Directory /home/ubuntu/development/rtifeed/media>
+    Require all granted
+</Directory> 
