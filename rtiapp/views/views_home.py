@@ -53,7 +53,7 @@ def get_feed_for_rtis(rti_list, user):
 	return HttpResponse(html_string)
 
 
-def get_feed_for_rti(rti, user):
+def get_feed_for_rti(rti, user, comment_strategy = 'time', max_comments = 2):
 	profile = models.User_profile.objects.filter(user = rti.user).first()
 	user_profile = models.User_profile.objects.filter(user = user).first()
 	# rti_photo = models.RTI_query_file.objects.filter(rti_query = rti).first()
@@ -104,10 +104,13 @@ def get_feed_for_rti(rti, user):
 	rti_context['no_comments'] = len(comments)
 	rti_context['no_likes'] = len(likes)
 	rti_context['no_shares'] = len(shares)
-
-	rti_context['top_comments'] = comments[0:2]
-
-	rti_context['top_comments'].reverse()
+	
+	if comment_strategy == 'time':
+		rti_context['top_comments'] = comments[0: max_comments]
+		rti_context['top_comments'].reverse()
+	
+	if len(comments) > max_comments:
+		rti_context['more_comments'] = len(comments) - max_comments
 	comment_html = ""
 	for comment in rti_context['top_comments']:
 		comment_html += get_comment_html(comment, user).content

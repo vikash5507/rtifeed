@@ -16,3 +16,6 @@ def home(request):
 
 def getfeed(request):
     return render_to_response('Home/feedbox.html')
+
+def departmenttest(request):
+	return render_to_response('Department/department.html')	

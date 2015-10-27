@@ -6,7 +6,7 @@ from rtiapp.views import views_shareRTI
 urlpatterns = patterns('',
 	url(r'^fblogintest$', views_test.fblogintest, name = 'fblogintest'),
 	url(r'^logintest$', views_test.logintest, name = 'logintest'),
-
+	url(r'^departmenttest$', views_test.departmenttest, name = 'departmenttest'),
 
 	url(r'^$', views_login.login_page, name = 'loginpage'),
 	# url(r'^home$', views_home.home_page, name = 'homepage'),

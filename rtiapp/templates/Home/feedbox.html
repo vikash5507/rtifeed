@@ -76,7 +76,11 @@
       
     <!-- {% endif %} -->
   </div><!-- /.box-body -->
-
+  {% if more_comments %}
+  <div class="box-footer box-comments" id = "" style = "padding : 0px; margin : 0px; padding-left : 10px;">
+    <a href="#!">Load previous comments</a>
+  </div>
+  {% endif %}
   <div class="box-footer box-comments comment_container{{ rti_id }}" id = "comment_container{{ rti_id }}">
     {{ comment_html | safe}}
     
