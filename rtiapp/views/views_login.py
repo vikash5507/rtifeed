@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate,login, logout
 from django.http import HttpResponseRedirect, HttpRequest
 from rtiapp import models
 import json
+from django.views.decorators.csrf import csrf_exempt
 
 def login_page(request):
 	return render_to_response('Login/login.html', {})
@@ -27,5 +28,7 @@ def u_logout(request):
 	logout(request)
 	return HttpResponseRedirect('/')
 
+@csrf_exempt
 def register(request):
+	print "HERE"
 	return HttpResponse('registered')

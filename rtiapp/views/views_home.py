@@ -15,7 +15,15 @@ def home_page(request):
 
 	context = {}
 	context['my_profile'] = get_profile_context(user)
-	
+	context['full_feed'] = True
+	return render_to_response('Home/home.html', context)
+
+def rti_page(request):
+	user = request.user
+	context = {}
+	context['my_profile'] = get_profile_context(user)
+	context['rti_query_id'] = request.GET['rti_query_id']
+	context['full_feed'] = False
 	return render_to_response('Home/home.html', context)
 
 def get_profile_context(user):
@@ -53,15 +61,29 @@ def get_feed_for_rtis(rti_list, user):
 	return HttpResponse(html_string)
 
 
+def view_rti(request):
+	user = request.user
+	if not user:
+		return
+	rti = models.RTI_query.objects.filter(id = request.GET['rti_query_id']).first()
+	if rti:
+		return get_feed_for_rti(rti, user)
+	else:
+		return HttpResponse("404")
+
+
 def get_feed_for_rti(rti, user, comment_strategy = 'time', max_comments = 2):
 	profile = models.User_profile.objects.filter(user = rti.user).first()
 	user_profile = models.User_profile.objects.filter(user = user).first()
 	# rti_photo = models.RTI_query_file.objects.filter(rti_query = rti).first()
 	rti_context = {
+		'my_rti' : user == rti.user,
 		'name_user' : user.first_name + " " + user.last_name,
 		'user_pic' : user_profile.profile_picture,
 		'rti_id' : rti.id,
+		'rti_url' : '/rti_page?rti_query_id=' + str(rti.id),
 		'rti_user' : rti.user.first_name + " " + rti.user.last_name,
+		'rti_user_url' : '/profile/'+ rti.user.username+'/',
 		'rti_query_text' : rti.query_text,
 		'rti_rti_number' : rti.rti_number,
 		'rti_description' : rti.description,
@@ -121,7 +143,7 @@ def get_feed_for_rti(rti, user, comment_strategy = 'time', max_comments = 2):
 	rti_context['like_status'] = like_status
 	rti_context['follow_status'] = follow_status
 	rti_context['comment_html'] = comment_html
-
+	rti_context['my_profile'] = get_profile_context(user)
 	rti_html = render_to_response('Home/feedbox.html', rti_context)
 
 	relevance = models.Relevance.objects.filter(user = user, rti_query = rti).first()
@@ -137,6 +159,7 @@ def get_comment_html(comment, user):
 		'comment_id' : comment.id,
 		'comment_text' : comment.comment_text,
 		'comment_user_id' : comment.user.id,
+		'comment_user_url' : '/profile/'+ comment.user.username+'/',
 		'comment_user_pic' : profile.profile_picture,
 		'comment_name_user' : comment.user.first_name + " " + comment.user.last_name,
 		'comment_date' : comment.entry_date,
@@ -156,7 +179,7 @@ def post_comment(request):
 	comment.rti_query = rti_query
 	comment.save()
 
-	top_comments = models.Comment.objects.filter(rti_query = rti_query).order_by('-entry_date')[0:3]
+	top_comments = [comment]
 	# top_comments.reverse()
 
 	print top_comments
@@ -293,3 +316,18 @@ def post_unfollow_query(request):
 
 	relevance.update_relevance_for_rti(rti_query)
 	return HttpResponse(json.dumps(context))
+
+def load_prev_comments(request):
+	user = request.user
+	rti_query = models.RTI_query.objects.filter(id = request.GET['rti_query_id']).first()
+	comments = models.Comment.objects.filter(rti_query = rti_query).order_by('entry_date')
+	comment_html = ""
+	for comment in comments:
+		comment_html += get_comment_html(comment, user).content
+	context = {
+		comment_html : comment_html
+	}
+
+	return HttpResponse(context)
+
+

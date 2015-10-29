@@ -12,11 +12,15 @@ urlpatterns = patterns('',
 	# url(r'^home$', views_home.home_page, name = 'homepage'),
 	url(r'^base$', views_test.base, name = 'basepage'),
 	url(r'^home$', views_home.home_page, name = 'homepage'),
+	url(r'^rti_page$', views_home.rti_page, name = 'rti_page'),
 	url(r'^get_feed$', views_home.get_feed, name = 'get_feed'),
 	url(r'^get_profile_feed$', views_profile.get_profile_feed, name = 'get_profile_feed'),
+	url(r'^view_rti$', views_home.view_rti, name = 'view_rti'),
+
 	url(r'^post_comment$', views_home.post_comment, name = 'post_comment'),
 	url(r'^post_edit_comment$', views_home.post_edit_comment, name = 'post_edit_comment'),
 	url(r'^post_delete_comment$', views_home.post_delete_comment, name = 'post_delete_comment'),
+	url(r'^load_prev_comments$', views_home.load_prev_comments, name = 'load_prev_comments'),
 	
 	url(r'^post_like$', views_home.post_like, name = 'post_like'),
 	url(r'^post_unlike$', views_home.post_unlike, name = 'post_unlike'),
@@ -28,6 +32,7 @@ urlpatterns = patterns('',
 	url(r'^post_rti_query$', views_shareRTI.post_rti_query, name = 'post_rti_query'),
 	
 	url(r'^logout$', views_login.u_logout, name = 'logout'),
+	url(r'^register', views_login.register, name = 'register'),
 	url(r'^profile/(?P<username>\w+)/$', views_profile.get_user_profile, name="detail_profile")
 
 )

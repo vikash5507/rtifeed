@@ -3,7 +3,7 @@
   <img class="img-circle img-sm" src="/media/{{ comment_user_pic }}" alt="user image">
   <div class="comment-text" >
     <span class="username">
-      {{ comment_name_user }}
+      <a href = "{{ comment_user_url }}">{{ comment_name_user }}</a>
       {% if my_comment %}
         <span class="text-muted pull-right"><button class="btn btn-box-tool del_comment{{ comment_id }}" 
         id = "del_comment{{  comment_id }}"><i class="fa fa-times"></i></button></span>
