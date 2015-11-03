@@ -10,9 +10,13 @@ import json
 
 @login_required
 def home_page(request):
-	user = request.user
-	
 
+	user = request.user
+	user_profile = models.User_profile.objects.filter(user = user).first()
+	if user_profile.profile_status == 'incomplete':
+		user_profile.profile_status = 'complete'
+		user_profile.save()
+		return HttpResponseRedirect('/profile/' + user.username)	
 	context = {}
 	context['my_profile'] = get_profile_context(user)
 	context['full_feed'] = True

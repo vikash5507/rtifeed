@@ -9,13 +9,18 @@ urlpatterns = patterns('',
 	url(r'^departmenttest$', views_test.departmenttest, name = 'departmenttest'),
 
 	url(r'^$', views_login.login_page, name = 'loginpage'),
+	url(r'^login_error$', views_login.login_error_page, name = 'loginerror_page'),
 	# url(r'^home$', views_home.home_page, name = 'homepage'),
 	url(r'^base$', views_test.base, name = 'basepage'),
 	url(r'^home$', views_home.home_page, name = 'homepage'),
 	url(r'^rti_page$', views_home.rti_page, name = 'rti_page'),
 	url(r'^get_feed$', views_home.get_feed, name = 'get_feed'),
-	url(r'^get_profile_feed$', views_profile.get_profile_feed, name = 'get_profile_feed'),
 	url(r'^view_rti$', views_home.view_rti, name = 'view_rti'),
+
+	url(r'^get_profile_feed$', views_profile.get_profile_feed, name = 'get_profile_feed'),
+	url(r'^get_profile_follow$', views_profile.get_profile_follow, name = 'get_profile_follow'),
+	
+
 
 	url(r'^post_comment$', views_home.post_comment, name = 'post_comment'),
 	url(r'^post_edit_comment$', views_home.post_edit_comment, name = 'post_edit_comment'),
@@ -33,6 +38,13 @@ urlpatterns = patterns('',
 	
 	url(r'^logout$', views_login.u_logout, name = 'logout'),
 	url(r'^register', views_login.register, name = 'register'),
-	url(r'^profile/(?P<username>\w+)/$', views_profile.get_user_profile, name="detail_profile")
+	
+	url(r'^profile/(?P<username>\w+)/$', views_profile.get_user_profile, name="detail_profile"),
+	url(r'^profile/(?P<username>\w+)/(?P<details_required>\w+)/$', views_profile.get_user_details, name="user_details"),
+
+	url(r'^post_follow_user$', views_profile.post_follow_user, name = 'post_follow_user'),
+	url(r'^post_unfollow_user$', views_profile.post_unfollow_user, name = 'post_unfollow_user'),
+	# url(r'^department/(?P<department_id>\w+)/$', views_department.get_department_profile, name="detail_department_profile"),
+	# url(r'^department/(?P<department_id>\w+)/(?P<details_required>\w+)/$', views_department.get_department_details, name="department_details")
 
 )

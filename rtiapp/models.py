@@ -40,6 +40,10 @@ class User_profile(models.Model):
 	bio_description = models.CharField(max_length = 200, null = True)
 	entry_date = models.DateTimeField()
 	update_date = models.DateTimeField(auto_now_add=True)
+	email_signed_up = models.BooleanField(default = False)
+	verification_url = models.CharField(max_length = 500, null = True)
+	profile_status = models.CharField(max_length = 200, default = 'incomplete')
+	# email_password = models.CharField(max_length = 200, null = True)
 
 class RTI_query(models.Model):
 	def __unicode__(self):

@@ -6,10 +6,12 @@ from django.http import Http404
 from rtiapp import models
 import json
 import views_home
+from rtiapp.rtiengine import relevance
 
 def make_profile_context(user):
 	context = {
 		'user_id' : user.id,
+		'username' : user.username,
 		'first_name' : user.first_name,
 		'last_name' : user.last_name,
 		'email' : user.email,
@@ -30,32 +32,36 @@ def make_profile_context(user):
 
 	return context
 
-def make_follow_context(user, start_from = 0, limit = True, max_size = 30, ftype = "followers"):
-	context = []
+def get_profile_follow(request):
+	context = {}
 	followers = []
-	if ftype == "followers":
-		if not limit:
-			followers = models.Follow_user.objects.filter(followee = user)
-		else:
-			followers = models.Follow_user.objects.filter(followee = user)[start_from : start_from + max_size]
+	user = models.User.objects.filter(id = request.GET['user_id']).first()
+	start_from = (request.GET['start_from'])
+	max_size = (request.GET['max_size'])
+	if request.GET['details_required'] == "followers":
+		followers = models.Follow_user.objects.filter(followee = user)[start_from : start_from + max_size]
+		temp = []
+		for follower in followers:
+			temp.append(follower.follower)
 	else:
-		if not limit:
-			followers = models.Follow_user.objects.filter(follower = user)
-		else:
-			followers = models.Follow_user.objects.filter(follower = user)[start_from : start_from + max_size]
+		followers = models.Follow_user.objects.filter(follower = user)[start_from : start_from + max_size]
+		temp = []
+		for follower in followers:
+			temp.append(follower.followee)
 
-
+	followers = temp
+	user_context_list = []
 	for follower in followers:
-		context.append({
-			'user_id' : follower.id,
-			'first_name' : follower.first_name,
-			'last_name' : follower.last_name,
-			'email' : follower.email,
-			})
-	
-	return context
+		user_context = make_profile_context(follower)
+		user_context = render_to_response('Profile/user_widget.html', user_context).content
+		user_context_list.append(user_context)
+		# user_context['profile_picture'] = str(user_context['profile_picture'])
+		# context.append(user_context)
+	context['user_context_list'] = user_context_list
 
-def get_user_profile(request, username):
+	return render_to_response('Profile/user_list.html', context)
+
+def profile_base_context(request, username):
 	user = models.User.objects.filter(username = username).first()
 	if not user:
 		raise Http404("User Does Not Exist")
@@ -67,8 +73,21 @@ def get_user_profile(request, username):
 	else:
 		context['is_me'] = False
 	context['my_profile'] = views_home.get_profile_context(request.user)
+	context['user_follow_status'] = len(models.Follow_user.objects.filter(follower = request.user, followee = user)) > 0
+	return context
+def get_user_profile(request, username):
+	context = profile_base_context(request, username)
 	# return HttpResponse(json.dumps(context))
 	return render_to_response('Profile/profile.html', context)
+
+def get_user_details(request, username, details_required):
+	context = profile_base_context(request, username)
+	context['details_required'] = details_required
+
+	if details_required == 'followers' or details_required == 'following':
+		return render_to_response('Profile/profile_follow.html', context)
+	else:
+		raise Http404("User Does Not Exist")
 
 
 # @login_required
@@ -81,6 +100,30 @@ def get_profile_feed(request):
 	
 	rti_list = models.RTI_query.objects.filter(user = user).order_by('-entry_date')[startfeed: maxfeed]
 	return views_home.get_feed_for_rtis(rti_list, user)
+
+def post_follow_user(request):
+	me_user = request.user
+	other_user = models.User.objects.filter(id = request.GET['other_user_id']).first()
+	models.Follow_user.objects.filter(follower = me_user, followee = other_user).delete()
+	follow_user = models.Follow_user()
+	follow_user.follower = me_user
+	follow_user.followee = other_user
+	follow_user.save()
+	relevance.update_relevance_for_user(me_user)
+	context = {}
+	context['num_followers'] = len(models.Follow_user.objects.filter(followee = other_user))
+	context['num_following'] = len(models.Follow_user.objects.filter(follower = other_user))
+	return HttpResponse(json.dumps(context))
+
+def post_unfollow_user(request):
+	me_user = request.user
+	other_user = models.User.objects.filter(id = request.GET['other_user_id']).first()
+	models.Follow_user.objects.filter(follower = me_user, followee = other_user).delete()
+	relevance.update_relevance_for_user(me_user)
+	context = {}
+	context['num_followers'] = len(models.Follow_user.objects.filter(followee = other_user))
+	context['num_following'] = len(models.Follow_user.objects.filter(follower = other_user))
+	return HttpResponse(json.dumps(context))
 
 def do_it():
 	u1 = models.User.objects.all().first()
