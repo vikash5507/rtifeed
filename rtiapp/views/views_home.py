@@ -95,23 +95,15 @@ def get_feed_for_rti(rti, user, comment_strategy = 'time', max_comments = 2):
 		'rti_entry_date' : rti.entry_date,
 		'rti_query_type' : rti.query_type,
 		'rti_response_status' : rti.response_status,
-		
+		'rti_department' : rti.department.department_name,
+		'rti_department_url' : '/department/' + str(rti.department.id)
 	}
 	
 	if models.RTI_query_file.objects.filter(rti_query = rti).first():
 		rti_context['rti_photo'] = models.RTI_query_file.objects.filter(rti_query = rti).first().query_picture
 	if profile:
 		rti_context['rti_user_pic'] = profile.profile_picture
-	if rti_context['rti_query_type'] == 'centre':
-		centre_rti = models.Central_RTI_query.objects.filter(rti_query = rti).first()
-		if centre_rti:
-			rti_context['rti_department'] = centre_rti.department.department_name
-
-	else:
-		state_rti = models.State_RTI_query.objects.filter(rti_query = rti).first()
-		if state_rti:
-			rti_context['rti_state'] = state_rti.department.state.state_name
-			rti_context['rti_department'] = state_rti.department.department_name
+	
 
 	if rti.response_status:
 		response = models.RTI_Response.objects.filter(rti_query = rti).first()

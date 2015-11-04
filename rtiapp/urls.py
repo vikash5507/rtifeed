@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url
 from rtiapp.views import views_test, views_profile
 from rtiapp.views import views_login, views_home
+from rtiapp.views import views_tds
 from rtiapp.views import views_shareRTI
 
 urlpatterns = patterns('',
@@ -39,11 +40,23 @@ urlpatterns = patterns('',
 	url(r'^logout$', views_login.u_logout, name = 'logout'),
 	url(r'^register', views_login.register, name = 'register'),
 	
-	url(r'^profile/(?P<username>\w+)/$', views_profile.get_user_profile, name="detail_profile"),
-	url(r'^profile/(?P<username>\w+)/(?P<details_required>\w+)/$', views_profile.get_user_details, name="user_details"),
-
+	url(r'^profile/(?P<username>[-\w.]+)/$', views_profile.display_user_profile, name="detail_profile"),
+	url(r'^profile/(?P<username>[-\w.]+)/(?P<details_required>\w+)/$', views_profile.display_user_details, name="user_details"),
 	url(r'^post_follow_user$', views_profile.post_follow_user, name = 'post_follow_user'),
 	url(r'^post_unfollow_user$', views_profile.post_unfollow_user, name = 'post_unfollow_user'),
+
+	url(r'^department/(?P<department_id>\w+)/$', views_tds.display_department_profile, name="department_detail_profile"),
+	url(r'^department/(?P<department_id>\w+)/(?P<details_required>\w+)/$', views_tds.display_department_details, name="department_details"),
+
+	url(r'^topic/(?P<topic_id>\w+)/$', views_tds.display_topic_profile, name="topic_detail_profile"),
+	url(r'^topic/(?P<topic_id>\w+)/(?P<details_required>\w+)/$', views_tds.display_topic_details, name="topic_details"),
+
+	url(r'^state/(?P<state_id>\w+)/$', views_tds.display_state_profile, name="state_detail_profile"),
+	url(r'^state/(?P<state_id>\w+)/(?P<details_required>\w+)/$', views_tds.display_state_details, name="state_details"),
+
+	url(r'^get_tds_feed$', views_tds.get_tds_feed, name = 'get_tds_feed'),
+	url(r'^post_follow_tds$', views_tds.post_follow_tds, name = 'post_follow_tds'),
+	url(r'^post_unfollow_tds$', views_tds.post_unfollow_tds, name = 'post_unfollow_tds'),
 	# url(r'^department/(?P<department_id>\w+)/$', views_department.get_department_profile, name="detail_department_profile"),
 	# url(r'^department/(?P<department_id>\w+)/(?P<details_required>\w+)/$', views_department.get_department_details, name="department_details")
 

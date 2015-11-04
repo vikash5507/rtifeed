@@ -24,7 +24,8 @@ def share_rti_query(request):
 			'gov_id' : state.id,
 			'gov_name' : state.state_name + ' Government'
 			})
-	departments = models.Central_department.objects.all()
+	departments = models.Department.objects.filter(department_type = 'centre')
+	print "dep", departments
 	context['departments']  = departments
 	context['gov_list'] = gov_list
 	return render_to_response('ShareRTI/post_rti_query.html', context)
@@ -32,10 +33,14 @@ def share_rti_query(request):
 def get_departments_of(request):
 	gov_id = request.GET['gov_id']
 	if int(gov_id) == 0:
-		departments = models.Central_department.objects.all()
+		departments = models.Department.objects.filter(department_type = 'centre')
 	else:
 		state = models.State.objects.filter(id = request.GET['gov_id']).first()
 		departments = models.State_department.objects.filter(state = state)
+		dep_list = []
+		for dep in departments:
+			dep_list.append(dep.department)
+		departments = dep_list
 	context= {
 		'departments' : departments
 	}
@@ -86,26 +91,15 @@ def post_rti_query(request):
 
 		rti_query.response_status=response_status
 
-		rti_query.save()
-		print "query saved"
-
 		if int(request.POST['govt_id']) == 0:
 			rti_query.query_type = 'centre'
-			rti_query.save()
-			central_query = models.Central_RTI_query()
-			central_query.rti_query = rti_query
-			central_query.department_id = dept_id
-			central_query.save()
-			print "centre query saved"
+			
 		else:
 			rti_query.query_type = 'state'
-			rti_query.save()
-			state_query = models.State_RTI_query()
-			state_query.rti_query = rti_query
-			state_query.department_id = dept_id
-			state_query.save()
+		
+		rti_query.department_id = dept_id
 
-
+		rti_query.save()
 		# # print form
 		if ('photo' in request.FILES) and request.FILES['photo']:
 			support_document = models.RTI_query_file()

@@ -1,0 +1,148 @@
+from django.shortcuts import render
+from django.shortcuts import render, render_to_response
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect, HttpRequest
+from django.http import Http404
+from rtiapp import models
+import json
+import views_home
+from rtiapp.rtiengine import relevance
+
+def display_department_profile(request, department_id):
+	department = models.Department.objects.filter(id = department_id).first()
+	context = make_department_context(department, request.user)
+	context['my_profile'] = views_home.get_profile_context(request.user)
+	return render_to_response('TDS/tds_profile.html', context)
+	
+
+def display_department_details(request, department_id, details_required):
+	return HttpResponse('temp')
+
+def display_topic_profile(request, topic_id):
+	return HttpResponse('temp')
+
+def display_topic_details(request, topic_id, details_required):
+	return HttpResponse('temp')
+
+def display_state_profile(request, state_id):
+	state = models.State.objects.filter(id = state_id).first()
+	context = make_state_context(state, request.user)
+	context['my_profile'] = views_home.get_profile_context(request.user)
+	return render_to_response('TDS/tds_profile.html', context)
+	
+
+def display_state_details(request, state_id, details_required):
+	return HttpResponse('temp')
+
+def make_department_context(department, user):
+	context = {
+		'tds_id' : department.id,
+		'tds_type' : 'department',
+		'tds_name' : department.department_name,
+		'tds_subline' : department.website,
+		'tds_website' : department.website,
+		'department_type' : department.department_type
+	}
+	if department.department_type == 'state':
+		context['tds_state'] = department.state.state_name
+	context['follow_status'] = len(models.Follow_department.objects.filter(followee = department, follower = user)) > 0
+	context['tds_no_followers'] = len(models.Follow_department.objects.filter(followee = department))
+	rti_queries = models.RTI_query.objects.filter(department = department)
+	rti_responses = models.RTI_response.objects.filter(rti_query = rti_queries)
+	context['tds_no_rti_queries'] = len(rti_queries)
+	context['tds_no_rti_responses'] = len(rti_responses)
+	print "FOLLOW STATUS", context['follow_status']
+	return context
+
+def make_state_context(state, user):
+	context = {
+		'tds_id' : state.id,
+		'tds_type' : 'state',
+		'tds_name' : state.state_name,
+		'tds_state_capital' : state.capital_name,
+	}
+	state_departments = models.State_department.objects.values('department').filter(state = state)
+	rti_queries = models.RTI_query.objects.filter(department = state_departments)
+	rti_responses = models.RTI_response.objects.filter(rti_query = rti_queries)
+	context['tds_no_rti_queries'] = len(rti_queries)
+	context['tds_no_rti_responses'] = len(rti_responses)
+	context['follow_status'] = len(models.Follow_state.objects.filter(followee = state, follower = user)) > 0
+	context['tds_no_followers'] = len(models.Follow_state.objects.filter(followee = state))
+	return context
+
+def make_topic_context(topic):
+	return {}
+
+
+def post_follow_tds(request):
+	follow = None
+	context = {}
+	if request.GET['tds_type'] == 'department':
+		fe = models.Department.objects.filter(id = request.GET['tds_id']).first()
+		models.Follow_department.objects.filter(follower = request.user, followee = fe).delete()
+		follow = models.Follow_department()
+		follow.follower = request.user
+		follow.followee = fe
+		follow.save()
+		context = make_department_context(fe, request.user)
+
+	elif request.GET['tds_type'] == 'state':
+		fe = models.State.objects.filter(id = request.GET['tds_id']).first()
+		models.Follow_state.objects.filter(follower = request.user, followee = fe).delete()
+		follow = models.Follow_state()
+		follow.follower = request.user
+		follow.followee = fe
+		follow.save()
+		context = make_state_context(fe, request.user)
+
+	elif request.GET['tds_type'] == 'topic':
+		fe = models.Tag.objects.filter(id = request.GET['tds_id']).first()
+		models.Follow_topic.objects.filter(follower = request.user, followee = fe).delete()
+		follow = models.Follow_topic()
+		follow.follower = request.user
+		follow.followee = fe
+		follow.save()
+		# context['no_followers'] = len(models.Follow_department.objects.filter(followee = fe))
+	return HttpResponse(json.dumps(context))
+
+def post_unfollow_tds(request):
+	context = {}
+	if request.GET['tds_type'] == 'department':
+		fe = models.Department.objects.filter(id = request.GET['tds_id']).first()
+		models.Follow_department.objects.filter(follower = request.user, followee = fe).delete()
+		context = make_department_context(fe, request.user)
+
+	elif request.GET['tds_type'] == 'state':
+		fe = models.State.objects.filter(id = request.GET['tds_id']).first()
+		models.Follow_state.objects.filter(follower = request.user, followee = fe).delete()
+		context = make_state_context(fe, request.user)
+
+	elif request.GET['tds_type'] == 'topic':
+		fe = models.Tag.objects.filter(id = request.GET['tds_id']).first()
+		models.Follow_topic.objects.filter(follower = request.user, followee = fe).delete()
+		context = make_topic_context(fe, request.user)
+
+	return HttpResponse(json.dumps(context))
+
+
+def get_tds_feed(request):
+	startfeed = request.GET['startfeed']
+	maxfeed = request.GET['maxfeed']
+	tds_id = request.GET['tds_id']
+	rti_queries = []
+
+	if request.GET['tds_type'] == 'department':
+		department = models.Department.objects.filter(id = tds_id).first()
+		rti_queries = models.RTI_query.objects.filter(department = department).order_by('-entry_date')[startfeed : maxfeed]
+	elif request.GET['tds_type'] == 'state':
+		state = models.State.objects.filter(id = tds_id).first()
+		state_departments = models.State_department.objects.values('department').filter(state = state)
+		rti_queries = models.RTI_query.objects.filter(department = state_departments).order_by('-entry_date')[startfeed : maxfeed]
+	elif request.GET['tds_type'] == 'topic':
+		topic = models.Tag.objects.filter(id = tds_id)
+		rti_queries = models.RTI_tag.objects.values('rti_query').filter(tag = topic).order_by('-entry_date')[startfeed : maxfeed]
+
+	return views_home.get_feed_for_rtis(rti_queries, request.user)
+
+
+

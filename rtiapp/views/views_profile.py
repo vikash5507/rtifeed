@@ -75,12 +75,13 @@ def profile_base_context(request, username):
 	context['my_profile'] = views_home.get_profile_context(request.user)
 	context['user_follow_status'] = len(models.Follow_user.objects.filter(follower = request.user, followee = user)) > 0
 	return context
-def get_user_profile(request, username):
+
+def display_user_profile(request, username):
 	context = profile_base_context(request, username)
 	# return HttpResponse(json.dumps(context))
 	return render_to_response('Profile/profile.html', context)
 
-def get_user_details(request, username, details_required):
+def display_user_details(request, username, details_required):
 	context = profile_base_context(request, username)
 	context['details_required'] = details_required
 

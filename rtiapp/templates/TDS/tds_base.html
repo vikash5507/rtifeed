@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class = "col-md-10">
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <!-- <section class="content-header">
+      <h1>
+        User Profile
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Examples</a></li>
+        <li class="active">User profile</li>
+      </ol>
+    </section> -->
+
+    <!-- Main content -->
+    <section class="content">
+      
+      <div class="box box-widget widget-user">
+        <!-- Add the bg color to the header using any of the bg-* classes -->
+        <div class="widget-user-header">
+          
+            <h3 class="widget-user-username">{{ tds_name }}</h3>
+            <h5 class="widget-user-desc"><a href= "{{ tds_subline }}">{{ tds_subline }}</a></h5>
+            <div >
+            {% if not follow_status %}
+              <a href="#" class="btn btn-primary btn-block tds_follow_btn" id = "follow_btn"><b>Follow</b></a>
+            {% else %}
+              <a href="#" class="btn btn-danger btn-block tds_unfollow_btn" id = "unfollow_btn"><b>Unfollow</b></a>
+            {%  endif %}
+            </div>
+          
+        </div>
+        
+        <div class="box-footer">
+          <div class="row">
+            
+            <div class="col-sm-4 border-right">
+              <div class="description-block">
+                <h5 class="description-header">{{ tds_no_followers }}</h5>
+                <span class="description-text">FOLLOWERS</span>
+              </div><!-- /.description-block -->
+            </div><!-- /.col -->
+            <div class="col-sm-4">
+              <div class="description-block">
+                <h5 class="description-header">{{ tds_no_rti_queries }}</h5>
+                <span class="description-text">QUERIES</span>
+              </div><!-- /.description-block -->
+            </div><!-- /.col -->
+            <div class="col-sm-4">
+              <div class="description-block">
+                <h5 class="description-header">{{ tds_no_rti_responses }}</h5>
+                <span class="description-text">RESPONSES</span>
+              </div><!-- /.description-block -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div>
+      </div>
+    
+
+      <div class = "row">
+      {% block profile_body %}
+        
+      {% endblock %}
+      </div>
+    </section>
+  </div><!-- /.content-wrapper -->
+</div>
+<script src="/static/scripts/follow_unfollow_tds.js"></script>
+<script type="text/javascript">
+  
+  make_handlers_for_follow({{ tds_id }}, "{{ tds_type }}");
+</script>
+{% endblock %}

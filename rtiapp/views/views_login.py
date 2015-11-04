@@ -9,6 +9,8 @@ from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 
 def login_page(request):
+	if request.user.is_authenticated():
+		return HttpResponseRedirect('/home')
 	return render_to_response('Login/login.html', {'error' : False})
 
 def login_error_page(request):

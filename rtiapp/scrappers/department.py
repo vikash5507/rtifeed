@@ -10,8 +10,9 @@ for row in department[2:]:
 	row = row.split(',')
 	dep_name = row[2]
 	website = row[3]
-	dept = models.Central_department()
+	dept = models.Department()
 	dept.department_name = dep_name
 	dept.website = website
+	dept.department_type = 'centre'	
 	dept.save()
 	print dep_name, website

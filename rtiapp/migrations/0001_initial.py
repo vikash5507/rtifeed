@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='Central_authority',
+            name='Authority',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('authority_name', models.CharField(max_length=200)),
@@ -44,7 +44,6 @@ class Migration(migrations.Migration):
             name='Central_department',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('department_name', models.CharField(max_length=200)),
             ],
             options={
             },
@@ -54,8 +53,20 @@ class Migration(migrations.Migration):
             name='Comment',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('commment_text', models.TextField(null=True)),
+                ('comment_text', models.TextField(null=True)),
                 ('entry_date', models.DateTimeField(auto_now_add=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Department',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('department_name', models.CharField(max_length=200)),
+                ('website', models.CharField(max_length=200, null=True)),
+                ('department_type', models.CharField(max_length=50)),
             ],
             options={
             },
@@ -136,22 +147,11 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='Central_RTI_query',
-            fields=[
-                ('rti_query', models.OneToOneField(primary_key=True, serialize=False, to='rtiapp.RTI_query')),
-                ('authority', models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, to='rtiapp.Central_authority', null=True)),
-                ('department', models.ForeignKey(on_delete=django.db.models.deletion.SET_DEFAULT, default=1, to='rtiapp.Central_department')),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
             name='RTI_query_file',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('query_picture', models.ImageField(default=b'static/query_picture/default.jpg', upload_to=b'static/query_picture')),
-                ('query_document', models.FileField(null=True, upload_to=b'static/query_document')),
+                ('query_picture', models.ImageField(default=b'query_pictures/default.jpg', upload_to=b'query_pictures')),
+                ('query_document', models.FileField(null=True, upload_to=b'query_docs')),
             ],
             options={
             },
@@ -175,8 +175,8 @@ class Migration(migrations.Migration):
             name='RTI_response_file',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('query_picture', models.ImageField(default=b'static/response_picture/default.jpg', upload_to=b'static/response_picture')),
-                ('query_document', models.FileField(null=True, upload_to=b'static/response_document')),
+                ('query_picture', models.ImageField(default=b'response_pictures/default.jpg', upload_to=b'response_pictures')),
+                ('query_document', models.FileField(null=True, upload_to=b'response_documents')),
                 ('rti_response', models.ForeignKey(to='rtiapp.RTI_response')),
             ],
             options={
@@ -188,6 +188,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('entry_date', models.DateTimeField(auto_now_add=True)),
+                ('rti_query', models.ForeignKey(to='rtiapp.RTI_query')),
             ],
             options={
             },
@@ -199,6 +200,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('share_text', models.TextField(null=True)),
                 ('entry_date', models.DateTimeField(auto_now_add=True)),
+                ('rti_query', models.ForeignKey(to='rtiapp.RTI_query')),
             ],
             options={
             },
@@ -209,19 +211,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('state_name', models.CharField(max_length=200)),
-                ('capital_name', models.CharField(max_length=200)),
+                ('capital_name', models.CharField(max_length=200, null=True)),
                 ('latitude', models.FloatField(null=True)),
                 ('longitude', models.FloatField(null=True)),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='State_authority',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('authority_name', models.CharField(max_length=200)),
             ],
             options={
             },
@@ -231,19 +223,8 @@ class Migration(migrations.Migration):
             name='State_department',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('department_name', models.CharField(max_length=200)),
+                ('department', models.OneToOneField(to='rtiapp.Department')),
                 ('state', models.ForeignKey(to='rtiapp.State')),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='State_RTI_query',
-            fields=[
-                ('rti_query', models.OneToOneField(primary_key=True, serialize=False, to='rtiapp.RTI_query')),
-                ('authority', models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, to='rtiapp.State_authority', null=True)),
-                ('department', models.ForeignKey(on_delete=django.db.models.deletion.SET_DEFAULT, default=1, to='rtiapp.State_department')),
             ],
             options={
             },
@@ -264,13 +245,16 @@ class Migration(migrations.Migration):
             name='User_profile',
             fields=[
                 ('user', models.OneToOneField(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
-                ('profilePicture', models.ImageField(default=b'static/profile_picture/default.jpg', upload_to=b'static/profile_picture')),
+                ('profile_picture', models.ImageField(default=b'profile_pictures/default.jpg', upload_to=b'profile_pictures')),
                 ('reputation', models.FloatField(default=10)),
                 ('gender', models.CharField(max_length=200, null=True)),
                 ('date_of_birth', models.DateTimeField(null=True)),
-                ('bio_description', models.CharField(max_length=200)),
+                ('bio_description', models.CharField(max_length=200, null=True)),
                 ('entry_date', models.DateTimeField()),
                 ('update_date', models.DateTimeField(auto_now_add=True)),
+                ('email_signed_up', models.BooleanField(default=False)),
+                ('verification_url', models.CharField(max_length=500, null=True)),
+                ('profile_status', models.CharField(default=b'incomplete', max_length=200)),
                 ('address', models.ForeignKey(to='rtiapp.Address', null=True)),
             ],
             options={
@@ -290,27 +274,9 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.AddField(
-            model_name='state_authority',
-            name='department',
-            field=models.ForeignKey(to='rtiapp.State_department'),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='share',
-            name='rti_query',
-            field=models.ForeignKey(to='rtiapp.RTI_query'),
-            preserve_default=True,
-        ),
-        migrations.AddField(
             model_name='share',
             name='user',
             field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='rti_tag',
-            name='rti_query',
-            field=models.ForeignKey(to='rtiapp.RTI_query'),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -323,6 +289,18 @@ class Migration(migrations.Migration):
             model_name='rti_query_file',
             name='rti_query',
             field=models.ForeignKey(to='rtiapp.RTI_query'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='rti_query',
+            name='authority',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, to='rtiapp.Authority', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='rti_query',
+            name='department',
+            field=models.ForeignKey(to='rtiapp.Department'),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -410,9 +388,15 @@ class Migration(migrations.Migration):
             preserve_default=True,
         ),
         migrations.AddField(
-            model_name='central_authority',
+            model_name='central_department',
             name='department',
-            field=models.ForeignKey(to='rtiapp.Central_department'),
+            field=models.OneToOneField(to='rtiapp.Department'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='authority',
+            name='department',
+            field=models.ForeignKey(to='rtiapp.Department'),
             preserve_default=True,
         ),
         migrations.AddField(

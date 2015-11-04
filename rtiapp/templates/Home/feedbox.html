@@ -5,7 +5,7 @@
       <span class="username"><a href="{{ rti_user_url }}">{{ rti_user }}</a></span>
       <span class="description">Shared publicly on {{rti_entry_date}}</span>
       {% if rti_query_type == "centre" %}
-      <span class="description">Issued to <b>{{ rti_department }}</b> on <b>{{rti_entry_date}}</b></span>
+      <span class="description">Issued to <a href="{{ rti_department_url }}"> <b>{{ rti_department }}</b></a> on <b>{{rti_entry_date}}</b></span>
       {% else %}
       <span class="description">Issued in {{ rti_state }}</span>
       <span class="description">to <b>{{ rti_department }}</b> on <b>{{rti_entry_date}}</b></span>
