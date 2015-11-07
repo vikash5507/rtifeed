@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from rtiapp import models
 from rtiapp.rtiengine import relevance
 import json
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required
 def home_page(request):
@@ -164,10 +165,11 @@ def get_comment_html(comment, user):
 	return render_to_response('Home/comment.html', context)
 
 @login_required
+@csrf_exempt
 def post_comment(request):
 	user = request.user
-	comment_text = request.GET['comment_text']
-	rti_query = models.RTI_query.objects.filter(id = request.GET['rti_query_id']).first()
+	comment_text = request.POST['comment_text']
+	rti_query = models.RTI_query.objects.filter(id = request.POST['rti_query_id']).first()
 
 	comment = models.Comment()
 	comment.user = user
@@ -199,18 +201,20 @@ def post_comment(request):
 	return HttpResponse(json.dumps(context))
 
 @login_required
+@csrf_exempt
 def post_edit_comment(request):
 	user = request.user
-	comment = models.Comment.objects.filter(id = request.GET['comment_id']).first()
+	comment = models.Comment.objects.filter(id = request.POST['comment_id']).first()
 	if comment and comment.rti_query.user == user:
-		comment.comment_text = request.GET['comment_text']
+		comment.comment_text = request.POST['comment_text']
 		comment.save()
 	return HttpResponse('done')
 
 @login_required
+@csrf_exempt
 def post_delete_comment(request):
 	user = request.user
-	comment = models.Comment.objects.filter(id = request.GET['comment_id']).first()
+	comment = models.Comment.objects.filter(id = request.POST['comment_id']).first()
 	if comment.user == user:
 		comment.delete()
 		
@@ -229,9 +233,10 @@ def post_delete_comment(request):
 	return HttpResponse(json.dumps(context))
 
 @login_required
+@csrf_exempt
 def post_like(request):
 	user = request.user
-	rti_query = models.RTI_query.objects.filter(id = request.GET['rti_query_id']).first()
+	rti_query = models.RTI_query.objects.filter(id = request.POST['rti_query_id']).first()
 	models.Like.objects.filter(user = user, rti_query = rti_query).delete()
 	like = models.Like()
 	like.user = user
@@ -252,9 +257,10 @@ def post_like(request):
 
 
 @login_required
+@csrf_exempt
 def post_unlike(request):
 	user = request.user
-	rti_query = models.RTI_query.objects.filter(id = request.GET['rti_query_id']).first()
+	rti_query = models.RTI_query.objects.filter(id = request.POST['rti_query_id']).first()
 	
 	models.Like.objects.filter(user = user, rti_query = rti_query).delete()
 
@@ -271,9 +277,10 @@ def post_unlike(request):
 	return HttpResponse(json.dumps(context))
 
 @login_required
+@csrf_exempt
 def post_follow_query(request):
 	user = request.user
-	rti_query = models.RTI_query.objects.filter(id = request.GET['rti_query_id']).first()
+	rti_query = models.RTI_query.objects.filter(id = request.POST['rti_query_id']).first()
 	models.Follow_query.objects.filter(user = user, rti_query = rti_query).delete()
 	
 	follow = models.Follow_query()
@@ -294,9 +301,10 @@ def post_follow_query(request):
 	return HttpResponse(json.dumps(context))
 
 @login_required
+@csrf_exempt
 def post_unfollow_query(request):
 	user = request.user
-	rti_query = models.RTI_query.objects.filter(id = request.GET['rti_query_id']).first()
+	rti_query = models.RTI_query.objects.filter(id = request.POST['rti_query_id']).first()
 	
 	models.Follow_query.objects.filter(user = user, rti_query = rti_query).delete()
 

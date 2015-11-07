@@ -16,19 +16,26 @@ def login_page(request):
 def login_error_page(request):
 	return render_to_response('Login/login.html', {'error' : "Authentication Failed"})
 
-def login(request):
-	username = request.POST['username']
+@csrf_exempt
+def email_login(request):
+	email = request.POST['email']
 	password = request.POST['password']
-
+	username = None
+	
+	user = models.User.objects.filter(email = email).first()
+	if user:
+		username = user.username
+	
 	user = authenticate(username = username, password = password)
+	
 	if user:
 		if user.is_active:
 			login(request, user)
-			return HttpResponse('loggedin')
+			return HttpResponseRedirect('/home')
 		else:
-			return HttpResponse('disabled')
+			return HttpResponseRedirect('/login_error_page')
 	else:
-		return HttpResponse('invalid')
+		return HttpResponseRedirect('/login_error')
 
 def u_logout(request):
 	logout(request)

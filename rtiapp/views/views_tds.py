@@ -7,6 +7,7 @@ from rtiapp import models
 import json
 import views_home
 from rtiapp.rtiengine import relevance
+from rtiapp.views import views_profile
 
 def display_department_profile(request, department_id):
 	department = models.Department.objects.filter(id = department_id).first()
@@ -16,7 +17,28 @@ def display_department_profile(request, department_id):
 	
 
 def display_department_details(request, department_id, details_required):
-	return HttpResponse('temp')
+	department = models.Department.objects.filter(id = department_id).first()
+	if not department:
+		raise Http404("Department Does Not Exist")
+	context = make_department_context(department, request.user)
+	context['my_profile'] = views_home.get_profile_context(request.user)
+	context['details_required'] = 'following'
+	if details_required == 'followers':
+		return render_to_response('TDS/tds_follow.html', context)
+	else:
+		raise Http404("Department Does Not Exist")
+
+def display_state_details(request, state_id, details_required):
+	state = models.State.objects.filter(id = state_id).first()
+	if not state:
+		raise Http404("Department Does Not Exist")
+	context = make_state_context(state, request.user)
+	context['my_profile'] = views_home.get_profile_context(request.user)
+	context['details_required'] = 'following'
+	if details_required == 'followers':
+		return render_to_response('TDS/tds_follow.html', context)
+	else:
+		raise Http404("Department Does Not Exist")
 
 def display_topic_profile(request, topic_id):
 	return HttpResponse('temp')
@@ -31,8 +53,7 @@ def display_state_profile(request, state_id):
 	return render_to_response('TDS/tds_profile.html', context)
 	
 
-def display_state_details(request, state_id, details_required):
-	return HttpResponse('temp')
+
 
 def make_department_context(department, user):
 	context = {
@@ -143,6 +164,35 @@ def get_tds_feed(request):
 		rti_queries = models.RTI_tag.objects.values('rti_query').filter(tag = topic).order_by('-entry_date')[startfeed : maxfeed]
 
 	return views_home.get_feed_for_rtis(rti_queries, request.user)
+
+def get_tds_follow(request):
+	context = {}
+	tds_id = request.GET['tds_id']
+	if request.GET['tds_type'] == 'department':
+		department = models.Department.objects.filter(id = tds_id).first()
+		followers = models.Follow_department.objects.filter(followee = department)
+	elif request.GET['tds_type'] == 'state':
+		state = models.State.objects.filter(id = tds_id).first()
+		followers = models.Follow_state.objects.filter(followee = state)
+	elif request.GET['tds_type'] == 'topic':
+		topic = models.Tag.objects.filter(id = tds_id).first()
+		followers = models.Follow_topic.objects.filter(followee = tag)
+
+	follower_list = []
+	for follower in followers:
+		follower_list.append(follower.follower)
+	
+	user_context_list = []
+	for follower in follower_list:
+		user_context = views_profile.make_profile_context(follower)
+		user_context = render_to_response('Profile/user_widget.html', user_context).content
+		user_context_list.append(user_context)
+		# user_context['profile_picture'] = str(user_context['profile_picture'])
+		# context.append(user_context)
+	context['user_context_list'] = user_context_list
+
+	return render_to_response('Profile/user_list.html', context)
+
 
 
 

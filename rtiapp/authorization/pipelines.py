@@ -27,10 +27,11 @@ def get_user_avatar(backend, user, response, details, *args, **kwargs):
         profile.entry_date = datetime.now()
 
     if backend.name == 'facebook':
-        url = "http://graph.facebook.com/%s/picture?type=large" % response['id']
+        url = "http://graph.facebook.com/%s/picture?type=normal" % response['id']
         avatar = urlopen(url)
         profile.profile_picture.save(slugify(user.username + " social") + '.jpg', 
                             ContentFile(avatar.read()))
+        # profile.profile_picture = url
         print response
         fb_data = {
             # 'city': response['location']['name'],
@@ -86,8 +87,7 @@ def user_password(backend, user, response, details, is_new, *args, **kwargs):
     password = response['password']
     if type(password) is list:
         password = password[0]
-    print "RESPONSE", response
-    print "password ", password
+    
     user_profile = models.User_profile.objects.filter(user = user).first()
     print "USER", user.username, user.email
     if not user_profile.email_signed_up:
@@ -95,8 +95,8 @@ def user_password(backend, user, response, details, is_new, *args, **kwargs):
         user.save()
         user_profile.email_signed_up = True
         user_profile.save()
-    elif not user.check_password(password):
-        print password
+    
+    else:
         print "ERRRRR"
         # return {'user': None, 'social': None}
         return redirect('/login_error')

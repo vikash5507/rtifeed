@@ -230,3 +230,4 @@ class Relevance(models.Model):
 	relevance = models.FloatField(default = 0.0)
 	views = models.IntegerField(default = 0)
 	update_date = models.DateTimeField(auto_now_add=True)
+	feed_head_line = models.TextField(null = True)

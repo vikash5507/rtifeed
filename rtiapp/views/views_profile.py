@@ -126,6 +126,13 @@ def post_unfollow_user(request):
 	context['num_following'] = len(models.Follow_user.objects.filter(follower = other_user))
 	return HttpResponse(json.dumps(context))
 
+def settings(request):
+	# if request.method != 'POST':
+	# 	context = make_profile_context(request.user)
+		
+
+	return HttpResponse('None')
+
 def do_it():
 	u1 = models.User.objects.all().first()
 	print make_profile_context(u1)

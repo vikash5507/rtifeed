@@ -104,5 +104,9 @@
 </div>
 
 <script type="text/javascript">
-  make_handlers_for({{ rti_id }}, "/media/{{ my_profile.profile_picture }}");
+  var user_context = {
+    name_user : '{{ my_profile.name_user }}',
+    profile_picture : '/media/{{ my_profile.profile_picture }}'
+  }
+  make_handlers_for({{ rti_id }}, user_context);
 </script>

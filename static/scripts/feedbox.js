@@ -1,4 +1,4 @@
-function make_handlers_for(rti_id, pic_url){
+function make_handlers_for(rti_id, user_context){
   // alert(rti_id);
   $('.like'+rti_id).each(function(){
     $(this).unbind('click');
@@ -53,7 +53,7 @@ function make_handlers_for(rti_id, pic_url){
     $(this).on('keydown', function(e){
       if(e.which == 13){
         // alert("yup");
-        post_comment(rti_id, $(this).val(), pic_url);
+        post_comment(rti_id, $(this).val(), user_context);
       };
     });
   });
@@ -108,7 +108,7 @@ function show_all_comments(rti_id){
   });
 }
 
-function post_comment(rti_id, comment_text, pic_url){
+function post_comment(rti_id, comment_text, user_context){
   comment_text = $.trim(comment_text);
   if(comment_text.length == 0){
     return;
@@ -120,15 +120,16 @@ function post_comment(rti_id, comment_text, pic_url){
       rti_query_id : rti_id
     },
     dataType : 'json',
+    type : 'POST',
     beforeSend : function(){
       // $('#comment_container{{rti_id}}').append("test");
       $('.comment_container'+rti_id).each(function(){
         $(this).append('<div class="box-comment" id = "temp_com">'+
               
-          '<img class="img-circle img-sm" src="'+ pic_url +'" alt="user image">'+
+          '<img class="img-circle img-sm" src="'+ user_context['profile_picture'] +'" alt="user image">'+
           '<div class="comment-text">'+
             '<span class="username">'+
-              '{{ name_user }}'+
+               user_context['name_user'] +
               '<span class="text-muted pull-right"> Just Now</span>'+
             '</span>'+
             comment_text +
@@ -184,6 +185,7 @@ function post_response(rti_id, rtype){
     data : {
       rti_query_id : rti_id,
     },
+    type : 'POST',
     dataType : 'json',
     beforeSend : function(){
 
@@ -285,7 +287,7 @@ function edit_comment(comment_id, rti_id, comment_text){
     $(this).unbind('keydown');
     $(this).on('keydown', function(e){
       if(e.which == 13){
-        alert("yup");
+        // alert("yup");
         post_edit_comment(comment_id, $(this).val(), rti_id);
       }
     });
@@ -303,6 +305,7 @@ function post_edit_comment(comment_id, comment_text, rti_id){
       comment_id : comment_id,
       comment_text : comment_text
     },
+    type : 'POST',
     beforeSend : function(){
 
     },
@@ -347,6 +350,7 @@ function post_delete_comment(comment_id, rti_id){
       data : {
         comment_id : comment_id 
       },
+      type : 'POST',
       dataType : 'json',
       beforeSend : function(){
 

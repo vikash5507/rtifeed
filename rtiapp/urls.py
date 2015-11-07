@@ -11,6 +11,7 @@ urlpatterns = patterns('',
 
 	url(r'^$', views_login.login_page, name = 'loginpage'),
 	url(r'^login_error$', views_login.login_error_page, name = 'loginerror_page'),
+	url(r'^email_login$', views_login.email_login, name = 'email_login'),
 	# url(r'^home$', views_home.home_page, name = 'homepage'),
 	url(r'^base$', views_test.base, name = 'basepage'),
 	url(r'^home$', views_home.home_page, name = 'homepage'),
@@ -20,7 +21,7 @@ urlpatterns = patterns('',
 
 	url(r'^get_profile_feed$', views_profile.get_profile_feed, name = 'get_profile_feed'),
 	url(r'^get_profile_follow$', views_profile.get_profile_follow, name = 'get_profile_follow'),
-	
+	url(r'^get_tds_follow$', views_tds.get_tds_follow, name = 'get_tds_follow'),
 
 
 	url(r'^post_comment$', views_home.post_comment, name = 'post_comment'),
@@ -40,6 +41,7 @@ urlpatterns = patterns('',
 	url(r'^logout$', views_login.u_logout, name = 'logout'),
 	url(r'^register', views_login.register, name = 'register'),
 	
+	url(r'^settings/$', views_profile.settings, name="settings"),
 	url(r'^profile/(?P<username>[-\w.]+)/$', views_profile.display_user_profile, name="detail_profile"),
 	url(r'^profile/(?P<username>[-\w.]+)/(?P<details_required>\w+)/$', views_profile.display_user_details, name="user_details"),
 	url(r'^post_follow_user$', views_profile.post_follow_user, name = 'post_follow_user'),
