@@ -11,9 +11,9 @@ def calc_relevance(user, rti_query):
 	w_comment=2
 	w_follow=3
 	w_tags=1
-	num_likes=len(models.Like.objects.filter(rti_query=rti_query))
-	num_comments=len(models.Comment.objects.filter(rti_query=rti_query))
-	num_follows=len(models.Follow_query.objects.filter(rti_query = rti_query))
+	num_likes=len(models.Activity.objects.filter(rti_query=rti_query, activity_type = 'like'))
+	num_comments=len(models.Activity.objects.filter(rti_query=rti_query, activity_type = 'comment'))
+	num_follows=len(models.Activity.objects.filter(rti_query = rti_query, activity_type = 'follow'))
 	relevance=w_like*num_likes+w_comment*num_comments+num_follows*w_follow+ 10;
 	# print "Dsdfvs", datetime.now()
 	# print "dfsdfsd", rti_query.entry_date
@@ -50,6 +50,8 @@ def make_relevance_for_user(user):
 
 def update_relevance_for_rti(rti_query):
 	rel_records = models.Relevance.objects.filter(rti_query = rti_query)
+	if len(rel_records) == 0:
+		make_relevance_for_rti(rti_query)
 	for rel_record in rel_records:
 		relevance = calc_relevance(rel_record.user, rel_record.rti_query)
 		rel_record.relevance = relevance
@@ -58,11 +60,19 @@ def update_relevance_for_rti(rti_query):
 
 def update_relevance_for_user(user):
 	rel_records = models.Relevance.objects.filter(user = user)
+	if len(rel_records) == 0:
+		make_relevance_for_rti(user)
 	for rel_record in rel_records:
 		relevance = calc_relevance(rel_record.user, rel_record.rti_query)
 		rel_record.relevance = relevance
 		rel_record.update_date = datetime.now()
 		rel_record.save()
+
+def remake_all_relevance():
+	models.Relevance.objects.all().delete()
+	users = models.User.objects.all()
+	for user in users:
+		make_relevance_for_user(user)
 
 
 def update_all_relevance():

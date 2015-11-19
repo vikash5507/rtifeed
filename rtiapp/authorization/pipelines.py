@@ -44,8 +44,7 @@ def get_user_avatar(backend, user, response, details, *args, **kwargs):
         print "gendefr", fb_data['gender']
         # profile.city = fb_data['city']
         # profile.date_of_birth = fb_data['dob']
-    if not models.Relevance.objects.filter(user = user).first():
-        relevance.make_relevance_for_user(user)
+    
     profile.save()
 
 

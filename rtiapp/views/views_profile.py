@@ -100,7 +100,7 @@ def get_profile_feed(request):
 	maxfeed = int(request.GET['maxfeed']) + startfeed
 	
 	rti_list = models.RTI_query.objects.filter(user = user).order_by('-entry_date')[startfeed: maxfeed]
-	return views_home.get_feed_for_rtis(rti_list, user)
+	return views_home.get_feed_for_rtis(rti_list, request.user)
 
 def post_follow_user(request):
 	me_user = request.user

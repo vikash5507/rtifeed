@@ -114,10 +114,13 @@ function post_comment(rti_id, comment_text, user_context){
     return;
   }
   $.ajax({
-    url : '/post_comment',
+    url : '/post_rti_activity',
     data : {
       comment_text : comment_text,
-      rti_query_id : rti_id
+      activity_type : 'comment',
+      rti_query_id : rti_id,
+      undo : 0,
+      edit : 0
     },
     dataType : 'json',
     type : 'POST',
@@ -159,31 +162,39 @@ function post_comment(rti_id, comment_text, user_context){
       });
     },
     error : function(err){
-      console.log(err);
+      console.log(JSON.stringify(err));
     }
   });
 }
 
 function post_response(rti_id, rtype){
   // alert(rtype);
-  url = '';
+  var url = '/post_rti_activity';
+  var activity_type = '';
+  var undo = 0;
   if(rtype == 'like'){
-    url = '/post_like';
+    activity_type = 'like';
   }
   else if(rtype == 'unlike'){
-    url = '/post_unlike';
+    activity_type = 'like';
+    undo = 1;
   }
   else if(rtype == 'follow'){
-    url = '/post_follow_query';
+    activity_type = 'follow';
+
   }
   else if(rtype == 'unfollow'){
-    url = '/post_unfollow_query'; 
+    activity_type = 'follow';
+    undo = 1;
   }
 
   $.ajax({
     url : url,
     data : {
       rti_query_id : rti_id,
+      activity_type : activity_type,
+      undo : undo,
+      edit : 0
     },
     type : 'POST',
     dataType : 'json',
@@ -196,7 +207,7 @@ function post_response(rti_id, rtype){
       
     },
     error : function(err){
-      console.log(err);
+      console.log(JSON.stringify(err));
     }
   });
 }
@@ -300,10 +311,14 @@ function edit_comment(comment_id, rti_id, comment_text){
 
 function post_edit_comment(comment_id, comment_text, rti_id){
   $.ajax({
-    url : '/post_edit_comment',
+    url : '/post_rti_activity',
     data : {
       comment_id : comment_id,
-      comment_text : comment_text
+      comment_text : comment_text,
+      rti_query_id : rti_id,
+      activity_type : 'comment',
+      undo : 0,
+      edit : 1
     },
     type : 'POST',
     beforeSend : function(){
@@ -346,9 +361,13 @@ function toggle_edit_button(comment_id, comment_text, rti_id){
 }
 function post_delete_comment(comment_id, rti_id){
   $.ajax({
-      url : '/post_delete_comment',
-      data : {
-        comment_id : comment_id 
+      url : '/post_rti_activity',
+       data : {
+        comment_id : comment_id,
+        rti_query_id : rti_id,
+        activity_type : 'comment',
+        undo : 1,
+        edit : 0
       },
       type : 'POST',
       dataType : 'json',

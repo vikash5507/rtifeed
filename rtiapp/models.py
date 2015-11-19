@@ -143,37 +143,20 @@ class User_tag(models.Model):
 	tag = models.ForeignKey(Tag, on_delete = models.CASCADE)
 	entry_date = models.DateTimeField(auto_now_add=True)
 
-class Like(models.Model):
-	def __unicode__(self):
-		return self.rti_query
 
+class Activity(models.Model):
+	activity_choices = (
+		('rti_query', 'rti_query'),
+		('rti_response', 'rti_response'),
+	    ('comment', 'comment'),
+	    ('like', 'like'),
+	    ('follow', 'follow')
+	)
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	rti_query = models.ForeignKey(RTI_query, on_delete = models.CASCADE)
-	entry_date = models.DateTimeField(auto_now_add=True)
-
-class Share(models.Model):
-	def __unicode__(self):
-		return self.rti_query
-
-	user = models.ForeignKey(User, on_delete = models.CASCADE)
-	rti_query = models.ForeignKey(RTI_query, on_delete = models.CASCADE)
-	share_text = models.TextField(null = True)
-	entry_date = models.DateTimeField(auto_now_add=True)
-
-class Comment(models.Model):
-	user = models.ForeignKey(User, on_delete = models.CASCADE)
-	rti_query = models.ForeignKey(RTI_query, on_delete = models.CASCADE)
-	comment_text = models.TextField(null = True)
-	entry_date = models.DateTimeField(auto_now_add=True)
-
-
-class Follow_query(models.Model):
-	def __unicode__(self):
-		return self.rti_query
-
-	user = models.ForeignKey(User, on_delete = models.CASCADE)
-	rti_query = models.ForeignKey(RTI_query, on_delete = models.CASCADE)
-	entry_date = models.DateTimeField(auto_now_add=True)
+	activity_type = models.CharField(max_length = 20, choices = activity_choices)
+	meta_data = models.TextField(null = True)
+	entry_date = models.DateTimeField(auto_now_add = True)
 
 class Follow_user(models.Model):
 	def __unicode__(self):
@@ -182,6 +165,7 @@ class Follow_user(models.Model):
 	follower = models.ForeignKey(User, on_delete = models.CASCADE, related_name='user_follower')
 	followee = models.ForeignKey(User, on_delete = models.CASCADE, related_name='user_followee')
 	entry_date = models.DateTimeField(auto_now_add=True)
+	
 
 class Follow_state(models.Model):
 	def __unicode__(self):
@@ -190,6 +174,7 @@ class Follow_state(models.Model):
 	follower = models.ForeignKey(User, on_delete = models.CASCADE, related_name='state_follower')
 	followee = models.ForeignKey(State, on_delete = models.CASCADE, related_name='state_followee')
 	entry_date = models.DateTimeField(auto_now_add=True)
+	
 
 class Follow_topic(models.Model):
 	def __unicode__(self):
@@ -220,6 +205,25 @@ class Notification(models.Model):
 	rti_query = models.ForeignKey(RTI_query, null = True, on_delete = models.SET_NULL)
 	other_user = models.ForeignKey(User, on_delete = models.CASCADE, related_name='notified_by')
 	entry_date = models.DateTimeField(auto_now_add=True)
+
+
+
+class User_feed(models.Model):
+	user = models.ForeignKey(User, on_delete = models.CASCADE)
+	activity = models.ForeignKey(Activity, on_delete = models.CASCADE)
+	relevance = models.FloatField(default = 0.0)
+	entry_date = models.DateTimeField(auto_now_add = True)
+
+class Notification(models.Model):
+	user = models.ForeignKey(User, on_delete = models.CASCADE)
+	notification_choices = (
+		('user_follow', 'user_follow'),
+		('rti_query', 'rti_query'),
+	)
+	notification_type = models.CharField(max_length = 20, choices = notification_choices)
+	activity = models.ForeignKey(Activity, on_delete = models.CASCADE, null = True)
+	follow = models.ForeignKey(Follow_user, on_delete = models.CASCADE, null = True)
+	entry_date = models.DateTimeField(auto_now_add = True)
 
 class Relevance(models.Model):
 	def __unicode__(self):

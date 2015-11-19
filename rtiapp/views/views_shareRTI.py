@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, HttpRequest
 from django.contrib.auth.decorators import login_required
 from rtiapp import models
 import json
-import views_home
+from rtiapp.views import views_home
 from datetime import datetime, timedelta
 from rtiapp.rtiengine import relevance
 from django.views.decorators.csrf import csrf_exempt
@@ -51,13 +51,10 @@ def get_departments_of(request):
 
 @csrf_exempt
 def post_rti_query(request):
+
 	if request.method == "POST":
 		
 		user = request.user
-		
-		print request.FILES
-		# return HttpResponse("dhslfhkj")
-		
 		rti_number = request.POST['rti_no']
 		query= request.POST['query_text']
 		description= request.POST['description']
@@ -65,42 +62,28 @@ def post_rti_query(request):
 		dept_id=request.POST['dept_id']
 		rti_file_date=request.POST['rti_date']
 		
-		print rti_number
-		print "OK"
-		
-
-		response_status = 0
-		# print user.id, query, authority, rti_file_date
-
-
 		rti_query=models.RTI_query()
-
 		rti_query.user = user
-		# rti_query.department_id = dept_id
 		rti_query.rti_number = rti_number	
-		# rti_query.authority=authority
 		rti_query.query_text = str(query)
-		print query
 		rti_query.description = description
+		
 		if not rti_file_date or rti_file_date == "":
 			rti_query.rti_file_date = datetime.now()
 		else:	
 			rti_query.rti_file_date=rti_file_date
 
 		rti_query.entry_date = datetime.now()
-
-		rti_query.response_status=response_status
-
+		rti_query.response_status = 0
+		
 		if int(request.POST['govt_id']) == 0:
 			rti_query.query_type = 'centre'
-			
 		else:
 			rti_query.query_type = 'state'
 		
 		rti_query.department_id = dept_id
-
 		rti_query.save()
-		# # print form
+
 		if ('photo' in request.FILES) and request.FILES['photo']:
 			support_document = models.RTI_query_file()
 			support_document.query_picture = request.FILES['photo']
@@ -108,17 +91,10 @@ def post_rti_query(request):
 			support_document.save()
 			print "doc saved"
 		
-		relevance.make_relevance_for_rti(rti_query)
-		# if request.POST['govt_id'] == 1:
-		# 	cenral
+		activity = models.Activity()
+		activity.rti_query = rti_query
+		activity.user = user
+		activity.activity_type = 'rti_query'
+		activity.save()
 
-		# # im = Image.open(rti_query.supporting_document)
-		# print "CHECKKKKKK"
-		# # print rti_query.supporting_document.url
-		# # size = im.size
-		# # im.thumbnail(size, Image.ANTIALIAS)
-		# # im.save('compressed'+str(rti_query.id), 'JPG', progressive = 1, optimize = 1, quality = 80)
-		# rti_query.save()
-		# relevance.make_relevance_for_rti(rti_query)
-		# return HttpResponse(rti_query.id)
 		return HttpResponse('done')
