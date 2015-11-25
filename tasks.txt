@@ -1,0 +1,17 @@
+- News Feed
+  - Relevance by activity 
+  - Spam
+  - share on social media
+  - load on scroll
+  - encrypt ids
+- profile
+  - settings
+  - update dp
+  - user widget - not a priority
+- rti query form
+  - validation
+  - tagging
+  - direct to response page
+- Response form
+  - everything
+- Search

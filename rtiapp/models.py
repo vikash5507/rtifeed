@@ -150,7 +150,8 @@ class Activity(models.Model):
 		('rti_response', 'rti_response'),
 	    ('comment', 'comment'),
 	    ('like', 'like'),
-	    ('follow', 'follow')
+	    ('follow', 'follow'),
+	    ('spam', 'spam'),
 	)
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	rti_query = models.ForeignKey(RTI_query, on_delete = models.CASCADE)
@@ -192,21 +193,6 @@ class Follow_department(models.Model):
 	followee = models.ForeignKey(Department, on_delete = models.CASCADE, related_name='department_followee')
 	entry_date = models.DateTimeField(auto_now_add=True)
 
-class Notification(models.Model):
-	def __unicode__(self):
-		return self.follower
-
-	user = models.ForeignKey(User, on_delete = models.CASCADE, related_name='notified')
-	notification_text = models.CharField(max_length = 200)
-	notification_url = models.CharField(max_length = 300)
-	notification_type = models.CharField(max_length = 200)
-	notification_status = models.BooleanField(default = False)
-	seen_date = models.DateTimeField(null = True)
-	rti_query = models.ForeignKey(RTI_query, null = True, on_delete = models.SET_NULL)
-	other_user = models.ForeignKey(User, on_delete = models.CASCADE, related_name='notified_by')
-	entry_date = models.DateTimeField(auto_now_add=True)
-
-
 
 class User_feed(models.Model):
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
@@ -223,6 +209,7 @@ class Notification(models.Model):
 	notification_type = models.CharField(max_length = 20, choices = notification_choices)
 	activity = models.ForeignKey(Activity, on_delete = models.CASCADE, null = True)
 	follow = models.ForeignKey(Follow_user, on_delete = models.CASCADE, null = True)
+	read_status = models.BooleanField(default = False)
 	entry_date = models.DateTimeField(auto_now_add = True)
 
 class Relevance(models.Model):
@@ -235,3 +222,11 @@ class Relevance(models.Model):
 	views = models.IntegerField(default = 0)
 	update_date = models.DateTimeField(auto_now_add=True)
 	feed_head_line = models.TextField(null = True)
+
+class Activity_relevance(models.Model):
+	user = models.ForeignKey(User, on_delete = models.CASCADE)
+	activity = models.ForeignKey(Activity, on_delete = models.CASCADE)
+	relevance = models.FloatField(default = 0.0)
+	views = models.IntegerField(default = 0)
+	update_date = models.DateTimeField(auto_now_add=True)
+	

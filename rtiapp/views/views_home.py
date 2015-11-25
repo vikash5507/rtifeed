@@ -199,6 +199,7 @@ def post_rti_activity(request):
 		activity.meta_data = meta_data
 
 		activity.save()
+		make_notification(activity)
 	
 
 	comments = models.Activity.objects.filter(rti_query = rti_query, activity_type = 'comment').order_by('-entry_date')
@@ -212,7 +213,16 @@ def post_rti_activity(request):
 	context['no_shares'] = len(shares)
 
 	relevance.update_relevance_for_rti(rti_query)
+	
 	return HttpResponse(json.dumps(context))
+
+def make_notification(activity):
+	notification = models.Notification()
+	notification.user = activity.rti_query.user
+	notification.notification_type = 'rti_query'
+	notification.activity = activity
+	notification.read_status = False
+	notification.save()
 
 def load_prev_comments(request):
 	user = request.user

@@ -37,21 +37,35 @@
 </div>
 {% if full_feed %}
 <script type="text/javascript">
+var startfeed = 0;
+var maxfeed = 5;
+function load_feed(){
+  $.ajax({
+    url : '/get_feed',
+    data : {
+      startfeed : startfeed,
+      maxfeed : maxfeed
+    },
+    success : function(data){
+      $('#feedcontainer').append(data);
+      startfeed += maxfeed;
+    },
+    error : function(err){
+      console.log(err);
+    }
 
-$.ajax({
-  url : '/get_feed',
-  data : {
-    startfeed : 0,
-    maxfeed : 5
-  },
-  success : function(data){
-    $('#feedcontainer').append(data);
-  },
-  error : function(err){
-    console.log(err);
+  });
+}
+load_feed();
+
+$(window).unbind("scroll");
+$(window).scroll(function () {
+  
+  if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+    load_feed();
   }
+});
 
-})
 </script>
 {% else %}
 <script type="text/javascript">
