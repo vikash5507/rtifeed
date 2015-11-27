@@ -93,14 +93,38 @@ def display_user_details(request, username, details_required):
 
 # @login_required
 def get_profile_feed(request):
+	# user = models.User.objects.filter(id = request.GET['user_id']).first()
+	# if not user:
+	# 	return
+	# startfeed = int(request.GET['startfeed'])
+	# maxfeed = int(request.GET['maxfeed']) + startfeed
+	
+	# rti_list = models.RTI_query.objects.filter(user = user).order_by('-entry_date')[startfeed: maxfeed]
+	# return views_home.get_feed_for_rtis(rti_list, request.user)
+
 	user = models.User.objects.filter(id = request.GET['user_id']).first()
 	if not user:
 		return
-	startfeed = int(request.GET['startfeed'])
-	maxfeed = int(request.GET['maxfeed']) + startfeed
 	
-	rti_list = models.RTI_query.objects.filter(user = user).order_by('-entry_date')[startfeed: maxfeed]
-	return views_home.get_feed_for_rtis(rti_list, request.user)
+	fetched_rti_list = json.loads(request.GET['fetched_rti_list'])
+	print fetched_rti_list
+	
+	user_activities = models.Activity.objects.filter(user = user).order_by('-entry_date')
+	rti_list = []
+	rti_mark_list = []
+	for activity in user_activities:
+		if activity.activity_type == 'spam':
+			continue
+		rti = activity.rti_query
+		
+		if (not (rti in rti_mark_list)) and (not rti.id in fetched_rti_list):
+			rti_mark_list.append(rti)
+			rti_list.append({
+				'rti_query' : rti,
+				'rti_head_line' : views_home.make_head_line(activity, user)
+			})
+
+	return views_home.get_feed_for_rtis(rti_list, user)
 
 def post_follow_user(request):
 	me_user = request.user

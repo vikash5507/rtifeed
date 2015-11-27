@@ -1,27 +1,15 @@
 {% extends 'Profile/profile_base.html' %}
 {% block profile_body %}
+<script src="/static/scripts/load_feed.js"></script>
 <div class="col-md-9">
-  <div  id="activity">
+  <div  id="feedcontainer">
 
         <!-- ACTIVITY FEED -->
         
   </div>
 </div>
 <script type="text/javascript">
-  $.ajax({
-    url : '/get_profile_feed',
-    data : {
-      user_id : {{ user_id }},
-      startfeed : 0,
-      maxfeed : 5
-    },
-    success : function(data){
-      $('#activity').append(data);
-    },
-    error : function(err){
-      console.log(err);
-    }
-  });
+  make_feed_for_url('/get_profile_feed?user_id='+{{ user_id }});
 </script>
 <script src="/static/scripts/feedbox.js"></script>
 {% endblock %}

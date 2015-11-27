@@ -1,34 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<script>
-  // window.fbAsyncInit = function() {
-  //   FB.init({
-  //     appId      : '1659360547643851',
-  //     xfbml      : true,
-  //     version    : 'v2.4'
-  //   });
-  // };
-
-  // (function(d, s, id){
-  //    var js, fjs = d.getElementsByTagName(s)[0];
-  //    if (d.getElementById(id)) {return;}
-  //    js = d.createElement(s); js.id = id;
-  //    js.src = "//connect.facebook.net/en_US/sdk.js";
-  //    fjs.parentNode.insertBefore(js, fjs);
-  //  }(document, 'script', 'facebook-jssdk'));
-</script>
-
-<!-- <div id="fb-root"></div> -->
-<script>
-// (function(d, s, id) {
-//   var js, fjs = d.getElementsByTagName(s)[0];
-//   if (d.getElementById(id)) return;
-//   js = d.createElement(s); js.id = id;
-//   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=724628884303364";
-//   fjs.parentNode.insertBefore(js, fjs);
-// }(document, 'script', 'facebook-jssdk'));
-</script>
-
+<script src="/static/scripts/load_feed.js"></script>
 <div class = "col-md-10">
   <div class="content-wrapper" style = "padding-left : 30px; padding-right : 30px; padding-top : 70px;" id = "feedcontainer"> 
     
@@ -36,54 +8,27 @@
   </div>
 </div>
 {% if full_feed %}
-<script type="text/javascript">
-var startfeed = 0;
-var maxfeed = 5;
-function load_feed(){
-  $.ajax({
-    url : '/get_feed',
-    data : {
-      startfeed : startfeed,
-      maxfeed : maxfeed
-    },
-    success : function(data){
-      $('#feedcontainer').append(data);
-      startfeed += maxfeed;
-    },
-    error : function(err){
-      console.log(err);
-    }
-
-  });
-}
-load_feed();
-
-$(window).unbind("scroll");
-$(window).scroll(function () {
-  
-  if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
-    load_feed();
-  }
-});
-
-</script>
+  <script type="text/javascript">
+    make_feed_for_url('/get_feed');
+  </script>
 {% else %}
-<script type="text/javascript">
+  <script type="text/javascript">
 
-$.ajax({
-  url : '/view_rti',
-  data : {
-    rti_query_id : {{ rti_query_id }}
-  },
-  success : function(data){
-    $('#feedcontainer').append(data);
-  },
-  error : function(err){
-    console.log(err);
-  }
+    $.ajax({
+      url : '/view_rti',
+      data : {
+        rti_query_id : {{ rti_query_id }}
+      },
+      success : function(data){
+        $('#feedcontainer').append(data);
+      },
+      error : function(err){
+        console.log(err);
+      }
 
-})
+    })
+
+  </script>
 {% endif %}
-</script>
 <script src="/static/scripts/feedbox.js"></script>
 {% endblock %}

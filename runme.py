@@ -1,0 +1,2 @@
+from rtiapp.rtiengine import activity_relevance
+activity_relevance.update_all_user_activity_relevance()

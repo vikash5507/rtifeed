@@ -1,5 +1,6 @@
 <div class="box box-widget">
   <div class="box-header with-border">
+    <div class = "rti_headline"><h6><samll> {{ rti_head_line | safe}} </samll></h6> </div>
     <div class="user-block">
       <img class="img-circle" src="/media/{{ rti_user_pic }}" alt="user image">
       <span class="username"><a href="{{ rti_user_url }}">{{ rti_user }}</a></span>
@@ -70,6 +71,14 @@
       <button class="btn btn-default btn-xs follow{{ rti_id }}" id = "follow{{ rti_id }}"><i class="fa fa-star-o"></i> Follow </button>
       {% endif %}
     </div>
+    <div id = "spamcontainer{{ rti_id }}" class = "spamcontainer{{ rti_id }}" style = "float : left">
+      {% if spam_status %}
+      <button class="btn btn-default btn-xs unspam{{ rti_id }}" id = "unspam{{ rti_id }}"><i class="fa fa-thumbs-down"></i> Undo Mark as Spam </button>
+      {% else %}
+      <button class="btn btn-default btn-xs spam{{ rti_id }}" id = "spam{{ rti_id }}"><i class="fa fa-thumbs-o-down"></i> Mark as Spam </button>
+      {% endif %}
+    </div>
+    
     <!-- <div class="fb-share-button" data-href="home" data-layout="button_count"></div> -->
     
     <span class="pull-right text-muted lc_count{{ rti_id }}" id = "lc_count{{ rti_id }}">{{ no_likes}} likes - {{ no_comments }} comments</span>

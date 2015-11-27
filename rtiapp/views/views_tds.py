@@ -147,23 +147,31 @@ def post_unfollow_tds(request):
 
 
 def get_tds_feed(request):
-	startfeed = request.GET['startfeed']
-	maxfeed = request.GET['maxfeed']
 	tds_id = request.GET['tds_id']
+	fetched_rti_list = json.loads(request.GET['fetched_rti_list'])
+	print fetched_rti_list
+	
 	rti_queries = []
 
 	if request.GET['tds_type'] == 'department':
 		department = models.Department.objects.filter(id = tds_id).first()
-		rti_queries = models.RTI_query.objects.filter(department = department).order_by('-entry_date')[startfeed : maxfeed]
+		rti_queries = models.RTI_query.objects.filter(department = department).order_by('-entry_date')
 	elif request.GET['tds_type'] == 'state':
 		state = models.State.objects.filter(id = tds_id).first()
 		state_departments = models.State_department.objects.values('department').filter(state = state)
-		rti_queries = models.RTI_query.objects.filter(department = state_departments).order_by('-entry_date')[startfeed : maxfeed]
+		rti_queries = models.RTI_query.objects.filter(department = state_departments).order_by('-entry_date')
 	elif request.GET['tds_type'] == 'topic':
 		topic = models.Tag.objects.filter(id = tds_id)
-		rti_queries = models.RTI_tag.objects.values('rti_query').filter(tag = topic).order_by('-entry_date')[startfeed : maxfeed]
+		rti_queries = models.RTI_tag.objects.values('rti_query').filter(tag = topic).order_by('-entry_date')
 
-	return views_home.get_feed_for_rtis(rti_queries, request.user)
+	rti_list = []
+	for rti in rti_queries:
+		if not rti.id in fetched_rti_list:
+			rti_list.append({
+				'rti_query' : rti,
+				'rti_head_line' : ""
+				})
+	return views_home.get_feed_for_rtis(rti_list, request.user)
 
 def get_tds_follow(request):
 	context = {}

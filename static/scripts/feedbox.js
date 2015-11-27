@@ -6,7 +6,6 @@ function make_handlers_for(rti_id, user_context){
       post_response(rti_id, 'like');
     });
   });
-  
   $('.unlike'+rti_id).each(function(){
     $(this).unbind('click');
     $(this).on('click', function(){
@@ -24,6 +23,19 @@ function make_handlers_for(rti_id, user_context){
     $(this).unbind('click');
     $(this).on('click', function(){
       post_response(rti_id, 'unfollow');
+    });
+  });
+
+  $('.spam'+rti_id).each(function(){
+    $(this).unbind('click');
+    $(this).on('click', function(){
+      post_response(rti_id, 'spam');
+    });
+  });
+  $('.unspam'+rti_id).each(function(){
+    $(this).unbind('click');
+    $(this).on('click', function(){
+      post_response(rti_id, 'unspam');
     });
   });
 
@@ -149,7 +161,7 @@ function post_comment(rti_id, comment_text, user_context){
     success : function(data){
       // alert(data);
       $('.lc_count'+rti_id).each(function(){
-        $(this).html(data['no_likes']+ ' likes - ' + data['no_comments'] +'comments');
+        $(this).html(data['no_likes']+ ' likes - ' + data['no_comments'] +' comments');
       });
       
       $("#temp_com").remove();
@@ -188,6 +200,16 @@ function post_response(rti_id, rtype){
     undo = 1;
   }
 
+  else if(rtype == 'spam'){
+    activity_type = 'spam';
+
+  }
+  
+  else if(rtype == 'unspam'){
+    activity_type = 'spam';
+    undo = 1;
+  }
+
   $.ajax({
     url : url,
     data : {
@@ -215,7 +237,7 @@ function post_response(rti_id, rtype){
 function handle_success_response(rti_id, data, rtype){
   
   $('.lc_count'+rti_id).each(function(){
-    $(this).html(data['no_likes']+ ' likes - ' + data['no_comments'] +'comments');
+    $(this).html(data['no_likes']+ ' likes - ' + data['no_comments'] +' comments');
   });
   
   if(rtype == 'like'){
@@ -247,7 +269,7 @@ function handle_success_response(rti_id, data, rtype){
   else if(rtype == 'follow'){
     $('.followcontainer'+rti_id).each(function(){
         $(this).html('<button class="btn btn-default btn-xs unfollow'+rti_id+'">'+
-        '<i class="fa fa-star"></i>Unfollow </button>')
+        '<i class="fa fa-star"></i> Unfollow </button>')
       });
 
       $('.unfollow'+rti_id).each(function(){
@@ -259,7 +281,7 @@ function handle_success_response(rti_id, data, rtype){
   else if(rtype == 'unfollow'){
     $('.followcontainer'+rti_id).each(function(){
         $(this).html('<button class="btn btn-default btn-xs follow'+rti_id+'">'+
-         '<i class="fa fa-star-o"></i>Follow </button>')
+         '<i class="fa fa-star-o"></i> Follow </button>')
       });
 
       $('.follow'+rti_id).each(function(){
@@ -268,6 +290,32 @@ function handle_success_response(rti_id, data, rtype){
         });
       });
   }
+
+  else if(rtype == 'spam'){
+    $('.spamcontainer'+rti_id).each(function(){
+        $(this).html('<button class="btn btn-default btn-xs unspam'+rti_id+'">'+
+        '<i class="fa fa-thumbs-down"></i> Undo mark as Spam </button>')
+      });
+
+      $('.unspam'+rti_id).each(function(){
+        $(this).on('click', function(){
+          post_response(rti_id, 'unspam');
+        });
+      });
+  }
+  else if(rtype == 'unspam'){
+    $('.spamcontainer'+rti_id).each(function(){
+        $(this).html('<button class="btn btn-default btn-xs spam'+rti_id+'">'+
+         '<i class="fa fa-thumbs-o-down"></i> Mark as Spam </button>')
+      });
+
+      $('.spam'+rti_id).each(function(){
+        $(this).on('click', function(){
+          post_response(rti_id, 'spam');
+        });
+      });
+  }
+
 }
 
 function comment_handler(comment_id, rti_id, comment_text){
@@ -359,6 +407,7 @@ function toggle_edit_button(comment_id, comment_text, rti_id){
     });
   });
 }
+
 function post_delete_comment(comment_id, rti_id){
   $.ajax({
       url : '/post_rti_activity',
@@ -381,7 +430,7 @@ function post_delete_comment(comment_id, rti_id){
         })
         
         $('.lc_count'+rti_id).each(function(){
-          $(this).html(data['no_likes']+ ' likes - ' + data['no_comments'] +'comments');
+          $(this).html(data['no_likes']+ ' likes - ' + data['no_comments'] +' comments');
         });
       },
       error : function(err){

@@ -1,28 +1,16 @@
 {% extends 'TDS/tds_base.html' %}
 {% block profile_body %}
+<script src="/static/scripts/load_feed.js"></script>
 <div class="col-md-12">
-  <div  id="activity">
+  <div  id="feedcontainer">
 
         <!-- ACTIVITY FEED -->
         
   </div>
 </div>
 <script type="text/javascript">
-  $.ajax({
-    url : '/get_tds_feed',
-    data : {
-      tds_type : '{{ tds_type }}',
-      tds_id : {{ tds_id}},
-      startfeed : 0,
-      maxfeed : 5
-    },
-    success : function(data){
-      $('#activity').append(data);
-    },
-    error : function(err){
-      console.log(err);
-    }
-  });
+  make_feed_for_url('/get_tds_feed?tds_id='+{{ tds_id }} 
+    + '&tds_type=' + '{{ tds_type }}');
 </script>
 <script src="/static/scripts/feedbox.js"></script>
 {% endblock %}

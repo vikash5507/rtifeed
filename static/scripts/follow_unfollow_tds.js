@@ -48,7 +48,7 @@ function follow_unfollow_tds(response_type, tds_id, tds_type){
         $('#unfollow_btn').attr('class', 'btn btn-primary btn-block tds_follow_btn');
         $('#unfollow_btn').attr('id', 'follow_btn');
       }
-      alert(JSON.stringify(data, null, 4));
+      // alert(JSON.stringify(data, null, 4));
       make_handlers_for_follow(tds_id, tds_type);
     },
     error : function(err){

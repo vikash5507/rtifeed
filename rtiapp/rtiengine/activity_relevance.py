@@ -1,11 +1,12 @@
 from rtiapp import models
 from datetime import timedelta,datetime
+import math
 
 def calc_relevance(user, activity):
 	rti_query = activity.rti_query
 	activity_user = activity.user
 	rti_tags  = models.RTI_tag.objects.filter(rti_query = rti_query)
-	rti_department = activity.department
+	rti_department = rti_query.department
 
 
 	user_tags = models.Follow_topic.objects.filter(follower = user)
@@ -19,7 +20,7 @@ def calc_relevance(user, activity):
 		user_department_list.append(dept.followee)
 
 	fact_user_follow = len(models.Follow_user.objects.filter(follower = user, followee = activity_user))
-	fact_rti_follow = len(models.Activity.objects.filter(user = user, rti_query = rti_query. activity_type = 'follow'))
+	fact_rti_follow = len(models.Activity.objects.filter(user = user, rti_query = rti_query, activity_type = 'follow'))
 	
 	fact_tag = 0
 	for tag in rti_tags:
@@ -49,5 +50,29 @@ def calc_relevance(user, activity):
 	fact_all += wt_popularity * fact_popularity
 
 	activity_entry_date = activity.entry_date
-	time_decay = (activity_entry_date.replace(tzinfo=None) - datetime.now().replace(tzinfo=None)).total_seconds()
+	time_decay = (datetime.now().replace(tzinfo=None) - activity_entry_date.replace(tzinfo=None)  ).total_seconds() 
+	time_decay = math.log(time_decay / 60.0 / 60.0)
+
+	relevance = fact_all / time_decay
+	activity_relevance = models.Activity_relevance.objects.filter(user = user, activity = activity).first()
+	if not activity_relevance:
+		activity_relevance = models.Activity_relevance()
+		activity_relevance.user = user
+		activity_relevance.activity = activity
+	
+	activity_relevance.relevance = relevance
+	activity_relevance.save()
+
+def update_all_user_activity_relevance():
+	users = models.User.objects.all()
+	activities = models.Activity.objects.all()
+
+	for user in users:
+		for activity in activities:
+			print user.id, activity.id
+			calc_relevance(user, activity)
+
+
+
+
 
