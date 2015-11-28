@@ -5,14 +5,14 @@ from django.http import HttpResponseRedirect, HttpRequest
 from django.http import Http404
 from rtiapp import models
 import json
-import views_home
-from rtiapp.rtiengine import relevance
+
+from rtiapp.rtiengine import relevance, newsfeed
 from rtiapp.views import views_profile
 
 def display_department_profile(request, department_id):
 	department = models.Department.objects.filter(id = department_id).first()
 	context = make_department_context(department, request.user)
-	context['my_profile'] = views_home.get_profile_context(request.user)
+	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	return render_to_response('TDS/tds_profile.html', context)
 	
 
@@ -21,7 +21,7 @@ def display_department_details(request, department_id, details_required):
 	if not department:
 		raise Http404("Department Does Not Exist")
 	context = make_department_context(department, request.user)
-	context['my_profile'] = views_home.get_profile_context(request.user)
+	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	context['details_required'] = 'following'
 	if details_required == 'followers':
 		return render_to_response('TDS/tds_follow.html', context)
@@ -33,7 +33,7 @@ def display_state_details(request, state_id, details_required):
 	if not state:
 		raise Http404("Department Does Not Exist")
 	context = make_state_context(state, request.user)
-	context['my_profile'] = views_home.get_profile_context(request.user)
+	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	context['details_required'] = 'following'
 	if details_required == 'followers':
 		return render_to_response('TDS/tds_follow.html', context)
@@ -49,7 +49,7 @@ def display_topic_details(request, topic_id, details_required):
 def display_state_profile(request, state_id):
 	state = models.State.objects.filter(id = state_id).first()
 	context = make_state_context(state, request.user)
-	context['my_profile'] = views_home.get_profile_context(request.user)
+	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	return render_to_response('TDS/tds_profile.html', context)
 	
 
@@ -171,7 +171,7 @@ def get_tds_feed(request):
 				'rti_query' : rti,
 				'rti_head_line' : ""
 				})
-	return views_home.get_feed_for_rtis(rti_list, request.user)
+	return newsfeed.get_feed_for_rtis(rti_list, request.user)
 
 def get_tds_follow(request):
 	context = {}

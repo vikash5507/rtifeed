@@ -17,6 +17,7 @@ urlpatterns = patterns('',
 	url(r'^home$', views_home.home_page, name = 'homepage'),
 	url(r'^rti_page$', views_home.rti_page, name = 'rti_page'),
 	url(r'^get_feed$', views_home.get_feed, name = 'get_feed'),
+	url(r'^get_notifications$', views_home.get_notification, name = 'get_notification'),
 	url(r'^view_rti$', views_home.view_rti, name = 'view_rti'),
 
 	url(r'^get_profile_feed$', views_profile.get_profile_feed, name = 'get_profile_feed'),
@@ -24,15 +25,10 @@ urlpatterns = patterns('',
 	url(r'^get_tds_follow$', views_tds.get_tds_follow, name = 'get_tds_follow'),
 
 
-	# url(r'^post_comment$', views_home.post_comment, name = 'post_comment'),
-	# url(r'^post_edit_comment$', views_home.post_edit_comment, name = 'post_edit_comment'),
-	# url(r'^post_delete_comment$', views_home.post_delete_comment, name = 'post_delete_comment'),
+	
 	url(r'^load_prev_comments$', views_home.load_prev_comments, name = 'load_prev_comments'),
 	
-	# url(r'^post_like$', views_home.post_like, name = 'post_like'),
-	# url(r'^post_unlike$', views_home.post_unlike, name = 'post_unlike'),
-	# url(r'^post_follow_query$', views_home.post_follow_query, name = 'post_follow_query'),
-	# url(r'^post_unfollow_query$', views_home.post_unfollow_query, name = 'post_unfollow_query'),
+	
 
 	url(r'^share_rti_query$', views_shareRTI.share_rti_query, name = 'share_rti_query'),
 	url(r'^post_rti_activity$', views_home.post_rti_activity, name = 'post_rti_activity'),
@@ -62,7 +58,6 @@ urlpatterns = patterns('',
 	url(r'^post_unfollow_tds$', views_tds.post_unfollow_tds, name = 'post_unfollow_tds'),
 
 	url(r'^settings/(?P<settings_type>\w+)/$', views_settings.all_settings, name="all_settings"),
-	# url(r'^department/(?P<department_id>\w+)/$', views_department.get_department_profile, name="detail_department_profile"),
-	# url(r'^department/(?P<department_id>\w+)/(?P<details_required>\w+)/$', views_department.get_department_details, name="department_details")
+	
 
 )

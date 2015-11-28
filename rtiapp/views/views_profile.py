@@ -5,8 +5,8 @@ from django.http import HttpResponseRedirect, HttpRequest
 from django.http import Http404
 from rtiapp import models
 import json
-import views_home
-from rtiapp.rtiengine import relevance
+
+from rtiapp.rtiengine import relevance, newsfeed
 
 def make_profile_context(user):
 	context = {
@@ -72,7 +72,7 @@ def profile_base_context(request, username):
 		context['is_me'] = True
 	else:
 		context['is_me'] = False
-	context['my_profile'] = views_home.get_profile_context(request.user)
+	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	context['user_follow_status'] = len(models.Follow_user.objects.filter(follower = request.user, followee = user)) > 0
 	return context
 
@@ -121,10 +121,10 @@ def get_profile_feed(request):
 			rti_mark_list.append(rti)
 			rti_list.append({
 				'rti_query' : rti,
-				'rti_head_line' : views_home.make_head_line(activity, user)
+				'rti_head_line' : newsfeed.make_head_line(activity, user)
 			})
 
-	return views_home.get_feed_for_rtis(rti_list, user)
+	return newsfeed.get_feed_for_rtis(rti_list, user)
 
 def post_follow_user(request):
 	me_user = request.user
@@ -151,10 +151,6 @@ def post_unfollow_user(request):
 	return HttpResponse(json.dumps(context))
 
 def settings(request):
-	# if request.method != 'POST':
-	# 	context = make_profile_context(request.user)
-		
-
 	return HttpResponse('None')
 
 def do_it():
