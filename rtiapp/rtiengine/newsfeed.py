@@ -73,7 +73,7 @@ def get_feed_for_rti(rti, user, head_line = '', comment_strategy = 'time', max_c
 		'name_user' : user.first_name + " " + user.last_name,
 		'user_pic' : user_profile.profile_picture,
 		'rti_id' : rti.id,
-		'rti_url' : '/rti_page?rti_query_id=' + str(rti.id),
+		'rti_url' : '/rti_page/' + str(rti.id),
 		'rti_user' : rti.user.first_name + " " + rti.user.last_name,
 		'rti_user_url' : '/profile/'+ rti.user.username+'/',
 		'rti_query_text' : rti.query_text,

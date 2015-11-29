@@ -73,6 +73,14 @@ def update_all_user_activity_relevance():
 			calc_relevance(user, activity)
 
 
+def update_user_relevance(user):
+	activities = models.Activity.objects.all()
+	for activity in activities:
+		calc_relevance(user, activity)
 
+def update_activity_relevance(activity):
+	users = models.User.objects.all()
+	for user in users:
+		calc_relevance(user, activity)
 
 

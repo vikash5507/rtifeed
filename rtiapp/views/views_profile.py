@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect, HttpRequest
 from django.http import Http404
 from rtiapp import models
 import json
+from rtiapp import common
 
 from rtiapp.rtiengine import relevance, newsfeed
 
@@ -117,7 +118,7 @@ def get_profile_feed(request):
 			continue
 		rti = activity.rti_query
 		
-		if (not (rti in rti_mark_list)) and (not rti.id in fetched_rti_list):
+		if (not (rti in rti_mark_list)) and (not rti.id in fetched_rti_list) and len(rti_list) < common.MAX_FEED:
 			rti_mark_list.append(rti)
 			rti_list.append({
 				'rti_query' : rti,

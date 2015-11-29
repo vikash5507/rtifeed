@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate,login, logout
 from django.http import HttpResponseRedirect, HttpRequest
 from django.contrib.auth.decorators import login_required
 from rtiapp import models
-from rtiapp.rtiengine import relevance, notification, newsfeed
+from rtiapp.rtiengine import activity_relevance, notification, newsfeed
 import json
 from django.views.decorators.csrf import csrf_exempt
 
@@ -23,11 +23,11 @@ def home_page(request):
 	context['full_feed'] = True
 	return render_to_response('Home/home.html', context)
 
-def rti_page(request):
+def rti_page(request, rti_id):
 	user = request.user
 	context = {}
 	context['my_profile'] = newsfeed.get_profile_context(user)
-	context['rti_query_id'] = request.GET['rti_query_id']
+	context['rti_query_id'] = rti_id
 	context['full_feed'] = False
 	return render_to_response('Home/home.html', context)
 
@@ -40,23 +40,26 @@ def get_feed(request):
 	fetched_rti_list = json.loads(request.GET['fetched_rti_list'])
 	print fetched_rti_list
 	
-	relevant_activities = models.Activity_relevance.objects.filter(user = user).order_by('-relevance')
+	relevant_activities = models.Activity_relevance.objects.filter(user = user).order_by('-relevance')[0:100]
 	rti_list = []
 	rti_mark_list = []
+	max_feed = 10
+
 	for activity in relevant_activities:
 		if activity.activity.activity_type == 'spam':
 			continue
 		rti = activity.activity.rti_query
-		activity.views += 1
-		activity.save()
+		
 
 		
-		if (not (rti in rti_mark_list)) and (not rti.id in fetched_rti_list):
+		if (not (rti in rti_mark_list)) and (not rti.id in fetched_rti_list) and len(rti_list) < max_feed:
 			rti_mark_list.append(rti)
 			rti_list.append({
 				'rti_query' : rti,
 				'rti_head_line' : newsfeed.make_head_line(activity.activity, user)
 			})
+			activity.views += 1
+			activity.save()
 
 	return newsfeed.get_feed_for_rtis(rti_list, user)
 
@@ -117,6 +120,7 @@ def post_rti_activity(request):
 		activity.meta_data = meta_data
 
 		activity.save()
+		activity_relevance.update_activity_relevance(activity)
 		notification.make_notification(activity)
 	
 
@@ -130,10 +134,14 @@ def post_rti_activity(request):
 	context['no_likes'] = len(likes)
 	context['no_shares'] = len(shares)
 
-	relevance.update_relevance_for_rti(rti_query)
+	
 	
 	return HttpResponse(json.dumps(context))
 
 def get_notifications(request):
-	notifications = notification.get_notifications(request.user)
-	return HttpResponse(json.dumps(notifications))
+	return notification.get_notifications(request.user)
+
+def mark_all_notifications(request):
+	notification.mark_all_notifications(request.user)
+	return HttpResponse('OK')
+	

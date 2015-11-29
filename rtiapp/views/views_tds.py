@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, HttpRequest
 from django.http import Http404
 from rtiapp import models
 import json
-
+from rtiapp import common
 from rtiapp.rtiengine import relevance, newsfeed
 from rtiapp.views import views_profile
 
@@ -166,7 +166,7 @@ def get_tds_feed(request):
 
 	rti_list = []
 	for rti in rti_queries:
-		if not rti.id in fetched_rti_list:
+		if not rti.id in fetched_rti_list and len(rti_list) < common.MAX_FEED:
 			rti_list.append({
 				'rti_query' : rti,
 				'rti_head_line' : ""

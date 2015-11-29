@@ -1,0 +1,121 @@
+<div class="box box-widget">
+  <div class="box-header with-border">
+    <div class = "rti_headline"><h6><samll> {{ rti_head_line | safe}} </samll></h6> </div>
+    <div class="user-block">
+      <img class="img-circle" src="/media/{{ rti_user_pic }}" alt="user image">
+      <span class="username"><a href="{{ rti_user_url }}">{{ rti_user }}</a></span>
+      <span class="description">Shared publicly on {{rti_entry_date}}</span>
+      {% if rti_query_type == "centre" %}
+      <span class="description">Issued to <a href="{{ rti_department_url }}"> <b>{{ rti_department }}</b></a> on <b>{{rti_entry_date}}</b></span>
+      {% else %}
+      <span class="description">Issued in {{ rti_state }}</span>
+      <span class="description">to <b>{{ rti_department }}</b> on <b>{{rti_entry_date}}</b></span>
+      {% endif %}
+    </div><!-- /.user-block -->
+    {% if my_rti %}
+    <div class="box-tools">
+      <button class="btn btn-box-tool edit_rti{{ rti_id }}" data-widget="collapse"><i class="fa fa-pencil"></i></button>
+      <button class="btn btn-box-tool delete_rti{{ rti_id }}" data-widget="remove"><i class="fa fa-times"></i></button>
+    </div><!-- /.box-tools -->
+    {% endif %}
+  </div><!-- /.box-header -->
+  <div class="box-body">
+    <!-- post text -->
+    {{ rti_description }}
+
+    <!-- Attachment -->
+    <div class="attachment-block clearfix">
+      {% if rti_photo %}
+      <img class="attachment-img" src="/media/{{ rti_photo }}" alt="attachment image">
+      
+
+      <div class="attachment-pushed">
+      
+      {% else %}
+      <div class="attachment">
+      {% endif %}
+        <h4 class="attachment-heading"><a href="{{ rti_url }}">RTI Query</a></h4>
+        <div class="attachment-text">
+          {{ rti_query_text | safe}}<a href="#">more</a>
+        </div><!-- /.attachment-text -->
+      </div><!-- /.attachment-pushed -->
+    </div><!-- /.attachment-block -->
+
+    {% if rti_response_status %}
+
+    <div class="attachment-block clearfix">
+      <img class="attachment-img" src="/static/dist/img/photo1.png" alt="attachment image">
+      <div class="attachment-pushed">
+        <h4 class="attachment-heading"><a href="http://www.lipsum.com/">RTI Response</a></h4>
+        <div class="attachment-text">
+          {{ rti_response_text }}<a href="#">more</a>
+        </div><!-- /.attachment-text -->
+      </div><!-- /.attachment-pushed -->
+    </div><!-- /.attachment-block -->
+
+    {% endif %}
+    <!-- Social sharing buttons -->
+
+    <div id = "likecontainer{{ rti_id }}" class = "likecontainer{{ rti_id }}" style = "float : left">
+      {% if like_status %}
+      <button class="btn btn-default btn-xs unlike{{ rti_id }}" id = "unlike{{ rti_id }}"><i class="fa fa-thumbs-up"></i> Liked</button>
+      {% else %}
+      <button class="btn btn-default btn-xs like{{ rti_id }}" id = "like{{ rti_id }}"><i class="fa fa-thumbs-o-up"></i> Like</button>
+      {% endif %}
+    </div>
+
+    <div id = "followcontainer{{ rti_id }}" class = "followcontainer{{ rti_id }}" style = "float : left">
+      {% if follow_status %}
+      <button class="btn btn-default btn-xs unfollow{{ rti_id }}" id = "unfollow{{ rti_id }}"><i class="fa fa-star"></i> Unfollow </button>
+      {% else %}
+      <button class="btn btn-default btn-xs follow{{ rti_id }}" id = "follow{{ rti_id }}"><i class="fa fa-star-o"></i> Follow </button>
+      {% endif %}
+    </div>
+    <div id = "spamcontainer{{ rti_id }}" class = "spamcontainer{{ rti_id }}" style = "float : left">
+      {% if spam_status %}
+      <button class="btn btn-default btn-xs unspam{{ rti_id }}" id = "unspam{{ rti_id }}"><i class="fa fa-thumbs-down"></i> Undo Mark as Spam </button>
+      {% else %}
+      <button class="btn btn-default btn-xs spam{{ rti_id }}" id = "spam{{ rti_id }}"><i class="fa fa-thumbs-o-down"></i> Mark as Spam </button>
+      {% endif %}
+    </div>
+    
+    <!-- <div class="fb-share-button" data-href="home" data-layout="button_count"></div> -->
+    
+    <span class="pull-right text-muted lc_count{{ rti_id }}" id = "lc_count{{ rti_id }}">{{ no_likes}} likes - {{ no_comments }} comments</span>
+    <!-- {% if more_comments %} -->
+      
+    <!-- {% endif %} -->
+  </div><!-- /.box-body -->
+  {% if more_comments %}
+  <div class="box-footer box-comments" id = "" style = "padding : 0px; margin : 0px; padding-left : 10px;">
+    <a href="#!" class = "load_prev_comments{{ rti_id }}">Load previous comments</a>
+  </div>
+  <div class="box-footer box-comments" id = "" style = "padding : 0px; margin : 0px; padding-left : 10px; ">
+    <a href="#!" class = "show_all{{ rti_id }}" style = "display : none;">Show all comments</a>
+  </div>
+  <div class="box-footer box-comments" id = "" style = "padding : 0px; margin : 0px; padding-left : 10px;">
+    <a href="#!" class = "hide_all{{ rti_id }}" style = "display : none;">Hide all comments</a>
+  </div>
+  {% endif %}
+  <div class="box-footer box-comments comment_container{{ rti_id }}" id = "comment_container{{ rti_id }}">
+    {{ comment_html | safe}}
+    
+  </div>
+  <div class="box-footer">
+    <!-- <form action="#" method="post"> -->
+      <img class="img-responsive img-circle img-sm" src="/media/{{ my_profile.profile_picture }}" alt="alt text">
+      <!-- .img-push is used to add margin to elements next to floating images -->
+      <div class="img-push">
+        <input type="text" class="form-control input-sm comment{{ rti_id }}" placeholder="Press enter to post comment" id = "comment{{ rti_id }}">
+      </div>
+    <!-- </form> -->
+  </div><!-- /.box-footer -->
+</div>
+
+<script type="text/javascript">
+  var user_context = {
+    name_user : '{{ my_profile.name_user }}',
+    profile_picture : '/media/{{ my_profile.profile_picture }}'
+  }
+  make_handlers_for({{ rti_id }}, user_context);
+</script>

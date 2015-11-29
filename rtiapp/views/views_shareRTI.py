@@ -8,12 +8,12 @@ from rtiapp import models
 import json
 from rtiapp.views import views_home
 from datetime import datetime, timedelta
-from rtiapp.rtiengine import relevance
+from rtiapp.rtiengine import relevance, newsfeed
 from django.views.decorators.csrf import csrf_exempt
 
 def share_rti_query(request):
 	context = {}
-	context['my_profile'] = views_home.get_profile_context(request.user)
+	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	states = models.State.objects.all()
 	gov_list = [{
 		'gov_id' : 0,

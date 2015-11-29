@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<script src="/static/scripts/load_feed.js"></script>
+<div class = "col-md-10">
+  <div class="content-wrapper" style = "padding-left : 30px; padding-right : 30px; padding-top : 70px;" id = "feedcontainer"> 
+    
+
+  </div>
+</div>
+{% if full_feed %}
+  <script type="text/javascript">
+    make_feed_for_url('/get_feed');
+  </script>
+{% else %}
+  <script type="text/javascript">
+
+    $.ajax({
+      url : '/view_rti',
+      data : {
+        rti_query_id : {{ rti_query_id }}
+      },
+      success : function(data){
+        $('#feedcontainer').append(data);
+      },
+      error : function(err){
+        console.log(err);
+      }
+
+    })
+
+  </script>
+{% endif %}
+<script src="/static/scripts/feedbox.js"></script>
+{% endblock %}

@@ -1,0 +1,26 @@
+<div class="box-comment comment_readbox{{ comment_id }}" id = "comment_readbox{{ comment_id }}">
+      <!-- User image -->
+  <img class="img-circle img-sm" src="/media/{{ comment_user_pic }}" alt="user image">
+  <div class="comment-text" >
+    <span class="username">
+      <a href = "{{ comment_user_url }}">{{ comment_name_user }}</a>
+      {% if my_comment %}
+        <span class="text-muted pull-right"><button class="btn btn-box-tool del_comment{{ comment_id }}" 
+        id = "del_comment{{  comment_id }}"><i class="fa fa-times"></i></button></span>
+        <span class="text-muted pull-right"><button class="btn btn-box-tool edit_comment{{  comment_id }}" 
+        id = "edit_comment{{  comment_id }}"><i class="fa fa-pencil"></i></button></span>
+      {% endif %}
+      <span class="text-muted pull-right">{{ comment_date }}</span>
+
+    </span><!-- /.username -->
+    <div id = "comment_content{{ comment_id }}" class = "comment_content{{ comment_id }}">
+    {{  comment_text }}
+    </div>
+  </div><!-- /.comment-text -->
+</div><!-- /.box-comment -->
+
+{% if my_comment %}
+<script type="text/javascript">
+  comment_handler({{ comment_id }}, {{ rti_id }}, "{{ comment_text}}");
+</script>
+{% endif %}
