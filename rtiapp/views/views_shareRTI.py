@@ -30,6 +30,7 @@ def share_rti_query(request):
 	context['gov_list'] = gov_list
 	return render_to_response('ShareRTI/post_rti_query.html', context)
 
+
 def get_departments_of(request):
 	gov_id = request.GET['gov_id']
 	if int(gov_id) == 0:
@@ -48,6 +49,14 @@ def get_departments_of(request):
 	
 	return render_to_response('ShareRTI/departments.html', context);
 
+def get_rti_tag(request):
+	tags=models.Tag.objects.all()
+	tag_content=[]
+	for t in tags:
+		tag_content.append({
+			'tag_name':t.tag_text
+			})
+	return HttpResponse(json.dumps(tag_content))
 
 @csrf_exempt
 def post_rti_query(request):

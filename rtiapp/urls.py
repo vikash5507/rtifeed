@@ -34,6 +34,7 @@ urlpatterns = patterns('',
 	url(r'^share_rti_query$', views_shareRTI.share_rti_query, name = 'share_rti_query'),
 	url(r'^post_rti_activity$', views_home.post_rti_activity, name = 'post_rti_activity'),
 	url(r'^get_departments_of$', views_shareRTI.get_departments_of, name = 'get_departments_of'),
+	url(r'^get_rti_tag$', views_shareRTI.get_rti_tag, name = 'get_rti_tag'),
 	url(r'^post_rti_query$', views_shareRTI.post_rti_query, name = 'post_rti_query'),
 	
 	url(r'^logout$', views_login.u_logout, name = 'logout'),

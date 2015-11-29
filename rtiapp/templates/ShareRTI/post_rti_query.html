@@ -2,9 +2,15 @@
 {% block content %}
 <link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 <script src="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<link href="/static/dist/css/jquery.tagit.css" rel="stylesheet" type="text/css">
+<link href="/static/dist/css/tagit.ui-zendesk.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/plugins/tagging/tag-it.js" type="text/javascript" charset="utf-8"></script>
+
 <div class = "">
+
  <div class="content-wrapper"> 
-   
+   <!-- <h2>Share your RTI</h2> -->
         
 
           <!-- Default box -->
@@ -18,61 +24,76 @@
       <div class="box-body">
         <!-- <p class="login-box-msg"><u>Share a new RTI query</u></p> -->
         <form action="index.html" method="post" id = "rti_form">
-          <div class="form-group col-xs-6">
-            <label for="govt_id">Choose State or Union Government</label>
-            <select type="text" class="form-control" placeholder="State or Union Government" id="govt_id" name="govt_id">
-               
-                {% for gov in gov_list %}
-                  <option value = "{{ gov.gov_id }}"> {{ gov.gov_name }}</option>
-                {% endfor %}
-            </select>
-            <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
-          </div>
+          <div class="row">
+              <div class="form-group col-xs-3">
+                <label for="govt_id">Choose State or Union Government</label>
+                <select type="text" class="form-control" placeholder="State or Union Government" id="govt_id" name="govt_id">
+                   
+                    {% for gov in gov_list %}
+                      <option value = "{{ gov.gov_id }}"> {{ gov.gov_name }}</option>
+                    {% endfor %}
+                </select>
+                <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
+              </div>
 
-          <div class="form-group col-xs-6">
-            <label for="dept_id">Choose RTI department</label>
-            <select type="text" class="form-control" placeholder="Select department" id="dept_id" name = "dept_id">
-                <!-- <option selected="selected">Select Department</option> -->
-                {% for dep in departments %}
-                  <option value = "{{ dep.id }}"> {{ dep.department_name }}</option>
-                {% endfor %}
-            </select>
-            <!-- <span class="glyphicon glyphicon-map-marker form-control-feedback"></span> -->
+              <div class="form-group col-xs-5">
+                <label for="dept_id">Choose RTI department</label>
+                <select type="text" class="form-control" placeholder="Select department" id="dept_id" name = "dept_id">
+                    <!-- <option selected="selected">Select Department</option> -->
+                    {% for dep in departments %}
+                      <option value = "{{ dep.id }}"> {{ dep.department_name }}</option>
+                    {% endfor %}
+                </select>
+                <!-- <span class="glyphicon glyphicon-map-marker form-control-feedback"></span> -->
+              </div>
+              <div class="form-group col-xs-4">
+                <label for="authority_name">Input Authority of Department</label>
+                <input type="text" class="form-control" placeholder="Authority name" id="authority_name" name="authority_name">
+                <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
+              </div>
           </div>
-          <div class="form-group col-xs-6">
-            <label for="authority_name">Input Authority of Department</label>
-            <input type="text" class="form-control" placeholder="Authority name" id="authority_name" name="authority_name">
-            <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
+          <div class="row">
+              <div class="form-group col-xs-4">
+                <label for="rti_no_id">Unique RTI number</label>
+                <input type="text" class="form-control" placeholder="RTI unique Registration Number" id="rti_no_id" name = "rti_no">
+                
+              </div>
+              <div class="form-group col-xs-4">
+                  <label for="date_id">Date of filing RTI</label>
+                  <input type="date" class="form-control" placeholder="Date of filing RTI" id="date_id" name="rti_date">
+                <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
+              </div>
+               <div class="form-group col-xs-4">
+                <label for="pass_id">Upload Image of filed RTI(if you have any)</label>
+                <input type="file" class="form-control" data-show-preview="false" placeholder="Insert RTI copy if filed Offline" accept="image/*" id="pass_id" name = "photo">
+                
+              </div>
+        </div>
+        <div class="row">
+              <div class="form-group col-xs-12">
+                  <label for="query_id">RTI Query</label>
+                  <textarea type="text" class="form-control textarea" rows="15"  placeholder="Mention your RTI query in details" id="query_id" name = "query_text"></textarea>
+                <!-- <span class="glyphicon glyphicon-envelope form-control-feedback"></span> -->
+              </div>
+              
+              <div class="form-group col-xs-6">
+                  <label for="descr_id">Brief Description of RTI query </label><small>(Max. 40 words)</small>
+                  <textarea type="text" class="form-control" placeholder="Brief Description" id="descr_id" name = "description"></textarea>
+                  <small id="descr_count">40</small> words
+                
+              </div>
+              
+              <div class="form-group col-xs-6">
+                  <label for="Tags">RTI Tags<i> (Type Slowly for Auto suggestion...)</i></label>
+                   <ul id="rti_tags">
+                    <!-- Existing list items will be pre-added to the tags. -->
+                  </ul>
+                <!-- <span class="glyphicon glyphicon-envelope form-control-feedback"></span> -->
+              </div>
           </div>
-          <div class="form-group col-xs-6">
-              <label for="date_id">Date of filing RTI</label>
-              <input type="date" class="form-control" placeholder="Date of filing RTI" id="date_id" name="rti_date">
-            <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
-          </div>
-          <div class="form-group">
-              <label for="query_id">RTI Query</label>
-              <textarea type="text" class="form-control textarea" placeholder="Mention your RTI query" id="query_id" name = "query_text"></textarea>
-            <!-- <span class="glyphicon glyphicon-envelope form-control-feedback"></span> -->
-          </div>
-          
-          <div class="form-group">
-              <label for="descr_id">Brief Description of RTI query</label>
-              <textarea type="text" class="form-control" placeholder="Brief Description" id="descr_id" name = "description"></textarea>
-            
-          </div>
-          <div class="form-group">
-            <label for="rti_no_id">Unique RTI number</label>
-            <input type="text" class="form-control" placeholder="RTI unique Registration Number" id="rti_no_id" name = "rti_no">
-            
-          </div>
-          <div class="form-group">
-            <label for="pass_id">Upload Image of filed RTI(if you have any)</label>
-            <input type="file" class="form-control" data-show-preview="false" placeholder="Insert RTI copy if filed Offline" accept="image/*" id="pass_id" name = "photo">
-            
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block btn-flat" id="post_id">Post</button>
-          </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block btn-flat" id="post_id">Post</button>
+        </div>
         </form>
       </div><!-- /.box-body -->
     </div><!-- /.box -->
@@ -82,6 +103,7 @@
   </div><!-- /.content-wrapper -->
 </div>
 <!--</div>-->
+ 
 <script>
         
 $('#govt_id').change(function(){
@@ -107,6 +129,7 @@ $('#govt_id').change(function(){
 $('#rti_form').on('submit',(function(e) {
     e.preventDefault()
     var formData =  new FormData($(this)[0]);
+    var tags_data=$("#rti_tags").tagit('assignedTags');
     alert(formData);
     $.ajax({
       url : '/post_rti_query',
@@ -134,9 +157,50 @@ $('#rti_form').on('submit',(function(e) {
     });
 }));
 
-  
 $(".textarea").wysihtml5();
 
+  $("#descr_id").on('keyup', function() {
+        var words = this.value.match(/\S+/g).length;
+        if (words > 40) {
+            // Split the string on first 200 words and rejoin on spaces
+            var trimmed = $(this).val().split(/\s+/, 40).join(" ");
+            // Add a space at the end to keep new typing making new words
+            $(this).val(trimmed + " ");
+        }
+        else {
+            // $('#display_count').text(words);
+            $('#descr_count').text(40-words);
+        }
+    });
   </script>
 
+<script>
+//***************************************Script to get tag from database*******************************////////////
+var sampletag=[];
+$.ajax({
+    url : '/get_rti_tag',
+    dataType:'json',
+    data : {
+    },
+    success : function(data){
+      for (var i=0;i<data.length;i++)
+      {
+        sampletag.push(data[i]['tag_name']);
+      }
+    },
+    error : function(err){
+      console.log(err);
+    }
+  });
+var sampleTags = sampletag;
+//-------------------------------
+// Preloading data in markup
+//-------------------------------
+$('#rti_tags').tagit({
+    availableTags: sampleTags, // this param is of course optional. it's for autocomplete.
+    // configure the name of the input field (will be submitted with form), default: item[tags]
+    itemName: 'item',
+    fieldName: 'tags'
+});
+</script>
 {% endblock %}
