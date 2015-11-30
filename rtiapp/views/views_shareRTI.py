@@ -107,3 +107,16 @@ def post_rti_query(request):
 		activity.save()
 
 		return HttpResponse('done')
+
+
+def edit_rti_query(request, rti_id):
+	rti_query = models.RTI_query.objects.filter(id = rti_id).first()
+	if not rti_query:
+		raise Http404("Page Not Found")
+	if not (rti_query.user == request.user):
+		raise Http404("Page Not Found")
+
+	context = newsfeed.make_rti_context(rti_query)
+	context['my_profile'] = newsfeed.get_profile_context(request.user)
+	return render_to_response('ShareRTI/edit_rti_query.html', context)
+

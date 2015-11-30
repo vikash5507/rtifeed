@@ -29,7 +29,7 @@ def rti_page(request, rti_id):
 	context['my_profile'] = newsfeed.get_profile_context(user)
 	context['rti_query_id'] = rti_id
 	context['full_feed'] = False
-	return render_to_response('Home/home.html', context)
+	return render_to_response('Home/rtipage.html', context)
 
 @login_required
 def get_feed(request):
@@ -144,4 +144,3 @@ def get_notifications(request):
 def mark_all_notifications(request):
 	notification.mark_all_notifications(request.user)
 	return HttpResponse('OK')
-	

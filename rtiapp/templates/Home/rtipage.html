@@ -7,9 +7,22 @@
 
   </div>
 </div>
-
 <script type="text/javascript">
-  make_feed_for_url('/get_feed');
+
+  $.ajax({
+    url : '/view_rti',
+    data : {
+      rti_query_id : {{ rti_query_id }}
+    },
+    success : function(data){
+      $('#feedcontainer').append(data);
+    },
+    error : function(err){
+      console.log(err);
+    }
+
+  })
+
 </script>
 
 <script src="/static/scripts/feedbox.js"></script>

@@ -36,7 +36,7 @@ urlpatterns = patterns('',
 	url(r'^get_departments_of$', views_shareRTI.get_departments_of, name = 'get_departments_of'),
 	url(r'^get_rti_tag$', views_shareRTI.get_rti_tag, name = 'get_rti_tag'),
 	url(r'^post_rti_query$', views_shareRTI.post_rti_query, name = 'post_rti_query'),
-	
+	url(r'^edit_rti_query/(?P<rti_id>[-\w.]+)/$', views_shareRTI.edit_rti_query, name = 'edit_rti_query'),
 	url(r'^logout$', views_login.u_logout, name = 'logout'),
 	url(r'^register', views_login.register, name = 'register'),
 	
@@ -59,7 +59,9 @@ urlpatterns = patterns('',
 	url(r'^post_follow_tds$', views_tds.post_follow_tds, name = 'post_follow_tds'),
 	url(r'^post_unfollow_tds$', views_tds.post_unfollow_tds, name = 'post_unfollow_tds'),
 
-	url(r'^settings/(?P<settings_type>\w+)/$', views_settings.all_settings, name="all_settings"),
+	# url(r'^settings/(?P<settings_type>\w+)/$', views_settings.all_settings, name="all_settings"),
+	url(r'^settings/profile$', views_settings.profile_settings, name="profile_settings"),
+	url(r'^settings/password$', views_settings.password_settings, name="password_settings"),
 	
 
 )

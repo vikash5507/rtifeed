@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content-wrapper">
+<div class="container" >
+  	<br>
+    <div class="col-xs-12 col-sm-8">
+	  <div class="panel panel-default">
+	  	<div class="panel-heading">
+	    	<h3 class="panel-title">Account Settings</h3>
+	  	</div>
+
+		 <div class="panel-body">
+		    <form action="/user/update-account-settings/" accept-charset="UTF-8" method="post">
+
+		        <div class="form-group">
+		          <label class="control-label">Email address</label>
+		          <p class="form-control-static" id="email">{{ user.email }}</p>
+		        </div>
+		        <div class="form-group">
+		          <label for="username">User Name</label>
+		          <input type="text" class="form-control" id="username" value="{{ user.username }}" name="username">
+		        </div>
+		        <div class="form-group">
+		          <label for="name">First Name</label>
+		          <input type="text" class="form-control" id="last_name" value="{{ user.first_name }}" name="name">
+		        </div>
+		        <div class="form-group">
+		          <label for="name">Last Name</label>
+		          <input type="text" class="form-control" id="last_name" value="{{ user.last_name }}" name="name">
+		        </div>
+		        
+		        <button type="submit" class="btn btn-primary  ">Update</button>
+			</form>  
+		 </div>
+	 </div>
+	</div>
+  <div class="col-xs-12 col-sm-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">vikash5507</h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list-group nav-sidebar">
+          <li class="list-group-item active">
+            <a href="/settings/account">Account</a></li>
+          <li class="list-group-item ">
+            <a href="/settings/profile">User Profile</a></li>
+          <li class="list-group-item ">
+            <a href="/settings/password">Password</a></li>
+          <li class="list-group-item ">
+            <a href="/settings/notification">Notifications</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

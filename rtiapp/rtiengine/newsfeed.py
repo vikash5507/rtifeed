@@ -61,7 +61,21 @@ def get_feed_for_rtis(rti_list, user):
 	
 	return HttpResponse(json.dumps(context))
 
+def make_rti_context(rti_query):
+	
+	context = {
+		'rti_id' : rti_query.id,
+		'rti_query_text' : rti_query.query_text,
+		'rti_rti_number' : rti_query.rti_number,
+		'rti_description' : rti_query.description,
+		'rti_file_date' : rti_query.rti_file_date,
+		'rti_query_type' : rti_query.query_type,
+		'rti_response_status' : rti_query.response_status,
+		'rti_department_id' : rti_query.department.id,
+	}
 
+
+	return context
 
 
 def get_feed_for_rti(rti, user, head_line = '', comment_strategy = 'time', max_comments = 2):
