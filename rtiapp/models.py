@@ -79,7 +79,6 @@ class RTI_query(models.Model):
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	query_text = models.TextField()
 	description = models.CharField(max_length = 200)
-	rti_number = models.CharField(max_length = 50)
 	rti_file_date = models.DateTimeField()
 	response_status = models.BooleanField(default = False)
 	query_type = models.CharField(max_length = 50)
@@ -107,7 +106,6 @@ class RTI_response(models.Model):
 
 	rti_query = models.OneToOneField(RTI_query, primary_key = True, on_delete = models.CASCADE)
 	response_text = models.TextField()
-	description = models.CharField(max_length = 200)
 	# check for response date > query date
 	rti_response_date = models.DateTimeField(null = True)
 	entry_date = models.DateTimeField()
@@ -229,4 +227,21 @@ class Activity_relevance(models.Model):
 	relevance = models.FloatField(default = 0.0)
 	views = models.IntegerField(default = 0)
 	update_date = models.DateTimeField(auto_now_add=True)
+
+class RTI_unlinked_files(models.Model):
+	user = models.ForeignKey(User, on_delete = models.CASCADE)
+	rti_hash = models.CharField(max_length = 200)
+	query_picture = models.ImageField(upload_to  = 'query_pictures')
+	linked = models.BooleanField(default = False)
 	
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
+
+@receiver(post_delete, sender=RTI_unlinked_files)
+def photo_post_delete_handler(sender, **kwargs):
+
+    uf = kwargs['instance']
+    storage, path = uf.query_picture.storage, uf.query_picture.path
+    print "delete"
+    if not uf.linked:
+    	storage.delete(path)

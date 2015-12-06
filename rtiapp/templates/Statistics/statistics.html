@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<script src="/static/scripts/load_feed.js"></script>
+<div class = "col-md-10">
+  <div class="content-wrapper" style = "padding-left : 30px; padding-right : 30px; padding-top : 70px;" id = "feedcontainer"> 
+    
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  make_feed_for_url('/get_feed');
+</script>
+
+<script src="/static/scripts/feedbox.js"></script>
+{% endblock %}

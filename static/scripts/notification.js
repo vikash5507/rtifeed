@@ -24,7 +24,7 @@ function get_notifications(){
 
 $('#notification_toggle').click(function(){
 	$.ajax({
-		url : 'mark_all_notifications',
+		url : '/mark_all_notifications',
 		success : function(data){
 			$('#notification_number').html("");	
 		},

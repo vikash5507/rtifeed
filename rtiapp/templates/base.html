@@ -18,7 +18,8 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="/static/dist/css/skins/_all-skins.min.css">
-
+    <link rel="stylesheet" href="/static/dist/css/search.css">
+    <!-- <link rel="stylesheet" href="/static/dist/css/search_min.css"> -->
         <!-- jQuery 2.1.4 -->
     <script src="/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
@@ -57,10 +58,10 @@
             <span class="icon-bar"></span>
           </a>
           <form class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-              <input type="text" class="form-control" id="navbar-search-input" placeholder="Search" style = "width : 200%">
+            <div>
+              <input type="text" class="form-control" id="navbar-search-input" placeholder="Search" style = "width : 400px;">
             </div>
-          </form> 
+          </form>
           <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
@@ -169,14 +170,14 @@
               </a>
             </li>
             <li>
-              <a href="post_rti_response.html">
+              <a href="/share_rti_response">
                 <i class="fa fa-th"></i> <span>Share new RTI Response</span> 
               </a>
             </li>
             <li>
-              <a href="dashboard.html">
+              <!-- <a href="dashboard.html">
                 <i class="fa fa-th"></i> <span>Statistics</span> 
-              </a>
+              </a> -->
             </li>
           </ul>
         </section>
@@ -191,6 +192,39 @@
       
       {% endblock %}
     </div><!-- ./wrapper -->
+
+    {% verbatim %}
+    <script id="result-template" type="text/x-handlebars-template">
+
+      <div class="ProfileCard u-cf" style="width:400px;">
+        <img class="ProfileCard-avatar" src="{{ profile_picture }}">
+
+        <div class="ProfileCard-details">
+          <div class="ProfileCard-realName"><a href = "{{ profile_url }}">  {{name_user}}  </a></div>
+        </div>
+
+        <div class="ProfileCard-stats">
+          <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">RTI:</span> 10 </div>
+          <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Following:</span> {{ num_following }} </div>
+          <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Followers:</span> {{ num_following }} </div>
+        </div>
+      </div>
+    // <div class="col-md-12" style="background-color:white;width:400px;">
+    // <div >
+    //   <h4>{{ name_user }}</h4>
+    //  </div>
+    // </div>
+    </script>
+    {% endverbatim %}
+
+    <script id="empty-template" type="text/x-handlebars-template">
+      <div class="EmptyMessage">Your search turned up 0 results. This most likely means the backend is down, yikes!</div>
+    </script>
+
     <script src="/static/scripts/notification.js"></script>
+    <script src="/static/plugins/handlebars/handlebars.js"></script>
+    <script src="/static/plugins/typeahead/typeahead.js"></script>
+    <script src="/static/scripts/search.js"></script>
+
   </body>
 </html>

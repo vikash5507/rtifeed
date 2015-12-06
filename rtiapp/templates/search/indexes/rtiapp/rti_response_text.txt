@@ -1,0 +1,2 @@
+{{object.response_text}}
+{{object.description}}

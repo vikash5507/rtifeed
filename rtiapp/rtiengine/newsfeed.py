@@ -66,7 +66,6 @@ def make_rti_context(rti_query):
 	context = {
 		'rti_id' : rti_query.id,
 		'rti_query_text' : rti_query.query_text,
-		'rti_rti_number' : rti_query.rti_number,
 		'rti_description' : rti_query.description,
 		'rti_file_date' : rti_query.rti_file_date,
 		'rti_query_type' : rti_query.query_type,
@@ -91,7 +90,6 @@ def get_feed_for_rti(rti, user, head_line = '', comment_strategy = 'time', max_c
 		'rti_user' : rti.user.first_name + " " + rti.user.last_name,
 		'rti_user_url' : '/profile/'+ rti.user.username+'/',
 		'rti_query_text' : rti.query_text,
-		'rti_rti_number' : rti.rti_number,
 		'rti_description' : rti.description,
 		'rti_file_date' : rti.rti_file_date,
 		'rti_entry_date' : rti.entry_date,
@@ -112,7 +110,7 @@ def get_feed_for_rti(rti, user, head_line = '', comment_strategy = 'time', max_c
 		response = models.RTI_response.objects.filter(rti_query = rti).first()
 		if response:
 			rti_context['response_text'] = response.response_text
-			rti_context['response_description'] = response.description
+			
 			rti_context['response_file_date'] = response.rti_response_date
 			rti_context['response_entry_date'] = response.entry_date
 
@@ -166,3 +164,16 @@ def get_comment_html(comment, user):
 		'my_comment' : comment.user == user,
 	}
 	return render_to_response('Home/comment.html', context)
+
+
+def get_rti_meta_data(rti):
+	rti_context = {}
+	comments = models.Activity.objects.filter(rti_query = rti, activity_type = 'comment').order_by('-entry_date')
+	likes = models.Activity.objects.filter(rti_query = rti, activity_type = 'like').order_by('-entry_date')
+	shares = models.Activity.objects.filter(rti_query = rti, activity_type = 'share').order_by('-entry_date')
+
+	rti_context['no_comments'] = len(comments)
+	rti_context['no_likes'] = len(likes)
+	rti_context['no_shares'] = len(shares)
+
+	return rti_context

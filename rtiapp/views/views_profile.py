@@ -9,6 +9,7 @@ from rtiapp import common
 
 from rtiapp.rtiengine import relevance, newsfeed
 
+
 def make_profile_context(user):
 	context = {
 		'user_id' : user.id,

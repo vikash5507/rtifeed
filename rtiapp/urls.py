@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url
 from rtiapp.views import views_test, views_profile
 from rtiapp.views import views_login, views_home
 from rtiapp.views import views_tds, views_settings
-from rtiapp.views import views_shareRTI
+from rtiapp.views import views_shareRTI, views_search
 
 urlpatterns = patterns('',
 	url(r'^fblogintest$', views_test.fblogintest, name = 'fblogintest'),
@@ -15,6 +15,8 @@ urlpatterns = patterns('',
 	# url(r'^home$', views_home.home_page, name = 'homepage'),
 	url(r'^base$', views_test.base, name = 'basepage'),
 	url(r'^home$', views_home.home_page, name = 'homepage'),
+	url(r'^statistics$', views_home.statistics, name = 'statistics'),
+
 	url(r'^rti_page/(?P<rti_id>\w+)/$', views_home.rti_page, name = 'rti_page'),
 	url(r'^get_feed$', views_home.get_feed, name = 'get_feed'),
 	url(r'^get_notifications$', views_home.get_notifications, name = 'get_notifications'),
@@ -32,10 +34,15 @@ urlpatterns = patterns('',
 	
 
 	url(r'^share_rti_query$', views_shareRTI.share_rti_query, name = 'share_rti_query'),
+	url(r'^share_rti_response$', views_shareRTI.share_rti_response, name = 'share_rti_response'),
+
 	url(r'^post_rti_activity$', views_home.post_rti_activity, name = 'post_rti_activity'),
 	url(r'^get_departments_of$', views_shareRTI.get_departments_of, name = 'get_departments_of'),
 	url(r'^get_rti_tag$', views_shareRTI.get_rti_tag, name = 'get_rti_tag'),
 	url(r'^post_rti_query$', views_shareRTI.post_rti_query, name = 'post_rti_query'),
+	url(r'^post_rti_response$', views_shareRTI.post_rti_response, name = 'post_rti_response'),
+
+	url(r'^submit_rti_photos$', views_shareRTI.submit_rti_photos, name = 'submit_rti_photos'),
 	url(r'^edit_rti_query/(?P<rti_id>[-\w.]+)/$', views_shareRTI.edit_rti_query, name = 'edit_rti_query'),
 	url(r'^logout$', views_login.u_logout, name = 'logout'),
 	url(r'^register', views_login.register, name = 'register'),
@@ -62,6 +69,9 @@ urlpatterns = patterns('',
 	# url(r'^settings/(?P<settings_type>\w+)/$', views_settings.all_settings, name="all_settings"),
 	url(r'^settings/profile$', views_settings.profile_settings, name="profile_settings"),
 	url(r'^settings/password$', views_settings.password_settings, name="password_settings"),
-	
+
+	# url(r'^search$', views_search.search, name="search"),
+	url(r'^search_model$', views_search.search_model, name="search_model"),
+	url(r'^search_page$', views_search.search_page, name="search_page"),
 
 )
