@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url
 from rtiapp.views import views_test, views_profile
 from rtiapp.views import views_login, views_home
 from rtiapp.views import views_tds, views_settings
-from rtiapp.views import views_shareRTI, views_search
+from rtiapp.views import views_shareRTI, views_search, views_statistics
 
 urlpatterns = patterns('',
 	url(r'^fblogintest$', views_test.fblogintest, name = 'fblogintest'),
@@ -15,7 +15,7 @@ urlpatterns = patterns('',
 	# url(r'^home$', views_home.home_page, name = 'homepage'),
 	url(r'^base$', views_test.base, name = 'basepage'),
 	url(r'^home$', views_home.home_page, name = 'homepage'),
-	url(r'^statistics$', views_home.statistics, name = 'statistics'),
+	url(r'^statistics$', views_statistics.statistics, name = 'statistics'),
 
 	url(r'^rti_page/(?P<rti_id>\w+)/$', views_home.rti_page, name = 'rti_page'),
 	url(r'^get_feed$', views_home.get_feed, name = 'get_feed'),

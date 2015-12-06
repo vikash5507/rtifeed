@@ -108,11 +108,18 @@ def post_rti_query(request):
 		
 		query= request.POST['query_text']
 		description= request.POST['description']
-		authority=request.POST['authority_name']
+		authority_name=request.POST['authority_name']
 		dept_id=request.POST['dept_id']
 		rti_file_date=request.POST['rti_date']
 		
-		
+
+		authority = models.Authority.objects.filter(authority_name = authority_name).first()
+		if not authority:
+			authority = models.Authority
+			authority.authority_name = authority_name
+			authority.department_id = dept_id
+			authority.save()
+
 		rti_query=models.RTI_query()
 		
 		rti_query.user = user
@@ -132,6 +139,7 @@ def post_rti_query(request):
 		else:
 			rti_query.query_type = 'state'
 		
+		rti_query.authority = authority
 		rti_query.department_id = dept_id
 		rti_query.save()
 
