@@ -1,58 +1,68 @@
-{% extends 'base.html' %}
-{% block content %}
-<div class="content-wrapper">
+{% extends 'Settings/setting_base.html' %}
+{% block setting_content %}
+<div class="col-xs-12 col-sm-8">
+  <div class="panel panel-default">
+  	<div class="panel-heading">
+    	<h3 class="panel-title">Profile Settings</h3>
+  	</div>
 
-  	<br>
-    <div class="col-xs-12 col-sm-8">
-	  <div class="panel panel-default">
-	  	<div class="panel-heading">
-	    	<h3 class="panel-title">Account Settings</h3>
-	  	</div>
+	 <div class="panel-body">
+	    <form method="post" id = "profile_form">
 
-		 <div class="panel-body">
-		    <form action="/user/update-account-settings/" accept-charset="UTF-8" method="post">
-
-		        <div class="form-group">
-		          <label class="control-label">Email address</label>
-		          <p class="form-control-static" id="email">{{ user.email }}</p>
-		        </div>
-		        <div class="form-group">
-		          <label for="username">User Name</label>
-		          <input type="text" class="form-control" id="username" value="{{ user.username }}" name="username">
-		        </div>
-		        <div class="form-group">
-		          <label for="name">First Name</label>
-		          <input type="text" class="form-control" id="last_name" value="{{ user.first_name }}" name="name">
-		        </div>
-		        <div class="form-group">
-		          <label for="name">Last Name</label>
-		          <input type="text" class="form-control" id="last_name" value="{{ user.last_name }}" name="name">
-		        </div>
-		        
-		        <button type="submit" class="btn btn-primary  ">Update</button>
-			</form>  
-		 </div>
+	        <div class="form-group">
+	          <label class="control-label">Email address</label>
+	          <p class="form-control-static" id="email">{{ user.email }}</p>
+	        </div>
+	        <div class="form-group">
+	          <label for="username">User Name</label>
+	          <input type="text" class="form-control" id="username" value="{{ user.username }}" name="username">
+	        </div>
+	        <div class="form-group">
+	          <label for="name">First Name</label>
+	          <input type="text" class="form-control" id="last_name" value="{{ user.first_name }}" name="first_name">
+	        </div>
+	        <div class="form-group">
+	          <label for="name">Last Name</label>
+	          <input type="text" class="form-control" id="last_name" value="{{ user.last_name }}" name="last_name">
+	        </div>
+	        
+	        <button type="submit" class="btn btn-primary  ">Update</button>
+		</form>  
 	 </div>
-	</div>
-	  <div class="col-xs-12 col-sm-4">
-	    <div class="panel panel-default">
-	      <div class="panel-heading">
-	        <h3 class="panel-title">vikash5507</h3>
-	      </div>
-	      <div class="panel-body">
-	        <ul class="list-group nav-sidebar">
-	          <li class="list-group-item">
-	            <a href="/settings/account">Account</a></li>
-	          <li class="list-group-item ">
-	            <a href="/settings/profile">User Profile</a></li>
-	          <li class="list-group-item ">
-	            <a href="/settings/password">Password</a></li>
-	          <li class="list-group-item ">
-	            <a href="/settings/notification">Notifications</a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </div>
-
+ </div>
 </div>
+<script type="text/javascript">
+$('#profile_form').on('submit', function(e){
+	e.preventDefault();
+	var formData = new FormData($(this)[0]);
+	formData.append('setting_type', 'profile')
+	swal({   
+		title: "Are you sure?",   
+		text: "Submit to run ajax request",   
+		type: "info",
+		confirmButtonText: "Yes! Update",
+		showCancelButton: true,   
+		closeOnConfirm: false,   
+		showLoaderOnConfirm: true, 
+		}, 
+		function(){   
+			$.ajax({
+				url : '/update_settings',
+				data : formData,
+				type : 'POST',
+
+				success : function(data){
+					swal("Updated!", "Your profile settings were successfully updated", "success");
+				},
+				error : function(err){
+					swal("Oops!", "We messed up", "error");	
+				},
+				contentType: false,
+  				processData: false
+			});
+			
+			// swal('done');
+	});
+});
+</script>
 {% endblock %}

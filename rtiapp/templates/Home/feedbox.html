@@ -1,61 +1,74 @@
-<div class="box box-widget">
+<div class="box box-widget" id = "feed_box{{ rti_id }}">
   <div class="box-header with-border">
     <div class = "rti_headline"><h6><samll> {{ rti_head_line | safe}} </samll></h6> </div>
     <div class="user-block">
+      
       <img class="img-circle" src="/media/{{ rti_user_pic }}" alt="user image">
       <span class="username"><a href="{{ rti_user_url }}">{{ rti_user }}</a></span>
       <span class="description">Shared publicly on {{rti_entry_date}}</span>
       {% if rti_query_type == "centre" %}
       <span class="description">Issued to <a href="{{ rti_department_url }}"> <b>{{ rti_department }}</b></a> on <b>{{rti_entry_date}}</b></span>
       {% else %}
-      <span class="description">Issued in {{ rti_state }}</span>
-      <span class="description">to <b>{{ rti_department }}</b> on <b>{{rti_entry_date}}</b></span>
+      <span class="description">Issued in <a href="{{ rti_state_url }}">{{ rti_state }}</a></span>
+      <span class="description">to <a href="{{ rti_department_url }}"> <b>{{ rti_department }}</b></a> on <b>{{rti_entry_date}}</b></span>
       {% endif %}
     </div><!-- /.user-block -->
     {% if my_rti %}
     <div class="box-tools">
-      <button class="btn btn-box-tool edit_rti{{ rti_id }}" data-widget="collapse"><i class="fa fa-pencil"></i></button>
-      <button class="btn btn-box-tool delete_rti{{ rti_id }}" data-widget="remove"><i class="fa fa-times"></i></button>
+      <button class="btn btn-box-tool edit_rti{{ rti_id }}"><i class="fa fa-pencil"></i></button>
+      <button class="btn btn-box-tool delete_rti{{ rti_id }}" ><i class="fa fa-times"></i></button>
     </div><!-- /.box-tools -->
     {% endif %}
   </div><!-- /.box-header -->
   <div class="box-body">
-    <!-- post text -->
+    
     {{ rti_description }}
 
-    <!-- Attachment -->
     <div class="attachment-block clearfix">
       <h4><a href="{{ rti_url }}">RTI Query</a></h4>
-      {% if rti_photo %}
-
-      <center> <img class="attachment-img" src="/media/{{ rti_photo }}" alt="attachment image" 
-      style = "max-width : 80%; float : none; max-height : 300px;"></center>
-      
-      {% endif %}
-      
+      <div class="row">
+        <div class="{{ qp_container_class }}">
+          <div class="row">
+              {% for r_image in rti_query_images   %}
+                <a href="{{ r_image.image_url }}" data-toggle="lightbox" data-gallery="{{ rti_id }}query" data-title="" class="col-sm-4">
+                  <img src="{{ r_image.image_url }}" class="img-responsive">
+              </a>
+              {% endfor %}
+          </div>
+        </div>
+      </div>
       <div class="attachment">
-      
-        
         <div class="attachment-text">
           {{ rti_query_text | safe}}<a href="#">more</a>
-        </div><!-- /.attachment-text -->
-      </div><!-- /.attachment-pushed -->
-    </div><!-- /.attachment-block -->
+        </div>
+      </div>
+    </div>
 
     {% if rti_response_status %}
 
     <div class="attachment-block clearfix">
-      <img class="attachment-img" src="/static/dist/img/photo1.png" alt="attachment image">
-      <div class="attachment-pushed">
-        <h4 class="attachment-heading"><a href="http://www.lipsum.com/">RTI Response</a></h4>
+      <h4><a href="{{ rti_url }}">RTI Response</a></h4>
+      <div class="row">
+        <div class="{{ qp_container_class }}">
+          <div class="row">
+              {% for r_image in rti_response_images   %}
+                <a href="{{ r_image.image_url }}" data-toggle="lightbox" data-gallery="{{ rti_id }}response" data-title="" class="col-sm-4">
+                  <img src="{{ r_image.image_url }}" class="img-responsive">
+              </a>
+              {% endfor %}
+          </div>
+            
+        </div>
+      </div>
+      <div class="attachment">
         <div class="attachment-text">
-          {{ rti_response_text }}<a href="#">more</a>
-        </div><!-- /.attachment-text -->
-      </div><!-- /.attachment-pushed -->
-    </div><!-- /.attachment-block -->
+          {{ response_text | safe}}<a href="#">more</a>
+        </div>
+      </div>
+    </div>
 
     {% endif %}
-    <!-- Social sharing buttons -->
+    
 
     <div id = "likecontainer{{ rti_id }}" class = "likecontainer{{ rti_id }}" style = "float : left">
       {% if like_status %}
@@ -100,23 +113,24 @@
   {% endif %}
   <div class="box-footer box-comments comment_container{{ rti_id }}" id = "comment_container{{ rti_id }}">
     {{ comment_html | safe}}
-    
   </div>
   <div class="box-footer">
     <!-- <form action="#" method="post"> -->
       <img class="img-responsive img-circle img-sm" src="/media/{{ my_profile.profile_picture }}" alt="alt text">
       <!-- .img-push is used to add margin to elements next to floating images -->
       <div class="img-push">
-        <input type="text" class="form-control input-sm comment{{ rti_id }}" placeholder="Press enter to post comment" id = "comment{{ rti_id }}">
+        <textarea type="text" class="form-control input-sm comment{{ rti_id }}" placeholder="Press enter to post comment" id = "comment{{ rti_id }}"></textarea>
       </div>
     <!-- </form> -->
   </div><!-- /.box-footer -->
 </div>
 
 <script type="text/javascript">
+  
   var user_context = {
     name_user : '{{ my_profile.name_user }}',
     profile_picture : '/media/{{ my_profile.profile_picture }}'
   }
   make_handlers_for({{ rti_id }}, user_context);
 </script>
+

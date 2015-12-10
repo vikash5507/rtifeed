@@ -14,6 +14,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate,login, logout
+from django.core.mail import EmailMultiAlternatives
 
 def get_user_avatar(backend, user, response, details, *args, **kwargs):
     a = 5
@@ -27,12 +28,13 @@ def get_user_avatar(backend, user, response, details, *args, **kwargs):
         profile.entry_date = datetime.now()
 
     if backend.name == 'facebook':
-        url = "http://graph.facebook.com/%s/picture?type=normal" % response['id']
-        avatar = urlopen(url)
-        profile.profile_picture.save(slugify(user.username + " social") + '.jpg', 
-                            ContentFile(avatar.read()))
+        if profile.profile_status == 'incomplete':
+            url = "http://graph.facebook.com/%s/picture?type=normal" % response['id']
+            avatar = urlopen(url)
+            profile.profile_picture.save(slugify(user.username + " social") + '.jpg', 
+                                ContentFile(avatar.read()))
         # profile.profile_picture = url
-        print response
+        # print response
         fb_data = {
             # 'city': response['location']['name'],
             'gender': str(response['gender']),
@@ -44,12 +46,18 @@ def get_user_avatar(backend, user, response, details, *args, **kwargs):
         print "gendefr", fb_data['gender']
         # profile.city = fb_data['city']
         # profile.date_of_birth = fb_data['dob']
+
     
-    profile.save()
+        profile.save()
 
 
-    # elif backend.name == 'twitter':
-    #     url = response.get('profile_image_url', '').replace('_normal', '')
+    elif backend.name == 'twitter':
+        if profile.profile_status == 'incomplete':
+            url = response.get('profile_image_url', '').replace('_normal', '')
+            avatar = urlopen(url)
+            profile.profile_picture.save(slugify(user.username + " social") + '.jpg', 
+                                ContentFile(avatar.read()))
+            profile.save()
 
     # social_user = user.social_auth.filter(provider = 'facebook').first()
     # if social_user:
@@ -115,8 +123,18 @@ def SendVerificationEmail(strategy, backend, code):
             reverse('social:complete', args=(backend.name,)),
             code.code, signature)
         verifyURL = strategy.request.build_absolute_uri(verifyURL)
-        
-
+        user_profile = models.User_profile.objects.filter(user = user).first()
+        user_profile.verification_url = verifyURL
+        user_profile.save()
+        emailText = "sample"
+        kwargs = {
+            "subject": "Verify Your Account",
+            "body": emailText,
+            "from_email": "paarth.n@gmail.com",
+            "to": ["paarth.n@gmail.com"],
+        }
+        email = EmailMultiAlternatives(**kwargs)
+        email.send()
         print verifyURL
 #     emailHTML = # Include your function that returns an html string here
 #     emailText = """Welcome to MyApp!

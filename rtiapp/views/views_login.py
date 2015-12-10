@@ -71,7 +71,9 @@ def register(request):
 	login(request, user)
 	return HttpResponseRedirect('/profile/' + user.username)
 	
-
+def email_verify_sent(request):
+	return render_to_response('Login/email_verification_sent.html')
+	
 def validate_register_data(user_data):
 	return "OK"
 

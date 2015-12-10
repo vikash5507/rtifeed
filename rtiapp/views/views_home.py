@@ -18,6 +18,7 @@ def home_page(request):
 	if user_profile.profile_status == 'incomplete':
 		user_profile.profile_status = 'complete'
 		user_profile.save()
+		activity_relevance.update_user_relevance(user)
 		return HttpResponseRedirect('/profile/' + user.username)	
 	context = {}
 	context['my_profile'] = newsfeed.get_profile_context(user)
@@ -36,6 +37,7 @@ def rti_page(request, rti_id):
 def get_feed(request):
 	user = request.user
 	if not user:
+		print "ck"
 		return
 	
 	fetched_rti_list = json.loads(request.GET['fetched_rti_list'])
@@ -108,6 +110,9 @@ def post_rti_activity(request):
 			comment_text = request.POST['comment_text']
 			meta_data = json.dumps({'comment_text' : comment_text})
 		else:
+			meta_data = request.POST['meta_data']
+			if not meta_data:
+				meta_data = None
 			models.Activity.objects.filter(user = user, rti_query = rti_query, activity_type = activity_type).delete()
 		
 		if request.POST['edit'] == '1':

@@ -44,7 +44,7 @@ a {
 
 a:hover {
   /*text-decoration: underline;*/
-  
+
 }
 
 p {
@@ -285,6 +285,7 @@ input[type=text]::-ms-clear {
   position: relative;
   padding: 8px;
   background-color: white;
+  border: 1px solid #ccd6dd;
 }
 
 .ProfileCard-avatar {

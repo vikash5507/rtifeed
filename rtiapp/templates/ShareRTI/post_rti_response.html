@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
 <script src="/static/bootstrap/js/validate.js"></script>
 <script src="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 
 <script src="/static/plugins/dropzone/dropzone.js"></script>
 <link href="/static/dist/css/dropzone.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
  <div class="content-wrapper col-md-8"> 
    
@@ -53,7 +54,7 @@
           </div>
           <div class="form-group col-xs-12">
               <label for="response_id">Description of Response</label>
-              <textarea type="text" class="form-control textarea" placeholder="Mention your RTI response" id="query_id" name ="response_text"></textarea>
+              <textarea type="text" class="form-control textarea" placeholder="Mention your RTI response" id="" name ="response_text"></textarea>
             <!-- <span class="glyphicon glyphicon-envelope form-control-feedback"></span> -->
           </div>
           
@@ -101,23 +102,29 @@ $('#rti_response_form').on('submit',(function(e) {
     var formData =  new FormData($(this)[0]);
     formData.append('rti_query_id', '{{ rti_id }}');
     formData.append('rti_hash', '{{ rti_hash }}');
-    alert(formData);
+    
     $.ajax({
       url : '/post_rti_response',
       type : 'POST',
       data : formData,
+      dataType : 'json',
       beforeSend: function(){
         $('#post_id').html("Please wait..");
       },
       success : function(data){
           
-          
-          // alert(data)
-          alert('done');
-          // alert(data);
+          swal({    
+            title: "RTI Response saved successfully!",  
+            type: "success",   
+            closeOnConfirm: false,
+            }, 
+            function(){   
+              window.location.href = '/rti_page/' + data.rti_id;  
+            }
+          );
       },
       error : function(data){
-          console.log(JSON.stringify(data));
+          swal('Oops..', 'Something went wrong', 'error');
           $('#post_id').html("Post");
       },
       contentType: false,
@@ -129,5 +136,8 @@ $('#rti_response_form').on('submit',(function(e) {
   
 $(".textarea").wysihtml5();
   </script>
+
+
+
 
 {% endblock %}

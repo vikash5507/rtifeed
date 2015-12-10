@@ -1,0 +1,33 @@
+{% extends 'TDS/tds_base.html' %}
+{% block profile_body %}
+<div class = "box box-primary">
+  <div class = "box-header">
+    <h4 class =  "box-title">Departments</h4>
+  </div>
+  <div class = "box-body">
+    <table class="table table-bordered">
+      <tbody>
+      <tr>
+        <th style="width: 10px">#</th>
+        <th>Department Name</th>
+        <th>Followers</th>
+        <th>Queries Filed</th>
+        <th>Responses</th>
+      </tr>
+
+      {% for department in department_list %}
+      <tr>
+        <td>{{ rti_description.s_no }} </td>
+        <td style = "width : 30%"><a href="{{ department.tds_url }}"> {{ department.tds_name }}</a></td>
+        <td>{{ department.tds_no_followers  }}</td>
+        <td>{{ department.tds_no_rti_queries }}</td>
+        <td>{{ department.tds_no_rti_responses }}</td>
+      </tr>
+      {% endfor %}
+
+      
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

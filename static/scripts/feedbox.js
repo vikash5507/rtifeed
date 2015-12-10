@@ -29,9 +29,11 @@ function make_handlers_for(rti_id, user_context){
   $('.spam'+rti_id).each(function(){
     $(this).unbind('click');
     $(this).on('click', function(){
-      post_response(rti_id, 'spam');
+        spam_sweet_alert(rti_id);
     });
   });
+
+
   $('.unspam'+rti_id).each(function(){
     $(this).unbind('click');
     $(this).on('click', function(){
@@ -69,7 +71,64 @@ function make_handlers_for(rti_id, user_context){
       };
     });
   });
+
+  $('.delete_rti'+rti_id).each(function(){
+    $(this).unbind('click');
+    $(this).on('click', function(){
+      delete_rti(rti_id);
+    });
+  });
 }
+
+function delete_rti(rti_id){
+  swal({   
+    title: "Are you sure?",   
+    // text: "Write something interesting:",   
+    showCancelButton: true,   
+    closeOnConfirm: false,   
+    animation: "slide-from-top",   
+    confirmButtonText : 'Yes Delete this',
+    showLoaderOnConfirm: true,
+    },
+    function(){
+      $.ajax({
+        url : '/delete_rti',
+        data : {
+          'rti_id' : rti_id,
+        },
+        type : 'POST',
+        success : function(){
+          swal('Deleted', 'Your RTI has been successfully deleted', 'success');
+          $('#feed_box' + rti_id).remove();
+        },
+        error : function(){
+          swal('Oops', 'Something went wrong', 'error');
+        }
+      })
+      
+    });
+}
+function spam_sweet_alert(rti_id){
+  swal({   
+    title: "Why did you find this inappropriate?",   
+    // text: "Write something interesting:",   
+    type: "input",   
+    showCancelButton: true,   
+    closeOnConfirm: false,   
+    animation: "slide-from-top",   
+    inputPlaceholder: "Reason" }, 
+    function(inputValue){   
+      if (inputValue === false) 
+        return false;    
+      if (inputValue === "") {     
+        swal.showInputError("Please specify a reason!");     
+        return false;
+      }      
+      post_response(rti_id, 'spam', inputValue);
+      swal('Thank you for your feedback!');
+    });
+}
+
 
 function load_prev_comments(rti_id){
   $.ajax({
@@ -179,8 +238,9 @@ function post_comment(rti_id, comment_text, user_context){
   });
 }
 
-function post_response(rti_id, rtype){
+function post_response(rti_id, rtype, meta_data){
   // alert(rtype);
+  meta_data = typeof meta_data !== 'undefined' ? meta_data : false;
   var url = '/post_rti_activity';
   var activity_type = '';
   var undo = 0;
@@ -215,6 +275,7 @@ function post_response(rti_id, rtype){
     data : {
       rti_query_id : rti_id,
       activity_type : activity_type,
+      meta_data : meta_data,
       undo : undo,
       edit : 0
     },
@@ -311,7 +372,7 @@ function handle_success_response(rti_id, data, rtype){
 
       $('.spam'+rti_id).each(function(){
         $(this).on('click', function(){
-          post_response(rti_id, 'spam');
+          spam_sweet_alert(rti_id);
         });
       });
   }

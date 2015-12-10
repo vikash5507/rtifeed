@@ -37,6 +37,13 @@ def display_state_details(request, state_id, details_required):
 	context['details_required'] = 'following'
 	if details_required == 'followers':
 		return render_to_response('TDS/tds_follow.html', context)
+	elif details_required == 'departments':
+		state_departments = models.State_department.objects.filter(state = state)
+		context['department_list'] = []
+		for stdp in state_departments:
+			department = stdp.department
+			context['department_list'].append(make_department_context(department, request.user))
+		return render_to_response('TDS/state_departments.html', context)
 	else:
 		raise Http404("Department Does Not Exist")
 
@@ -60,12 +67,15 @@ def make_department_context(department, user):
 		'tds_id' : department.id,
 		'tds_type' : 'department',
 		'tds_name' : department.department_name,
-		'tds_subline' : department.website,
-		'tds_website' : department.website,
-		'department_type' : department.department_type
+		'department_type' : department.department_type,
+		'tds_url' : '/department/' + str(department.id)
 	}
+	if department.website:
+		context['tds_subline'] = department.website
+		context['tds_website'] = department.website
 	if department.department_type == 'state':
-		context['tds_state'] = department.state.state_name
+		state_department = models.State_department.objects.filter(department = department).first()
+		context['tds_state'] = state_department.state.state_name
 	context['follow_status'] = len(models.Follow_department.objects.filter(followee = department, follower = user)) > 0
 	context['tds_no_followers'] = len(models.Follow_department.objects.filter(followee = department))
 	rti_queries = models.RTI_query.objects.filter(department = department)
@@ -89,6 +99,7 @@ def make_state_context(state, user):
 	context['tds_no_rti_responses'] = len(rti_responses)
 	context['follow_status'] = len(models.Follow_state.objects.filter(followee = state, follower = user)) > 0
 	context['tds_no_followers'] = len(models.Follow_state.objects.filter(followee = state))
+	context['tds_no_departments'] = len(models.State_department.objects.filter(state = state))
 	return context
 
 def make_topic_context(topic):

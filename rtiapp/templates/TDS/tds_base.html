@@ -36,7 +36,18 @@
         
         <div class="box-footer">
           <div class="row">
-            
+            {% if tds_type == 'state' %}
+            <div class="col-sm-4 border-right">
+              <div class="description-block">
+                <a href="/{{ tds_type }}/{{ tds_id }}/departments">
+                  <h5 class="description-header">{{ tds_no_departments }}</h5>
+                  <span class="description-text">DEPARTMENTS</span>
+                </a>
+              </div><!-- /.description-block -->
+            </div><!-- /.col -->
+            {% else %}
+            <div class='col-sm-2'></div>
+            {% endif %}
             <div class="col-sm-4 border-right">
               <div class="description-block">
                 <a href="/{{ tds_type }}/{{ tds_id }}/followers">
@@ -45,18 +56,19 @@
                 </a>
               </div><!-- /.description-block -->
             </div><!-- /.col -->
-            <div class="col-sm-4">
+            <div class="col-sm-2">
               <div class="description-block">
                 <h5 class="description-header">{{ tds_no_rti_queries }}</h5>
                 <span class="description-text">QUERIES</span>
               </div><!-- /.description-block -->
             </div><!-- /.col -->
-            <div class="col-sm-4">
+            <div class="col-sm-2">
               <div class="description-block">
                 <h5 class="description-header">{{ tds_no_rti_responses }}</h5>
                 <span class="description-text">RESPONSES</span>
               </div><!-- /.description-block -->
             </div><!-- /.col -->
+
           </div><!-- /.row -->
         </div>
       </div>

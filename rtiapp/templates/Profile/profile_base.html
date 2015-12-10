@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<script src="/static/plugins/dropzone/dropzone.js"></script>
+<link href="/static/dist/css/dropzone.css" rel="stylesheet" type="text/css">
+
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <!-- <section class="content-header">
@@ -26,7 +29,10 @@
             <img class="profile-user-img img-responsive img-circle" src="/media/{{ profile_picture }}" alt="User profile picture">
             <h3 class="profile-username text-center"><a href = '/profile/{{ username }}' >{{ name_user }}</a> </h3>
             <p class="text-muted text-center">{{ bio_description }}</p>
-
+            {% if is_me %}
+            <center><button type="button" class="btn btn-info" data-toggle="modal" data-target="#photo_modal">Update Photo</button></center>
+            <br>
+            {% endif %}
             <ul class="list-group list-group-unbordered">
               <li class="list-group-item">
                 <b><a href="/profile/{{ username }}/followers">Followers</a></b> <a class="pull-right" id = 'num_followers'>{{ num_followers }}</a>
@@ -61,21 +67,7 @@
             <strong><i class="fa fa-map-marker margin-r-5"></i> State</strong>
             <p class="text-muted">{{ state }}</p>
 
-            <!-- <hr>
-
-            <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
-            <p>
-              <span class="label label-danger">UI Design</span>
-              <span class="label label-success">Coding</span>
-              <span class="label label-info">Javascript</span>
-              <span class="label label-warning">PHP</span>
-              <span class="label label-primary">Node.js</span>
-            </p>
-
-            <hr>
-
-            <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p> -->
+           
           </div><!-- /.box-body -->
         </div><!-- /.box -->
       </div><!-- /.col -->
@@ -87,9 +79,41 @@
 
   </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
+<div id="photo_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Upload Profile Picture</h4>
+      </div>
+      <div class="modal-body">
+        <div id = "update_profile_photo" class = 'dropzone'></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id ="closedp" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 <script src="/static/scripts/follow_unfollow_user.js"></script>
 <script type="text/javascript">
   make_handlers_for_follow({{ user_id }});
+  var myDropzone = new Dropzone("div#update_profile_photo", { 
+    url: "/submit_profile_photo",
+    maxFiles : 1,
+    maxFilesize : 2,
+    acceptedFiles : 'image/*',
+    // addRemoveLinks : true,
+    dictDefaultMessage : 'Click to browse OR drag files here'
+});
+
+myDropzone.on('complete', function(){
+  $('#closedp').trigger('click');
+  location.reload();
+});
+
 </script>
 {% endblock %}

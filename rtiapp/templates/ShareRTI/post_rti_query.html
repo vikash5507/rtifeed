@@ -7,6 +7,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/static/plugins/tagging/tag-it.js" type="text/javascript" charset="utf-8"></script>
+
+
 <script src="/static/plugins/dropzone/dropzone.js"></script>
 <link href="/static/dist/css/dropzone.css" rel="stylesheet" type="text/css">
 
@@ -21,7 +23,7 @@
       </div>
       <div class="box-body">
         <!-- <p class="login-box-msg"><u>Share a new RTI query</u></p> -->
-        <form action="index.html" method="post" id = "rti_form">
+        <form action="" method="post" id = "rti_form">
         <div class = "box">
           <div class = "box-header with-border">
             RTI Issued To
@@ -159,6 +161,7 @@ $('#govt_id').change(function(){
 $('#rti_form').on('submit',(function(e) {
     e.preventDefault();
     var formData =  new FormData($(this)[0]);
+    alert(formData['query_text']);
     formData.append('rti_hash', '{{ rti_hash }}');
     var tags_data=$("#rti_tags").tagit('assignedTags');
     tags_data = JSON.stringify(tags_data);
@@ -167,19 +170,37 @@ $('#rti_form').on('submit',(function(e) {
       url : '/post_rti_query',
       type : 'POST',
       data : formData,
+      dataType : 'json',
       beforeSend: function(){
         
       },
       success : function(data){
-          
-          
-          // alert(data)
-          alert('done');
-          // alert(data);
+          swal({    
+            title: "RTI Query saved successfully!",  
+            text: "Share a response to this RTI?",   
+            type: "success",   
+            showCancelButton: true,   
+            cancelButtonText : 'Not Now',
+            // confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Share Response",
+            closeOnConfirm: false,
+            closeOnCancel: false
+            }, 
+            function(isConfirm){   
+              if(isConfirm){
+                window.location.href = '/share_rti_response?rti_id=' + data.rti_id;  
+              }
+              else{
+                window.location.href = '/rti_page/' + data.rti_id;  
+              }
+              
+            }
+          );
       },
       error : function(data){
+          swal('Oops..','Something Went wrong', 'error');
           console.log(JSON.stringify(data));
-          $('#post_id').html("Post");
+          // $('#post_id').html("Post");
       },
       contentType: false,
       processData: false
@@ -190,6 +211,7 @@ $('#rti_form').on('submit',(function(e) {
 }));
 
 $(".textarea").wysihtml5();
+
 
   $("#descr_id").on('keyup', function() {
         var words = this.value.match(/\S+/g).length;

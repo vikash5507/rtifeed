@@ -8,7 +8,7 @@ from rtiapp import models
 import json
 from rtiapp.views import views_home
 from datetime import datetime, timedelta
-from rtiapp.rtiengine import relevance, newsfeed
+from rtiapp.rtiengine import activity_relevance, newsfeed
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models.signals import post_delete
 
@@ -38,6 +38,10 @@ def share_rti_response(request):
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	if 'rti_id' in request.GET:
 		rti_query = models.RTI_query.objects.filter(id = request.GET['rti_id']).first()
+		
+		if len(models.RTI_response.objects.filter(rti_query = rti_query)) > 0:
+			return HttpResponseRedirect('/rti_page/' + str(rti_query.id))
+
 		if not rti_query or rti_query.user != request.user:
 			raise Http404("Page Not Found")
 		context['single_query'] = True
@@ -106,7 +110,10 @@ def post_rti_query(request):
 		user = request.user
 		rti_hash = request.POST['rti_hash']
 		
-		query= request.POST['query_text']
+		query = request.POST['query_text']
+		print query
+		# return HttpResponse('done')
+
 		description= request.POST['description']
 		authority_name=request.POST['authority_name']
 		dept_id=request.POST['dept_id']
@@ -115,7 +122,7 @@ def post_rti_query(request):
 
 		authority = models.Authority.objects.filter(authority_name = authority_name).first()
 		if not authority:
-			authority = models.Authority
+			authority = models.Authority()
 			authority.authority_name = authority_name
 			authority.department_id = dept_id
 			authority.save()
@@ -173,7 +180,13 @@ def post_rti_query(request):
 		activity.activity_type = 'rti_query'
 		activity.save()
 
-		return HttpResponse('done')
+		activity_relevance.update_activity_relevance(activity)
+
+		context = {
+			'rti_id' : json.dumps(rti_query.id)
+		}
+
+		return HttpResponse(json.dumps(context))
 
 @csrf_exempt
 def post_rti_response(request):
@@ -192,16 +205,31 @@ def post_rti_response(request):
 		rti_response.save()
 		rti_query.response_status = True
 		rti_query.save()
+		print "HASh", rti_hash
 		rti_images = models.RTI_unlinked_files.objects.filter(user = user, rti_hash = rti_hash)
 		for rti_image in rti_images:
 			rti_file = models.RTI_response_file()
 			rti_file.rti_response = rti_response
-			rti_file.query_picture = rti_image.query_picture
+			rti_file.response_picture = rti_image.query_picture
 			rti_file.save()
 			rti_image.linked = True
 			rti_image.save()
 
-		return HttpResponse('done')
+		
+		
+		activity = models.Activity()
+		activity.rti_query = rti_query
+		activity.user = user
+		activity.activity_type = 'rti_response'
+		activity.save()
+
+		activity_relevance.update_activity_relevance(activity)
+
+		context = {
+			'rti_id' : json.dumps(rti_query.id)
+		}
+
+		return HttpResponse(json.dumps(context))
 
 
 def edit_rti_query(request, rti_id):
@@ -214,8 +242,8 @@ def edit_rti_query(request, rti_id):
 	context = newsfeed.make_rti_context(rti_query)
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	return render_to_response('ShareRTI/edit_rti_query.html', context)
-@csrf_exempt
 
+@csrf_exempt
 def submit_rti_photos(request):
 	rti_hash = request.POST['rti_hash']
 	
@@ -231,4 +259,11 @@ def submit_rti_photos(request):
 
 	
 	return HttpResponseRedirect('/share_rti_query')
-	
+
+@csrf_exempt
+def delete_rti(request):
+	rti_id = request.POST['rti_id']
+	models.RTI_query.objects.filter(id = rti_id, user = request.user).delete()
+	return HttpResponse('done')
+
+

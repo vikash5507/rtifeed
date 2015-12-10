@@ -97,15 +97,37 @@ def get_feed_for_rti(rti, user, head_line = '', comment_strategy = 'time', max_c
 		'rti_response_status' : rti.response_status,
 		'rti_department' : rti.department.department_name,
 		'rti_department_url' : '/department/' + str(rti.department.id),
-		'rti_head_line' : head_line
+		'rti_head_line' : head_line,
+		'rti_query_images' : [],
+		'rti_response_images' : []
 	}
 	
-	if models.RTI_query_file.objects.filter(rti_query = rti).first():
-		rti_context['rti_photo'] = models.RTI_query_file.objects.filter(rti_query = rti).first().query_picture
+	if rti.department.department_type == 'state':
+		sd = models.State_department.objects.filter(department = rti.department).first()
+		rti_context['rti_state'] = sd.state.state_name
+		rti_context['rti_state_url'] = '/state/' + str(sd.state.id)
+	rti_query_images =  models.RTI_query_file.objects.filter(rti_query = rti)
+
+	for r_image in rti_query_images:
+		if r_image.query_picture:
+			rti_context['rti_query_images'].append({
+				'image_url' : '/media/' + str(r_image.query_picture)
+				})
+	
+	total_query_photos = len(rti_context['rti_query_images'])
+	
+	if total_query_photos == 1:
+		rti_context['qp_container_class'] = 'col-md-offset-4 col-md-8'
+		
+	elif total_query_photos == 2:
+		rti_context['qp_container_class'] = 'col-md-offset-2 col-md-10'
+	else:
+		rti_context['qp_container_class'] = 'col-md-12'
+
 	if profile:
 		rti_context['rti_user_pic'] = profile.profile_picture
 	
-
+	
 	if rti.response_status:
 		response = models.RTI_response.objects.filter(rti_query = rti).first()
 		if response:
@@ -114,7 +136,23 @@ def get_feed_for_rti(rti, user, head_line = '', comment_strategy = 'time', max_c
 			rti_context['response_file_date'] = response.rti_response_date
 			rti_context['response_entry_date'] = response.entry_date
 
+		rti_response_images =  models.RTI_response_file.objects.filter(rti_response = response)
+
+		for r_image in rti_response_images:
+			if r_image.response_picture:
+				rti_context['rti_response_images'].append({
+					'image_url' : '/media/' + str(r_image.response_picture)
+					})
+
+		total_response = len(rti_context['rti_response_images'])
 	
+		if total_response == 1:
+			rti_context['rp_container_class'] = 'col-md-offset-4 col-md-8'
+			
+		elif total_response == 2:
+			rti_context['rp_container_class'] = 'col-md-offset-2 col-md-10'
+		else:
+			rti_context['rp_container_class'] = 'col-md-12'
 
 	comments = models.Activity.objects.filter(rti_query = rti, activity_type = 'comment').order_by('-entry_date')
 	likes = models.Activity.objects.filter(rti_query = rti, activity_type = 'like').order_by('-entry_date')

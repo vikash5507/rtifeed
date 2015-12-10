@@ -25,6 +25,7 @@ def search_model(sTerm, model_type, search_type):
 	search_list = []
 	mark_list = {}
 	for r in search_results:
+		print "IDDDD", r.pk
 		s_model = search_model.objects.filter(pk=r.pk).first()
 		if not s_model.id in mark_list:
 			mark_list[s_model.id] = True

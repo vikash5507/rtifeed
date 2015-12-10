@@ -6,9 +6,12 @@ from django.http import Http404
 from rtiapp import models
 import json
 from rtiapp import common
-
+from django.views.decorators.csrf import csrf_exempt
 from rtiapp.rtiengine import relevance, newsfeed
-
+from PIL import Image, ImageOps
+from django.core.files import File
+import StringIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 def make_profile_context(user):
 	context = {
@@ -136,7 +139,7 @@ def post_follow_user(request):
 	follow_user.follower = me_user
 	follow_user.followee = other_user
 	follow_user.save()
-	relevance.update_relevance_for_user(me_user)
+	
 	context = {}
 	context['num_followers'] = len(models.Follow_user.objects.filter(followee = other_user))
 	context['num_following'] = len(models.Follow_user.objects.filter(follower = other_user))
@@ -151,6 +154,33 @@ def post_unfollow_user(request):
 	context['num_followers'] = len(models.Follow_user.objects.filter(followee = other_user))
 	context['num_following'] = len(models.Follow_user.objects.filter(follower = other_user))
 	return HttpResponse(json.dumps(context))
+
+@csrf_exempt
+def submit_profile_photo(request):
+	username = request.user.username
+	user_profile = models.User_profile.objects.filter(user = request.user).first()
+	for f in request.FILES:
+		print "d1"
+		image_file = request.FILES[f]
+		print "d1"
+		image_file = Image.open(image_file)
+		w, h = image_file.size
+		print "d1"
+		d = min(w, h)
+		size = (d, d)
+		thumb = ImageOps.fit(image_file, size, Image.ANTIALIAS)
+		print "d1"
+		
+		thumb_io = StringIO.StringIO()
+		thumb.save(thumb_io, format='JPEG')
+		thumb_file = InMemoryUploadedFile(thumb_io, None, str(username) + '.jpg', 'image/jpeg',
+                                  thumb_io.len, None)
+		print "THUMB", thumb
+		user_profile.profile_picture = thumb_file
+
+		user_profile.save()
+
+	return HttpResponseRedirect('/profile/' + str(request.user.id))
 
 def settings(request):
 	return HttpResponse('None')

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils.encoding import python_2_unicode_compatible
 #TO DO
 # max_length attributes
 
@@ -73,6 +73,7 @@ class Central_department(models.Model):
 		return self.department
 	department = models.OneToOneField(Department, on_delete = models.CASCADE)
 
+# @python_2_unicode_compatible
 class RTI_query(models.Model):
 	def __unicode__(self):
 		return self.description
@@ -116,8 +117,8 @@ class RTI_response_file(models.Model):
 		return self.rti_response
 
 	rti_response = models.ForeignKey(RTI_response, on_delete = models.CASCADE)
-	query_picture = models.ImageField(upload_to  = 'response_pictures', default = 'response_pictures/default.jpg')
-	query_document = models.FileField(upload_to  = 'response_documents', null = True)
+	response_picture = models.ImageField(upload_to  = 'response_pictures', default = 'response_pictures/default.jpg')
+	response_document = models.FileField(upload_to  = 'response_documents', null = True)
 
 class Tag(models.Model):
 	def __unicode__(self):

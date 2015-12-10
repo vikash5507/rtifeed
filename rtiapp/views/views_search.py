@@ -89,6 +89,8 @@ def search_model(request):
 
 def search_page(request):
 	context = search_model(request)
+	print context
+	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	return render_to_response('search/search_page.html', context)
 
 

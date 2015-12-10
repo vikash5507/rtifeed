@@ -11,20 +11,13 @@
       <table class="table table-bordered">
         <tbody>
         <tr>
-          <th style="width: 10px">#</th>
-          <th>Query Description</th>
-          <th>Filed On</th>
-          <th>Issued To</th>
-          <th>Action</th>
+          <th style="width: 10px">Search Results</th>
+          
         </tr>
 
-        {% for rti_description in rti_description_list %}
+        {% for topic in topic_list %}
         <tr>
-          <td>{{ rti_description.s_no }} </td>
-          <td style = "width : 30%"><a href="{{ rti_description.query_url }}"> {{ rti_description.rti_description }}</a> </td>
-          <td>{{ rti_description.filed_date | date:"d M Y" }}   </td>
-          <td>{{ rti_description.department }} </td>
-          <td><a href="{{ rti_description.response_url }}">Submit Response</a>  </td>
+          <td></td>
         </tr>
         {% endfor %}
 

@@ -25,7 +25,7 @@ function follow_unfollow_user(response_type, user_id){
   else{
     url = '/post_unfollow_user'; 
   }
-  alert('test');
+  
   $.ajax({
     url : url,
     data : {

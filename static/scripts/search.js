@@ -3,8 +3,7 @@ $(document).ready(function() {
   $.support.cors = true;
 
   
-  template = Handlebars.compile($("#result-template").html());
-  empty = Handlebars.compile($("#empty-template").html());
+  
 
   user_engine = new Bloodhound({
     identify: function(o) { return o.search_link; },
