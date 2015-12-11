@@ -126,7 +126,7 @@ def SendVerificationEmail(strategy, backend, code):
         user_profile = models.User_profile.objects.filter(user = user).first()
         user_profile.verification_url = verifyURL
         user_profile.save()
-        emailText = "sample"
+        emailText = verifyURL
         kwargs = {
             "subject": "Verify Your Account",
             "body": emailText,
