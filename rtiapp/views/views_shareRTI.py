@@ -241,7 +241,23 @@ def edit_rti_query(request, rti_id):
 
 	context = newsfeed.make_rti_context(rti_query)
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
+	states = models.State.objects.all()
+	gov_list = [{
+		'gov_id' : 0,
+		'gov_name' : 'Union Government'
+	}]
+	for state in states:
+		gov_list.append({
+			'gov_id' : state.id,
+			'gov_name' : state.state_name + ' Government'
+			})
+	departments = models.Department.objects.filter(department_type = 'centre')
+	rti_hash = str(request.user.id) + '####' + str(datetime.now())
+	context['rti_hash'] = rti_hash
+	context['departments']  = departments
+	context['gov_list'] = gov_list
 	return render_to_response('ShareRTI/edit_rti_query.html', context)
+	
 
 @csrf_exempt
 def submit_rti_photos(request):

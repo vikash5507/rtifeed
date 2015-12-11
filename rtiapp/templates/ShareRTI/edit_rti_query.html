@@ -1,111 +1,148 @@
 {% extends 'base.html' %}
 {% block content %}
-<link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<!-- <link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 <script src="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <link href="/static/dist/css/jquery.tagit.css" rel="stylesheet" type="text/css">
 <link href="/static/dist/css/tagit.ui-zendesk.css" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/plugins/tagging/tag-it.js" type="text/javascript" charset="utf-8"></script> -->
+
+<link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<script src="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<link href="/static/dist/css/jquery.tagit.css" rel="stylesheet" type="text/css">
+<link href="/static/dist/css/tagit.ui-zendesk.css" rel="stylesheet" type="text/css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/static/plugins/tagging/tag-it.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/plugins/dropzone/dropzone.js"></script>
+<link href="/static/dist/css/dropzone.css" rel="stylesheet" type="text/css">
 
-<div class = "">
-
- <div class="content-wrapper"> 
-   <!-- <h2>Share your RTI</h2> -->
-        
-
-          <!-- Default box -->
-          
-            <!-- <div class="box-header with-border">
-              <h3 class="box-title">Share RTI query</h3>
-            </div> -->
-            
-              
-    <div class="box">
+ <div class="content-wrapper col-md-8"> 
+  <!-- <div class = "col-md-12"> -->
+    <br>
+    <div class="box box-primary">
+      <div class = "box-header with-border">
+        <h4>Edit your RTI</h4>
+      </div>
       <div class="box-body">
         <!-- <p class="login-box-msg"><u>Share a new RTI query</u></p> -->
         <form action="index.html" method="post" id = "rti_form">
-          <div class="row">
-              <div class="form-group col-xs-3">
-                <label for="govt_id">Choose State or Union Government</label>
-                <select type="text" class="form-control" placeholder="State or Union Government" id="govt_id" name="govt_id">
-                   
-                    {% for gov in gov_list %}
-                      <option value = "{{ gov.gov_id }}"> {{ gov.gov_name }}</option>
-                    {% endfor %}
-                </select>
-                <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
-              </div>
+        <div class = "box">
+          <div class = "box-header with-border">
+            RTI Issued To
+          </div>
+            
+          <div class = "box-body">
+                <div class="form-group col-xs-6">
+                  <label for="govt_id">State or Union Govt</label>
+                  <select type="text" class="form-control" placeholder="State or Union Government" id="govt_id" name="govt_id">
+                     
+                      {% for gov in gov_list %}
+                        <option value = "{{ gov.gov_id }}" selected="{{ rti_query_type }}"> {{ gov.gov_name }}</option>
+                      {% endfor %}
+                  </select>
+                  <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
+                </div>
 
-              <div class="form-group col-xs-5">
-                <label for="dept_id">Choose RTI department</label>
-                <select type="text" class="form-control" placeholder="Select department" id="dept_id" name = "dept_id">
-                    <!-- <option selected="selected">Select Department</option> -->
-                    {% for dep in departments %}
-                      <option value = "{{ dep.id }}"> {{ dep.department_name }}</option>
-                    {% endfor %}
-                </select>
-                <!-- <span class="glyphicon glyphicon-map-marker form-control-feedback"></span> -->
-              </div>
-              <div class="form-group col-xs-4">
-                <label for="authority_name">Input Authority of Department</label>
-                <input type="text" class="form-control" placeholder="Authority name" id="authority_name" name="authority_name">
+                <div class="form-group col-xs-6">
+                  <label for="dept_id">Department</label>
+                  <select type="text" class="form-control" placeholder="Select department" id="dept_id" name = "dept_id">
+                      <!-- <option selected="selected">Select Department</option> -->
+                      {% for dep in departments %}
+                        <option value = "{{ dep.id }}" selected="{{ rti_department }}"> {{ dep.department_name }}</option>
+                      {% endfor %}
+                  </select>
+                  <!-- <span class="glyphicon glyphicon-map-marker form-control-feedback"></span> -->
+                </div>
+                <div class="form-group col-xs-6">
+                  <label for="authority_name">Authority of Department</label>
+                  <input type="text" class="form-control" placeholder="Authority name" id="authority_name" name="authority_name" required value="{{ rti_authority }}">
+                  <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
+                </div>
+                <div class="form-group col-xs-6">
+                  <label for="date_id">Date of filing RTI</label>
+                  <input type="date" class="form-control" placeholder="Date of filing RTI" id="date_id" name="rti_date" required value="{{ rti_file_date|date:"Y-m-d" }}">
                 <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
-              </div>
+                </div>
+            </div>
           </div>
           <div class="row">
-              <div class="form-group col-xs-4">
-                <label for="rti_no_id">Unique RTI number</label>
-                <input type="text" class="form-control" placeholder="RTI unique Registration Number" id="rti_no_id" name = "rti_no">
-                
-              </div>
-              <div class="form-group col-xs-4">
-                  <label for="date_id">Date of filing RTI</label>
-                  <input type="date" class="form-control" placeholder="Date of filing RTI" id="date_id" name="rti_date">
-                <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
-              </div>
-               <div class="form-group col-xs-4">
+              
+               <!-- <div class="form-group col-xs-4">
                 <label for="pass_id">Upload Image of filed RTI(if you have any)</label>
                 <input type="file" class="form-control" data-show-preview="false" placeholder="Insert RTI copy if filed Offline" accept="image/*" id="pass_id" name = "photo">
                 
-              </div>
+              </div> -->
         </div>
-        <div class="row">
-              <div class="form-group col-xs-12">
-                  <label for="query_id">RTI Query</label>
-                  <textarea type="text" class="form-control textarea" rows="15"  placeholder="Mention your RTI query in details" id="query_id" name = "query_text"></textarea>
-                <!-- <span class="glyphicon glyphicon-envelope form-control-feedback"></span> -->
-              </div>
+        <div class="form-group col-xs-12">
+        <label for="Images">Upload Images If any (max 5)</label>
+          <div id = "rti_images" class = 'dropzone'></div>
+        </div>
+        <div class="form-group col-xs-12">
+            <label for="query_id">RTI Query</label>
+            <textarea type="text" class="form-control textarea" rows="8"  placeholder="Mention your RTI query in detail" id="query_id" name = "query_text" required>{{ rti_query_text }}</textarea>
+          <!-- <span class="glyphicon glyphicon-envelope form-control-feedback"></span> -->
+        </div>
+
+        
+        <div class="form-group col-xs-6">
+            <label for="descr_id">Brief Description of RTI query </label><small>(Max. 40 words)</small>
+            <textarea type="text" class="form-control" placeholder="Brief Description" id="descr_id" name = "description" required>{{ rti_description }}</textarea>
+            <small id="descr_count">40</small> words
+          
+        </div>
+        
+        <div class="form-group col-xs-6">
+            <label for="Tags">RTI Tags<i> (Type Slowly for Auto suggestion...)</i></label>
+             <ul id="rti_tags">
+              <!-- Existing list items will be pre-added to the tags. -->
+              <li>{{ tag_list }}</li>
+            </ul>
+          <!-- <span class="glyphicon glyphicon-envelope form-control-feedback"></span> -->
+        </div>
+        
+        
               
-              <div class="form-group col-xs-6">
-                  <label for="descr_id">Brief Description of RTI query </label><small>(Max. 40 words)</small>
-                  <textarea type="text" class="form-control" placeholder="Brief Description" id="descr_id" name = "description"></textarea>
-                  <small id="descr_count">40</small> words
-                
-              </div>
               
-              <div class="form-group col-xs-6">
-                  <label for="Tags">RTI Tags<i> (Type Slowly for Auto suggestion...)</i></label>
-                   <ul id="rti_tags">
-                    <!-- Existing list items will be pre-added to the tags. -->
-                  </ul>
-                <!-- <span class="glyphicon glyphicon-envelope form-control-feedback"></span> -->
-              </div>
-          </div>
+          
         <div class="form-group">
           <button type="submit" class="btn btn-primary btn-block btn-flat" id="post_id">Post</button>
         </div>
         </form>
+        
       </div><!-- /.box-body -->
     </div><!-- /.box -->
 
 
-        
+    <!-- </div> -->   
   </div><!-- /.content-wrapper -->
-</div>te
-<!--</div>-->
- te
+
+
 <script>
-        
+
+var myDropzone = new Dropzone("div#rti_images", { 
+    url: "submit_rti_photos",
+    maxFiles : 5,
+    maxFilesize : 2,
+    acceptedFiles : 'image/*',
+    // addRemoveLinks : true,
+    dictDefaultMessage : 'Click to browse OR drag files here'
+});
+
+
+var can_submit = true;
+
+myDropzone.on('sending', function(data, xhr_obj, fd){
+  fd.append('rti_hash', '{{ rti_hash }}');
+  can_submit = false;
+  $('#post_id').prop('disabled', true);
+});
+
+myDropzone.on('complete', function(){
+  can_submit = true;
+  $('#post_id').prop('disabled', false);
+})
+     
 $('#govt_id').change(function(){
   $.ajax({
     url : '/get_departments_of',
@@ -126,13 +163,13 @@ $('#govt_id').change(function(){
     }
   });
 })
-$('#rti_form').on('submit',(function(e) {
+/*$('#rti_form').on('submit',(function(e) {
     e.preventDefault()
     var formData =  new FormData($(this)[0]);
     var tags_data=$("#rti_tags").tagit('assignedTags');
     alert(formData);
     $.ajax({
-      url : '/post_rti_query',
+      url : '/post_edit_rti_query',
       type : 'POST',
       data : formData,
       beforeSend: function(){
@@ -152,10 +189,10 @@ $('#rti_form').on('submit',(function(e) {
       contentType: false,
       processData: false
     });
-     $.post(domain_name + 'rtiapp/save_rti_query', formData, function(data) {
+     /*$.post(domain_name + 'rtiapp/save_rti_query', formData, function(data) {
         alert(data);
-    });
-}));
+    });*/
+}));*/
 
 $(".textarea").wysihtml5();
 

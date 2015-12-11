@@ -70,10 +70,25 @@ def make_rti_context(rti_query):
 		'rti_file_date' : rti_query.rti_file_date,
 		'rti_query_type' : rti_query.query_type,
 		'rti_response_status' : rti_query.response_status,
-		'rti_department_id' : rti_query.department.id,
+		'rti_department_id' : rti_query.department,
+		'rti_authority' : rti_query.authority,
+		'rti_query_type' : rti_query.query_type
+
 	}
-
-
+	# rti_dept = models.Department.objects.filter(department_name = rti_query.department).first()
+	# context['rti_department'] = rti_dept.department_name
+	# context['government'] = rti_dept.department_type
+	rti_tag = models.RTI_tag.objects.filter(rti_query = rti_query).first()
+	# tag_text_list = models.Tag.objects.filter(id = 6)
+	# tag_list = [{}]
+	# for text in tag_text_list:
+	# 	tag_list.append({
+	# 		'tag_val' : rti_tag.tag
+	# 		})
+	context['tag_list'] = rti_tag.tag
+	image_list = models.RTI_query_file.objects.filter(rti_query = rti_query).first()
+	rti_image = image_list.query_picture
+	context['rti_image'] = rti_image
 	return context
 
 
