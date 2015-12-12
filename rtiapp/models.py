@@ -37,7 +37,7 @@ class User_profile(models.Model):
 	gender = models.CharField(max_length = 200, null = True)
 	date_of_birth = models.DateTimeField(null = True)
 	address = models.ForeignKey(Address, null = True)
-	bio_description = models.CharField(max_length = 200, null = True)
+	bio_description = models.CharField(max_length = 200, default = "")
 	entry_date = models.DateTimeField()
 	update_date = models.DateTimeField(auto_now_add=True)
 	email_signed_up = models.BooleanField(default = False)

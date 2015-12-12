@@ -40,6 +40,9 @@
               <li class="list-group-item">
                 <b><a href="/profile/{{ username }}/following">Following</a></b> <a class="pull-right" id = 'num_following'>{{ num_following }}</a>
               </li>
+              <li class="list-group-item">
+                <b><a href="/profile/{{ username }}/rtis">RTIs</a></b> <a class="pull-right" id = 'num_following'>{{ num_rtis }}</a>
+              </li>
             </ul>
             {% if not is_me %}
               {% if not user_follow_status %}

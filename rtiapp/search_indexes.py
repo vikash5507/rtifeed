@@ -1,7 +1,7 @@
 import datetime
 from haystack import indexes
 from rtiapp import models
-from rtiapp.models import User_profile,RTI_query,RTI_response,Department,State
+from rtiapp.models import User_profile,RTI_query,RTI_response,Department,State, Tag
 from django.contrib.auth.models import User
 
 class user_index(indexes.SearchIndex, indexes.Indexable):
@@ -40,6 +40,16 @@ class Department_Index(indexes.SearchIndex, indexes.Indexable):
 
     def get_model(self):
         return Department
+
+    def index_queryset(self, using=None):
+        """Used when the entire index for model is updated."""
+        return self.get_model().objects.all()
+
+class Topic_Index(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.EdgeNgramField(document=True, model_attr='tag_text') 
+
+    def get_model(self):
+        return Tag
 
     def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""

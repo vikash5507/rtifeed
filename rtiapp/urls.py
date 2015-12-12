@@ -22,10 +22,12 @@ urlpatterns = patterns('',
 	url(r'^rti_page/(?P<rti_id>\w+)/$', views_home.rti_page, name = 'rti_page'),
 	url(r'^get_feed$', views_home.get_feed, name = 'get_feed'),
 	url(r'^get_notifications$', views_home.get_notifications, name = 'get_notifications'),
+	url(r'^notifications$', views_home.notification_page, name = 'notifications'),
 	url(r'^mark_all_notifications$', views_home.mark_all_notifications, name = 'mark_all_notifications'),
 	url(r'^view_rti$', views_home.view_rti, name = 'view_rti'),
 
 	url(r'^get_profile_feed$', views_profile.get_profile_feed, name = 'get_profile_feed'),
+	url(r'^get_profile_rtis$', views_profile.get_profile_rtis, name = 'get_profile_rtis'),
 	url(r'^get_profile_follow$', views_profile.get_profile_follow, name = 'get_profile_follow'),
 	url(r'^get_tds_follow$', views_tds.get_tds_follow, name = 'get_tds_follow'),
 

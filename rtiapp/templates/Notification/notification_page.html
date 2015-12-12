@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="content-wrapper col-md-8">
+  <br>
+  <div class = "box box-primary">
+    <div class = "box-header">
+      <h4 class =  "box-title">Notifications</h4>
+    </div>
+    {{ notification_list_html | safe}}
+  </div>
+</div>
+
+<!--</div>-->
+
+        
+
+{% endblock %}

@@ -32,8 +32,10 @@ def make_profile_context(user):
 		context['profile_picture'] = profile.profile_picture
 		if profile.address and profile.address.state:
 			context['state'] = profile.state.state_name
+	
 	context['num_followers'] = len(models.Follow_user.objects.filter(followee = user))
 	context['num_following'] = len(models.Follow_user.objects.filter(follower = user))
+	context['num_rtis'] = len(models.RTI_query.objects.filter(user = user))
 
 	return context
 
@@ -92,6 +94,8 @@ def display_user_details(request, username, details_required):
 
 	if details_required == 'followers' or details_required == 'following':
 		return render_to_response('Profile/profile_follow.html', context)
+	elif details_required == 'rtis':
+		return render_to_response('Profile/profile_rtis.html', context)
 	else:
 		raise Http404("User Does Not Exist")
 
@@ -131,6 +135,29 @@ def get_profile_feed(request):
 
 	return newsfeed.get_feed_for_rtis(rti_list, user)
 
+def get_profile_rtis(request):
+	user = models.User.objects.filter(id = request.GET['user_id']).first()
+	if not user:
+		return
+	
+	fetched_rti_list = json.loads(request.GET['fetched_rti_list'])
+	print fetched_rti_list
+	
+	user_rtis = models.RTI_query.objects.filter(user = user).order_by('-entry_date')
+	rti_list = []
+	rti_mark_list = []
+	for rti in user_rtis:
+		
+		
+		if (not (rti in rti_mark_list)) and (not rti.id in fetched_rti_list) and len(rti_list) < common.MAX_FEED:
+			rti_mark_list.append(rti)
+			rti_list.append({
+				'rti_query' : rti,
+				'rti_head_line' : ""
+			})
+
+	return newsfeed.get_feed_for_rtis(rti_list, user)
+	
 def post_follow_user(request):
 	me_user = request.user
 	other_user = models.User.objects.filter(id = request.GET['other_user_id']).first()

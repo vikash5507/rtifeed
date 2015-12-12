@@ -46,8 +46,11 @@
 
     {% if rti_response_status %}
 
-    <div class="attachment-block clearfix">
-      <h4><a href="{{ rti_url }}">RTI Response</a></h4>
+    <div class="attachment-block clearfix" id = "feed_box_response{{ rti_id }}">
+
+      <h4 class="pull-left"><a href="{{ rti_url }}">RTI Response</a></h4>
+      <button class="pull-right btn btn-box-tool delete_rti_response{{ rti_id }}" ><i class="fa fa-times"></i></button>
+
       <div class="row">
         <div class="{{ qp_container_class }}">
           <div class="row">
@@ -92,7 +95,12 @@
       <button class="btn btn-default btn-xs spam{{ rti_id }}" id = "spam{{ rti_id }}"><i class="fa fa-thumbs-o-down"></i> Mark as Spam </button>
       {% endif %}
     </div>
-    
+    <div id = "sharecontainer{{ rti_id }}" class = "sharecontainer{{ rti_id }}" style = "float : left">
+     
+      <a href="https://www.facebook.com/sharer/sharer.php?u=rtifeed.com/rti_page/{{ rti_id }}" class="btn btn-default btn-xs unspam{{ rti_id }}" id = "unspam{{ rti_id }}"><i class="fa fa-share"></i> Share </a>
+      
+      
+    </div>
     <!-- <div class="fb-share-button" data-href="home" data-layout="button_count"></div> -->
     
     <span class="pull-right text-muted lc_count{{ rti_id }}" id = "lc_count{{ rti_id }}">{{ no_likes}} likes - {{ no_comments }} comments</span>

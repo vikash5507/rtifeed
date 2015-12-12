@@ -5,25 +5,115 @@
   <br>
   <div class = "box box-primary">
     <div class = "box-header">
-      <h4 class =  "box-title">RTIs awaiting Response</h4>
+      <h4 class =  "box-title">Search Results</h4>
     </div>
     <div class = "box-body">
-      <table class="table table-bordered">
-        <tbody>
-        <tr>
-          <th style="width: 10px">Search Results</th>
+      {% if rti_list %}
+      <div class = "col-md-6">
+        <table class="table table-bordered">
+          <tbody>
+          <tr>
+            <th>RTIs</th>
+            
+          </tr>
+
+          {% for rti in rti_list %}
+          <tr>
+            <td><a href = "{{ rti.search_link }}">{{ rti.rti_description }}</a></td>
+          </tr>
+          {% endfor %}
+
           
-        </tr>
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
 
-        {% for topic in topic_list %}
-        <tr>
-          <td></td>
-        </tr>
-        {% endfor %}
+      {% if user_list %}
+      <div class = "col-md-6">
+        <table class="table table-bordered">
+          <tbody>
+          <tr>
+            <th>Users</th>
+            
+          </tr>
 
-        
-        </tbody>
-      </table>
+          {% for rti_user in user_list %}
+          <tr>
+            <td><a href = "{{ rti_user.search_link }}">{{ rti_user.name_user }}</a></td>
+          </tr>
+          {% endfor %}
+
+          
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+
+
+      {% if topic_list %}
+      <div class = "col-md-6">
+        <table class="table table-bordered col-md-4">
+          <tbody>
+          <tr>
+            <th>Topics</th>
+            
+          </tr>
+
+          {% for topic in topic_list %}
+          <tr>
+            <td><a href = "{{ topic.search_link }}">{{ topic.tds_name }}</a></td>
+          </tr>
+          {% endfor %}
+
+          
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+
+      {% if department_list %}
+      <div class = "col-md-6">
+        <table class="table table-bordered col-md-4">
+          <tbody>
+          <tr>
+            <th>Departments</th>
+            
+          </tr>
+
+          {% for department in department_list %}
+          <tr>
+            <td><a href = "{{ department.search_link }}">{{ department.tds_name }}</a></td>
+          </tr>
+          {% endfor %}
+
+          
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+
+      {% if state_list %}
+      <div class = "col-md-6">
+        <table class="table table-bordered col-md-4">
+          <tbody>
+          <tr>
+            <th>States</th>
+            
+          </tr>
+
+          {% for state in state_list %}
+          <tr>
+            <td><a href = "{{ state.search_link }}">{{ state.tds_name }}</a></td>
+          </tr>
+          {% endfor %}
+
+          
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+
     </div>
   </div>
 </div>

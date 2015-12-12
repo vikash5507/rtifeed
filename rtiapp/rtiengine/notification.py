@@ -33,7 +33,7 @@ def get_notifications(user):
 		'notification_list_html' : notification_list_html
 	}
 	
-	return HttpResponse(json.dumps(context))
+	return context
 
 def mark_all_notifications(user):
 	notifications = models.Notification.objects.filter(user = user)

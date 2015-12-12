@@ -76,7 +76,8 @@ def search_model(request):
 			'user_list' : user_list,
 			'state_list' : state_list,
 			'department_list' : department_list,
-			'topic_list' : topic_list
+			'topic_list' : topic_list,
+			'rti_list' : rti_list
 		}
 
 	else:
@@ -89,6 +90,7 @@ def search_model(request):
 
 def search_page(request):
 	context = search_model(request)
+	print "#########"
 	print context
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	return render_to_response('search/search_page.html', context)

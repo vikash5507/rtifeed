@@ -37,12 +37,19 @@ def update_settings(request):
 		first_name = request.POST['first_name']
 		last_name = request.POST['last_name']
 		username = request.POST['username']
+		bio_description = request.POST['bio_description']
+		
 		user = request.user
 		if len(first_name) > 0 and len(last_name) > 0:
 			user.username = username
 			user.first_name = first_name
 			user.last_name = last_name
 			user.save()
+
+			user_profile = models.User_profile.objects.filter(user = user).first()
+			user_profile.bio_description = bio_description
+			user_profile.save()
+
 			return HttpResponse('done')
 		else:
 			raise Http404('Bad Input')

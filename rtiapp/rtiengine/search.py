@@ -63,6 +63,11 @@ def make_search_context(s_model, model_type):
 			'tds_name' : s_model.tag_text,
 			'search_link' : '/topic/' + str(s_model.id)
 		}
+		rti_queries = models.RTI_tag.objects.values('rti_query').filter(tag = s_model)
+		rti_responses = models.RTI_response.objects.filter(rti_query = rti_queries)
+		search_context['tds_no_rti_queries'] = len(rti_queries)
+		search_context['tds_no_rti_responses'] = len(rti_responses)
+		search_context['tds_no_followers'] = len(models.Follow_topic.objects.filter(followee = s_model))
 
 	elif model_type == 'user':
 		search_context = {

@@ -75,12 +75,19 @@ function make_handlers_for(rti_id, user_context){
   $('.delete_rti'+rti_id).each(function(){
     $(this).unbind('click');
     $(this).on('click', function(){
-      delete_rti(rti_id);
+      delete_rti(rti_id, 'query');
+    });
+  });
+
+  $('.delete_rti_response'+rti_id).each(function(){
+    $(this).unbind('click');
+    $(this).on('click', function(){
+      delete_rti(rti_id, 'response');
     });
   });
 }
 
-function delete_rti(rti_id){
+function delete_rti(rti_id, rti_type){
   swal({   
     title: "Are you sure?",   
     // text: "Write something interesting:",   
@@ -95,11 +102,18 @@ function delete_rti(rti_id){
         url : '/delete_rti',
         data : {
           'rti_id' : rti_id,
+          'rti_type' : rti_type
         },
         type : 'POST',
         success : function(){
           swal('Deleted', 'Your RTI has been successfully deleted', 'success');
-          $('#feed_box' + rti_id).remove();
+          if(rti_type == 'query'){
+            $('#feed_box' + rti_id).remove();  
+          }
+          else{
+            $('#feed_box_response' + rti_id).remove();
+          }
+          
         },
         error : function(){
           swal('Oops', 'Something went wrong', 'error');
@@ -108,6 +122,8 @@ function delete_rti(rti_id){
       
     });
 }
+
+
 function spam_sweet_alert(rti_id){
   swal({   
     title: "Why did you find this inappropriate?",   

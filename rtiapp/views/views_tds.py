@@ -48,10 +48,23 @@ def display_state_details(request, state_id, details_required):
 		raise Http404("Department Does Not Exist")
 
 def display_topic_profile(request, topic_id):
-	return HttpResponse('temp')
+	print "hello it's me"
+	topic = models.Tag.objects.filter(id = topic_id).first()
+	context = make_topic_context(topic, request.user)
+	context['my_profile'] = newsfeed.get_profile_context(request.user)
+	return render_to_response('TDS/tds_profile.html', context)
 
 def display_topic_details(request, topic_id, details_required):
-	return HttpResponse('temp')
+	topic = models.Tag.objects.filter(id = topic_id).first()
+	if not topic:
+		raise Http404("Department Does Not Exist")
+	context = make_topic_context(topic, request.user)
+	context['my_profile'] = newsfeed.get_profile_context(request.user)
+	context['details_required'] = 'following'
+	if details_required == 'followers':
+		return render_to_response('TDS/tds_follow.html', context)
+	else:
+		raise Http404("Department Does Not Exist")
 
 def display_state_profile(request, state_id):
 	state = models.State.objects.filter(id = state_id).first()
@@ -102,8 +115,22 @@ def make_state_context(state, user):
 	context['tds_no_departments'] = len(models.State_department.objects.filter(state = state))
 	return context
 
-def make_topic_context(topic):
-	return {}
+def make_topic_context(topic, user):
+	context = {
+		'tds_id' : topic.id,
+		'tds_type' : 'topic',
+		'tds_name' : topic.tag_text,
+	}
+
+	# rti_tag = models.RTI_tag.objects.filter(tag = )
+	rti_queries = models.RTI_tag.objects.values('rti_query').filter(tag = topic)
+	rti_responses = models.RTI_response.objects.filter(rti_query = rti_queries)
+	context['tds_no_rti_queries'] = len(rti_queries)
+	context['tds_no_rti_responses'] = len(rti_responses)
+	context['follow_status'] = len(models.Follow_topic.objects.filter(followee = topic, follower = user)) > 0
+	context['tds_no_followers'] = len(models.Follow_topic.objects.filter(followee = topic))
+	
+	return context
 
 
 def post_follow_tds(request):
@@ -173,8 +200,13 @@ def get_tds_feed(request):
 		rti_queries = models.RTI_query.objects.filter(department = state_departments).order_by('-entry_date')
 	elif request.GET['tds_type'] == 'topic':
 		topic = models.Tag.objects.filter(id = tds_id)
-		rti_queries = models.RTI_tag.objects.values('rti_query').filter(tag = topic).order_by('-entry_date')
+		rti_id_list = models.RTI_tag.objects.values('rti_query').filter(tag = topic).order_by('-entry_date')
+		rti_queries = []
+		for rti in rti_id_list:
+			rti_query = models.RTI_query.objects.filter(id = rti['rti_query']).first()
+			rti_queries.append(rti_query)
 
+		# print "rti queries", rti_queries
 	rti_list = []
 	for rti in rti_queries:
 		if not rti.id in fetched_rti_list and len(rti_list) < common.MAX_FEED:
@@ -195,7 +227,7 @@ def get_tds_follow(request):
 		followers = models.Follow_state.objects.filter(followee = state)
 	elif request.GET['tds_type'] == 'topic':
 		topic = models.Tag.objects.filter(id = tds_id).first()
-		followers = models.Follow_topic.objects.filter(followee = tag)
+		followers = models.Follow_topic.objects.filter(followee = topic)
 
 	follower_list = []
 	for follower in followers:

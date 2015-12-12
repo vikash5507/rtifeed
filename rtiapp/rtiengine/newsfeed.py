@@ -17,7 +17,8 @@ def get_profile_context(user):
 		'profile_picture' : user_profile.profile_picture,
 		'profile_url' : '/profile/'+user.username+'/',
 		'username' : user.username,
-		'user_profile_link' : '/profile/' + user.username
+		'user_profile_link' : '/profile/' + user.username,
+		'bio_description' : user_profile.bio_description
 	}
 	return context
 

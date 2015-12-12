@@ -279,7 +279,18 @@ def submit_rti_photos(request):
 @csrf_exempt
 def delete_rti(request):
 	rti_id = request.POST['rti_id']
-	models.RTI_query.objects.filter(id = rti_id, user = request.user).delete()
+	rti_type = request.POST['rti_type']
+	print rti_type
+	if rti_type == 'query':
+		models.RTI_query.objects.filter(id = rti_id, user = request.user).delete()
+	elif rti_type == 'response':
+		rti_query = models.RTI_query.objects.filter(id = rti_id, user = request.user).first()
+		models.RTI_response.objects.filter(rti_query = rti_query).delete()
+		if rti_query:
+			print "check"
+			rti_query.response_status = False
+			rti_query.save()
+
 	return HttpResponse('done')
 
 

@@ -1,0 +1,15 @@
+{% extends 'Profile/profile_base.html' %}
+{% block profile_body %}
+<script src="/static/scripts/load_feed.js"></script>
+<div class="col-md-9">
+  <div  id="feedcontainer">
+
+        <!-- ACTIVITY FEED -->
+        
+  </div>
+</div>
+<script type="text/javascript">
+  make_feed_for_url('/get_profile_rtis?user_id='+{{ user_id }});
+</script>
+<script src="/static/scripts/feedbox.js"></script>
+{% endblock %}

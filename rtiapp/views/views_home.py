@@ -31,6 +31,7 @@ def rti_page(request, rti_id):
 	context['my_profile'] = newsfeed.get_profile_context(user)
 	context['rti_query_id'] = rti_id
 	context['full_feed'] = False
+	context['rti_url'] = '/rti_page/' + str(rti_id)
 	return render_to_response('Home/rtipage.html', context)
 
 @login_required
@@ -145,7 +146,13 @@ def post_rti_activity(request):
 	return HttpResponse(json.dumps(context))
 
 def get_notifications(request):
-	return notification.get_notifications(request.user)
+	context = notification.get_notifications(request.user)
+	return HttpResponse(json.dumps(context))
+
+def notification_page(request):
+	context = notification.get_notifications(request.user)
+	context['my_profile'] = newsfeed.get_profile_context(request.user)
+	return render_to_response('Notification/notification_page.html', context)
 
 def mark_all_notifications(request):
 	notification.mark_all_notifications(request.user)
