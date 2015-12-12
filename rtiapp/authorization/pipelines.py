@@ -26,7 +26,8 @@ def get_user_avatar(backend, user, response, details, *args, **kwargs):
         profile = models.User_profile()
         profile.user = user
         profile.entry_date = datetime.now()
-
+        profile.save()
+        
     if backend.name == 'facebook':
         if profile.profile_status == 'incomplete':
             url = "http://graph.facebook.com/%s/picture?type=normal" % response['id']
@@ -97,7 +98,7 @@ def user_password(backend, user, response, details, is_new, *args, **kwargs):
     
     user_profile = models.User_profile.objects.filter(user = user).first()
     print "USER", user.username, user.email
-    if not user_profile.email_signed_up:
+    if user and (not user_profile.email_signed_up):
         user.set_password(password)
         user.save()
         user_profile.email_signed_up = True
@@ -123,9 +124,9 @@ def SendVerificationEmail(strategy, backend, code):
             reverse('social:complete', args=(backend.name,)),
             code.code, signature)
         verifyURL = strategy.request.build_absolute_uri(verifyURL)
-        user_profile = models.User_profile.objects.filter(user = user).first()
-        user_profile.verification_url = verifyURL
-        user_profile.save()
+        # user_profile = models.User_profile.objects.filter(user = user).first()
+        # user_profile.verification_url = verifyURL
+        # user_profile.save()
         emailText = verifyURL
         kwargs = {
             "subject": "Verify Your Account",
