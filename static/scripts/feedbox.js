@@ -298,11 +298,13 @@ function post_response(rti_id, rtype, meta_data){
     type : 'POST',
     dataType : 'json',
     beforeSend : function(){
-
+      handle_success_response(rti_id, rtype);
     },
     success : function(data){
       
-      handle_success_response(rti_id, data, rtype);
+      $('.lc_count'+rti_id).each(function(){
+        $(this).html(data['no_likes']+ ' likes - ' + data['no_comments'] +' comments');
+      });
       
     },
     error : function(err){
@@ -311,11 +313,9 @@ function post_response(rti_id, rtype, meta_data){
   });
 }
 
-function handle_success_response(rti_id, data, rtype){
+function handle_success_response(rti_id, rtype){
   
-  $('.lc_count'+rti_id).each(function(){
-    $(this).html(data['no_likes']+ ' likes - ' + data['no_comments'] +' comments');
-  });
+  
   
   if(rtype == 'like'){
 
@@ -498,13 +498,13 @@ function post_delete_comment(comment_id, rti_id){
       type : 'POST',
       dataType : 'json',
       beforeSend : function(){
-
-      },
-      success : function(data){
-        // alert(data);
         $('.comment_readbox' + comment_id).each(function(){
           $(this).remove();
         })
+      },
+      success : function(data){
+        // alert(data);
+        
         
         $('.lc_count'+rti_id).each(function(){
           $(this).html(data['no_likes']+ ' likes - ' + data['no_comments'] +' comments');

@@ -12,7 +12,7 @@ urlpatterns = patterns('',
 	url(r'^$', views_login.login_page, name = 'loginpage'),
 	url(r'^login_error$', views_login.login_error_page, name = 'loginerror_page'),
 	url(r'^email_login$', views_login.email_login, name = 'email_login'),
-	url(r'^email_verify_sent$', views_login.email_verify_sent, name = 'email_verify_sent'),
+	url(r'^email_verify_sent', views_login.email_verify_sent, name = 'email_verify_sent'),
 	
 	# url(r'^home$', views_home.home_page, name = 'homepage'),
 	url(r'^base$', views_test.base, name = 'basepage'),

@@ -135,7 +135,7 @@ def SendVerificationEmail(strategy, backend, code):
             "to": ["paarth.n@gmail.com"],
         }
         email = EmailMultiAlternatives(**kwargs)
-        email.send()
+        # email.send()
         print verifyURL
 #     emailHTML = # Include your function that returns an html string here
 #     emailText = """Welcome to MyApp!

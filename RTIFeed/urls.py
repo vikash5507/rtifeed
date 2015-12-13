@@ -14,3 +14,8 @@ urlpatterns = patterns('',
     (r'^search/', include('haystack.urls')),
     # url(r'^admin/', include('admin.urls')),
 )+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler400 = 'rtiapp.views.views_error.bad_request'
+handler403 = 'rtiapp.views.views_error.permission_denied'
+handler404 = 'rtiapp.views.views_error.page_not_found'
+handler500 = 'rtiapp.views.views_error.server_error'

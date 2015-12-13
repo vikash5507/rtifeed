@@ -16,7 +16,9 @@
     <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="/static/plugins/iCheck/square/blue.css">
-
+    <link rel="icon" href="/static/admin/img/favicon.ico" type="image/gif" sizes="16x16">
+    <script src="/static/plugins/sweetalert/sweetalert.min.js"></script>
+    <link href="/static/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -27,7 +29,7 @@
   <body class="hold-transition login-page">
     <div class="login-box" style = "padding :0px; margin-bottom : 0px; margin-top : 50px;">
       <div class="login-logo">
-        <a href="#!"><b>RTI</b>Feed</a>
+        <b>RTI</b>Feed
       </div><!-- /.login-logo -->
       <div class="login-box-body" id="sign_in">
 
@@ -37,7 +39,7 @@
           <p>{{ error }}</p>
         </div>
         {% endif %}
-        <form action="/email_login" method="post">
+        <form action="/email_login" method="post" >
           <div class="form-group has-feedback">
             <input type="email" class="form-control" placeholder="Email" name = "email" required>
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -48,11 +50,11 @@
           </div>
           <div class="row">
             <div class="col-xs-8">
-              <div class="checkbox icheck">
+              <!-- <div class="checkbox icheck">
                 <label>
                   <input type="checkbox"> Remember Me
                 </label>
-              </div>
+              </div> -->
             </div><!-- /.col -->
             <div class="col-xs-4">
               <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
@@ -66,33 +68,33 @@
           <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}" class="btn btn-block btn-social btn-twitter btn-flat"><i class="fa fa-twitter"></i> Sign in using Twitter</a>
         </div><!-- /.social-auth-links -->
 
-        <a href="#">I forgot my password</a><br>
+        <!-- <a href="#">I forgot my password</a><br> -->
         <a href="#!" class="text-center" onclick="switchVisible();" >Register a new membership</a>
 
       </div><!-- /.login-box-body -->
 
       <div class="login-box-body" id="sign_up" style="display:none">
         <p class="login-box-msg">Sign up</p>
-        <form action="/complete/email/" method="post">
+        <form action="/complete/email/" method="post" onsubmit="return validate_signup_form()">
           
           <div class="form-group has-feedback">
             <input type="text" class="form-control" placeholder="First Name" name = "first_name" required>
-            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
             <input type="text" class="form-control" placeholder="Last Name" name = "last_name">
-            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
             <input type="email" class="form-control" placeholder="Email" name = "email" required>
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Password" name = "password" required>
+            <input type="password" class="form-control" placeholder="Password" name = "password" id = "password" required>
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Re-enter Password" name = "re_password" required>
+            <input type="password" class="form-control" placeholder="Re-enter Password" name = "re_password" id = "re_password" required>
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="row">
@@ -115,7 +117,7 @@
           <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}" class="btn btn-block btn-social btn-twitter btn-flat"><i class="fa fa-twitter"></i> Sign in using Twitter</a>
         </div><!-- /.social-auth-links -->
 
-        <a href="#">I forgot my password</a><br>
+        <!-- <a href="#">I forgot my password</a><br> -->
         <a href="#!" class="text-center" onclick="switchVisible();">Sign In</a>
 
       </div><!-- /.login-box-body -->
@@ -149,6 +151,17 @@
           }
         }
       }
+
+      function validate_signup_form(){
+        var password = $('#password').val();
+        var re_password = $('#re_password').val();
+        if(password != re_password){
+          swal('Oops', 'Passwords do not match', 'error');
+          return false;
+        }
+        return true;
+      }
+
     </script>
   </body>
 </html>
