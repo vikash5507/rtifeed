@@ -161,7 +161,7 @@ $('#govt_id').change(function(){
 $('#rti_form').on('submit',(function(e) {
     e.preventDefault();
     var formData =  new FormData($(this)[0]);
-    alert(formData['query_text']);
+    // alert(formData['query_text']);
     formData.append('rti_hash', '{{ rti_hash }}');
     var tags_data=$("#rti_tags").tagit('assignedTags');
     tags_data = JSON.stringify(tags_data);
@@ -172,7 +172,7 @@ $('#rti_form').on('submit',(function(e) {
       data : formData,
       dataType : 'json',
       beforeSend: function(){
-        
+        $('#post_id').html("Please wait..");
       },
       success : function(data){
           swal({    
