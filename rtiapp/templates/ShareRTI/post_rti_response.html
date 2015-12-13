@@ -110,6 +110,7 @@ $('#rti_response_form').on('submit',(function(e) {
       dataType : 'json',
       beforeSend: function(){
         $('#post_id').html("Please wait..");
+        $("#rti_response_form :input").prop("disabled", true);
       },
       success : function(data){
           
