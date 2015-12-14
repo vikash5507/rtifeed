@@ -11,13 +11,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate,login, logout
 
 def bad_request(request):
-	return HttpResponse('Bad request')
+	return render_to_response('Error/400.html')
 
 def permission_denied(request):
-	return HttpResponse('Bad request')
+	return render_to_response('Error/403.html')
 
 def page_not_found(request):
-	return HttpResponse('Bad request')
+	return render_to_response('Error/404.html')
 
 def server_error(request):
-	return HttpResponse('Bad request')
+	return render_to_response('Error/500.html')
