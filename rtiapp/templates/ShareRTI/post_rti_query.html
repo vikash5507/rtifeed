@@ -72,12 +72,12 @@
               </div> -->
         </div>
         <div class="form-group col-xs-12">
-        <label for="Images">Upload Images If any (max 5)</label>
+        <label for="Images">Upload Images/PDF If any (max 5)</label>
           <div id = "rti_images" class = 'dropzone'></div>
         </div>
         <div class="form-group col-xs-12">
             <label for="query_id">RTI Query</label>
-            <textarea type="text" class="form-control textarea" rows="8"  placeholder="Mention your RTI query in detail" id="query_id" name = "query_text" required></textarea>
+            <textarea type="text" class="form-control textarea" rows="8"  placeholder="Mention your RTI query in detail" id="query_text" name = "query_text" required></textarea>
           <!-- <span class="glyphicon glyphicon-envelope form-control-feedback"></span> -->
         </div>
 
@@ -119,7 +119,7 @@ var myDropzone = new Dropzone("div#rti_images", {
     url: "submit_rti_photos",
     maxFiles : 5,
     maxFilesize : 2,
-    acceptedFiles : 'image/*',
+    acceptedFiles : 'image/*, application/pdf',
     // addRemoveLinks : true,
     dictDefaultMessage : 'Click to browse OR drag files here'
 });
@@ -166,6 +166,7 @@ $('#rti_form').on('submit',(function(e) {
     var tags_data=$("#rti_tags").tagit('assignedTags');
     tags_data = JSON.stringify(tags_data);
     formData.append('tags', tags_data);
+    formData.append('query_text_formatted', $('#query_text').val());
     $.ajax({
       url : '/post_rti_query',
       type : 'POST',
@@ -189,7 +190,7 @@ $('#rti_form').on('submit',(function(e) {
             }, 
             function(isConfirm){   
               if(isConfirm){
-                window.location.href = '/share_rti_response?rti_id=' + data.rti_id;  
+                window.location.href = '/share_rti_response?rti_id=' + data.rti_id;
               }
               else{
                 window.location.href = '/rti_page/' + data.rti_id;  
@@ -258,6 +259,22 @@ $('#rti_tags').tagit({
     fieldName: 'tags'
 });
 
+if(typeof(String.prototype.trim) === "undefined")
+{
+    String.prototype.trim = function() 
+    {
+        return String(this).replace(/^\s+|\s+$/g, '');
+    };
+}
 
+$(document).ready(function(){
+  $('.wysihtml5-sandbox').contents().find('body').on("keydown",function(e) {
+    if(e.which == 9){
+      e.preventDefault();
+      e.returnValue = false;
+      $('#descr_id').focus();
+    }
+  });
+});
 </script>
 {% endblock %}

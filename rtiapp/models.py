@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
+import os
 #TO DO
 # max_length attributes
 
@@ -97,7 +98,9 @@ class RTI_query_file(models.Model):
 	rti_query = models.ForeignKey(RTI_query, on_delete = models.CASCADE)
 	query_picture = models.ImageField(upload_to  = 'query_pictures', default = 'query_pictures/default.jpg')
 	query_document = models.FileField(upload_to  = 'query_docs', null = True)
-
+	def extension(self):
+		name, extension = os.path.splitext(self.query_picture.name)
+		return extension
 
 
 # RESPONSE
@@ -119,6 +122,10 @@ class RTI_response_file(models.Model):
 	rti_response = models.ForeignKey(RTI_response, on_delete = models.CASCADE)
 	response_picture = models.ImageField(upload_to  = 'response_pictures', default = 'response_pictures/default.jpg')
 	response_document = models.FileField(upload_to  = 'response_documents', null = True)
+
+	def extension(self):
+		name, extension = os.path.splitext(self.response_picture.name)
+		return extension
 
 class Tag(models.Model):
 	def __unicode__(self):

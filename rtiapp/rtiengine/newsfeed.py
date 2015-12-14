@@ -115,7 +115,9 @@ def get_feed_for_rti(rti, user, head_line = '', comment_strategy = 'time', max_c
 		'rti_department_url' : '/department/' + str(rti.department.id),
 		'rti_head_line' : head_line,
 		'rti_query_images' : [],
-		'rti_response_images' : []
+		'rti_response_images' : [],
+		'rti_query_files' : [],
+		'rti_response_files' : []
 	}
 	
 	if rti.department.department_type == 'state':
@@ -125,9 +127,13 @@ def get_feed_for_rti(rti, user, head_line = '', comment_strategy = 'time', max_c
 	rti_query_images =  models.RTI_query_file.objects.filter(rti_query = rti)
 
 	for r_image in rti_query_images:
-		if r_image.query_picture:
+		if r_image.query_picture and r_image.extension() != '.pdf':
 			rti_context['rti_query_images'].append({
 				'image_url' : '/media/' + str(r_image.query_picture)
+				})
+		else:
+			rti_context['rti_query_files'].append({
+				'pdf_url' : '/media/' + str(r_image.query_picture)
 				})
 	
 	total_query_photos = len(rti_context['rti_query_images'])
@@ -155,10 +161,15 @@ def get_feed_for_rti(rti, user, head_line = '', comment_strategy = 'time', max_c
 		rti_response_images =  models.RTI_response_file.objects.filter(rti_response = response)
 
 		for r_image in rti_response_images:
-			if r_image.response_picture:
+			if r_image.response_picture and r_image.extension() != '.pdf':
 				rti_context['rti_response_images'].append({
 					'image_url' : '/media/' + str(r_image.response_picture)
 					})
+			else:
+				rti_context['rti_response_files'].append({
+					'pdf_url' : '/media/' + str(r_image.response_picture)
+					})
+
 
 		total_response = len(rti_context['rti_response_images'])
 	

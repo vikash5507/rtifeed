@@ -187,24 +187,20 @@ def submit_profile_photo(request):
 	username = request.user.username
 	user_profile = models.User_profile.objects.filter(user = request.user).first()
 	for f in request.FILES:
-		print "d1"
 		image_file = request.FILES[f]
-		print "d1"
 		image_file = Image.open(image_file)
 		w, h = image_file.size
-		print "d1"
 		d = min(w, h)
 		size = (d, d)
 		thumb = ImageOps.fit(image_file, size, Image.ANTIALIAS)
-		print "d1"
-		
+		size = (128, 128)
+		thumb.thumbnail(size)
 		thumb_io = StringIO.StringIO()
 		thumb.save(thumb_io, format='JPEG')
 		thumb_file = InMemoryUploadedFile(thumb_io, None, str(username) + '.jpg', 'image/jpeg',
                                   thumb_io.len, None)
-		print "THUMB", thumb
+		
 		user_profile.profile_picture = thumb_file
-
 		user_profile.save()
 
 	return HttpResponseRedirect('/profile/' + str(request.user.id))

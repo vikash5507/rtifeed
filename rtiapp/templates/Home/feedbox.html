@@ -36,6 +36,26 @@
               {% endfor %}
           </div>
         </div>
+        {% if rti_query_files %}
+        <ul class="mailbox-attachments clearfix" style = "padding-left : 20px;">
+          {% for r_file in rti_query_files %}
+            <li>
+              <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+
+              <div class="mailbox-attachment-info">
+                <a href="{{ r_file.pdf_url }}" target = "_blank" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Supporting Document</a>
+                    <!-- <span class="mailbox-attachment-size">
+                      1,245 KB
+                      <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                    </span> -->
+              </div>
+            </li>
+          
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        
       </div>
       <div class="attachment">
         <div class="attachment-text">
@@ -49,8 +69,9 @@
     <div class="attachment-block clearfix" id = "feed_box_response{{ rti_id }}">
 
       <h4 class="pull-left"><a href="{{ rti_url }}">RTI Response</a></h4>
+      {% if my_rti %}
       <button class="pull-right btn btn-box-tool delete_rti_response{{ rti_id }}" ><i class="fa fa-times"></i></button>
-
+      {% endif %}
       <div class="row">
         <div class="{{ qp_container_class }}">
           <div class="row">
@@ -62,6 +83,24 @@
           </div>
             
         </div>
+        {% if rti_response_files %}
+        <ul class="mailbox-attachments clearfix" style = "padding-left : 20px;">
+          {% for r_file in rti_response_files %}
+            <li>
+              <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+
+              <div class="mailbox-attachment-info">
+                <a href="{{ r_file.pdf_url }}" target = "_blank" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Supporting Document</a>
+                    <!-- <span class="mailbox-attachment-size">
+                      1,245 KB
+                      <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                    </span> -->
+              </div>
+            </li>
+          
+          {% endfor %}
+        </ul>
+        {% endif %}
       </div>
       <div class="attachment">
         <div class="attachment-text">

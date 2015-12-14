@@ -110,8 +110,8 @@ def post_rti_query(request):
 		user = request.user
 		rti_hash = request.POST['rti_hash']
 		
-		query = request.POST['query_text']
-		print query
+		query = request.POST['query_text_formatted'].encode('ascii', 'ignore')
+		# print query
 		# return HttpResponse('done')
 
 		description= request.POST['description']
@@ -199,7 +199,7 @@ def post_rti_response(request):
 			return HttpResponse('Invalid Query')
 		rti_response = models.RTI_response()
 		rti_response.rti_query = rti_query
-		rti_response.response_text = request.POST['response_text']
+		rti_response.response_text = request.POST['response_text'].encode('ascii', 'ignore')
 		rti_response.rti_response_date = request.POST['rti_response_date']
 		rti_response.entry_date = datetime.now()
 		rti_response.save()
