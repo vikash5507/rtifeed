@@ -2,7 +2,7 @@ var fetched_rti_list = [];
 var loading = false;
 function make_feed_for_url(feed_url){
   // $('#feedcontainer').css('height','200px');
-  $('#feedcontainer').after('<center><div id = "feed_loader" style = "display:none;"><img src = "/static/dist/img/spinner.gif"></img></div></center>');
+  $('#feedcontainer').after('<center><div id = "feed_loader" style = "display:none;"><img height="40" width = "40" src = "/static/dist/img/spinner.gif"></img></div></center>');
   load_feed(feed_url);
   $(window).unbind("scroll");
   $(window).scroll(function () {
@@ -18,7 +18,7 @@ function load_feed(feed_url){
   if(loading){
     return;
   }
-  console.log(fetched_rti_list);
+  // console.log(fetched_rti_list);
   loading = true;
   $.ajax({
     url : feed_url,

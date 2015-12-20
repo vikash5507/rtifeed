@@ -35,9 +35,6 @@ function follow_unfollow_tds(response_type, tds_id, tds_type){
     },
     dataType : 'json',
     beforeSend : function(){
-
-    },
-    success : function(data){
       if(response_type == 'follow'){
         $('#follow_btn').html('<b>Unfollow</b>');
         $('#follow_btn').attr('class', 'btn btn-danger btn-block tds_unfollow_btn');
@@ -50,6 +47,10 @@ function follow_unfollow_tds(response_type, tds_id, tds_type){
       }
       // alert(JSON.stringify(data, null, 4));
       make_handlers_for_follow(tds_id, tds_type);
+    },
+    success : function(data){
+      $('#num_followers').html(data['tds_no_followers']);
+      // $('#num_following').html(data['num_following']);
     },
     error : function(err){
       console.log(err);

@@ -16,11 +16,18 @@
     <div id = "comment_content{{ comment_id }}" class = "comment_content{{ comment_id }}">
     {{  comment_text }}
     </div>
+    <div class = "comment_like_button_container{{ comment_id }}">
+      {% if comment_like_status %}
+      <button class="btn btn-default btn-xs comment_unlike{{ comment_id }} pull-right" id = "comment_unlike{{ comment_id }}"><i class="fa fa-thumbs-up"></i></button>
+      {% else %}
+      <button class="btn btn-default btn-xs comment_like{{ comment_id }} pull-right" id = "comment_like{{ comment_id }}"><i class="fa fa-thumbs-o-up comment_like_icon{{ comment_id }}"></i></button>
+      {% endif %}
+    </div>
+    <span class="text-muted pull-right" style = "padding-right : 5px;" id = "comment_no_likes{{ comment_id }}">{{ comment_no_likes }} likes</span>
   </div><!-- /.comment-text -->
 </div><!-- /.box-comment -->
 
-{% if my_comment %}
+
 <script type="text/javascript">
   comment_handler({{ comment_id }}, {{ rti_id }}, "{{ comment_text}}");
 </script>
-{% endif %}

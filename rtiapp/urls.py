@@ -12,11 +12,15 @@ urlpatterns = patterns('',
 	url(r'^$', views_login.login_page, name = 'loginpage'),
 	url(r'^login_error$', views_login.login_error_page, name = 'loginerror_page'),
 	url(r'^email_login$', views_login.email_login, name = 'email_login'),
+	url(r'^email_signup$', views_login.email_signup, name = 'email_signup'),
+	url(r'^verify_email$', views_login.verify_email, name = 'verify_email'),
 	url(r'^email_verify_sent', views_login.email_verify_sent, name = 'email_verify_sent'),
+	url(r'^forgot_password', views_login.forgot_password, name = 'forgot_password'),
 	
 	# url(r'^home$', views_home.home_page, name = 'homepage'),
 	url(r'^base$', views_test.base, name = 'basepage'),
 	url(r'^home$', views_home.home_page, name = 'homepage'),
+	url(r'^proposed_rtis$', views_home.proposed_rtis, name = 'proposed_rtis'),
 	url(r'^statistics$', views_statistics.statistics, name = 'statistics'),
 
 	url(r'^rti_page/(?P<rti_id>\w+)/$', views_home.rti_page, name = 'rti_page'),
@@ -38,10 +42,12 @@ urlpatterns = patterns('',
 	
 
 	url(r'^share_rti_query$', views_shareRTI.share_rti_query, name = 'share_rti_query'),
+	url(r'^propose_query$', views_shareRTI.propose_query, name = 'propose_query'),
 	url(r'^share_rti_response$', views_shareRTI.share_rti_response, name = 'share_rti_response'),
 	url(r'^delete_rti$', views_shareRTI.delete_rti, name = 'delete_rti'),
 
 	url(r'^post_rti_activity$', views_home.post_rti_activity, name = 'post_rti_activity'),
+	url(r'^post_comment_activity$', views_home.post_comment_activity, name = 'post_comment_activity'),
 	url(r'^get_departments_of$', views_shareRTI.get_departments_of, name = 'get_departments_of'),
 	url(r'^get_rti_tag$', views_shareRTI.get_rti_tag, name = 'get_rti_tag'),
 	url(r'^post_rti_query$', views_shareRTI.post_rti_query, name = 'post_rti_query'),

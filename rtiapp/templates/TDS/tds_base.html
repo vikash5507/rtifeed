@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class = "col-md-10">
-  <div class="content-wrapper">
+
+  <div class="content-wrapper col-md-8">
     <!-- Content Header (Page header) -->
     <!-- <section class="content-header">
       <h1>
@@ -51,7 +51,7 @@
             <div class="col-sm-4 border-right">
               <div class="description-block">
                 <a href="/{{ tds_type }}/{{ tds_id }}/followers">
-                  <h5 class="description-header">{{ tds_no_followers }}</h5>
+                  <h5 class="description-header" id = "num_followers">{{ tds_no_followers }}</h5>
                   <span class="description-text">FOLLOWERS</span>
                 </a>
               </div><!-- /.description-block -->
@@ -81,7 +81,7 @@
       </div>
     </section>
   </div><!-- /.content-wrapper -->
-</div>
+
 <script src="/static/scripts/follow_unfollow_tds.js"></script>
 <script type="text/javascript">
   

@@ -25,7 +25,12 @@
     {{ rti_description }}
 
     <div class="attachment-block clearfix">
-      <h4><a href="{{ rti_url }}">RTI Query</a></h4>
+      {% if rti_proposed %}
+        <h4><a href="{{ rti_url }}">Proposed RTI Query</a></h4>
+      {% else %}
+        <h4><a href="{{ rti_url }}">RTI Query</a></h4>
+      {% endif %}
+      
       <div class="row">
         <div class="{{ qp_container_class }}">
           <div class="row">
@@ -59,7 +64,8 @@
       </div>
       <div class="attachment">
         <div class="attachment-text">
-          {{ rti_query_text | safe}}<a href="#">more</a>
+          {{ rti_query_text | safe}} 
+          <!-- <a href="#">more</a> -->
         </div>
       </div>
     </div>
@@ -104,14 +110,15 @@
       </div>
       <div class="attachment">
         <div class="attachment-text">
-          {{ response_text | safe}}<a href="#">more</a>
+          {{ response_text | safe}}
+          <!-- <a href="#">more</a> -->
         </div>
       </div>
     </div>
 
     {% endif %}
     
-
+    {% if not rti_proposed %}
     <div id = "likecontainer{{ rti_id }}" class = "likecontainer{{ rti_id }}" style = "float : left">
       {% if like_status %}
       <button class="btn btn-default btn-xs unlike{{ rti_id }}" id = "unlike{{ rti_id }}"><i class="fa fa-thumbs-up"></i> Liked</button>
@@ -119,14 +126,15 @@
       <button class="btn btn-default btn-xs like{{ rti_id }}" id = "like{{ rti_id }}"><i class="fa fa-thumbs-o-up"></i> Like</button>
       {% endif %}
     </div>
-
+    {% endif %}
     <div id = "followcontainer{{ rti_id }}" class = "followcontainer{{ rti_id }}" style = "float : left">
       {% if follow_status %}
       <button class="btn btn-default btn-xs unfollow{{ rti_id }}" id = "unfollow{{ rti_id }}"><i class="fa fa-star"></i> Unfollow </button>
       {% else %}
-      <button class="btn btn-default btn-xs follow{{ rti_id }}" id = "follow{{ rti_id }}"><i class="fa fa-star-o"></i> Follow </button>
+      <button class="btn btn-default btn-xs follow{{ rti_id }}" id = "follow{{ rti_id }}"><i class="fa fa-star-o"></i>{% if rti_proposed %} Want an answer! {% else %} Follow {% endif %} </button>
       {% endif %}
     </div>
+    {% if not rti_proposed %}
     <div id = "spamcontainer{{ rti_id }}" class = "spamcontainer{{ rti_id }}" style = "float : left">
       {% if spam_status %}
       <button class="btn btn-default btn-xs unspam{{ rti_id }}" id = "unspam{{ rti_id }}"><i class="fa fa-thumbs-down"></i> Undo Mark as Spam </button>
@@ -134,6 +142,7 @@
       <button class="btn btn-default btn-xs spam{{ rti_id }}" id = "spam{{ rti_id }}"><i class="fa fa-thumbs-o-down"></i> Mark as Spam </button>
       {% endif %}
     </div>
+    {% endif %}
     <div id = "sharecontainer{{ rti_id }}" class = "sharecontainer{{ rti_id }}" style = "float : left">
      
       <a href="https://www.facebook.com/sharer/sharer.php?u=rtifeed.com/rti_page/{{ rti_id }}" class="btn btn-default btn-xs unspam{{ rti_id }}" id = "unspam{{ rti_id }}"><i class="fa fa-share"></i> Share </a>
@@ -173,11 +182,15 @@
 </div>
 
 <script type="text/javascript">
-  
+  var proposed_flag = false;
+  {% if rti_proposed %}
+    proposed_flag = true;
+  {% endif %}
+
   var user_context = {
     name_user : '{{ my_profile.name_user }}',
     profile_picture : '/media/{{ my_profile.profile_picture }}'
   }
-  make_handlers_for({{ rti_id }}, user_context);
+  make_handlers_for({{ rti_id }}, user_context, proposed_flag);
 </script>
 

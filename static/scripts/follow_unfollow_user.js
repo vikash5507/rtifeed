@@ -33,9 +33,6 @@ function follow_unfollow_user(response_type, user_id){
     },
     dataType : 'json',
     beforeSend : function(){
-
-    },
-    success : function(data){
       if(response_type == 'follow'){
         $('#follow_btn').html('<b>Unfollow</b>');
         $('#follow_btn').attr('class', 'btn btn-danger btn-block user_unfollow_btn');
@@ -46,9 +43,13 @@ function follow_unfollow_user(response_type, user_id){
         $('#unfollow_btn').attr('class', 'btn btn-primary btn-block user_follow_btn');
         $('#unfollow_btn').attr('id', 'follow_btn');
       }
+      make_handlers_for_follow(user_id);
+    },
+    success : function(data){
+      
       $('#num_followers').html(data['num_followers']);
       $('#num_following').html(data['num_following']);
-      make_handlers_for_follow(user_id);
+      
     },
     error : function(err){
       console.log(err);

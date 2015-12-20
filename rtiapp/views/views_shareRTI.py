@@ -11,8 +11,9 @@ from datetime import datetime, timedelta
 from rtiapp.rtiengine import activity_relevance, newsfeed
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models.signals import post_delete
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def share_rti_query(request):
 	context = {}
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
@@ -33,6 +34,29 @@ def share_rti_query(request):
 	context['gov_list'] = gov_list
 	return render_to_response('ShareRTI/post_rti_query.html', context)
 
+@login_required
+def propose_query(request):
+	context = {}
+	context['my_profile'] = newsfeed.get_profile_context(request.user)
+	states = models.State.objects.all()
+	gov_list = [{
+		'gov_id' : 0,
+		'gov_name' : 'Union Government'
+	}]
+	for state in states:
+		gov_list.append({
+			'gov_id' : state.id,
+			'gov_name' : state.state_name + ' Government'
+			})
+	departments = models.Department.objects.filter(department_type = 'centre')
+	rti_hash = str(request.user.id) + '####' + str(datetime.now())
+	context['rti_hash'] = rti_hash
+	context['departments']  = departments
+	context['gov_list'] = gov_list
+	return render_to_response('ShareRTI/propose_query.html', context)
+
+
+@login_required
 def share_rti_response(request):
 	context = {}
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
@@ -74,7 +98,7 @@ def share_rti_response(request):
 	
 	
 
-
+@login_required
 def get_departments_of(request):
 	gov_id = request.GET['gov_id']
 	if int(gov_id) == 0:
@@ -93,6 +117,7 @@ def get_departments_of(request):
 	
 	return render_to_response('ShareRTI/departments.html', context);
 
+@login_required
 def get_rti_tag(request):
 	tags=models.Tag.objects.all()
 	tag_content=[]
@@ -102,6 +127,7 @@ def get_rti_tag(request):
 			})
 	return HttpResponse(json.dumps(tag_content))
 
+@login_required
 @csrf_exempt
 def post_rti_query(request):
 
@@ -117,9 +143,15 @@ def post_rti_query(request):
 		description= request.POST['description']
 		authority_name=request.POST['authority_name']
 		dept_id=request.POST['dept_id']
-		rti_file_date=request.POST['rti_date']
 		
-
+		proposed = False
+		if 'proposed' in request.POST:
+			proposed = True
+			
+		rti_file_date = datetime.now()
+		if 'rti_date' in request.POST:
+			rti_file_date = request.POST['rti_date']
+		
 		authority = models.Authority.objects.filter(authority_name = authority_name).first()
 		if not authority:
 			authority = models.Authority()
@@ -148,6 +180,9 @@ def post_rti_query(request):
 		
 		rti_query.authority = authority
 		rti_query.department_id = dept_id
+
+		rti_query.proposed = proposed
+
 		rti_query.save()
 
 		tags = json.loads(request.POST['tags'])
@@ -231,7 +266,7 @@ def post_rti_response(request):
 
 		return HttpResponse(json.dumps(context))
 
-
+@login_required
 def edit_rti_query(request, rti_id):
 	rti_query = models.RTI_query.objects.filter(id = rti_id).first()
 	if not rti_query:
@@ -260,6 +295,7 @@ def edit_rti_query(request, rti_id):
 	
 
 @csrf_exempt
+@login_required
 def submit_rti_photos(request):
 	rti_hash = request.POST['rti_hash']
 	
@@ -277,6 +313,7 @@ def submit_rti_photos(request):
 	return HttpResponseRedirect('/share_rti_query')
 
 @csrf_exempt
+@login_required
 def delete_rti(request):
 	rti_id = request.POST['rti_id']
 	rti_type = request.POST['rti_type']

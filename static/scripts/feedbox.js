@@ -1,5 +1,7 @@
-function make_handlers_for(rti_id, user_context){
+var proposed_flag = false;
+function make_handlers_for(rti_id, user_context, pf){
   // alert(rti_id);
+  proposed_flag = pf;
   $('.like'+rti_id).each(function(){
     $(this).unbind('click');
     $(this).on('click', function(){
@@ -131,7 +133,8 @@ function spam_sweet_alert(rti_id){
     type: "input",   
     showCancelButton: true,   
     closeOnConfirm: false,   
-    animation: "slide-from-top",   
+    animation: "slide-from-top",
+    showLoaderOnConfirm : true,
     inputPlaceholder: "Reason" }, 
     function(inputValue){   
       if (inputValue === false) 
@@ -141,7 +144,7 @@ function spam_sweet_alert(rti_id){
         return false;
       }      
       post_response(rti_id, 'spam', inputValue);
-      swal('Thank you for your feedback!');
+      // swal('Thanks!', 'Your feedback has been registered', 'success');
     });
 }
 
@@ -305,6 +308,9 @@ function post_response(rti_id, rtype, meta_data){
       $('.lc_count'+rti_id).each(function(){
         $(this).html(data['no_likes']+ ' likes - ' + data['no_comments'] +' comments');
       });
+      if(rtype == 'spam'){
+        swal('Thanks!', 'Your feedback has been registered', 'success');
+      }
       
     },
     error : function(err){
@@ -357,8 +363,13 @@ function handle_success_response(rti_id, rtype){
   }
   else if(rtype == 'unfollow'){
     $('.followcontainer'+rti_id).each(function(){
+        var follow_text = "Follow";
+        if(proposed_flag){
+          follow_text = "Want an answer!"
+        }
+        // alert(proposed_flag);
         $(this).html('<button class="btn btn-default btn-xs follow'+rti_id+'">'+
-         '<i class="fa fa-star-o"></i> Follow </button>')
+         '<i class="fa fa-star-o"></i> '+ follow_text +' </button>')
       });
 
       $('.follow'+rti_id).each(function(){
@@ -410,6 +421,58 @@ function comment_handler(comment_id, rti_id, comment_text){
       edit_comment(comment_id, rti_id, comment_text);
     });
   });
+  
+  $('.comment_like' + comment_id).each(function(){
+    $(this).unbind('click');
+    $(this).on('click', function(){
+      post_comment_activity(comment_id, rti_id, 'like', comment_text);
+    });
+  });
+
+  $('.comment_unlike' + comment_id).each(function(){
+    $(this).unbind('click');
+    $(this).on('click', function(){
+      post_comment_activity(comment_id, rti_id, 'unlike', comment_text);
+    });
+  });
+
+}
+
+function post_comment_activity(comment_id, rti_id, comment_activity, comment_text){
+  $.ajax({
+    url : '/post_comment_activity',
+    data : {
+      comment_id : comment_id,
+      rti_id : rti_id,
+      comment_activity : comment_activity
+    },
+    type : 'POST',
+    dataType : 'json',
+    beforeSend : function(){
+      if(comment_activity == 'like'){
+        // console.log('like');
+        $('.comment_like_button_container' + comment_id).each(function(){
+          $(this).html('<button class="btn btn-default btn-xs comment_unlike' + comment_id +  ' pull-right"'+
+            ' id = "comment_unlike{{ comment_id }}"><i class="fa fa-thumbs-up"></i></button>');
+        });
+      }
+      else{
+        // console.log('unlike');
+        $('.comment_like_button_container' + comment_id).each(function(){
+          $(this).html('<button class="btn btn-default btn-xs comment_like' + comment_id +  ' pull-right"'+
+            ' id = "comment_like{{ comment_id }}"><i class="fa fa-thumbs-o-up"></i></button>');
+        });
+      }
+    },
+    success : function(data){
+      
+      $('#comment_no_likes' + comment_id).html(data['no_likes'] + " likes");
+      comment_handler(comment_id, rti_id, comment_text);
+    },
+    error : function(err){
+      console.log(err);
+    }
+  });
 }
 
 function edit_comment(comment_id, rti_id, comment_text){
@@ -447,14 +510,13 @@ function post_edit_comment(comment_id, comment_text, rti_id){
     },
     type : 'POST',
     beforeSend : function(){
-
+      $('.comment_content' + comment_id).each(function(){
+        $(this).html(comment_text);
+      });
     },
     success : function(data){
       // toggle_edit_button(comment_id, comment_text, rti_id);
-      $('.comment_content' + comment_id).each(function(){
-        $(this).html(comment_text);
-
-      });
+      
       $('.edit_comment' + comment_id).each(function(){
         $(this).unbind('click');
         $(this).on('click', function(){

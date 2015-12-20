@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<script src="/static/scripts/load_feed.js"></script>
+
+
+<div class="content-wrapper col-md-8" id = "feedcontainer"> <br>
+    
+
+</div>
+  
+
+
+<script type="text/javascript">
+  make_feed_for_url('/get_feed?proposed=1');
+</script>
+
+<script src="/static/scripts/feedbox.js"></script>
+
+{% endblock %}

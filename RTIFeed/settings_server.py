@@ -20,11 +20,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '8b0e$m=8_#-nj7-b=9c8s9h9)knu8-bg&5n&qni)9_pe+ye(xz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.rtifeed.com']
 
 
 # Application definition
@@ -36,12 +36,13 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'social.apps.django_app.default',
     'haystack',
     'django_social_share',
     'rtiapp',
 
-    
+
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -76,11 +77,11 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_user',
     'social.pipeline.user.get_username',
     'social.pipeline.social_auth.associate_by_email',  # <--- enable this one
-    
+
     'social.pipeline.user.create_user',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
-    
+
     'rtiapp.authorization.pipelines.get_user_avatar',
     'social.pipeline.mail.mail_validation',
     'rtiapp.authorization.pipelines.user_password',
@@ -116,6 +117,8 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
   'fields': 'id, name, email, age_range, gender'
 }
 
+SITE_ID = 1
+
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/home'
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
@@ -135,17 +138,18 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'RTIFeed',
-        'USER': 'root',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'paarthn$RTIFeed',
+        'USER': 'paarthn',
         'PASSWORD': 'rtifeed@123',
-        'HOST': '127.0.0.1',   # Or an IP Address that your DB is hosted on
+        'HOST': 'mysql.server',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
@@ -177,7 +181,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT=os.path.join(BASE_DIR,"rtiapp/static")
+STATIC_ROOT=os.path.join(BASE_DIR,"static")
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
@@ -185,4 +189,4 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# STATIC_ROOT = '/rtiapp/static'
+# STATIC_ROOT = '/static'

@@ -13,4 +13,6 @@ for st in statelist[2:]:
 		state.save()
 		print st[1]
 
-	
+state = models.State()
+state.state_name = "Delhi"
+state.save()

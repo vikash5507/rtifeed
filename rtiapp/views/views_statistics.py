@@ -9,6 +9,7 @@ from rtiapp.rtiengine import activity_relevance, notification, newsfeed
 import json
 from django.views.decorators.csrf import csrf_exempt
 
+@login_required
 def statistics(request):
 	total_rti_queries = len(models.RTI_query.objects.all())
 	total_rti_responses = len(models.RTI_response.objects.all())

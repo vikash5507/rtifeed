@@ -9,6 +9,7 @@ from rtiapp.rtiengine import newsfeed
 from rtiapp.rtiengine import relevance
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate,login, logout
+from django.contrib.auth.decorators import login_required
 # def all_settings(request, settings_type):
 # 	if settings_type == 'profile':
 # 		return profile_settings(request)
@@ -17,16 +18,19 @@ from django.contrib.auth import authenticate,login, logout
 # 	else:
 # 		raise Http404("Page not found")
 
+@login_required
 def profile_settings(request):
 	context = {}
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	return render(request,'Settings/profile.html',context)
 
+@login_required
 def password_settings(request):
 	context = {}
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	return render(request,'Settings/password.html',context)
 
+@login_required
 @csrf_exempt
 def update_settings(request):
 	print "checl"
@@ -65,4 +69,6 @@ def update_settings(request):
 		else:
 			user.set_password(new_password)
         	user.save()
+        	user = authenticate(username = user.username, password = new_password)
+        	login(request, user)
         	return HttpResponse('done')

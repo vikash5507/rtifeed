@@ -9,13 +9,30 @@ from rtiapp import models
 import json
 from django.views.decorators.csrf import csrf_exempt
 
-def make_notification(activity):
+def make_notification(activity, user = None):
 	notification = models.Notification()
-	notification.user = activity.rti_query.user
+	if not user:
+		if activity.user == activity.rti_query.user:
+			return
+		notification.user = activity.rti_query.user
+	else:
+		if activity.user == user:
+			return
+		notification.user = user
 	notification.notification_type = 'rti_query'
 	notification.activity = activity
 	notification.read_status = False
 	notification.save()
+
+def make_follow_notification(follow_user):
+	models.Notification.objects.filter(follow = follow_user).delete()
+	notification = models.Notification()
+	notification.user = follow_user.followee
+	notification.notification_type = 'user_follow'
+	notification.follow = follow_user
+	notification.read_status = False
+	notification.save()
+
 
 def get_notifications(user):
 	max_notifications = 10
@@ -59,6 +76,16 @@ def make_notification_html(notification):
 			notification_text = ' followed your RTI'
 		elif activity.activity_type == 'spam':
 			notification_text = ' marked your RTI as spam'
-
+		elif activity.activity_type == 'comment_like':
+			notification_text = ' liked your comment'
 		context['notification_text'] = notification_text
+	
+	elif notification.notification_type == 'user_follow':
+		
+		context['notification_user'] = notification.follow.follower.first_name + " " + notification.follow.follower.last_name
+		context['notificatin_user_url'] = '/profile/' + notification.follow.follower.username
+		context['notification_url'] = '/profile/' + notification.user.username + '/followers'
+		context['notification_text'] = ' followed you'
+		
+	
 	return render_to_response('Notification/notification.html', context)

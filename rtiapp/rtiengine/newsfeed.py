@@ -30,18 +30,23 @@ def make_head_line(activity, user):
 	name_user = activity.user.first_name + " " + activity.user.last_name + " "
 	name_link = '<a href = "/profile/' + activity.user.username + '">' + name_user + '</a> '
 	head_line += name_link
-	if activity.activity_type == 'rti_query':
+	if activity.activity_type == 'rti_query' and (not activity.rti_query.proposed):
 		head_line += 'posted an RTI query'
+	elif activity.activity_type == 'rti_query' and activity.rti_query.proposed:
+		head_line += 'proposed an RTI'
 	
-	elif activity.activity_type == 'rti_response' :
+	elif activity.activity_type == 'rti_response':
 		head_line += 'posted an RTI response'
 	
 	elif activity.activity_type == 'like':
 		head_line += 'liked this'
 	
-	elif activity.activity_type == 'follow':
+	elif activity.activity_type == 'follow' and (not activity.rti_query.proposed):
 		head_line += 'followed this'
-	
+
+	elif activity.activity_type == 'follow' and activity.rti_query.proposed:
+		head_line += 'wants an answer for this'
+		
 	elif activity.activity_type == 'comment':
 		head_line += 'commented on this'
 
@@ -113,6 +118,7 @@ def get_feed_for_rti(rti, user, head_line = '', comment_strategy = 'time', max_c
 		'rti_response_status' : rti.response_status,
 		'rti_department' : rti.department.department_name,
 		'rti_department_url' : '/department/' + str(rti.department.id),
+		'rti_proposed' : rti.proposed,
 		'rti_head_line' : head_line,
 		'rti_query_images' : [],
 		'rti_response_images' : [],
@@ -226,7 +232,9 @@ def get_comment_html(comment, user):
 		'comment_user_pic' : profile.profile_picture,
 		'comment_name_user' : comment.user.first_name + " " + comment.user.last_name,
 		'comment_date' : comment.entry_date,
+		'comment_no_likes' : len(models.Activity.objects.filter(activity_link = comment, activity_type = 'comment_like')),
 		'my_comment' : comment.user == user,
+		'comment_like_status' : (len(models.Activity.objects.filter(activity_link = comment, activity_type = 'comment_like', user = user)) > 0),
 	}
 	return render_to_response('Home/comment.html', context)
 

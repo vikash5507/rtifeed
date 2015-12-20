@@ -43,7 +43,7 @@
 
                 <div class="form-group col-xs-6">
                   <label for="dept_id">Department</label>
-                  <select type="text" class="form-control" placeholder="Select department" id="dept_id" name = "dept_id">
+                  <select type="text" class="form-control chosen-select" placeholder="Select department" id="dept_id" name = "dept_id">
                       <!-- <option selected="selected">Select Department</option> -->
                       {% for dep in departments %}
                         <option value = "{{ dep.id }}"> {{ dep.department_name }}</option>
@@ -52,8 +52,8 @@
                   <!-- <span class="glyphicon glyphicon-map-marker form-control-feedback"></span> -->
                 </div>
                 <div class="form-group col-xs-6">
-                  <label for="authority_name">Authority of Department</label>
-                  <input type="text" class="form-control" placeholder="Authority name" id="authority_name" name="authority_name" required>
+                  <label for="authority_name">Authority/PIO</label>
+                  <input type="text" class="form-control" placeholder="Authority/PIO" id="authority_name" name="authority_name" required>
                   <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
                 </div>
                 <div class="form-group col-xs-6">
@@ -137,6 +137,7 @@ myDropzone.on('complete', function(){
   can_submit = true;
   $('#post_id').prop('disabled', false);
 })
+
 $('#govt_id').change(function(){
   $.ajax({
     url : '/get_departments_of',
@@ -149,8 +150,10 @@ $('#govt_id').change(function(){
     },
     success : function(data){
       // alert(data);
+
       $('#dept_id').html(data);
       $('input').removeAttr('disabled');
+      // $(".chosen-select").chosen({disable_search_threshold: 10});
     },
     error : function(err){
       console.log(err);
@@ -243,6 +246,7 @@ $.ajax({
       {
         sampletag.push(data[i]['tag_name']);
       }
+
     },
     error : function(err){
       console.log(err);

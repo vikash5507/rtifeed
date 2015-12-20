@@ -16,7 +16,7 @@ from rtiapp.models  import RTI_query,User_profile,RTI_response,Department,State
 from django.contrib.auth.models import User
 from rtiapp.rtiengine import newsfeed, search
 from rtiapp.views import views_profile
-
+from django.contrib.auth.decorators import login_required
 # def search_user(request):
 # 	sTerm = request.GET['query']
 # 	# sTerm = haystack.inputs.Clean(sTerm)
@@ -59,6 +59,7 @@ from rtiapp.views import views_profile
 
 # 	return HttpResponse(json.dumps(search_list))
 
+@login_required
 def search_model(request):
 	sTerm = request.GET['query']
 	model_type = request.GET['model_type']
@@ -88,11 +89,13 @@ def search_model(request):
 	else:
 		return context
 
+@login_required
 def search_page(request):
 	context = search_model(request)
 	print "#########"
 	print context
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
+	
 	return render_to_response('search/search_page.html', context)
 
 

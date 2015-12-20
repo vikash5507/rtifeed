@@ -7,11 +7,12 @@ from rtiapp import models
 import json
 from rtiapp import common
 from django.views.decorators.csrf import csrf_exempt
-from rtiapp.rtiengine import relevance, newsfeed
+from rtiapp.rtiengine import newsfeed, notification
 from PIL import Image, ImageOps
 from django.core.files import File
 import StringIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.contrib.auth.decorators import login_required
 
 def make_profile_context(user):
 	context = {
@@ -39,6 +40,7 @@ def make_profile_context(user):
 
 	return context
 
+@login_required
 def get_profile_follow(request):
 	context = {}
 	followers = []
@@ -68,6 +70,7 @@ def get_profile_follow(request):
 
 	return render_to_response('Profile/user_list.html', context)
 
+@login_required
 def profile_base_context(request, username):
 	user = models.User.objects.filter(username = username).first()
 	if not user:
@@ -83,11 +86,13 @@ def profile_base_context(request, username):
 	context['user_follow_status'] = len(models.Follow_user.objects.filter(follower = request.user, followee = user)) > 0
 	return context
 
+@login_required
 def display_user_profile(request, username):
 	context = profile_base_context(request, username)
 	# return HttpResponse(json.dumps(context))
 	return render_to_response('Profile/profile.html', context)
 
+@login_required
 def display_user_details(request, username, details_required):
 	context = profile_base_context(request, username)
 	context['details_required'] = details_required
@@ -101,6 +106,7 @@ def display_user_details(request, username, details_required):
 
 
 # @login_required
+@login_required
 def get_profile_feed(request):
 	# user = models.User.objects.filter(id = request.GET['user_id']).first()
 	# if not user:
@@ -118,7 +124,7 @@ def get_profile_feed(request):
 	fetched_rti_list = json.loads(request.GET['fetched_rti_list'])
 	print fetched_rti_list
 	
-	user_activities = models.Activity.objects.filter(user = user).order_by('-entry_date')
+	user_activities = models.Activity.objects.filter(user = user).order_by('-entry_date')[0:1000]
 	rti_list = []
 	rti_mark_list = []
 	for activity in user_activities:
@@ -135,6 +141,7 @@ def get_profile_feed(request):
 
 	return newsfeed.get_feed_for_rtis(rti_list, user)
 
+@login_required
 def get_profile_rtis(request):
 	user = models.User.objects.filter(id = request.GET['user_id']).first()
 	if not user:
@@ -156,8 +163,9 @@ def get_profile_rtis(request):
 				'rti_head_line' : ""
 			})
 
-	return newsfeed.get_feed_for_rtis(rti_list, user)
-	
+	return newsfeed.get_feed_for_rtis(rti_list, request.user)
+
+@login_required
 def post_follow_user(request):
 	me_user = request.user
 	other_user = models.User.objects.filter(id = request.GET['other_user_id']).first()
@@ -166,22 +174,23 @@ def post_follow_user(request):
 	follow_user.follower = me_user
 	follow_user.followee = other_user
 	follow_user.save()
-	
+	notification.make_follow_notification(follow_user)
 	context = {}
 	context['num_followers'] = len(models.Follow_user.objects.filter(followee = other_user))
 	context['num_following'] = len(models.Follow_user.objects.filter(follower = other_user))
 	return HttpResponse(json.dumps(context))
 
+@login_required
 def post_unfollow_user(request):
 	me_user = request.user
 	other_user = models.User.objects.filter(id = request.GET['other_user_id']).first()
 	models.Follow_user.objects.filter(follower = me_user, followee = other_user).delete()
-	relevance.update_relevance_for_user(me_user)
 	context = {}
 	context['num_followers'] = len(models.Follow_user.objects.filter(followee = other_user))
 	context['num_following'] = len(models.Follow_user.objects.filter(follower = other_user))
 	return HttpResponse(json.dumps(context))
 
+@login_required
 @csrf_exempt
 def submit_profile_photo(request):
 	username = request.user.username
@@ -205,6 +214,7 @@ def submit_profile_photo(request):
 
 	return HttpResponseRedirect('/profile/' + str(request.user.id))
 
+@login_required
 def settings(request):
 	return HttpResponse('None')
 

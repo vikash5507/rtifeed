@@ -24,8 +24,9 @@ def search_model(sTerm, model_type, search_type):
 
 	search_list = []
 	mark_list = {}
+	search_results = search_results[0:10]
 	for r in search_results:
-		print "IDDDD", r.pk
+		# print "IDDDD", r.pk
 		try:
 			s_model = search_model.objects.filter(pk=r.pk).first()
 		except:
@@ -83,11 +84,15 @@ def make_search_context(s_model, model_type):
 		search_context['num_following'] = len(models.Follow_user.objects.filter(follower = s_model))
 
 	elif model_type == 'rti':
+		
 		search_context = {
 			'rti_id' : s_model.id,
-			'rti_description' : s_model.description,
 			'search_link' : '/rti_page/' + str(s_model.id) + '/',
 			}
+		if len(s_model.description) < 3:
+			search_context['rti_description'] = s_model.query_text
+		else:
+			search_context['rti_description'] = s_model.description
 		meta_data = newsfeed.get_rti_meta_data(s_model)
 		search_context['no_likes'] = meta_data['no_likes']
 		search_context['no_comments'] = meta_data['no_comments']

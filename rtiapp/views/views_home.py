@@ -25,6 +25,21 @@ def home_page(request):
 	context['full_feed'] = True
 	return render_to_response('Home/home.html', context)
 
+@login_required
+def proposed_rtis(request):
+
+	user = request.user
+	user_profile = models.User_profile.objects.filter(user = user).first()
+	if user_profile.profile_status == 'incomplete':
+		user_profile.profile_status = 'complete'
+		user_profile.save()
+		activity_relevance.update_user_relevance(user)
+		return HttpResponseRedirect('/profile/' + user.username)	
+	context = {}
+	context['my_profile'] = newsfeed.get_profile_context(user)
+	context['full_feed'] = True
+	return render_to_response('Home/proposed_rtis.html', context)
+
 def rti_page(request, rti_id):
 	user = request.user
 	context = {}
@@ -44,7 +59,10 @@ def get_feed(request):
 	fetched_rti_list = json.loads(request.GET['fetched_rti_list'])
 	print fetched_rti_list
 	
-	relevant_activities = models.Activity_relevance.objects.filter(user = user).order_by('-relevance')[0:100]
+	if 'proposed' in request.GET:
+		relevant_activities = models.Activity_relevance.objects.filter(user = user, activity__rti_query__proposed = True).order_by('-relevance')[0:100]
+	else:
+		relevant_activities = models.Activity_relevance.objects.filter(user = user).order_by('-relevance')[0:100]
 	rti_list = []
 	rti_mark_list = []
 	max_feed = 10
@@ -77,6 +95,7 @@ def view_rti(request):
 	else:
 		return HttpResponse("404")
 
+@login_required
 def load_prev_comments(request):
 	user = request.user
 	rti_query = models.RTI_query.objects.filter(id = request.GET['rti_query_id']).first()
@@ -145,15 +164,44 @@ def post_rti_activity(request):
 	
 	return HttpResponse(json.dumps(context))
 
+@csrf_exempt
+def post_comment_activity(request):
+	comment_id = request.POST['comment_id']
+	rti_id = request.POST['rti_id']
+	comment_activity = request.POST['comment_activity']
+
+	comment = models.Activity.objects.filter(id = comment_id).first()
+	models.Activity.objects.filter(activity_type = 'comment_like', activity_link = comment, user = request.user).delete()
+
+	if comment_activity == 'like':
+		activity = models.Activity()
+		activity.user = request.user
+		activity.rti_query_id = rti_id
+		activity.activity_link = comment
+		activity.activity_type = 'comment_like'
+		activity.save()
+		notification.make_notification(activity, comment.user)
+	
+	context = {
+		'no_likes' : len(models.Activity.objects.filter(activity_link = comment, activity_type = 'comment_like'))
+	}
+	
+
+	return HttpResponse(json.dumps(context))
+
+
+@login_required
 def get_notifications(request):
 	context = notification.get_notifications(request.user)
 	return HttpResponse(json.dumps(context))
 
+@login_required
 def notification_page(request):
 	context = notification.get_notifications(request.user)
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	return render_to_response('Notification/notification_page.html', context)
 
+@login_required
 def mark_all_notifications(request):
 	notification.mark_all_notifications(request.user)
 	return HttpResponse('OK')

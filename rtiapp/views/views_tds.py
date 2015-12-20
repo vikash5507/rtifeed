@@ -8,14 +8,16 @@ import json
 from rtiapp import common
 from rtiapp.rtiengine import relevance, newsfeed
 from rtiapp.views import views_profile
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def display_department_profile(request, department_id):
 	department = models.Department.objects.filter(id = department_id).first()
 	context = make_department_context(department, request.user)
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	return render_to_response('TDS/tds_profile.html', context)
 	
-
+@login_required
 def display_department_details(request, department_id, details_required):
 	department = models.Department.objects.filter(id = department_id).first()
 	if not department:
@@ -28,6 +30,7 @@ def display_department_details(request, department_id, details_required):
 	else:
 		raise Http404("Department Does Not Exist")
 
+@login_required
 def display_state_details(request, state_id, details_required):
 	state = models.State.objects.filter(id = state_id).first()
 	if not state:
@@ -47,6 +50,7 @@ def display_state_details(request, state_id, details_required):
 	else:
 		raise Http404("Department Does Not Exist")
 
+@login_required
 def display_topic_profile(request, topic_id):
 	print "hello it's me"
 	topic = models.Tag.objects.filter(id = topic_id).first()
@@ -54,6 +58,7 @@ def display_topic_profile(request, topic_id):
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	return render_to_response('TDS/tds_profile.html', context)
 
+@login_required
 def display_topic_details(request, topic_id, details_required):
 	topic = models.Tag.objects.filter(id = topic_id).first()
 	if not topic:
@@ -66,6 +71,7 @@ def display_topic_details(request, topic_id, details_required):
 	else:
 		raise Http404("Department Does Not Exist")
 
+@login_required
 def display_state_profile(request, state_id):
 	state = models.State.objects.filter(id = state_id).first()
 	context = make_state_context(state, request.user)
@@ -132,7 +138,7 @@ def make_topic_context(topic, user):
 	
 	return context
 
-
+@login_required
 def post_follow_tds(request):
 	follow = None
 	context = {}
@@ -161,9 +167,11 @@ def post_follow_tds(request):
 		follow.follower = request.user
 		follow.followee = fe
 		follow.save()
+		context = make_topic_context(fe, request.user)
 		# context['no_followers'] = len(models.Follow_department.objects.filter(followee = fe))
 	return HttpResponse(json.dumps(context))
 
+@login_required
 def post_unfollow_tds(request):
 	context = {}
 	if request.GET['tds_type'] == 'department':
@@ -183,7 +191,7 @@ def post_unfollow_tds(request):
 
 	return HttpResponse(json.dumps(context))
 
-
+@login_required
 def get_tds_feed(request):
 	tds_id = request.GET['tds_id']
 	fetched_rti_list = json.loads(request.GET['fetched_rti_list'])
@@ -200,7 +208,7 @@ def get_tds_feed(request):
 		rti_queries = models.RTI_query.objects.filter(department = state_departments).order_by('-entry_date')
 	elif request.GET['tds_type'] == 'topic':
 		topic = models.Tag.objects.filter(id = tds_id)
-		rti_id_list = models.RTI_tag.objects.values('rti_query').filter(tag = topic).order_by('-entry_date')
+		rti_id_list = models.RTI_tag.objects.values('rti_query').filter(tag = topic).order_by('-entry_date')[0:1000]
 		rti_queries = []
 		for rti in rti_id_list:
 			rti_query = models.RTI_query.objects.filter(id = rti['rti_query']).first()
@@ -216,6 +224,7 @@ def get_tds_feed(request):
 				})
 	return newsfeed.get_feed_for_rtis(rti_list, request.user)
 
+@login_required
 def get_tds_follow(request):
 	context = {}
 	tds_id = request.GET['tds_id']

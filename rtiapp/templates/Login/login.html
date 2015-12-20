@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>RTIFeed | Log in</title>
+    <meta name="description" content="A social platform for sharing RTI">
+    <meta name="keywords" content="RTIFEED RTI FEED RIGHT TO INFORMATION INDIA SHARE QUERY">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -68,14 +70,14 @@
           <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}" class="btn btn-block btn-social btn-twitter btn-flat"><i class="fa fa-twitter"></i> Sign in using Twitter</a>
         </div><!-- /.social-auth-links -->
 
-        <!-- <a href="#">I forgot my password</a><br> -->
+        <a href="#!" id = "forgot_password">I forgot my password</a><br>
         <a href="#!" class="text-center" onclick="switchVisible();" >Register a new membership</a>
 
       </div><!-- /.login-box-body -->
 
       <div class="login-box-body" id="sign_up" style="display:none">
         <p class="login-box-msg">Sign up</p>
-        <form action="/complete/email/" method="post" onsubmit="return validate_signup_form()">
+        <form action="" method="post" onsubmit="return validate_signup_form()" id = "signup_form">
           
           <div class="form-group has-feedback">
             <input type="text" class="form-control" placeholder="First Name" name = "first_name" required>
@@ -117,7 +119,7 @@
           <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}" class="btn btn-block btn-social btn-twitter btn-flat"><i class="fa fa-twitter"></i> Sign in using Twitter</a>
         </div><!-- /.social-auth-links -->
 
-        <!-- <a href="#">I forgot my password</a><br> -->
+        <!-- <a href="#!" id = "forgot_password">I forgot my password</a><br> -->
         <a href="#!" class="text-center" onclick="switchVisible();">Sign In</a>
 
       </div><!-- /.login-box-body -->
@@ -153,15 +155,83 @@
       }
 
       function validate_signup_form(){
+        
+      }
+
+      $('#signup_form').on('submit', function(e){
         var password = $('#password').val();
         var re_password = $('#re_password').val();
         if(password != re_password){
           swal('Oops', 'Passwords do not match', 'error');
           return false;
         }
-        return true;
-      }
+        
+        e.preventDefault();
+        var formData = new FormData($(this)[0]);
+        
+        $.ajax({
+          url : '/email_signup',
+          type : 'POST',
+          data : formData,
+          dataType : 'json',
+          beforeSend : function(){
+            $('#signup_form :input').prop("disabled", true);
+            // alert('HMM');
+          },
+          success : function(data){
+            swal(data['message'], data['message_long'], data['message_type']);
+            switchVisible();
+          },
+          error : function(err){
+            console.log(JSON.stringify(err));
+          },
+          contentType : false,
+          processData : false
+        });
+      });
 
+      $('#forgot_password').on('click', function(){
+        swal({   
+          title: "Please enter your email address and we will send you a new password",   
+          // text: "Write something interesting:",   
+          type: "input",   
+          showCancelButton: true,   
+          closeOnConfirm: false,   
+          animation: "slide-from-top",
+          showLoaderOnConfirm : true,   
+          inputPlaceholder: "Email" },
+          function(inputValue){
+            if (inputValue === false) 
+              return false;    
+            if (inputValue === "") {     
+              swal.showInputError("Please specify an email address");     
+              return false;
+            }      
+            $.ajax({
+              url : '/forgot_password',
+              data : {
+                'email' : inputValue
+              },
+              dataType : 'json',
+              success : function(data){
+                swal(data['message'], data['message_long'], data['message_type']);
+              },
+              error : function(){
+                swal('Oops', 'Something went wrong', 'error');
+              }
+            });
+          });
+      });
     </script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71457402-1', 'auto');
+ga('send', 'pageview');
+
+</script>
   </body>
 </html>

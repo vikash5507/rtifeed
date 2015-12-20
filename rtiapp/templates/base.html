@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>RTIFeed | News Feed</title>
     <!-- Tell the browser to be responsive to screen width -->
-
+    <meta name="description" content="A social platform for sharing RTI">
+    <meta name="keywords" content="RTIFEED RTI FEED RIGHT TO INFORMATION INDIA">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
@@ -46,6 +47,9 @@
       <meta property="og:description"   content="Your description" />
       <meta property="og:image"         content="http://www.livelaw.in/cms/wp-content/uploads/2013/07/RTI-LL-Size.jpg" />
     {% endif %}
+    <script src="/static/plugins/chosen/chosen.jquery.min.js"></script>
+
+    <link href="/static/plugins/chosen/chosen.min.css" rel="stylesheet" type="text/css">
   </head>
   <body class="hold-transition skin-blue-light sidebar-mini fixed" id = "bodyid">
     <!-- Site wrapper -->
@@ -58,7 +62,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>RTI</b>Feed</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>RTI</b>Feed</span>
+          <span class="logo-lg"><b>RTI</b>Feed <small class="label bg-yellow">BETA</small></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -69,7 +73,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <form class="navbar-form navbar-left" role="search">
+          <form class="navbar-form navbar-left" role="search" id = "search_form">
             <div>
               <input type="text" class="form-control" id="navbar-search-input" placeholder="Search" style = "width : 400px;">
             </div>
@@ -164,7 +168,7 @@
           </div> -->
           <!-- search form -->
           
-          <!-- <form action="#" method="get" class="sidebar-form">
+        <!--   <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
               <input type="text" name="q" class="form-control" placeholder="Search..." autocomplete="off">
               <span class="input-group-btn">
@@ -176,26 +180,39 @@
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
-            <li class="header">RTI Feed</li>
+            <li class="header"></li>
             
             <li>
               <a href="/home">
-                <i class="fa fa-th"></i> <span>News Feed</span> <small class="label pull-right bg-green">Hot</small>
+                <i class="fa fa-newspaper-o"></i> <span>News Feed</span> <!-- <small class="label pull-right bg-green">Hot</small> -->
               </a>
             </li>
             <li>
               <a href="/share_rti_query">
-                <i class="fa fa-th"></i> <span>Share new RTI</span> 
+                <i class="fa fa-file-text-o"></i> <span>Share new RTI</span> 
               </a>
             </li>
             <li>
               <a href="/share_rti_response">
-                <i class="fa fa-th"></i> <span>Share new RTI Response</span> 
+                <i class="fa fa-file-text"></i> <span>Share new RTI Response</span> 
               </a>
             </li>
+
+            <li>
+              <a href="/propose_query">
+                <i class="fa fa-hand-paper-o"></i> <span>Propose an RTI</span> 
+              </a>
+            </li>
+
+            <li>
+              <a href="/proposed_rtis">
+                <i class="fa fa-newspaper-o"></i> <span>Proposed RTIs</span> 
+              </a>
+            </li>
+
             <li>
               <a href="/statistics">
-                <i class="fa fa-th"></i> <span>Statistics</span> 
+                <i class="fa fa-bar-chart"></i> <span>Statistics</span> 
               </a>
             </li>
             <li>
@@ -225,6 +242,16 @@
     <script src="/static/plugins/typeahead/typeahead.js"></script>
     <script src="/static/scripts/search.js"></script>
     <script src="/static/scripts/lightbox.js"></script>
+    <script src="/static/scripts/screen_responsive.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+ga('create', 'UA-71457402-1', 'auto');
+ga('send', 'pageview');
+
+</script>
   </body>
 </html>

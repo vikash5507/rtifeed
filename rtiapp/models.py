@@ -28,6 +28,14 @@ class Address(models.Model):
 	entry_date = models.DateTimeField()
 	update_date = models.DateTimeField(auto_now_add=True)
 
+class Email_user(models.Model):
+	email = models.CharField(max_length = 200, primary_key = True)
+	first_name = models.CharField(max_length = 200)
+	last_name = models.CharField(max_length = 200)
+	password = models.CharField(max_length = 200)
+	verification_code = models.CharField(max_length = 200)
+	verified = models.BooleanField(default = False)
+
 class User_profile(models.Model):
 	def __unicode__(self):
 		return self.user.username
@@ -81,13 +89,13 @@ class RTI_query(models.Model):
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	query_text = models.TextField()
 	description = models.CharField(max_length = 200)
-	rti_file_date = models.DateTimeField()
+	rti_file_date = models.DateTimeField(null = True)
 	response_status = models.BooleanField(default = False)
 	query_type = models.CharField(max_length = 50)
 	# type : centre, state
 	department = models.ForeignKey(Department, on_delete = models.CASCADE)
 	authority = models.ForeignKey(Authority, on_delete = models.SET_NULL, null = True)
-
+	proposed = models.BooleanField(default = False)
 	entry_date = models.DateTimeField()
 	update_date = models.DateTimeField(auto_now_add=True)
 
@@ -106,7 +114,7 @@ class RTI_query_file(models.Model):
 # RESPONSE
 class RTI_response(models.Model):
 	def __unicode__(self):
-		return self.description
+		return self.response_text
 
 	rti_query = models.OneToOneField(RTI_query, primary_key = True, on_delete = models.CASCADE)
 	response_text = models.TextField()
@@ -158,9 +166,11 @@ class Activity(models.Model):
 	    ('like', 'like'),
 	    ('follow', 'follow'),
 	    ('spam', 'spam'),
+	    ('comment_like', 'comment_like' )
 	)
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	rti_query = models.ForeignKey(RTI_query, on_delete = models.CASCADE)
+	activity_link = models.ForeignKey("self", null = True, on_delete = models.CASCADE)
 	activity_type = models.CharField(max_length = 20, choices = activity_choices)
 	meta_data = models.TextField(null = True)
 	entry_date = models.DateTimeField(auto_now_add = True)
