@@ -10,7 +10,7 @@
       <span class="description">Issued to <a href="{{ rti_department_url }}"> <b>{{ rti_department }}</b></a> on <b>{{rti_entry_date}}</b></span>
       {% else %}
       <span class="description">Issued in <a href="{{ rti_state_url }}">{{ rti_state }}</a></span>
-      <span class="description">to <a href="{{ rti_department_url }}"> <b>{{ rti_department }}</b></a> on <b>{{rti_entry_date}}</b></span>
+      <span class="description">to <a href="{{ rti_department_url }}"> <b>{{ rti_department }}</b></a>{% if rti_file_date %} on <b>{{rti_file_date}}</b>{% endif %}</span>
       {% endif %}
     </div><!-- /.user-block -->
     {% if my_rti %}

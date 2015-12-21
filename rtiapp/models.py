@@ -88,7 +88,7 @@ class RTI_query(models.Model):
 		return self.description
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	query_text = models.TextField()
-	description = models.CharField(max_length = 200)
+	description = models.CharField(max_length = 200, null = True)
 	rti_file_date = models.DateTimeField(null = True)
 	response_status = models.BooleanField(default = False)
 	query_type = models.CharField(max_length = 50)

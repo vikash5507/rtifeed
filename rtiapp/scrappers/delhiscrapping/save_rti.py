@@ -4,12 +4,15 @@ from rtiapp import models
 from datetime import datetime
 import warnings
 from rtiapp.rtiengine import activity_relevance as ar
+import os
 
 warnings.filterwarnings("ignore")
 
 def save_rtis():
-	json_file = open('rtiapp/scrappers/delhiscrapping/delhi_data_backup.json', 'r')
+	file_path = os.path.join(os.path.dirname(__file__), 'delhi_data_new.json')
+	json_file = open(file_path, 'r')
 	dep_rtis = json.loads(json_file.read())
+	
 	c = 0
 
 	user = models.User.objects.filter(first_name = 'rtist').first()
@@ -21,10 +24,11 @@ def save_rtis():
 
 	print state
 	map_rtis = {}
+	dup = 0
 	for dep in dep_rtis:
 		if len(dep_rtis[dep]) == 0:
 			continue
-		rtis = dep_rtis[dep][0]
+		rtis = dep_rtis[dep]
 		state_department = models.State_department.objects.filter(state__state_name = 'Delhi', department__department_name = dep).first()
 		if state_department:
 			department = state_department.department
@@ -41,13 +45,20 @@ def save_rtis():
 			state_department.save()
 		# print state_department
 		# return
+		d = 0
 		for rti in rtis:
-			if rti['query'] in map_rtis:
+			# print rti
+			if rti['url'] in map_rtis:
+				dup += 1
 				continue
-			map_rtis[ rti['query'] ] = True
+			if (not rti['query']) or (not rti['response']) or (not rti['url']):
+				continue
+			map_rtis[ rti['url'] ] = True
 			rti_query = models.RTI_query()
 			rti_query.user = user
 			rti_query.query_text = rti['query']
+			rti_url = '<br><a href = "'+ rti['url'] +'">'+ rti['url'] +'</a>'
+			rti_query.query_text = rti_query.query_text + rti_url
 			# if not rti['query']:
 				# print rti
 			if not rti['query']:
@@ -64,6 +75,7 @@ def save_rtis():
 			rti_query.entry_date = datetime.now()
 			try:
 				rti_query.save()
+				pass
 			except:
 				print "err qu"
 				continue
@@ -78,6 +90,7 @@ def save_rtis():
 			rti_tag.tag = tag
 			try:
 				rti_tag.save()
+				pass
 			except:
 				print "err tg"
 				continue
@@ -85,9 +98,11 @@ def save_rtis():
 			rti_response = models.RTI_response()
 			rti_response.rti_query = rti_query
 			rti_response.response_text = rti['response']
+			# print rti['response']
 			rti_response.entry_date = datetime.now()
 			try:
 				rti_response.save()
+				pass
 			except:
 				print "err rs"
 				continue
@@ -100,8 +115,9 @@ def save_rtis():
 			activity.user = user
 			activity.save()
 			ar.update_activity_relevance(activity)
-			print c
+			# print c
 			c += 1
-
-	print c
+			d += 1
+		print d
+	print c, dup
 	# pprint.pprint(dep_rtis)

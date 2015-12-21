@@ -53,7 +53,7 @@ def calc_relevance(user, activity):
 	time_decay = (datetime.now().replace(tzinfo=None) - activity_entry_date.replace(tzinfo=None)  ).total_seconds() 
 	time_decay = math.log(time_decay / 60.0 / 60.0)
 
-	relevance = fact_all / time_decay
+	relevance = (fact_all + 10) / time_decay
 	activity_relevance = models.Activity_relevance.objects.filter(user = user, activity = activity).first()
 	if not activity_relevance:
 		activity_relevance = models.Activity_relevance()

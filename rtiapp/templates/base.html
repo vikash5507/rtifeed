@@ -50,6 +50,23 @@
     <script src="/static/plugins/chosen/chosen.jquery.min.js"></script>
 
     <link href="/static/plugins/chosen/chosen.min.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+      @media only screen and (max-width: 1026px) {
+        #search_form {
+          display: none;
+        }
+      }
+
+      @media only screen and (min-width: 1026px) {
+        .sidebar-toggle {
+          display: none;
+        }
+        #side_bar_search {
+          display: none;
+        }
+      }
+
+    </style>
   </head>
   <body class="hold-transition skin-blue-light sidebar-mini fixed" id = "bodyid">
     <!-- Site wrapper -->
@@ -75,7 +92,7 @@
           </a>
           <form class="navbar-form navbar-left" role="search" id = "search_form">
             <div>
-              <input type="text" class="form-control" id="navbar-search-input" placeholder="Search" style = "width : 400px;">
+              <input type="text" class="form-control navbar-search-input" id="navbar-search-input" placeholder="Search" style = "width : 300px;">
             </div>
           </form>
           <div class="navbar-custom-menu">
@@ -179,6 +196,15 @@
           
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
+          <form class="" id = "side_bar_search" style = "padding : 20px;">
+            <div class="input-group">
+              <input type="text" class="form-control navbar-search-input" id="navbar-search-input" placeholder="Search" style = "width : 200px;">
+                <span class="input-group-btn">
+                  <!-- <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                  </button> -->
+                </span>
+            </div>
+          </form>
           <ul class="sidebar-menu">
             <li class="header"></li>
             
@@ -242,7 +268,18 @@
     <script src="/static/plugins/typeahead/typeahead.js"></script>
     <script src="/static/scripts/search.js"></script>
     <script src="/static/scripts/lightbox.js"></script>
-    <script src="/static/scripts/screen_responsive.js"></script>
+    
+<script type="text/javascript">
+var screen_width = $(window).width();
+  // if(screen_width < 900){
+  //   $('body').removeClass('fixed');
+  //   $('#search_form').css('display', 'none');
+  //   // alert('done'); 
+  // }
+  // else{
+  //   $('.sidebar-toggle').remove();
+  // }
+</script>
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

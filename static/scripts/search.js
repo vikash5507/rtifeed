@@ -72,7 +72,7 @@ $(document).ready(function() {
   // ensure default users are read on initialization
   // engine.get('1090217586', '58502284', '10273252', '24477185')
 
-  $('#navbar-search-input').typeahead({
+  $('.navbar-search-input').typeahead({
       hint: $('.Typeahead-hint'),
       menu: $('.Typeahead-menu'),
       minLength: 1,
@@ -163,7 +163,7 @@ $(document).ready(function() {
 
 function make_user_template(data){
   
-  var user_template = '<div class="ProfileCard u-cf" style="width:400px;">'+
+  var user_template = '<div class="ProfileCard u-cf">'+
     '<img class="ProfileCard-avatar" src="'+ data.profile_picture +'">'+
     '<a href = "' + data.search_link + '"> </a>'+
     '<div class="ProfileCard-details">'+
@@ -181,7 +181,7 @@ function make_user_template(data){
 }
 
 function make_rti_template(data){
-  var rti_template = '<div class="ProfileCard u-cf" style="width:400px;">'+
+  var rti_template = '<div class="ProfileCard u-cf">'+
     // '<img class="ProfileCard-avatar" src="'+ data.rti_picture +'">'+
     '<a href = "' + data.search_link + '"> </a>'+
     '<div class="ProfileCard-details">'+
@@ -201,7 +201,7 @@ function make_rti_template(data){
 }
 
 function make_tds_template(data, tds_type){
-  var tds_template = '<div class="ProfileCard u-cf" style="width:400px;">'+
+  var tds_template = '<div class="ProfileCard u-cf">'+
     // '<img class="ProfileCard-avatar" src="'+ data.rti_picture +'">'+
     '<a href = "' + data.search_link + '"> </a>'+
     '<div class="ProfileCard-details">'+
@@ -223,7 +223,8 @@ function make_tds_template(data, tds_type){
 //   window.location.href = datum.link;
 // });
 
-$('#navbar-search-input').on('keyup', function(e) {
+$('.navbar-search-input').on('keyup', function(e) {
+    // alert($(this).val());
     if (e.which == 13) {
         window.location.href = '/search_page?query='+ $(this).val() +'&model_type=all&search_type=search&data_type=default'
     }

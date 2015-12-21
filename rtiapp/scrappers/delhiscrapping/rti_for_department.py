@@ -1,6 +1,7 @@
 import requests
 import lxml.html as lh
 import lxml
+from lxml import etree
 import grequests
 from mechanize import Browser
 import json
@@ -36,7 +37,7 @@ def get_rtis_for_department(department):
 	dep_json = json.loads(json_file.read())
 	json_file.close()
 	# pprint.pprint(dep_json)
-	dep_json[department['dep_name']].append(rti_data)
+	dep_json[department['dep_name']] = rti_data
 	
 	json_file = open('delhi_data.json', 'w')
 	json_file.write(json.dumps(dep_json))
@@ -59,15 +60,27 @@ def get_data_for_rtis(rti_attr_list):
 	for response in responses:
 		rti = {}
 		tree = lh.fromstring(response.text)
+		print hosts[counter]
 		response_tree = tree.xpath('//tr/td[@width="90%"]')
+
 		if len(response_tree) >= 1:
 			rti['category'] = response_tree[0].text
 		if len(response_tree) >= 2:
-			rti['query'] = response_tree[1].text
+			rti['query'] = find_q_r(response_tree[1])
 		if len(response_tree) == 3:
-			rti['response'] = response_tree[2].text
+			rti['response'] = find_q_r(response_tree[2])
+		print rti['response']
+		print "---------------------------------------------"
+		# print dfs
 		rti['url'] = hosts[counter]
 		counter += 1
 		rti_data.append(rti)
 
 	return rti_data
+
+def find_q_r(resp_tree):
+	rt = etree.tostring(resp_tree, pretty_print=True)
+	i = rt.find('>')
+	j = rt.find('</td>')
+	return rt[i + 1 : j]
+	j = len(rt)
