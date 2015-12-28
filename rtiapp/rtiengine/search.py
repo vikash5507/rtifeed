@@ -2,6 +2,7 @@ from rtiapp import models
 from rtiapp.rtiengine import newsfeed
 from rtiapp.views import views_profile
 from haystack.query import SearchQuerySet
+from rtiapp.common import XOR_KEY
 
 def search_model(sTerm, model_type, search_type):
 	search_model = None
@@ -43,7 +44,7 @@ def make_search_context(s_model, model_type):
 	if model_type == 'state':
 		search_context = {
 			'tds_name' : s_model.state_name,
-			'search_link' : '/state/' + str(s_model.id)
+			'search_link' : '/state/' + s_model.slug
 		}
 		state_departments = models.State_department.objects.values('department').filter(state = s_model)
 		rti_queries = models.RTI_query.objects.filter(department = state_departments)
@@ -54,7 +55,7 @@ def make_search_context(s_model, model_type):
 	elif model_type == 'department':
 		search_context = {
 			'tds_name' : s_model.department_name,
-			'search_link' : '/department/' + str(s_model.id)
+			'search_link' : '/department/' + s_model.slug
 		}
 		rti_queries = models.RTI_query.objects.filter(department = s_model)
 		rti_responses = models.RTI_response.objects.filter(rti_query = rti_queries)
@@ -65,7 +66,7 @@ def make_search_context(s_model, model_type):
 	elif model_type == 'topic':
 		search_context = {
 			'tds_name' : s_model.tag_text,
-			'search_link' : '/topic/' + str(s_model.id)
+			'search_link' : '/topic/' + s_model.slug
 		}
 		rti_queries = models.RTI_tag.objects.values('rti_query').filter(tag = s_model)
 		rti_responses = models.RTI_response.objects.filter(rti_query = rti_queries)
@@ -87,7 +88,7 @@ def make_search_context(s_model, model_type):
 		
 		search_context = {
 			'rti_id' : s_model.id,
-			'search_link' : '/rti_page/' + str(s_model.id) + '/',
+			'search_link' : '/rti_page/' + str(XOR_KEY ^ s_model.id) + '/',
 			}
 		if len(s_model.description) < 3:
 			search_context['rti_description'] = s_model.query_text

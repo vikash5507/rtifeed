@@ -25,7 +25,12 @@ def save_rtis():
 	print state
 	map_rtis = {}
 	dup = 0
+	dep_c = 1
 	for dep in dep_rtis:
+		dep_c += 1
+		if dep_c < 46:
+			continue
+		print dep_c, dep
 		if len(dep_rtis[dep]) == 0:
 			continue
 		rtis = dep_rtis[dep]

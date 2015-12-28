@@ -61,10 +61,10 @@ def share_rti_response(request):
 	context = {}
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	if 'rti_id' in request.GET:
-		rti_query = models.RTI_query.objects.filter(id = request.GET['rti_id']).first()
+		rti_query = models.RTI_query.objects.filter(slug = request.GET['rti_id']).first()
 		
 		if len(models.RTI_response.objects.filter(rti_query = rti_query)) > 0:
-			return HttpResponseRedirect('/rti_page/' + str(rti_query.id))
+			return HttpResponseRedirect('/rti_page/' + rti_query.slug)
 
 		if not rti_query or rti_query.user != request.user:
 			raise Http404("Page Not Found")
@@ -87,8 +87,8 @@ def share_rti_response(request):
 				'rti_description' : query.description,
 				'filed_date' : query.rti_file_date,
 				'department' : query.department.department_name,
-				'response_url' : '/share_rti_response?rti_id=' + str(query.id),
-				'query_url' : '/rti_page/' + str(query.id)
+				'response_url' : '/share_rti_response?rti_id=' + str(query.slug),
+				'query_url' : '/rti_page/' + str(query.slug)
 				})
 			counter += 1
 		context['rti_description_list'] = description_list
@@ -105,11 +105,8 @@ def get_departments_of(request):
 		departments = models.Department.objects.filter(department_type = 'centre')
 	else:
 		state = models.State.objects.filter(id = request.GET['gov_id']).first()
-		departments = models.State_department.objects.filter(state = state)
-		dep_list = []
-		for dep in departments:
-			dep_list.append(dep.department)
-		departments = dep_list
+		departments = models.Department.objects.filter(state = state)
+		
 	context= {
 		'departments' : departments
 	}
@@ -180,7 +177,6 @@ def post_rti_query(request):
 		
 		rti_query.authority = authority
 		rti_query.department_id = dept_id
-
 		rti_query.proposed = proposed
 
 		rti_query.save()
@@ -218,7 +214,8 @@ def post_rti_query(request):
 		activity_relevance.update_activity_relevance(activity)
 
 		context = {
-			'rti_id' : json.dumps(rti_query.id)
+			'rti_id' : json.dumps(rti_query.id),
+			'rti_slug' : rti_query.slug
 		}
 
 		return HttpResponse(json.dumps(context))
@@ -261,7 +258,8 @@ def post_rti_response(request):
 		activity_relevance.update_activity_relevance(activity)
 
 		context = {
-			'rti_id' : json.dumps(rti_query.id)
+			'rti_id' : json.dumps(rti_query.id),
+			'rti_slug' : rti_query.slug
 		}
 
 		return HttpResponse(json.dumps(context))

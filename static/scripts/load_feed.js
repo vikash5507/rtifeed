@@ -1,8 +1,9 @@
 var fetched_rti_list = [];
 var loading = false;
+var no_activity = false;
 function make_feed_for_url(feed_url){
   // $('#feedcontainer').css('height','200px');
-  $('#feedcontainer').after('<center><div id = "feed_loader" style = "display:none;"><img height="40" width = "40" src = "/static/dist/img/spinner.gif"></img></div></center>');
+  $('#feedcontainer').after('<center><div id = "feed_loader" style = "display:none; padding-bottom : 40px;"><img height="40" width = "40" src = "/static/dist/img/spinner.gif"></img></div></center>');
   load_feed(feed_url);
   $(window).unbind("scroll");
   $(window).scroll(function () {
@@ -15,7 +16,8 @@ function make_feed_for_url(feed_url){
 
 
 function load_feed(feed_url){
-  if(loading){
+  if(loading || no_activity){
+
     return;
   }
   // console.log(fetched_rti_list);
@@ -31,8 +33,9 @@ function load_feed(feed_url){
     },
     success : function(data){
       fetched_rti_list = fetched_rti_list.concat(data['rti_id_list']);
-      if(data['rti_id_list'].length == 0 && fetched_rti_list.length == 0){
-        $('#feedcontainer').append('<h3> No Recent Activity </h3>');
+      if(data['rti_id_list'].length == 0 && !no_activity){
+        $('#feedcontainer').append('<center><h3 style = "padding-bottom : 10px;"> No Recent Activity </h3></center>');
+        no_activity = true;
         loading = true;
       }
       $('#feedcontainer').append(data['feed_html']);

@@ -1,30 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
 <script src="/static/scripts/load_feed.js"></script>
+<script src="/static/scripts/feedbox.js"></script>
 <div class="content-wrapper col-md-8">
 <br>
-  <div id = "feedcontainer"></div>
+  <div id = "feedcontainer">
+    {{ feed_box | safe }}
+  </div>
 </div>
 
 <script type="text/javascript">
 
-  $.ajax({
-    url : '/view_rti',
-    data : {
-      rti_query_id : {{ rti_query_id }}
-    },
-    success : function(data){
-      $('#feedcontainer').append(data);
-    },
-    error : function(err){
-      console.log(err);
-    }
+  // $.ajax({
+  //   url : '/view_rti',
+  //   data : {
+  //     rti_query_id : {{ rti_query_id }}
+  //   },
+  //   success : function(data){
+  //     $('#feedcontainer').append(data);
+  //   },
+  //   error : function(err){
+  //     console.log(err);
+  //   }
 
-  })
+  // })
 
 </script>
 
-<script src="/static/scripts/feedbox.js"></script>
+
 
 
 {% endblock %}

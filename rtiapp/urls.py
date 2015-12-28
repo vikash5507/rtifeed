@@ -20,10 +20,11 @@ urlpatterns = patterns('',
 	# url(r'^home$', views_home.home_page, name = 'homepage'),
 	url(r'^base$', views_test.base, name = 'basepage'),
 	url(r'^home$', views_home.home_page, name = 'homepage'),
+	url(r'^feedback$', views_home.feedback, name = 'feedback'),
 	url(r'^proposed_rtis$', views_home.proposed_rtis, name = 'proposed_rtis'),
 	url(r'^statistics$', views_statistics.statistics, name = 'statistics'),
 
-	url(r'^rti_page/(?P<rti_id>\w+)/$', views_home.rti_page, name = 'rti_page'),
+	url(r'^rti_page/(?P<rti_slug>[-\w.]+)/$', views_home.rti_page, name = 'rti_page'),
 	url(r'^get_feed$', views_home.get_feed, name = 'get_feed'),
 	url(r'^get_notifications$', views_home.get_notifications, name = 'get_notifications'),
 	url(r'^notifications$', views_home.notification_page, name = 'notifications'),
@@ -32,8 +33,8 @@ urlpatterns = patterns('',
 
 	url(r'^get_profile_feed$', views_profile.get_profile_feed, name = 'get_profile_feed'),
 	url(r'^get_profile_rtis$', views_profile.get_profile_rtis, name = 'get_profile_rtis'),
-	url(r'^get_profile_follow$', views_profile.get_profile_follow, name = 'get_profile_follow'),
-	url(r'^get_tds_follow$', views_tds.get_tds_follow, name = 'get_tds_follow'),
+	# url(r'^get_profile_follow$', views_profile.get_profile_follow, name = 'get_profile_follow'),
+	# url(r'^get_tds_follow$', views_tds.get_tds_follow, name = 'get_tds_follow'),
 
 
 	
@@ -65,14 +66,14 @@ urlpatterns = patterns('',
 	url(r'^post_unfollow_user$', views_profile.post_unfollow_user, name = 'post_unfollow_user'),
 	url(r'^submit_profile_photo$', views_profile.submit_profile_photo, name = 'submit_profile_photo'),
 
-	url(r'^department/(?P<department_id>\w+)/$', views_tds.display_department_profile, name="department_detail_profile"),
-	url(r'^department/(?P<department_id>\w+)/(?P<details_required>\w+)/$', views_tds.display_department_details, name="department_details"),
+	url(r'^department/(?P<department_slug>[-\w.]+)/$', views_tds.display_department_profile, name="department_detail_profile"),
+	url(r'^department/(?P<department_slug>[-\w.]+)/(?P<details_required>\w+)/$', views_tds.display_department_details, name="department_details"),
 
-	url(r'^topic/(?P<topic_id>\w+)/$', views_tds.display_topic_profile, name="topic_detail_profile"),
-	url(r'^topic/(?P<topic_id>\w+)/(?P<details_required>\w+)/$', views_tds.display_topic_details, name="topic_details"),
+	url(r'^topic/(?P<topic_slug>[-\w.]+)/$', views_tds.display_topic_profile, name="topic_detail_profile"),
+	url(r'^topic/(?P<topic_slug>[-\w.]+)/(?P<details_required>\w+)/$', views_tds.display_topic_details, name="topic_details"),
 
-	url(r'^state/(?P<state_id>\w+)/$', views_tds.display_state_profile, name="state_detail_profile"),
-	url(r'^state/(?P<state_id>\w+)/(?P<details_required>\w+)/$', views_tds.display_state_details, name="state_details"),
+	url(r'^state/(?P<state_slug>[-\w.]+)/$', views_tds.display_state_profile, name="state_detail_profile"),
+	url(r'^state/(?P<state_slug>[-\w.]+)/(?P<details_required>\w+)/$', views_tds.display_state_details, name="state_details"),
 
 	url(r'^get_tds_feed$', views_tds.get_tds_feed, name = 'get_tds_feed'),
 	url(r'^post_follow_tds$', views_tds.post_follow_tds, name = 'post_follow_tds'),

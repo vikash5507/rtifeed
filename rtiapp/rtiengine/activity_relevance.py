@@ -83,4 +83,7 @@ def update_activity_relevance(activity):
 	for user in users:
 		calc_relevance(user, activity)
 
-
+def make_initial_relevance(user):
+	activities = models.Activity.objects.filter(activity_type = 'rti_query').order_by('-entry_date')[0:200]
+	for activity in activities:
+		calc_relevance(user, activity)

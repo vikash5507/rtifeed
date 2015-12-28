@@ -19,7 +19,7 @@
 
           {% for rti in rti_list %}
           <tr>
-            <td><a href = "{{ rti.search_link }}">{{ rti.rti_description }}</a></td>
+            <td><a href = "{{ rti.search_link }}">{{ rti.rti_description | safe}}</a></td>
           </tr>
           {% endfor %}
 

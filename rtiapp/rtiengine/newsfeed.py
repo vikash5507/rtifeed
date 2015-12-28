@@ -10,7 +10,17 @@ import json
 
 
 def get_profile_context(user):
+	if user.is_anonymous():
+		return {
+			'no_user' : True
+		}
 	user_profile = models.User_profile.objects.filter(user = user).first()
+	
+	if not user_profile:
+		return {
+			'no_user' : True
+		}
+
 	context = {
 		'uid' : user.id,
 		'name_user': user.first_name + " " + user.last_name,
@@ -99,15 +109,24 @@ def make_rti_context(rti_query):
 
 
 def get_feed_for_rti(rti, user, head_line = '', comment_strategy = 'time', max_comments = 2):
+	
 	profile = models.User_profile.objects.filter(user = rti.user).first()
-	user_profile = models.User_profile.objects.filter(user = user).first()
+	
+	if user.is_anonymous():
+		user = models.User()
+		user_profile = models.User_profile()
+		user_profile.user = user
+	else:
+		user_profile = models.User_profile.objects.filter(user = user).first()
+
+	# print user_profile
 	# rti_photo = models.RTI_query_file.objects.filter(rti_query = rti).first()
 	rti_context = {
 		'my_rti' : user == rti.user,
 		'name_user' : user.first_name + " " + user.last_name,
 		'user_pic' : user_profile.profile_picture,
 		'rti_id' : rti.id,
-		'rti_url' : '/rti_page/' + str(rti.id),
+		'rti_url' : '/rti_page/' + rti.slug,
 		'rti_user' : rti.user.first_name + " " + rti.user.last_name,
 		'rti_user_url' : '/profile/'+ rti.user.username+'/',
 		'rti_query_text' : rti.query_text,
@@ -117,7 +136,7 @@ def get_feed_for_rti(rti, user, head_line = '', comment_strategy = 'time', max_c
 		'rti_query_type' : rti.query_type,
 		'rti_response_status' : rti.response_status,
 		'rti_department' : rti.department.department_name,
-		'rti_department_url' : '/department/' + str(rti.department.id),
+		'rti_department_url' : '/department/' + rti.department.slug,
 		'rti_proposed' : rti.proposed,
 		'rti_head_line' : head_line,
 		'rti_query_images' : [],
@@ -127,9 +146,11 @@ def get_feed_for_rti(rti, user, head_line = '', comment_strategy = 'time', max_c
 	}
 	
 	if rti.department.department_type == 'state':
-		sd = models.State_department.objects.filter(department = rti.department).first()
-		rti_context['rti_state'] = sd.state.state_name
-		rti_context['rti_state_url'] = '/state/' + str(sd.state.id)
+		# sd = models.State_department.objects.filter(department = rti.department).first()
+		st = rti.department.state
+		rti_context['rti_state'] = st.state_name
+		rti_context['rti_state_url'] = '/state/' + st.slug
+	
 	rti_query_images =  models.RTI_query_file.objects.filter(rti_query = rti)
 
 	for r_image in rti_query_images:
@@ -189,11 +210,11 @@ def get_feed_for_rti(rti, user, head_line = '', comment_strategy = 'time', max_c
 
 	comments = models.Activity.objects.filter(rti_query = rti, activity_type = 'comment').order_by('-entry_date')
 	likes = models.Activity.objects.filter(rti_query = rti, activity_type = 'like').order_by('-entry_date')
-	shares = models.Activity.objects.filter(rti_query = rti, activity_type = 'share').order_by('-entry_date')
+	follows = models.Activity.objects.filter(rti_query = rti, activity_type = 'follow').order_by('-entry_date')
 
 	rti_context['no_comments'] = len(comments)
 	rti_context['no_likes'] = len(likes)
-	rti_context['no_shares'] = len(shares)
+	rti_context['no_follows'] = len(follows)
 	
 	if comment_strategy == 'time':
 		rti_context['top_comments'] = comments[0: max_comments]
@@ -243,10 +264,22 @@ def get_rti_meta_data(rti):
 	rti_context = {}
 	comments = models.Activity.objects.filter(rti_query = rti, activity_type = 'comment').order_by('-entry_date')
 	likes = models.Activity.objects.filter(rti_query = rti, activity_type = 'like').order_by('-entry_date')
-	shares = models.Activity.objects.filter(rti_query = rti, activity_type = 'share').order_by('-entry_date')
+	follows = models.Activity.objects.filter(rti_query = rti, activity_type = 'follow').order_by('-entry_date')
 
 	rti_context['no_comments'] = len(comments)
 	rti_context['no_likes'] = len(likes)
-	rti_context['no_shares'] = len(shares)
+	rti_context['no_follows'] = len(follows)
 
 	return rti_context
+
+# def get_trending_data(user):
+# 	users = models.User.objects.all()
+# 	follower_list = []
+# 	for user in users:
+# 		no_followers = len(models.Follow_user.objects.filter(followee = user))
+# 		follower_list.append((-no_followers, no_followers, get_profile_context(user)))
+# 	follower_list.sort()
+# 	follower_list[-]
+# 	topics = models.Tag.objects.all()
+
+

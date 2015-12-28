@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.text import slugify
 import os
 #TO DO
 # max_length attributes
@@ -14,6 +15,14 @@ class State(models.Model):
 	capital_name = models.CharField(null = True, max_length = 200)
 	latitude = models.FloatField(null = True)
 	longitude = models.FloatField(null = True)
+	slug = models.SlugField(null = True, max_length = 500)
+	
+	def save(self, **kwargs):
+		slug_str = self.state_name
+		slug_str = unicode(slug_str)
+		print "slug", slug_str
+		self.slug = slugify(slug_str)
+		super(State, self).save(**kwargs)
 
 class Address(models.Model):
 	def __unicode__(self):
@@ -61,6 +70,19 @@ class Department(models.Model):
 	website = models.CharField(null = True, max_length = 200)
 	department_type = models.CharField(max_length = 50)
 	# centre, state
+	state = models.ForeignKey(State, null = True, on_delete = models.CASCADE)
+	slug = models.SlugField(null = True, max_length = 500)
+	
+	def save(self, **kwargs):
+		slug_str = ""
+		if self.department_type == 'centre':
+			slug_str = self.department_name
+		else:
+			slug_str = "%s %s" % (self.department_name, self.state.state_name)
+		slug_str = unicode(slug_str)
+		print "slug", slug_str
+		self.slug = slugify(slug_str)
+		super(Department, self).save(**kwargs)
 
 class Authority(models.Model):
 	def __unicode__(self):
@@ -72,7 +94,7 @@ class Authority(models.Model):
 
 class State_department(models.Model):
 	def __unicode__(self):
-		return self.department
+		return self.department.department_name
 
 	department = models.OneToOneField(Department, on_delete = models.CASCADE)
 	state = models.ForeignKey(State, on_delete = models.CASCADE)
@@ -98,6 +120,17 @@ class RTI_query(models.Model):
 	proposed = models.BooleanField(default = False)
 	entry_date = models.DateTimeField()
 	update_date = models.DateTimeField(auto_now_add=True)
+	slug = models.SlugField(null = True, max_length = 500)
+
+	def save(self, **kwargs):
+		slug_str = self.user.username
+		slug_str += (" " +  self.department.slug)
+		super(RTI_query, self).save(**kwargs)
+		slug_str += (" " + str(self.id ^ 1206))
+		slug_str = unicode(slug_str)
+		print "slug", slug_str
+		self.slug = slugify(slug_str)
+		super(RTI_query, self).save(**kwargs)
 
 class RTI_query_file(models.Model):
 	def __unicode__(self):
@@ -140,6 +173,14 @@ class Tag(models.Model):
 		return self.tag_text
 	tag_text = models.CharField(max_length = 200)
 	entry_date = models.DateTimeField(auto_now_add=True)
+	slug = models.SlugField(null = True, max_length = 500)
+	
+	def save(self, **kwargs):
+		slug_str = self.tag_text
+		slug_str = unicode(slug_str)
+		print "slug", slug_str
+		self.slug = slugify(slug_str)
+		super(Tag, self).save(**kwargs)
 
 class RTI_tag(models.Model):
 	def __unicode__(self):
@@ -251,6 +292,12 @@ class RTI_unlinked_files(models.Model):
 	rti_hash = models.CharField(max_length = 200)
 	query_picture = models.ImageField(upload_to  = 'query_pictures')
 	linked = models.BooleanField(default = False)
+
+class Feedback(models.Model):
+	feedback_text = models.TextField()
+	user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
+	entry_date = models.DateTimeField(auto_now_add=True)
+	page_url = models.TextField()
 	
 from django.db.models.signals import post_delete
 from django.dispatch import receiver

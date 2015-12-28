@@ -21,8 +21,10 @@
       <div class="box box-widget widget-user">
         <!-- Add the bg color to the header using any of the bg-* classes -->
         <div class="widget-user-header">
-          
-            <h3 class="widget-user-username">{{ tds_name }}</h3>
+            
+            <h3 class="widget-user-username">{{ tds_name }} <a class = "pull-right" href="{{ tds_state_url }}">{{ tds_state }}</a> </h3>
+            
+            
             <h5 class="widget-user-desc"><a href= "{{ tds_subline }}">{{ tds_subline }}</a></h5>
             <div >
             {% if not follow_status %}
@@ -37,32 +39,32 @@
         <div class="box-footer">
           <div class="row">
             {% if tds_type == 'state' %}
-            <div class="col-sm-4 border-right">
+            <div class="col-xs-4 border-right">
               <div class="description-block">
-                <a href="/{{ tds_type }}/{{ tds_id }}/departments">
+                <a href="/{{ tds_type }}/{{ xor_tds_id }}/departments">
                   <h5 class="description-header">{{ tds_no_departments }}</h5>
                   <span class="description-text">DEPARTMENTS</span>
                 </a>
               </div><!-- /.description-block -->
             </div><!-- /.col -->
             {% else %}
-            <div class='col-sm-2'></div>
+            <div class='col-xs-2'></div>
             {% endif %}
-            <div class="col-sm-4 border-right">
+            <div class="col-xs-4 border-right">
               <div class="description-block">
-                <a href="/{{ tds_type }}/{{ tds_id }}/followers">
+                <a href="/{{ tds_type }}/{{ xor_tds_id }}/followers">
                   <h5 class="description-header" id = "num_followers">{{ tds_no_followers }}</h5>
                   <span class="description-text">FOLLOWERS</span>
                 </a>
               </div><!-- /.description-block -->
             </div><!-- /.col -->
-            <div class="col-sm-2">
+            <div class="col-xs-2">
               <div class="description-block">
                 <h5 class="description-header">{{ tds_no_rti_queries }}</h5>
                 <span class="description-text">QUERIES</span>
               </div><!-- /.description-block -->
             </div><!-- /.col -->
-            <div class="col-sm-2">
+            <div class="col-xs-2">
               <div class="description-block">
                 <h5 class="description-header">{{ tds_no_rti_responses }}</h5>
                 <span class="description-text">RESPONSES</span>

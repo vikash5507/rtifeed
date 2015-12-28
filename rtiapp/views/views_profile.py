@@ -13,6 +13,7 @@ from django.core.files import File
 import StringIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 def make_profile_context(user):
 	context = {
@@ -40,35 +41,41 @@ def make_profile_context(user):
 
 	return context
 
-@login_required
-def get_profile_follow(request):
-	context = {}
-	followers = []
-	user = models.User.objects.filter(id = request.GET['user_id']).first()
-	start_from = (request.GET['start_from'])
-	max_size = (request.GET['max_size'])
-	if request.GET['details_required'] == "followers":
-		followers = models.Follow_user.objects.filter(followee = user)[start_from : start_from + max_size]
-		temp = []
-		for follower in followers:
-			temp.append(follower.follower)
-	else:
-		followers = models.Follow_user.objects.filter(follower = user)[start_from : start_from + max_size]
-		temp = []
-		for follower in followers:
-			temp.append(follower.followee)
+# @login_required
+# def get_profile_follow(request):
+# 	context = {}
+# 	followers = []
+# 	max_size = 2
+# 	user = models.User.objects.filter(id = request.GET['user_id']).first()
+	
+# 	if request.GET['details_required'] == "followers":
+# 		followers = models.Follow_user.objects.filter(followee = user)
+# 		temp = []
+# 		for follower in followers:
+# 			temp.append(follower.follower)
+# 	else:
+# 		followers = models.Follow_user.objects.filter(follower = user)
+# 		temp = []
+# 		for follower in followers:
+# 			temp.append(follower.followee)
 
-	followers = temp
-	user_context_list = []
-	for follower in followers:
-		user_context = make_profile_context(follower)
-		user_context = render_to_response('Profile/user_widget.html', user_context).content
-		user_context_list.append(user_context)
-		# user_context['profile_picture'] = str(user_context['profile_picture'])
-		# context.append(user_context)
-	context['user_context_list'] = user_context_list
+# 	followers = temp
+# 	paginator = Paginator(followers, max_size)
+# 	page = 1
+# 	if 'page' in request.GET:
+# 		page = request.GET['page']
+	
+# 	followers = paginator.page(page)
+# 	user_context_list = []
+# 	for follower in followers:
+# 		user_context = make_profile_context(follower)
+# 		user_context = render_to_response('Profile/user_widget.html', user_context).content
+# 		user_context_list.append(user_context)
+# 		# user_context['profile_picture'] = str(user_context['profile_picture'])
+# 		# context.append(user_context)
+# 	context['user_context_list'] = user_context_list
 
-	return render_to_response('Profile/user_list.html', context)
+# 	return render_to_response('Profile/user_list.html', context)
 
 @login_required
 def profile_base_context(request, username):
@@ -94,10 +101,38 @@ def display_user_profile(request, username):
 
 @login_required
 def display_user_details(request, username, details_required):
+	max_size = 10
 	context = profile_base_context(request, username)
 	context['details_required'] = details_required
-
+	profile_user = models.User.objects.filter(username = username).first()
 	if details_required == 'followers' or details_required == 'following':
+		user_list = []
+		if details_required == 'followers':
+			followers = models.Follow_user.objects.filter(followee = profile_user)
+			for f in followers:
+				user_list.append(make_profile_context(f.follower))
+		else:
+			followers = models.Follow_user.objects.filter(follower = profile_user)
+			for f in followers:
+				user_list.append(make_profile_context(f.followee))
+		page = 1
+		if 'page' in request.GET:
+			page = int(request.GET['page'])
+		paginator = Paginator(user_list, max_size)
+		user_list = paginator.page(page)
+		context['user_list'] = user_list
+
+		page_url_list = []
+		
+		for i in range(0, paginator.num_pages):
+			page_url_list.append({
+				'url' : '/profile/' + username + '/' + details_required + '?page=' + str(i+1),
+				'page_no' : (i+1),
+				'active' : (i+1) == page
+				})
+
+		context['page_url_list'] = page_url_list
+		context['multiple_pages'] = len(page_url_list) > 1
 		return render_to_response('Profile/profile_follow.html', context)
 	elif details_required == 'rtis':
 		return render_to_response('Profile/profile_rtis.html', context)
@@ -122,7 +157,7 @@ def get_profile_feed(request):
 		return
 	
 	fetched_rti_list = json.loads(request.GET['fetched_rti_list'])
-	print fetched_rti_list
+	# print fetched_rti_list
 	
 	user_activities = models.Activity.objects.filter(user = user).order_by('-entry_date')[0:1000]
 	rti_list = []
@@ -148,7 +183,7 @@ def get_profile_rtis(request):
 		return
 	
 	fetched_rti_list = json.loads(request.GET['fetched_rti_list'])
-	print fetched_rti_list
+	# print fetched_rti_list
 	
 	user_rtis = models.RTI_query.objects.filter(user = user).order_by('-entry_date')
 	rti_list = []

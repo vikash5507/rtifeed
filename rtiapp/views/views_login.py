@@ -175,7 +175,7 @@ def verify_email(request):
 	email_user.save()
 	user = authenticate(username = user.username, password = email_user.password)
 	login(request, user)
-	return HttpResponseRedirect('/profile/' + str(user.username))
+	return HttpResponseRedirect('/home')
 
 def forgot_password(request):
 	email = request.GET['email']

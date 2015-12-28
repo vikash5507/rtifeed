@@ -5,9 +5,9 @@ from django.contrib.auth import authenticate,login, logout
 from django.http import HttpResponseRedirect, HttpRequest
 from django.contrib.auth.decorators import login_required
 from rtiapp import models
-
 import json
 from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator
 
 def make_notification(activity, user = None):
 	notification = models.Notification()
@@ -34,20 +34,37 @@ def make_follow_notification(follow_user):
 	notification.save()
 
 
-def get_notifications(user):
-	max_notifications = 10
+def get_notifications(user, page = 1):
+	max_notifications = 8
 	unread_notifications = models.Notification.objects.filter(user = user, read_status = 0).order_by('-entry_date')
-	read_notifications = models.Notification.objects.filter(user = user, read_status = 1).order_by('-entry_date')[0:10 - len(unread_notifications)]
-	all_notifications = list(unread_notifications) + list(read_notifications)
+	read_notifications = models.Notification.objects.filter(user = user, read_status = 1).order_by('-entry_date')
+	all_notifications = models.Notification.objects.filter(user = user).order_by('-entry_date')
+	
+	paginator = Paginator(all_notifications, max_notifications)
+	page_notifications = paginator.page(page)
 
 	notification_list_html = ""
-	for notification in all_notifications:
+	notification_context_list = []
+	for notification in page_notifications:
 		notification_list_html += make_notification_html(notification).content
+		notification_context_list.append( make_notification_context(notification) )
 
 	no_unread_notifications = len(unread_notifications)
+	
+	page_url_list = []
+	for i in range(0, paginator.num_pages):
+		page_url_list.append({
+			'url' : '/notifications?page='+str(i+1),
+			'page_no' : (i + 1),
+			'active'  : ((i + 1) == page)
+			})
+		
 	context = {
 		'no_unread_notifications' : no_unread_notifications,
-		'notification_list_html' : notification_list_html
+		'notification_list_html' : notification_list_html,
+		'notification_context_list' : notification_context_list,
+		'num_pages'					: paginator.num_pages,
+		'page_url_list'				: page_url_list
 	}
 	
 	return context
@@ -58,11 +75,12 @@ def mark_all_notifications(user):
 		notification.read_status = 1
 		notification.save()
 	
-
-def make_notification_html(notification):
+def make_notification_context(notification):
 	context = {}
+	not_user = None
 	if notification.notification_type == 'rti_query':
 		activity = notification.activity
+		not_user = activity.user
 		context['notification_user'] = activity.user.first_name +  " " + activity.user.last_name
 		context['notificatin_user_url'] = '/profile/' + activity.user.username
 		context['notification_url'] = '/rti_page/' + str(activity.rti_query.id)
@@ -81,11 +99,16 @@ def make_notification_html(notification):
 		context['notification_text'] = notification_text
 	
 	elif notification.notification_type == 'user_follow':
-		
+		not_user = notification.follow.follower
 		context['notification_user'] = notification.follow.follower.first_name + " " + notification.follow.follower.last_name
 		context['notificatin_user_url'] = '/profile/' + notification.follow.follower.username
 		context['notification_url'] = '/profile/' + notification.user.username + '/followers'
 		context['notification_text'] = ' followed you'
-		
-	
+	user_profile = models.User_profile.objects.filter(user = not_user).first()
+	if user_profile:
+		context['notification_image'] = '/media/' + str(user_profile.profile_picture)
+	return context
+
+def make_notification_html(notification):
+	context = make_notification_context(notification)
 	return render_to_response('Notification/notification.html', context)

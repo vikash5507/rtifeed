@@ -44,7 +44,7 @@ def update_settings(request):
 		bio_description = request.POST['bio_description']
 		
 		user = request.user
-		if len(first_name) > 0 and len(last_name) > 0:
+		if len(first_name) > 0:
 			user.username = username
 			user.first_name = first_name
 			user.last_name = last_name

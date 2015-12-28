@@ -3,27 +3,35 @@
 <div class="col-md-12">
   <div  id="follow_container">
   <h3>Followers</h3>
-      
+  <div class = "box box-primary">
+    <div class = "box-header"></div>
+    <div class="box-body">
+      <table class = "table">
+        {% for ur in follow_list  %}
+        <tr>
+          <td style="width : 36px;" ><img height="36" width="36" class="img-circle" src="/media/{{ ur.profile_picture }}"></td>
+          <td><a href="/profile/{{ ur.username }}">{{ ur.name_user }}</a></td>
+          <td>Followers {{ ur.num_followers }}</td>
+          <td>Following {{ ur.num_following }}</td>
+          <td>RTIs {{ ur.num_rtis }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <div class = "box-footer">
+      <div class = "pull-right">
+        <ul class="pagination">
+        {% if multiple_pages %}
+          {%for page in page_url_list %}
+            <li {% if page.active %} class = "active" {% endif %}>
+             <a href="{{ page.url }}">{{page.page_no}}</a></li>
+          {% endfor %}
+        {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
-<script type="text/javascript">
-  $.ajax({
-    url : '/get_tds_follow',
-    data : {
-      tds_id : {{ tds_id }},
-      tds_type : '{{ tds_type }}',
-      start_from : 0,
-      max_size : 30,
 
-      details_required : '{{ details_required }}',
-    },
-    success : function(data){
-      // alert(data);
-      $('#follow_container').append(data);
-    },
-    error : function(err){
-      console.log(err);
-    }
-  });
-</script>
 
 {% endblock %}

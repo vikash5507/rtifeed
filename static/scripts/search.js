@@ -1,16 +1,17 @@
+var option_selected = false;
 $(document).ready(function() {
   var user_engine, rti_engine, remoteHost, template, empty;
   $.support.cors = true;
 
-  
-  
+
+
 
   user_engine = new Bloodhound({
     identify: function(o) { return o.search_link; },
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name', 'name_user'),
     dupDetector: function(a, b) { return a.search_link === b.search_link; },
-    
+
     remote: {
       url: '/search_model?query=%QUERY&model_type=user&search_type=autocomplete&data_type=json',
       wildcard: '%QUERY'
@@ -22,21 +23,21 @@ $(document).ready(function() {
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('rti_description', 'rti_description'),
     dupDetector: function(a, b) { return a.search_link === b.search_link; },
-    
+
     remote: {
       url: '/search_model?query=%QUERY&model_type=rti&search_type=autocomplete&data_type=json',
       wildcard: '%QUERY'
     }
   });
 
-  
+
 
   department_engine = new Bloodhound({
     identify: function(o) { return o.search_link; },
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('tds_name', 'tds_name'),
     dupDetector: function(a, b) { return a.search_link === b.search_link; },
-    
+
     remote: {
       url: '/search_model?query=%QUERY&model_type=department&search_type=autocomplete&data_type=json',
       wildcard: '%QUERY'
@@ -48,7 +49,7 @@ $(document).ready(function() {
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('tds_name', 'tds_name'),
     dupDetector: function(a, b) { return a.search_link === b.search_link; },
-    
+
     remote: {
       url: '/search_model?query=%QUERY&model_type=state&search_type=autocomplete&data_type=json',
       wildcard: '%QUERY'
@@ -60,7 +61,7 @@ $(document).ready(function() {
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('tds_name', 'tds_name'),
     dupDetector: function(a, b) { return a.search_link === b.search_link; },
-    
+
     remote: {
       url: '/search_model?query=%QUERY&model_type=topic&search_type=autocomplete&data_type=json',
       wildcard: '%QUERY'
@@ -83,7 +84,7 @@ $(document).ready(function() {
         suggestion: 'Typeahead-suggestion',
         selectable: 'Typeahead-selectable'
       }
-    }, 
+    },
     {
       source: user_engine,
       displayKey: 'name_user',
@@ -146,6 +147,7 @@ $(document).ready(function() {
 
 
   ).bind('typeahead:selected',function(e, datum, dataset){
+    option_selected = true;
     window.location.href = datum.search_link;
   })
 
@@ -162,7 +164,7 @@ $(document).ready(function() {
 
 
 function make_user_template(data){
-  
+
   var user_template = '<div class="ProfileCard u-cf">'+
     '<img class="ProfileCard-avatar" src="'+ data.profile_picture +'">'+
     '<a href = "' + data.search_link + '"> </a>'+
@@ -175,8 +177,8 @@ function make_user_template(data){
       '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Followers:</span>'+ data.num_followers +'</div>'+
     '</div>'+
   '</div>';
-   
-  
+
+
   return user_template;
 }
 
@@ -189,14 +191,14 @@ function make_rti_template(data){
     '</div>'+
 
     '<div class="ProfileCard-stats">'+
-      
+
       '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Likes:</span>'+ data.no_likes +'</div>'+
       '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Comments:</span>'+ data.no_comments +'</div>'+
     '</div>'+
   '</div>';
-    
 
-  
+
+
   return rti_template;
 }
 
@@ -214,9 +216,9 @@ function make_tds_template(data, tds_type){
       '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Followers:</span>'+ data.tds_no_followers +'</div>'+
     '</div>'+
   '</div>';
-    
 
-  
+
+
   return tds_template;
 }
 // .bind('typeahead:selected', function (obj, datum) {
@@ -225,7 +227,14 @@ function make_tds_template(data, tds_type){
 
 $('.navbar-search-input').on('keyup', function(e) {
     // alert($(this).val());
+
     if (e.which == 13) {
+    //   alert(option_selected)
+      if(option_selected){
+        return;
+      }
+
+
         window.location.href = '/search_page?query='+ $(this).val() +'&model_type=all&search_type=search&data_type=default'
     }
 });

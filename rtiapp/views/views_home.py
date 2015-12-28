@@ -8,7 +8,7 @@ from rtiapp import models
 from rtiapp.rtiengine import activity_relevance, notification, newsfeed
 import json
 from django.views.decorators.csrf import csrf_exempt
-
+from django.core.paginator import Paginator
 
 @login_required
 def home_page(request):
@@ -18,7 +18,7 @@ def home_page(request):
 	if user_profile.profile_status == 'incomplete':
 		user_profile.profile_status = 'complete'
 		user_profile.save()
-		activity_relevance.update_user_relevance(user)
+		activity_relevance.make_initial_relevance(user)
 		return HttpResponseRedirect('/profile/' + user.username)	
 	context = {}
 	context['my_profile'] = newsfeed.get_profile_context(user)
@@ -40,24 +40,51 @@ def proposed_rtis(request):
 	context['full_feed'] = True
 	return render_to_response('Home/proposed_rtis.html', context)
 
-def rti_page(request, rti_id):
+def feedback(request):
+	feedback_text = request.GET['feedback_text']
+	feedback_model = models.Feedback()
+	feedback_model.user = request.user
+	feedback_model.feedback_text = feedback_text
+	feedback_model.save()
+	return HttpResponse(json.dumps('done'))
+
+def rti_page(request, rti_slug):
 	user = request.user
+	rti_query = models.RTI_query.objects.filter(slug = rti_slug).first()
+	if not rti_query:
+		raise Http404('Page Not found')
+
+	rti_id = rti_query.id
 	context = {}
 	context['my_profile'] = newsfeed.get_profile_context(user)
 	context['rti_query_id'] = rti_id
 	context['full_feed'] = False
-	context['rti_url'] = '/rti_page/' + str(rti_id)
+	context['rti_url'] = '/rti_page/' + rti_query.slug
+	context['rti_page'] = True
+	
+	
+	context['feed_box'] = newsfeed.get_feed_for_rti(rti_query, request.user).content
+
+	if len(rti_query.description) > 5:
+		context['rti_description'] = rti_query.description
+	else:
+		context['rti_description'] = rti_query.query_text[0:50] + "..."
+
+	rti_image = models.RTI_query_file.objects.filter(rti_query = rti_query).first()
+	if rti_image and rti_image.query_picture:
+		context['rti_image_url'] = 'http://www.rtifeed.com/media/' + str(rti_image.query_picture)
+
 	return render_to_response('Home/rtipage.html', context)
 
 @login_required
 def get_feed(request):
 	user = request.user
 	if not user:
-		print "ck"
+		# print "ck"
 		return
 	
 	fetched_rti_list = json.loads(request.GET['fetched_rti_list'])
-	print fetched_rti_list
+	# print fetched_rti_list
 	
 	if 'proposed' in request.GET:
 		relevant_activities = models.Activity_relevance.objects.filter(user = user, activity__rti_query__proposed = True).order_by('-relevance')[0:100]
@@ -152,13 +179,14 @@ def post_rti_activity(request):
 
 	comments = models.Activity.objects.filter(rti_query = rti_query, activity_type = 'comment').order_by('-entry_date')
 	likes = models.Activity.objects.filter(rti_query = rti_query, activity_type = 'like').order_by('-entry_date')
-	shares = models.Activity.objects.filter(rti_query = rti_query, activity_type = 'share').order_by('-entry_date')
+	follows = models.Activity.objects.filter(rti_query = rti_query, activity_type = 'follow').order_by('-entry_date')
 	
 	if activity_type == 'comment' and undo == '0':
 		context['comment_html'] = newsfeed.get_comment_html(activity, user).content
+	
 	context['no_comments'] = len(comments)
 	context['no_likes'] = len(likes)
-	context['no_shares'] = len(shares)
+	context['no_follows'] = len(follows)
 
 	
 	
@@ -197,7 +225,10 @@ def get_notifications(request):
 
 @login_required
 def notification_page(request):
-	context = notification.get_notifications(request.user)
+	page = 1
+	if 'page' in request.GET:
+		page = int(request.GET['page'])
+	context = notification.get_notifications(request.user, page)
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	return render_to_response('Notification/notification_page.html', context)
 

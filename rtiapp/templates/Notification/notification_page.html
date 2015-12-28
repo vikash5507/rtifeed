@@ -7,7 +7,29 @@
     <div class = "box-header">
       <h4 class =  "box-title">Notifications</h4>
     </div>
-    {{ notification_list_html | safe}}
+    <div class = "box-body">
+    
+    <table class = "table">
+    {% for nt in notification_context_list %}
+	<tr>
+		<td><img height="36" width="36" class="img-circle" src="{{ nt.notification_image }}">
+			<a href="{{ nt.notification_url }}">{{ nt.notification_user }} {{ nt.notification_text }}</a>		
+		</td>
+	</tr>
+    {% endfor %}
+    </table>
+    </div>
+    <div class = "box-footer">
+    	
+    	<div class = "pull-right">
+	    	<ul class="pagination">
+	    	{%for page in page_url_list %}
+			  <li {% if page.active %} class = "active" {% endif %}>
+			   <a href="{{ page.url }}">{{page.page_no}}</a></li>
+			{% endfor %}
+			</ul>
+		</div>
+    </div>
   </div>
 </div>
 

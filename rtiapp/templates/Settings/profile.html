@@ -22,7 +22,7 @@
 	          <input type="text" class="form-control" id="first_name" value="{{ user.first_name }}" name="first_name">
 	        </div>
 	        <div class="form-group">
-	          <label for="name">First Name</label>
+	          <label for="name">Last Name</label>
 	          <input type="text" class="form-control" id="last_name" value="{{ user.last_name }}" name="last_name">
 	        </div>
 	        <div class="form-group">
@@ -43,7 +43,7 @@ $('#profile_form').on('submit', function(e){
 	formData.append('setting_type', 'profile')
 	swal({   
 		title: "Are you sure?",   
-		text: "Submit to run ajax request",   
+		text: "",   
 		type: "info",
 		confirmButtonText: "Yes! Update",
 		showCancelButton: true,   

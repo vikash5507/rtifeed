@@ -117,38 +117,39 @@
     </div>
 
     {% endif %}
-    
-    {% if not rti_proposed %}
-    <div id = "likecontainer{{ rti_id }}" class = "likecontainer{{ rti_id }}" style = "float : left">
-      {% if like_status %}
-      <button class="btn btn-default btn-xs unlike{{ rti_id }}" id = "unlike{{ rti_id }}"><i class="fa fa-thumbs-up"></i> Liked</button>
-      {% else %}
-      <button class="btn btn-default btn-xs like{{ rti_id }}" id = "like{{ rti_id }}"><i class="fa fa-thumbs-o-up"></i> Like</button>
+    {% if not my_profile.no_user %}
+      {% if not rti_proposed %}
+      <div id = "likecontainer{{ rti_id }}" class = "likecontainer{{ rti_id }}" style = "float : left">
+        {% if like_status %}
+        <button class="btn btn-default btn-xs unlike{{ rti_id }}" id = "unlike{{ rti_id }}"><i class="fa fa-thumbs-up"></i> Liked</button>
+        {% else %}
+        <button class="btn btn-default btn-xs like{{ rti_id }}" id = "like{{ rti_id }}"><i class="fa fa-thumbs-o-up"></i> Like</button>
+        {% endif %}
+      </div>
       {% endif %}
-    </div>
+      <div id = "followcontainer{{ rti_id }}" class = "followcontainer{{ rti_id }}" style = "float : left">
+        {% if follow_status %}
+        <button class="btn btn-default btn-xs unfollow{{ rti_id }}" id = "unfollow{{ rti_id }}"><i class="fa fa-star"></i> Unfollow </button>
+        {% else %}
+        <button class="btn btn-default btn-xs follow{{ rti_id }}" id = "follow{{ rti_id }}"><i class="fa fa-star-o"></i>Follow</button>
+        {% endif %}
+      </div>
+      {% if not rti_proposed %}
+      <div id = "spamcontainer{{ rti_id }}" class = "spamcontainer{{ rti_id }}" style = "float : left">
+        {% if spam_status %}
+        <button class="btn btn-default btn-xs unspam{{ rti_id }}" id = "unspam{{ rti_id }}"><i class="fa fa-thumbs-down"></i> Undo Mark as Spam </button>
+        {% else %}
+        <button class="btn btn-default btn-xs spam{{ rti_id }}" id = "spam{{ rti_id }}"><i class="fa fa-thumbs-o-down"></i> Mark as Spam </button>
+        {% endif %}
+      </div>
+      {% endif %}
+      <div id = "sharecontainer{{ rti_id }}" class = "sharecontainer{{ rti_id }}" style = "float : left">
+       
+        <a href="https://www.facebook.com/sharer/sharer.php?u=rtifeed.com/rti_page/{{ rti_id }}" class="btn btn-default btn-xs unspam{{ rti_id }}" id = "unspam{{ rti_id }}"><i class="fa fa-share"></i> Share </a>
+        
+        
+      </div>
     {% endif %}
-    <div id = "followcontainer{{ rti_id }}" class = "followcontainer{{ rti_id }}" style = "float : left">
-      {% if follow_status %}
-      <button class="btn btn-default btn-xs unfollow{{ rti_id }}" id = "unfollow{{ rti_id }}"><i class="fa fa-star"></i> Unfollow </button>
-      {% else %}
-      <button class="btn btn-default btn-xs follow{{ rti_id }}" id = "follow{{ rti_id }}"><i class="fa fa-star-o"></i>{% if rti_proposed %} Want an answer! {% else %} Follow {% endif %} </button>
-      {% endif %}
-    </div>
-    {% if not rti_proposed %}
-    <div id = "spamcontainer{{ rti_id }}" class = "spamcontainer{{ rti_id }}" style = "float : left">
-      {% if spam_status %}
-      <button class="btn btn-default btn-xs unspam{{ rti_id }}" id = "unspam{{ rti_id }}"><i class="fa fa-thumbs-down"></i> Undo Mark as Spam </button>
-      {% else %}
-      <button class="btn btn-default btn-xs spam{{ rti_id }}" id = "spam{{ rti_id }}"><i class="fa fa-thumbs-o-down"></i> Mark as Spam </button>
-      {% endif %}
-    </div>
-    {% endif %}
-    <div id = "sharecontainer{{ rti_id }}" class = "sharecontainer{{ rti_id }}" style = "float : left">
-     
-      <a href="https://www.facebook.com/sharer/sharer.php?u=rtifeed.com/rti_page/{{ rti_id }}" class="btn btn-default btn-xs unspam{{ rti_id }}" id = "unspam{{ rti_id }}"><i class="fa fa-share"></i> Share </a>
-      
-      
-    </div>
     <!-- <div class="fb-share-button" data-href="home" data-layout="button_count"></div> -->
     
     <span class="pull-right text-muted lc_count{{ rti_id }}" id = "lc_count{{ rti_id }}">{{ no_likes}} likes - {{ no_comments }} comments</span>
@@ -170,6 +171,7 @@
   <div class="box-footer box-comments comment_container{{ rti_id }}" id = "comment_container{{ rti_id }}">
     {{ comment_html | safe}}
   </div>
+  {% if not my_profile.no_user %}
   <div class="box-footer">
     <!-- <form action="#" method="post"> -->
       <img class="img-responsive img-circle img-sm" src="/media/{{ my_profile.profile_picture }}" alt="alt text">
@@ -179,6 +181,7 @@
       </div>
     <!-- </form> -->
   </div><!-- /.box-footer -->
+  {% endif %}
 </div>
 
 <script type="text/javascript">
