@@ -147,7 +147,13 @@
               <!-- Messages: style can be found in dropdown.less-->
               
               <!-- Notifications: style can be found in dropdown.less -->
-              
+              <li class="dropdown messages-menu" >
+                <a href="/messages" aria-expanded="false">
+                  <i class="fa fa-envelope-o"></i>
+                  <span class="label label-success">{{ my_profile.num_new_messages }}</span>
+                </a>
+              </li>
+
               <li class="dropdown notifications-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" id = 'notification_toggle'>
                   <i class="fa fa-bell-o"></i>
@@ -244,7 +250,7 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <form class="" id = "side_bar_search" style = "padding : 20px;">
             <div class="input-group">
-              <input type="text" class="form-control navbar-search-input" id="navbar-search-input" placeholder="Search" style = "width : 200px;">
+              <input type="text" class="form-control navbar-search-input side_search_box" id="navbar-search-input" placeholder="Search" style = "width : 200px;">
                 <span class="input-group-btn">
                   <!-- <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                   </button> -->
@@ -347,7 +353,13 @@
     <script src="/static/scripts/search.js"></script>
     <script src="/static/scripts/lightbox.js"></script>
     
+<script type="text/javascript">
+  $('.side_search_box').bind('click',function(evt) {
+    var focusClosure = (function(inputElem) {return function() {console.log(inputElem.focus());}}($(evt.target)));
+    window.setTimeout(focusClosure, 700);
+  });
 
+</script>
 <script>
 //google-analytics
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

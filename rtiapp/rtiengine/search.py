@@ -77,7 +77,8 @@ def make_search_context(s_model, model_type):
 	elif model_type == 'user':
 		search_context = {
 			'name_user' : s_model.first_name + ' ' + s_model.last_name,
-			'search_link' : '/profile/' + s_model.username
+			'search_link' : '/profile/' + s_model.username,
+			'search_username' : s_model.username
 		}
 		user_profile = models.User_profile.objects.filter(user = s_model).first()
 		search_context['profile_picture'] = '/media/' +  str(user_profile.profile_picture)

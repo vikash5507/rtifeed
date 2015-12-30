@@ -28,7 +28,8 @@ def get_profile_context(user):
 		'profile_url' : '/profile/'+user.username+'/',
 		'username' : user.username,
 		'user_profile_link' : '/profile/' + user.username,
-		'bio_description' : user_profile.bio_description
+		'bio_description' : user_profile.bio_description,
+		'num_new_messages' : len(models.Message.objects.filter(receiver = user, read_status = False))
 	}
 	return context
 

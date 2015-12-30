@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 from rtiapp.views import views_test, views_profile
 from rtiapp.views import views_login, views_home
-from rtiapp.views import views_tds, views_settings
+from rtiapp.views import views_tds, views_settings, views_message
 from rtiapp.views import views_shareRTI, views_search, views_statistics
 
 urlpatterns = patterns('',
@@ -86,5 +86,9 @@ urlpatterns = patterns('',
 	# url(r'^search$', views_search.search, name="search"),
 	url(r'^search_model$', views_search.search_model, name="search_model"),
 	url(r'^search_page$', views_search.search_page, name="search_page"),
+	url(r'^messages$', views_message.messenger_page, name = 'messages'),
+	url(r'^messages/(?P<username>[-\w.]+)/$', views_message.private_chat, name = 'private_chat'),
+	url(r'^fetch_messages/(?P<username>[-\w.]+)/$', views_message.fetch_messages, name = 'fetch_messages'),
+	url(r'^send_message/(?P<username>[-\w.]+)/$', views_message.send_message, name = 'send_message'),
 
 )

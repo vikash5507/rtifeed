@@ -40,12 +40,12 @@ def update_settings(request):
 	if setting_type == 'profile':
 		first_name = request.POST['first_name']
 		last_name = request.POST['last_name']
-		username = request.POST['username']
+		# username = request.POST['username']
 		bio_description = request.POST['bio_description']
 		
 		user = request.user
 		if len(first_name) > 0:
-			user.username = username
+			# user.username = username
 			user.first_name = first_name
 			user.last_name = last_name
 			user.save()

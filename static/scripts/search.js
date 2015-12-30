@@ -72,6 +72,30 @@ $(document).ready(function() {
 
   // ensure default users are read on initialization
   // engine.get('1090217586', '58502284', '10273252', '24477185')
+  $('#message_modal_search').typeahead({
+      hint: $('.Typeahead-hint'),
+      menu: $('.Typeahead-menu'),
+      minLength: 1,
+      classNames: {
+        open: 'is-open',
+        empty: 'is-empty',
+        cursor: 'is-active',
+        suggestion: 'Typeahead-suggestion',
+        selectable: 'Typeahead-selectable'
+      }
+    },
+    {
+      source: user_engine,
+      displayKey: 'search_username',
+      templates: {
+        suggestion: function(data){
+          return make_user_template(data);
+        },
+        
+      }
+    }
+  );
+
 
   $('.navbar-search-input').typeahead({
       hint: $('.Typeahead-hint'),

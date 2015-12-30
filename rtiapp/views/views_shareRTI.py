@@ -12,6 +12,7 @@ from rtiapp.rtiengine import activity_relevance, newsfeed
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models.signals import post_delete
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 @login_required
 def share_rti_query(request):

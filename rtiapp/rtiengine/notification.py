@@ -83,7 +83,7 @@ def make_notification_context(notification):
 		not_user = activity.user
 		context['notification_user'] = activity.user.first_name +  " " + activity.user.last_name
 		context['notificatin_user_url'] = '/profile/' + activity.user.username
-		context['notification_url'] = '/rti_page/' + str(activity.rti_query.id)
+		context['notification_url'] = '/rti_page/' + str(activity.rti_query.slug)
 		notification_text = ""
 
 		if activity.activity_type == 'comment':

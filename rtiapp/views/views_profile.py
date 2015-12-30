@@ -91,6 +91,13 @@ def profile_base_context(request, username):
 		context['is_me'] = False
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
 	context['user_follow_status'] = len(models.Follow_user.objects.filter(follower = request.user, followee = user)) > 0
+	context['previous_messages'] = False
+	
+	if len(models.Message.objects.filter(sender = user, receiver = request.user)) > 0:
+		context['previous_messages'] = True
+	if len(models.Message.objects.filter(sender = request.user, receiver = user)) > 0:
+		context['previous_messages'] = True
+
 	return context
 
 @login_required

@@ -1,0 +1,19 @@
+<ul class="contacts-list">
+
+  {% for contact in contacts %}
+  <li>
+    <a href="{{ contact.contact_url }}">
+      <img class="contacts-list-img" src="{{ contact.contact_photo }}">
+
+      <div class="contacts-list-info">
+            <span class="contacts-list-name" style = "color : black;">
+              {{ contact.contact_name }}
+              <small class="contacts-list-date pull-right">{{ contact.contact_message_date }}</small>
+            </span>
+        <span class="contacts-list-msg">{{ contact.contact_message_text }}</span>
+      </div>
+      <!-- /.contacts-list-info -->
+    </a>
+  </li>
+  {% endfor %}
+</ul>

@@ -50,6 +50,14 @@
               {% else %}
                 <a href="#" class="btn btn-danger btn-block user_unfollow_btn" id = "unfollow_btn"><b>Unfollow</b></a>
               {%  endif %}
+              <br>
+              {% if previous_messages %}
+                <a href="/messages/{{ username }}"><b>MESSAGES</b></a>
+              {% else %}
+                <a href="/messages/{{ username }}" id = "messages_link" style = "display : none"><b>MESSAGES</b></a>
+                <a href="#!" id = "message_modal_link" data-toggle="modal" data-target="#messagemodal"><b>MESSAGE</b></a>
+              {% endif %}
+
             {% endif %}
           </div><!-- /.box-body -->
         </div><!-- /.box -->
@@ -101,6 +109,34 @@
 
   </div>
 </div>
+
+<div id="messagemodal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span></button>
+      <h4 class="modal-title" id="myModalLabel">Write a new message</h4>
+    </div>
+    
+      <div class="modal-body">
+        
+        <div class="form-group">
+          <label for="content">Message</label>
+          <textarea class="form-control" id="message_modal_text" name="message_modal_text" placeholder="Message.."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="form-group">
+          <button type="button" id = "close_message_modal" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" id = "message_modal_button" class="btn btn-primary">Send Message</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
 <script src="/static/scripts/follow_unfollow_user.js"></script>
 <script type="text/javascript">
   make_handlers_for_follow({{ user_id }});
@@ -111,12 +147,45 @@
     acceptedFiles : 'image/*',
     // addRemoveLinks : true,
     dictDefaultMessage : 'Click to browse OR drag files here'
-});
+  });
 
-myDropzone.on('complete', function(){
-  $('#closedp').trigger('click');
-  location.reload();
-});
+  myDropzone.on('complete', function(){
+    $('#closedp').trigger('click');
+    location.reload();
+  });
+
+  $('#message_modal_button').on('click', function(){
+    
+    var message_text = $('#message_modal_text').val().trim();
+    if(message_text.length == 0){
+      swal('Please write a message');
+      return;
+    }
+
+    
+
+    $.ajax({
+      url : '/send_message/{{ username }}',
+      data : {
+        'message_text' : $('#message_modal_text').val()
+      },
+      dataType : 'json',
+      beforeSend: function(){
+        $('#message_modal_button').html('Please wait');
+      },
+      success : function(data){
+        swal('Sent!', 'Your message has been delivered', 'success');
+        $('#close_message_modal').trigger('click');
+        $('#message_modal_link').css('display', 'none');
+        $('#messages_link').css('display', '');
+      },
+      error : function(err){
+        swal('Oops!', 'There was a problem delivering your message', 'error');
+        console.log(err);
+      }
+    })
+  });
+
 
 </script>
 {% endblock %}

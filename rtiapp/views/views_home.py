@@ -9,6 +9,7 @@ from rtiapp.rtiengine import activity_relevance, notification, newsfeed
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
+from django.http import Http404
 
 @login_required
 def home_page(request):

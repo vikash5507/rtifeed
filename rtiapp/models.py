@@ -281,6 +281,8 @@ class Relevance(models.Model):
 	feed_head_line = models.TextField(null = True)
 
 class Activity_relevance(models.Model):
+	def __unicode__(self):
+		return self.id
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	activity = models.ForeignKey(Activity, on_delete = models.CASCADE)
 	relevance = models.FloatField(default = 0.0)
@@ -288,17 +290,32 @@ class Activity_relevance(models.Model):
 	update_date = models.DateTimeField(auto_now_add=True)
 
 class RTI_unlinked_files(models.Model):
+	def __unicode__(self):
+		return self.id
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	rti_hash = models.CharField(max_length = 200)
 	query_picture = models.ImageField(upload_to  = 'query_pictures')
 	linked = models.BooleanField(default = False)
 
 class Feedback(models.Model):
+	def __unicode__(self):
+		return self.id
 	feedback_text = models.TextField()
 	user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
 	entry_date = models.DateTimeField(auto_now_add=True)
 	page_url = models.TextField()
-	
+
+class Message(models.Model):
+	def __unicode__(self):
+		return self.id
+
+	sender = models.ForeignKey(User, on_delete = models.CASCADE, related_name='sender')
+	receiver = models.ForeignKey(User, on_delete = models.CASCADE, related_name='receiver')
+	message_text = models.TextField()
+	read_status = models.BooleanField(default = False)
+	message_date = models.DateTimeField(auto_now_add=True)
+
+
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 
