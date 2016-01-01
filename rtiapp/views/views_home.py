@@ -63,7 +63,7 @@ def rti_page(request, rti_slug):
 	context['rti_url'] = '/rti_page/' + rti_query.slug
 	context['rti_page'] = True
 	
-	
+	context['rti_slug'] = rti_query.slug
 	context['feed_box'] = newsfeed.get_feed_for_rti(rti_query, request.user).content
 
 	if len(rti_query.description) > 5:
@@ -221,7 +221,9 @@ def post_comment_activity(request):
 
 @login_required
 def get_notifications(request):
-	context = notification.get_notifications(request.user)
+	notification_type = request.GET['notification_type']
+	context = notification.get_notifications(request.user, 1, notification_type)
+	context['num_new_messages'] = len(models.Message.objects.filter(receiver = request.user, read_status = False))
 	return HttpResponse(json.dumps(context))
 
 @login_required

@@ -11,7 +11,7 @@
       <h3 class="box-title"><a href="/messages">Messages</a></h3>
       <button class = "btn btn-primary pull-right" data-toggle="modal" data-target="#messagemodal">Compose</button>
     </div>
-    <div class = "box-body" style = "height : 450px;">
+    <div class = "box-body" style = "height : 450px; overflow-y : scroll;">
       {% include 'Messenger/contact_list.html' %}
     </div>
     </div>
@@ -94,15 +94,17 @@
 </div>
 
 <!--</div>-->
-{% if other_username %}
+
 
 
 <script type="text/javascript">
-
+{% if other_username %}
 var other_username = "{{ other_username }}"
-
+{% else %}
+var other_username = '{{ my_profile.username }}'
+{% endif %}
 </script>
 <script src="/static/scripts/messaging.js"></script>
-{% endif %}
+
 
 {% endblock %}

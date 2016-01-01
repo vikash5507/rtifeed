@@ -58,7 +58,7 @@ def fetch_messages(request, username):
 	other_user = models.User.objects.filter(username = username).first()
 	new_last_fetched_index = None
 	if 'unread' in request.GET:
-		messages = models.Message.objects.filter(receiver = request.user, read_status = False).order_by('message_date')
+		messages = models.Message.objects.filter(receiver = request.user, sender = other_user, read_status = False).order_by('message_date')
 	else:
 		last_fetched_index = None
 		if 'last_fetched_index' in request.GET:

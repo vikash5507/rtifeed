@@ -1,16 +1,26 @@
-function get_notifications(){
+function get_notifications(notification_type){
 	$.ajax({
 		url : '/get_notifications',
 		dataType : 'json',
+		data : {
+			notification_type : notification_type,
+		},
 		success : function(data){
 			// alert(data['notification_list_html']);
-	 		$('#notification_container').html(data['notification_list_html']);
-	 		if(data['no_unread_notifications'] > 1){
-	 			$('#notification_header').html('You have ' + data['no_unread_notifications'] + ' new notifications');
-	 		}
-	 		if(data['no_unread_notifications'] == 1){
-	 			$('#notification_header').html('You have ' + data['no_unread_notifications'] + ' new notification');	
-	 		}
+			if(data['num_new_messages'] > 0){
+				$('#num_new_messages').html(data['num_new_messages']);
+			}
+			else{
+				$('#num_new_messages').html("");
+			}
+
+			if(notification_type == 'all'){
+				$('#notification_container').html(data['notification_list_html']);	
+			}
+			else{
+				$('#notification_container').prepend(data['notification_list_html']);	
+			}
+	 		
 	 		if(data['no_unread_notifications'] > 0){
 	 			$('#notification_number').html(data['no_unread_notifications']);	
 	 		}
@@ -20,7 +30,6 @@ function get_notifications(){
 		}
 	});	
 }
-
 
 $('#notification_toggle').click(function(){
 	$.ajax({
@@ -34,4 +43,8 @@ $('#notification_toggle').click(function(){
 	})
 });
 
-get_notifications();
+get_notifications('all');
+
+window.setInterval(function(){
+  get_notifications('unread');
+}, 5000);

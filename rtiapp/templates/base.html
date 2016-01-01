@@ -45,7 +45,7 @@
     <meta property="fb:app_id" content="1659360547643851" />
 
     {% if rti_page %}
-      <meta property="og:url"           content="http://www.rtifeed.com/rti_page/{{ rti_query_id }}/" />
+      <meta property="og:url"           content="http://www.rtifeed.com/rti_page/{{ rti_slug }}/" />
       <meta property="og:type"          content="website" />
       <meta property="og:title"         content="RTIFeed" />
       <meta property="og:description"   content="{{ rti_description }}" />
@@ -130,11 +130,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
+          {% if my_profile.no_user %}
+          {% else %}
           <form class="navbar-form navbar-left" role="search" id = "search_form">
             <div>
               <input type="text" class="form-control navbar-search-input" id="navbar-search-input" placeholder="Search" style = "width : 300px;">
             </div>
           </form>
+          {% endif %}
           <a href="/home" class="logo" id = "logoheader2" style = "width :160px; float : left">
             <!-- mini logo for sidebar mini 50x50 pixels -->
               
@@ -142,6 +145,16 @@
             <span class="logo-lg"><b>RTI</b>Feed <small class="label bg-yellow">BETA</small></span>
           </a>
           <div class="navbar-custom-menu">
+            {% if my_profile.no_user%}
+            <ul class="nav navbar-nav">
+              <li>
+                <a href="/" class = "">
+                  <i class="fa fa-sign-in fa-lg"></i> 
+                  Login
+                </a>
+              </li>
+            </ul>
+            {% else %}
 
             <ul class="nav navbar-nav">
               <!-- Messages: style can be found in dropdown.less-->
@@ -150,7 +163,7 @@
               <li class="dropdown messages-menu" >
                 <a href="/messages" aria-expanded="false">
                   <i class="fa fa-envelope-o"></i>
-                  <span class="label label-success">{{ my_profile.num_new_messages }}</span>
+                  <span class="label label-success" id = "num_new_messages"></span>
                 </a>
               </li>
 
@@ -215,6 +228,7 @@
               <!-- Control Sidebar Toggle Button -->
                 
             </ul>
+            {% endif %}
           </div>
         </nav>
       </header>

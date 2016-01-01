@@ -89,7 +89,7 @@ def make_rti_context(rti_query):
 		'rti_response_status' : rti_query.response_status,
 		'rti_department_id' : rti_query.department,
 		'rti_authority' : rti_query.authority,
-		'rti_query_type' : rti_query.query_type
+		'rti_query_type' : rti_query.query_type,
 
 	}
 	# rti_dept = models.Department.objects.filter(department_name = rti_query.department).first()
@@ -143,7 +143,8 @@ def get_feed_for_rti(rti, user, head_line = '', comment_strategy = 'time', max_c
 		'rti_query_images' : [],
 		'rti_response_images' : [],
 		'rti_query_files' : [],
-		'rti_response_files' : []
+		'rti_response_files' : [],
+		'rti_slug' : rti.slug
 	}
 	
 	if rti.department.department_type == 'state':

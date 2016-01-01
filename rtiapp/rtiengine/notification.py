@@ -34,13 +34,16 @@ def make_follow_notification(follow_user):
 	notification.save()
 
 
-def get_notifications(user, page = 1):
+def get_notifications(user, page = 1, notification_type = 'all'):
 	max_notifications = 8
 	unread_notifications = models.Notification.objects.filter(user = user, read_status = 0).order_by('-entry_date')
 	read_notifications = models.Notification.objects.filter(user = user, read_status = 1).order_by('-entry_date')
 	all_notifications = models.Notification.objects.filter(user = user).order_by('-entry_date')
+	if notification_type == 'all':
+		paginator = Paginator(all_notifications, max_notifications)
+	else:
+		paginator = Paginator(unread_notifications, max_notifications)
 	
-	paginator = Paginator(all_notifications, max_notifications)
 	page_notifications = paginator.page(page)
 
 	notification_list_html = ""

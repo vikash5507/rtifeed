@@ -62,15 +62,21 @@ $('#send_button').on('click', function(){
       'message_text' : message_text
     },
     dataType : 'json',
+    beforeSend : function(){
+      $('#message_loader').css('display', '');
+    },
     success : function(data){
       $('#messages_container').append(data['new_messages']);
       $('#messages_container').scrollTop($('#messages_container')[0].scrollHeight);
+      $('#message_loader').css('display', 'none');
     },
     error : function(err){
+      $('#message_loader').css('display', 'none');
       console.log(err);
     }
   })
 });
+
 
 $('#message_box').on('keypress', function(e){
   if(e.which == 13) {
@@ -101,6 +107,7 @@ window.setInterval(function(){
 }, 3000);
 
 $('#message_modal_button').on('click', function(){
+
   var msg_username = $('#message_modal_search').val();
   if(msg_username.trim().length == 0){
     swal('Please enter a receipent');
