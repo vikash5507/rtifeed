@@ -9,6 +9,9 @@ Retrieving logs...
 2016-01-09 17:03:03,124 [INFO] Version manifest file name already known. The latest version manifest file key is resources/environments/e-zcae5pz8sz/_runtime/versions/manifest_1452358978083
 2016-01-09 17:03:03,181 [INFO] Downloaded the manifest file to /tmp/version_file_manifest
 2016-01-09 17:03:04,417 [INFO] Downloaded version label app-e742-160109_223147 from s3 key <Key: elasticbeanstalk-ap-southeast-1-361398130125,resources/environments/e-zcae5pz8sz/_runtime/_versions/RTIFeed/app-e742-160109_223147>
+2016-01-09 17:19:45,395 [INFO] Version manifest file name already known. The latest version manifest file key is resources/environments/e-zcae5pz8sz/_runtime/versions/manifest_1452359981209
+2016-01-09 17:19:45,449 [INFO] Downloaded the manifest file to /tmp/version_file_manifest
+2016-01-09 17:19:46,985 [INFO] Downloaded version label app-c048-160109_224743 from s3 key <Key: elasticbeanstalk-ap-southeast-1-361398130125,resources/environments/e-zcae5pz8sz/_runtime/_versions/RTIFeed/app-c048-160109_224743>
 
 
 
@@ -139,11 +142,6 @@ Retrieving logs...
 -------------------------------------
 /var/log/httpd/access_log
 -------------------------------------
-127.0.0.1 (-) - - [09/Jan/2016:16:50:48 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:50:53 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:50:58 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:51:03 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:51:08 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
 127.0.0.1 (-) - - [09/Jan/2016:16:51:13 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
 127.0.0.1 (-) - - [09/Jan/2016:16:51:18 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
 127.0.0.1 (-) - - [09/Jan/2016:16:51:23 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
@@ -239,218 +237,223 @@ Retrieving logs...
 172.31.1.237 (103.37.201.95) - - [09/Jan/2016:17:11:56 +0000] "GET /favicon.ico HTTP/1.1" 404 209 "http://rtifeed-dev.elasticbeanstalk.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
 172.31.1.237 (103.37.201.95) - - [09/Jan/2016:17:11:56 +0000] "GET /favicon.ico HTTP/1.1" 404 209 "http://rtifeed-dev.elasticbeanstalk.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
 172.31.1.237 (103.37.201.95) - - [09/Jan/2016:17:11:56 +0000] "GET /favicon.ico HTTP/1.1" 404 209 "http://rtifeed-dev.elasticbeanstalk.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
+::1 (-) - - [09/Jan/2016:17:12:56 +0000] "OPTIONS * HTTP/1.0" 200 - "-" "Apache/2.4.16 (Amazon) mod_wsgi/3.5 Python/2.7.10 (internal dummy connection)"
+::1 (-) - - [09/Jan/2016:17:12:57 +0000] "OPTIONS * HTTP/1.0" 200 - "-" "Apache/2.4.16 (Amazon) mod_wsgi/3.5 Python/2.7.10 (internal dummy connection)"
+::1 (-) - - [09/Jan/2016:17:12:58 +0000] "OPTIONS * HTTP/1.0" 200 - "-" "Apache/2.4.16 (Amazon) mod_wsgi/3.5 Python/2.7.10 (internal dummy connection)"
+::1 (-) - - [09/Jan/2016:17:13:01 +0000] "OPTIONS * HTTP/1.0" 200 - "-" "Apache/2.4.16 (Amazon) mod_wsgi/3.5 Python/2.7.10 (internal dummy connection)"
+::1 (-) - - [09/Jan/2016:17:13:02 +0000] "OPTIONS * HTTP/1.0" 200 - "-" "Apache/2.4.16 (Amazon) mod_wsgi/3.5 Python/2.7.10 (internal dummy connection)"
 
 
 
 -------------------------------------
 /var/log/eb-activity.log
 -------------------------------------
-    inflating: /opt/python/ondeck/app/static/scripts/feedback.js  
-    inflating: /opt/python/ondeck/app/static/scripts/feedbox.js  
-    inflating: /opt/python/ondeck/app/static/scripts/follow_unfollow_tds.js  
-    inflating: /opt/python/ondeck/app/static/scripts/follow_unfollow_user.js  
-    inflating: /opt/python/ondeck/app/static/scripts/lightbox.js  
-    inflating: /opt/python/ondeck/app/static/scripts/load_feed.js  
-    inflating: /opt/python/ondeck/app/static/scripts/messaging.js  
-    inflating: /opt/python/ondeck/app/static/scripts/notification.js  
-    inflating: /opt/python/ondeck/app/static/scripts/screen_responsive.js  
-    inflating: /opt/python/ondeck/app/static/scripts/search.js  
-    inflating: /opt/python/ondeck/app/tasks.txt  
-    inflating: /opt/python/ondeck/app/z.py  
-    inflating: /opt/python/ondeck/app/z.pyc  
-[2016-01-09T17:03:05.853Z] INFO  [3092]  - [Application update/AppDeployStage0/AppDeployPreHook/03deploy.py] : Starting activity...
-[2016-01-09T17:03:06.081Z] INFO  [3092]  - [Application update/AppDeployStage0/AppDeployPreHook/03deploy.py] : Completed activity.
-[2016-01-09T17:03:06.082Z] INFO  [3092]  - [Application update/AppDeployStage0/AppDeployPreHook/04configen.py] : Starting activity...
-[2016-01-09T17:03:07.559Z] INFO  [3092]  - [Application update/AppDeployStage0/AppDeployPreHook/04configen.py] : Completed activity. Result:
-  2016-01-09 17:03:07,554 ERROR    The specified WSGIPath of "application.py" was not found in the source bundle
-[2016-01-09T17:03:07.559Z] INFO  [3092]  - [Application update/AppDeployStage0/AppDeployPreHook] : Completed activity. Result:
-  Successfully execute hooks in directory /opt/elasticbeanstalk/hooks/appdeploy/pre.
-[2016-01-09T17:03:07.559Z] INFO  [3092]  - [Application update/AppDeployStage0/EbExtensionPostBuild] : Starting activity...
-[2016-01-09T17:03:07.890Z] INFO  [3092]  - [Application update/AppDeployStage0/EbExtensionPostBuild/Infra-EmbeddedPostBuild] : Starting activity...
-[2016-01-09T17:03:07.890Z] INFO  [3092]  - [Application update/AppDeployStage0/EbExtensionPostBuild/Infra-EmbeddedPostBuild] : Completed activity.
-[2016-01-09T17:03:07.906Z] INFO  [3092]  - [Application update/AppDeployStage0/EbExtensionPostBuild] : Completed activity.
-[2016-01-09T17:03:07.906Z] INFO  [3092]  - [Application update/AppDeployStage0/InfraCleanEbextension] : Starting activity...
-[2016-01-09T17:03:07.911Z] INFO  [3092]  - [Application update/AppDeployStage0/InfraCleanEbextension] : Completed activity. Result:
-  Cleaned ebextensions subdirectories from /opt/python/ondeck/app.
-[2016-01-09T17:03:07.911Z] INFO  [3092]  - [Application update/AppDeployStage0] : Completed activity. Result:
-  Application update - Command CMD-AppDeploy stage 0 completed
-[2016-01-09T17:03:07.911Z] INFO  [3092]  - [Application update/AppDeployStage1] : Starting activity...
-[2016-01-09T17:03:07.911Z] INFO  [3092]  - [Application update/AppDeployStage1/AppDeployEnactHook] : Starting activity...
-[2016-01-09T17:03:07.911Z] INFO  [3092]  - [Application update/AppDeployStage1/AppDeployEnactHook/01flip.py] : Starting activity...
-[2016-01-09T17:08:17.426Z] INFO  [3092]  - [Application update/AppDeployStage1/AppDeployEnactHook/01flip.py] : Completed activity. Result:
-  httpd: stopped
-  httpd: started
-  httpd                            RUNNING   pid 3222, uptime 0:00:03
-  2016-01-09 17:08:17,420 WARNING  Apache is running, but root page is not responding in 5mins.
-[2016-01-09T17:08:17.426Z] INFO  [3092]  - [Application update/AppDeployStage1/AppDeployEnactHook/02create_pids_for_monitoring.sh] : Starting activity...
-[2016-01-09T17:08:17.519Z] INFO  [3092]  - [Application update/AppDeployStage1/AppDeployEnactHook/02create_pids_for_monitoring.sh] : Completed activity. Result:
-  + chmod 0755 /var/run/httpd
-  + /opt/elasticbeanstalk/bin/healthd-track-pidfile --proxy httpd
-  + /opt/elasticbeanstalk/bin/healthd-track-pidfile --name application --location /opt/python/run/supervisord.pid
-[2016-01-09T17:08:17.519Z] INFO  [3092]  - [Application update/AppDeployStage1/AppDeployEnactHook] : Completed activity. Result:
-  Successfully execute hooks in directory /opt/elasticbeanstalk/hooks/appdeploy/enact.
-[2016-01-09T17:08:17.520Z] INFO  [3092]  - [Application update/AppDeployStage1/AppDeployPostHook] : Starting activity...
-[2016-01-09T17:08:17.521Z] INFO  [3092]  - [Application update/AppDeployStage1/AppDeployPostHook] : Completed activity. Result:
-  Successfully execute hooks in directory /opt/elasticbeanstalk/hooks/appdeploy/post.
-[2016-01-09T17:08:17.521Z] INFO  [3092]  - [Application update/AppDeployStage1] : Completed activity. Result:
-  Application version switch - Command CMD-AppDeploy stage 1 completed
-[2016-01-09T17:08:17.521Z] INFO  [3092]  - [Application update/AddonsAfter] : Starting activity...
-[2016-01-09T17:08:17.521Z] INFO  [3092]  - [Application update/AddonsAfter/ConfigLogRotation] : Starting activity...
-[2016-01-09T17:08:17.521Z] INFO  [3092]  - [Application update/AddonsAfter/ConfigLogRotation/10-config.sh] : Starting activity...
-[2016-01-09T17:08:17.610Z] INFO  [3092]  - [Application update/AddonsAfter/ConfigLogRotation/10-config.sh] : Completed activity. Result:
-  Disabled forced hourly log rotation.
-[2016-01-09T17:08:17.610Z] INFO  [3092]  - [Application update/AddonsAfter/ConfigLogRotation] : Completed activity. Result:
-  Successfully execute hooks in directory /opt/elasticbeanstalk/addons/logpublish/hooks/config.
-[2016-01-09T17:08:17.610Z] INFO  [3092]  - [Application update/AddonsAfter] : Completed activity.
-[2016-01-09T17:08:17.610Z] INFO  [3092]  - [Application update] : Completed activity. Result:
-  Application update - Command CMD-AppDeploy succeeded
-[2016-01-09T17:09:19.690Z] INFO  [3324]  - [CMD-TailLogs - stage ] : Starting activity...
-[2016-01-09T17:09:19.904Z] INFO  [3324]  - [CMD-TailLogs - stage /AddonsBefore] : Starting activity...
-[2016-01-09T17:09:19.904Z] INFO  [3324]  - [CMD-TailLogs - stage /AddonsBefore] : Completed activity.
-[2016-01-09T17:09:19.904Z] INFO  [3324]  - [CMD-TailLogs - stage /TailLogs] : Starting activity...
-[2016-01-09T17:09:19.904Z] INFO  [3324]  - [CMD-TailLogs - stage /TailLogs/TailLogs] : Starting activity...
-[2016-01-09T17:09:20.145Z] INFO  [3324]  - [CMD-TailLogs - stage /TailLogs/TailLogs] : Completed activity.
-[2016-01-09T17:09:20.146Z] INFO  [3324]  - [CMD-TailLogs - stage /TailLogs] : Completed activity. Result:
-  CMD-TailLogs - stage 0 - Command CMD-TailLogs stage 0 completed
-[2016-01-09T17:09:20.146Z] INFO  [3324]  - [CMD-TailLogs - stage /AddonsAfter] : Starting activity...
-[2016-01-09T17:09:20.146Z] INFO  [3324]  - [CMD-TailLogs - stage /AddonsAfter] : Completed activity.
-[2016-01-09T17:09:20.146Z] INFO  [3324]  - [CMD-TailLogs - stage ] : Completed activity. Result:
-  CMD-TailLogs - stage  - Command CMD-TailLogs succeeded
-[2016-01-09T17:10:18.505Z] INFO  [3358]  - [CMD-TailLogs - stage ] : Starting activity...
-[2016-01-09T17:10:18.720Z] INFO  [3358]  - [CMD-TailLogs - stage /AddonsBefore] : Starting activity...
-[2016-01-09T17:10:18.720Z] INFO  [3358]  - [CMD-TailLogs - stage /AddonsBefore] : Completed activity.
-[2016-01-09T17:10:18.720Z] INFO  [3358]  - [CMD-TailLogs - stage /TailLogs] : Starting activity...
-[2016-01-09T17:10:18.720Z] INFO  [3358]  - [CMD-TailLogs - stage /TailLogs/TailLogs] : Starting activity...
-[2016-01-09T17:10:18.901Z] INFO  [3358]  - [CMD-TailLogs - stage /TailLogs/TailLogs] : Completed activity.
-[2016-01-09T17:10:18.902Z] INFO  [3358]  - [CMD-TailLogs - stage /TailLogs] : Completed activity. Result:
-  CMD-TailLogs - stage 0 - Command CMD-TailLogs stage 0 completed
-[2016-01-09T17:10:18.902Z] INFO  [3358]  - [CMD-TailLogs - stage /AddonsAfter] : Starting activity...
-[2016-01-09T17:10:18.902Z] INFO  [3358]  - [CMD-TailLogs - stage /AddonsAfter] : Completed activity.
-[2016-01-09T17:10:18.902Z] INFO  [3358]  - [CMD-TailLogs - stage ] : Completed activity. Result:
-  CMD-TailLogs - stage  - Command CMD-TailLogs succeeded
-[2016-01-09T17:11:20.675Z] INFO  [3388]  - [CMD-TailLogs - stage ] : Starting activity...
-[2016-01-09T17:11:20.891Z] INFO  [3388]  - [CMD-TailLogs - stage /AddonsBefore] : Starting activity...
-[2016-01-09T17:11:20.891Z] INFO  [3388]  - [CMD-TailLogs - stage /AddonsBefore] : Completed activity.
-[2016-01-09T17:11:20.891Z] INFO  [3388]  - [CMD-TailLogs - stage /TailLogs] : Starting activity...
-[2016-01-09T17:11:20.891Z] INFO  [3388]  - [CMD-TailLogs - stage /TailLogs/TailLogs] : Starting activity...
-[2016-01-09T17:11:21.098Z] INFO  [3388]  - [CMD-TailLogs - stage /TailLogs/TailLogs] : Completed activity.
-[2016-01-09T17:11:21.098Z] INFO  [3388]  - [CMD-TailLogs - stage /TailLogs] : Completed activity. Result:
-  CMD-TailLogs - stage 0 - Command CMD-TailLogs stage 0 completed
-[2016-01-09T17:11:21.098Z] INFO  [3388]  - [CMD-TailLogs - stage /AddonsAfter] : Starting activity...
-[2016-01-09T17:11:21.098Z] INFO  [3388]  - [CMD-TailLogs - stage /AddonsAfter] : Completed activity.
-[2016-01-09T17:11:21.098Z] INFO  [3388]  - [CMD-TailLogs - stage ] : Completed activity. Result:
-  CMD-TailLogs - stage  - Command CMD-TailLogs succeeded
-[2016-01-09T17:12:47.903Z] INFO  [3430]  - [CMD-TailLogs - stage ] : Starting activity...
-[2016-01-09T17:12:48.125Z] INFO  [3430]  - [CMD-TailLogs - stage /AddonsBefore] : Starting activity...
-[2016-01-09T17:12:48.125Z] INFO  [3430]  - [CMD-TailLogs - stage /AddonsBefore] : Completed activity.
-[2016-01-09T17:12:48.125Z] INFO  [3430]  - [CMD-TailLogs - stage /TailLogs] : Starting activity...
-[2016-01-09T17:12:48.125Z] INFO  [3430]  - [CMD-TailLogs - stage /TailLogs/TailLogs] : Starting activity...
+      src/lxml/lxml.etree.c:228101: error: ‘struct __pyx_vtabstruct_4lxml_5etree__BaseParser’ has no member named ‘_parseDocFromFile’
+      src/lxml/lxml.etree.c:228101: error: expected expression before ‘)’ token
+      src/lxml/lxml.etree.c:228101: error: expected ‘;’ before ‘__pyx_f_4lxml_5etree_11_BaseParser__parseDocFromFile’
+      src/lxml/lxml.etree.c:228102: error: ‘struct __pyx_vtabstruct_4lxml_5etree__BaseParser’ has no member named ‘_parseDocFromFilelike’
+      src/lxml/lxml.etree.c:228102: error: expected expression before ‘)’ token
+      src/lxml/lxml.etree.c:228102: error: expected ‘;’ before ‘__pyx_f_4lxml_5etree_11_BaseParser__parseDocFromFilelike’
+      src/lxml/lxml.etree.c:228200: error: ‘struct __pyx_vtabstruct_4lxml_5etree__FilelikeWriter’ has no member named ‘_createOutputBuffer’
+      src/lxml/lxml.etree.c:228200: error: ‘xmlOutputBuffer’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:228200: error: expected expression before ‘)’ token
+      src/lxml/lxml.etree.c:228200: error: expected ‘;’ before ‘__pyx_f_4lxml_5etree_15_FilelikeWriter__createOutputBuffer’
+      src/lxml/lxml.etree.c:228201: error: ‘struct __pyx_vtabstruct_4lxml_5etree__FilelikeWriter’ has no member named ‘write’
+      src/lxml/lxml.etree.c:228202: error: ‘struct __pyx_vtabstruct_4lxml_5etree__FilelikeWriter’ has no member named ‘close’
+      src/lxml/lxml.etree.c:228282: error: expected declaration specifiers or ‘...’ before ‘xmlXPathContext’
+      src/lxml/lxml.etree.c:228297: error: ‘struct __pyx_vtabstruct_4lxml_5etree__BaseContext’ has no member named ‘_find_cached_function’
+      src/lxml/lxml.etree.c:228297: error: expected ‘;’, ‘,’ or ‘)’ before ‘*’ token
+      src/lxml/lxml.etree.c:228297: error: expected ‘;’ before ‘__pyx_f_4lxml_5etree_12_BaseContext__find_cached_function’
+      src/lxml/lxml.etree.c:228298: error: ‘struct __pyx_vtabstruct_4lxml_5etree__BaseContext’ has no member named ‘_release_temp_refs’
+      src/lxml/lxml.etree.c:228299: error: ‘struct __pyx_vtabstruct_4lxml_5etree__BaseContext’ has no member named ‘_hold’
+      src/lxml/lxml.etree.c:228300: error: ‘struct __pyx_vtabstruct_4lxml_5etree__BaseContext’ has no member named ‘_findDocumentForNode’
+      src/lxml/lxml.etree.c:228300: error: expected declaration specifiers or ‘...’ before ‘xmlNode’
+      src/lxml/lxml.etree.c:228312: error: expected declaration specifiers or ‘...’ before ‘xmlXPathContext’
+      src/lxml/lxml.etree.c:228324: error: expected declaration specifiers or ‘...’ before ‘xmlXPathContext’
+      src/lxml/lxml.etree.c:228330: error: expected declaration specifiers or ‘...’ before ‘xmlXPathObject’
+      src/lxml/lxml.etree.c:228408: error: expected declaration specifiers or ‘...’ before ‘xsltSecurityOption’
+      src/lxml/lxml.etree.c:228409: error: expected declaration specifiers or ‘...’ before ‘xsltTransformContext’
+      src/lxml/lxml.etree.c:228410: error: expected declaration specifiers or ‘...’ before ‘xsltSecurityOption’
+      src/lxml/lxml.etree.c:228419: error: expected declaration specifiers or ‘...’ before ‘xsltTransformContext’
+      src/lxml/lxml.etree.c:228430: error: ‘struct __pyx_vtabstruct_4lxml_5etree_XSLT’ has no member named ‘_run_transform’
+      src/lxml/lxml.etree.c:228430: error: expected expression before ‘)’ token
+      src/lxml/lxml.etree.c:228430: error: expected ‘;’ before ‘__pyx_f_4lxml_5etree_4XSLT__run_transform’
+      src/lxml/lxml.etree.c:228448: error: expected declaration specifiers or ‘...’ before ‘xmlChar’
+      src/lxml/lxml.etree.c:228464: error: expected declaration specifiers or ‘...’ before ‘xmlNode’
+      src/lxml/lxml.etree.c:230192: error: ‘xmlParserVersion’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:230355: error: ‘LIBXML_VERSION’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231435: error: ‘__pyx_v_4lxml_5etree___DEFAULT_ENTITY_LOADER’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231445: error: ‘xmlExternalEntityLoader’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231445: error: expected ‘)’ before ‘__pyx_f_4lxml_5etree__local_resolver’
+      src/lxml/lxml.etree.c:231455: error: ‘XML_PARSE_NOENT’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231455: error: ‘XML_PARSE_NOCDATA’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231455: error: ‘XML_PARSE_NONET’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231455: error: ‘XML_PARSE_COMPACT’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231530: error: ‘HTML_PARSE_RECOVER’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231530: error: ‘HTML_PARSE_NONET’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231530: error: ‘HTML_PARSE_COMPACT’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232227: error: ‘XML_XPATH_NUMBER_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232238: error: ‘XML_XPATH_UNFINISHED_LITERAL_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232249: error: ‘XML_XPATH_VARIABLE_REF_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232260: error: ‘XML_XPATH_INVALID_PREDICATE_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232271: error: ‘XML_XPATH_UNCLOSED_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232282: error: ‘XML_XPATH_INVALID_CHAR_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232326: error: ‘XML_XPATH_UNDEF_VARIABLE_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232337: error: ‘XML_XPATH_UNDEF_PREFIX_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232348: error: ‘XML_XPATH_UNKNOWN_FUNC_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232359: error: ‘XML_XPATH_INVALID_OPERAND’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232370: error: ‘XML_XPATH_INVALID_TYPE’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232381: error: ‘XML_XPATH_INVALID_ARITY’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232392: error: ‘XML_XPATH_INVALID_CTXT_SIZE’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232403: error: ‘XML_XPATH_INVALID_CTXT_POSITION’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232651: error: ‘LIBXSLT_VERSION’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232664: error: ‘xsltLibxsltVersion’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232677: error: ‘__pyx_v_4lxml_5etree_XSLT_DOC_DEFAULT_LOADER’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232677: error: ‘xsltDocDefaultLoader’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232687: error: ‘xsltDocLoaderFunc’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232687: error: expected ‘)’ before ‘__pyx_f_4lxml_5etree__xslt_doc_loader’
+      src/lxml/lxml.etree.c: At top level:
+      src/lxml/lxml.etree.c:237283: error: expected ‘)’ before ‘value’
+      src/lxml/lxml.etree.c:237739: error: expected ‘)’ before ‘value’
+      src/lxml/lxml.etree.c:237975: error: expected ‘)’ before ‘value’
+      Compile failed: command 'gcc' failed with exit status 1
+      creating tmp
+      cc -I/usr/include/libxml2 -c /tmp/xmlXPathInit3kqCOA.c -o tmp/xmlXPathInit3kqCOA.o
+      /tmp/xmlXPathInit3kqCOA.c:1:26: error: libxml/xpath.h: No such file or directory
+      *********************************************************************************
+      Could not find function xmlCheckVersion in library libxml2. Is libxml2 installed?
+      *********************************************************************************
+      error: command 'gcc' failed with exit status 1
+      
+      ----------------------------------------
+  Command "/opt/python/run/venv/bin/python2.7 -c "import setuptools, tokenize;__file__='/tmp/pip-build-Ld_Xs3/lxml/setup.py';exec(compile(getattr(tokenize, 'open', open)(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-BeWnzI-record/install-record.txt --single-version-externally-managed --compile --install-headers /opt/python/run/venv/include/site/python2.7/lxml" failed with error code 1 in /tmp/pip-build-Ld_Xs3/lxml
+  2016-01-09 17:20:58,357 ERROR    Error installing dependencies: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1
+  Traceback (most recent call last):
+    File "/opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py", line 22, in main
+      install_dependencies()
+    File "/opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py", line 18, in install_dependencies
+      check_call('%s install -r %s' % (os.path.join(APP_VIRTUAL_ENV, 'bin', 'pip'), requirements_file), shell=True)
+    File "/usr/lib64/python2.7/subprocess.py", line 540, in check_call
+      raise CalledProcessError(retcode, cmd)
+  CalledProcessError: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1 (Executor::NonZeroExitStatus)
+
+
+[2016-01-09T17:20:58.377Z] INFO  [25677] - [Application update/AppDeployStage0/AppDeployPreHook/03deploy.py] : Activity failed.
+[2016-01-09T17:20:58.377Z] INFO  [25677] - [Application update/AppDeployStage0/AppDeployPreHook] : Activity failed.
+[2016-01-09T17:20:58.377Z] INFO  [25677] - [Application update/AppDeployStage0] : Activity failed.
+[2016-01-09T17:20:58.393Z] INFO  [25677] - [Application update] : Completed activity. Result:
+  Application update - Command CMD-AppDeploy failed
+[2016-01-09T17:21:59.842Z] INFO  [10388] - [CMD-TailLogs - stage ] : Starting activity...
+[2016-01-09T17:22:00.087Z] INFO  [10388] - [CMD-TailLogs - stage /AddonsBefore] : Starting activity...
+[2016-01-09T17:22:00.087Z] INFO  [10388] - [CMD-TailLogs - stage /AddonsBefore] : Completed activity.
+[2016-01-09T17:22:00.087Z] INFO  [10388] - [CMD-TailLogs - stage /TailLogs] : Starting activity...
+[2016-01-09T17:22:00.087Z] INFO  [10388] - [CMD-TailLogs - stage /TailLogs/TailLogs] : Starting activity...
 
 
 
 -------------------------------------
 /var/log/eb-commandprocessor.log
 -------------------------------------
-[2016-01-09T17:09:19.904Z] INFO  [3324]  : Executing command CMD-TailLogs activities...
-[2016-01-09T17:09:19.904Z] DEBUG [3324]  : Setting environment variables..
-[2016-01-09T17:09:19.904Z] INFO  [3324]  : Running AddonsBefore for command CMD-TailLogs...
-[2016-01-09T17:09:19.904Z] DEBUG [3324]  : Running stages of Command CMD-TailLogs from stage 0 to stage 0...
-[2016-01-09T17:09:19.904Z] INFO  [3324]  : Running stage 0 of command CMD-TailLogs...
-[2016-01-09T17:09:19.904Z] DEBUG [3324]  : Loaded 1 actions for stage 0.
-[2016-01-09T17:09:19.904Z] INFO  [3324]  : Running 1 of 1 actions: TailLogs...
-[2016-01-09T17:09:20.146Z] INFO  [3324]  : Running AddonsAfter for command CMD-TailLogs...
-[2016-01-09T17:09:20.146Z] INFO  [3324]  : Command CMD-TailLogs succeeded!
-[2016-01-09T17:09:20.146Z] INFO  [3324]  : Command processor returning results: 
-{"status":"SUCCESS","api_version":"1.0","results":[{"status":"SUCCESS","msg":"","returncode":0,"events":[{"msg":"[Instance: i-92d39d36] Successfully finished tailing 6 log(s)","severity":"INFO","timestamp":1452359360146}]}]}
-[2016-01-09T17:10:18.502Z] DEBUG [3358]  : Reading config file: /etc/elasticbeanstalk/.aws-eb-stack.properties
-[2016-01-09T17:10:18.502Z] DEBUG [3358]  : Checking if the command processor should execute...
-[2016-01-09T17:10:18.504Z] DEBUG [3358]  : Checking whether the command is applicable to instance (i-92d39d36)..
-[2016-01-09T17:10:18.504Z] INFO  [3358]  : Command is applicable to this instance (i-92d39d36)..
-[2016-01-09T17:10:18.505Z] DEBUG [3358]  : Checking if the received command stage is valid..
-[2016-01-09T17:10:18.505Z] INFO  [3358]  : No stage_num in command. Valid stage..
-[2016-01-09T17:10:18.505Z] INFO  [3358]  : Received command CMD-TailLogs: {"execution_data":"{\"aws_access_key_id\":\"ASIAJ5Y2RZK7AGRK7O6A\",\"signature\":\"x93O6t\\\/HEoJc8cxFuDqXfdW6ASg=\",\"security_token\":\"AQoDYXdzEML\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/wEawAL3drVebe58rmCbMuDu3x9+\\\/ZmFw21HbAXnmnYOe+jCyoFvTmxuhwmCLoGa6L5\\\/0dr9czz957KtZqRTnRI59sj8ZrnQ4Hx6ZP+esdtBca5XO7kARiHfSMbMhoWNCQqEOiDa8gNdePT+vu24MQS3BL8VOaeP5koSd+tUFKLe1pWGUchjQz3JTCC3DJjl0SOWWeG90BYnbLEOtH667csCPGD1hze2F31jruXFTfLBwGvaEUWA5ziAiXldoeHN76B7N6a1UaBZraJuWwLugs7g\\\/qzRS8Br5ZedEDrzizgV6i6zjxlPiYVjz1r8ocI8ND9K9xD0Piw+4456XOlpmMJ2wJaizbrd7fbc6jWdgLEsORAzagA2VUilOm\\\/aGqQFMDDrg6lxoT+TYxbJo0\\\/ptwfAZJvpdS0jyu+i5MJJRgrHS8xHDSD4\\\/cS0BQ==\",\"policy\":\"eyJleHBpcmF0aW9uIjoiMjAxNi0wMS0wOVQxNzo0MDoxNi40MjJaIiwiY29uZGl0aW9ucyI6W1sic3RhcnRzLXdpdGgiLCIkeC1hbXotbWV0YS10aW1lX3N0YW1wIiwiIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLXB1Ymxpc2hfbWVjaGFuaXNtIiwiIl0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJyZXNvdXJjZXNcL2Vudmlyb25tZW50c1wvbG9nc1wvIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLWJhdGNoX2lkIiwiIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLWZpbGVfbmFtZSIsIiJdLFsic3RhcnRzLXdpdGgiLCIkeC1hbXotc2VjdXJpdHktdG9rZW4iLCIiXSxbInN0YXJ0cy13aXRoIiwiJENvbnRlbnQtVHlwZSIsIiJdLFsiZXEiLCIkYnVja2V0IiwiZWxhc3RpY2JlYW5zdGFsay1hcC1zb3V0aGVhc3QtMS0zNjEzOTgxMzAxMjUiXSxbImVxIiwiJGFjbCIsInByaXZhdGUiXV19\"}","instance_ids":["i-92d39d36"],"data":"da69e87b-b6f3-11e5-a189-c706c3ed5c34","command_name":"CMD-TailLogs","api_version":"1.0","resource_name":"AWSEBAutoScalingGroup","request_id":"da69e87b-b6f3-11e5-a189-c706c3ed5c34","command_timeout":"600"}
-[2016-01-09T17:10:18.505Z] INFO  [3358]  : Command processor should execute command.
-[2016-01-09T17:10:18.505Z] DEBUG [3358]  : Storing current stage..
-[2016-01-09T17:10:18.505Z] DEBUG [3358]  : Stage_num does not exist. Not saving null stage. Returning..
-[2016-01-09T17:10:18.505Z] INFO  [3358]  : Executing CMD-TailLogs - stage 
-[2016-01-09T17:10:18.505Z] INFO  [3358]  : Executing command: CMD-TailLogs...
-[2016-01-09T17:10:18.505Z] DEBUG [3358]  : Reading config file: /etc/elasticbeanstalk/.aws-eb-stack.properties
-[2016-01-09T17:10:18.505Z] DEBUG [3358]  : Refreshing metadata..
-[2016-01-09T17:10:18.718Z] DEBUG [3358]  : Refreshed environment metadata.
-[2016-01-09T17:10:18.718Z] DEBUG [3358]  : Retrieving metadata for key: AWS::ElasticBeanstalk::Ext||_ContainerConfigFileContent||commands..
-[2016-01-09T17:10:18.719Z] DEBUG [3358]  : Retrieving metadata for key: AWS::ElasticBeanstalk::Ext||_API||_Commands..
-[2016-01-09T17:10:18.719Z] INFO  [3358]  : Found enabled addons: ["logpublish"].
-[2016-01-09T17:10:18.720Z] INFO  [3358]  : Updating Command definition of addon logpublish.
-[2016-01-09T17:10:18.720Z] DEBUG [3358]  : Loaded definition of Command CMD-TailLogs.
-[2016-01-09T17:10:18.720Z] INFO  [3358]  : Executing command CMD-TailLogs activities...
-[2016-01-09T17:10:18.720Z] DEBUG [3358]  : Setting environment variables..
-[2016-01-09T17:10:18.720Z] INFO  [3358]  : Running AddonsBefore for command CMD-TailLogs...
-[2016-01-09T17:10:18.720Z] DEBUG [3358]  : Running stages of Command CMD-TailLogs from stage 0 to stage 0...
-[2016-01-09T17:10:18.720Z] INFO  [3358]  : Running stage 0 of command CMD-TailLogs...
-[2016-01-09T17:10:18.720Z] DEBUG [3358]  : Loaded 1 actions for stage 0.
-[2016-01-09T17:10:18.720Z] INFO  [3358]  : Running 1 of 1 actions: TailLogs...
-[2016-01-09T17:10:18.902Z] INFO  [3358]  : Running AddonsAfter for command CMD-TailLogs...
-[2016-01-09T17:10:18.902Z] INFO  [3358]  : Command CMD-TailLogs succeeded!
-[2016-01-09T17:10:18.902Z] INFO  [3358]  : Command processor returning results: 
-{"status":"SUCCESS","api_version":"1.0","results":[{"status":"SUCCESS","msg":"","returncode":0,"events":[{"msg":"[Instance: i-92d39d36] Successfully finished tailing 6 log(s)","severity":"INFO","timestamp":1452359418902}]}]}
-[2016-01-09T17:11:20.673Z] DEBUG [3388]  : Reading config file: /etc/elasticbeanstalk/.aws-eb-stack.properties
-[2016-01-09T17:11:20.673Z] DEBUG [3388]  : Checking if the command processor should execute...
-[2016-01-09T17:11:20.675Z] DEBUG [3388]  : Checking whether the command is applicable to instance (i-92d39d36)..
-[2016-01-09T17:11:20.675Z] INFO  [3388]  : Command is applicable to this instance (i-92d39d36)..
-[2016-01-09T17:11:20.675Z] DEBUG [3388]  : Checking if the received command stage is valid..
-[2016-01-09T17:11:20.675Z] INFO  [3388]  : No stage_num in command. Valid stage..
-[2016-01-09T17:11:20.675Z] INFO  [3388]  : Received command CMD-TailLogs: {"execution_data":"{\"aws_access_key_id\":\"ASIAI22ARHZ2CELLNVFA\",\"signature\":\"coAYwwNSrbQj4r0NKWWiGOjjINw=\",\"security_token\":\"AQoDYXdzEML\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/wEawAJnoBkRuSOwP0ZlJYHmUoC6jCZQ69DPDJ7vFr2VFVmYJycLNt2gWoFMdsjdAKLBk9RG1pSAOTKodMjg8swCAEcWp9hG3bT9gKRdte7HBm\\\/mDyYSDuf3L7lgZ7CbeLmFNHRNP1Jv\\\/BVWRp5gg5miGr8pP52Cb7TwTiwhtVz8CEZNRA0xX\\\/88HdAZWSz7lIVg9F4jlCtKLmzwdA00CtuWebFz+wsLsgiDfQ\\\/kyAWZ9\\\/Tj3xH+8IM9fLmJkkYTbecB7c3r9V+PJFvdP9T2KEUb5P04bBAgCV\\\/\\\/2smiwt8GdP0ooTv5Y7eiywYwDsCgJOsz\\\/XMQIaPG2rrOc377RBATeylEmb9cIcqIE5KyQRZzypDDmeuPsFeiPpz0s+j2VADhYaJbcpSJQdy5ZbkBCB5l388TBaM4rMcHRo5xgIk8oavZiiC2\\\/sS0BQ==\",\"policy\":\"eyJleHBpcmF0aW9uIjoiMjAxNi0wMS0wOVQxNzo0MToxOC45OTlaIiwiY29uZGl0aW9ucyI6W1sic3RhcnRzLXdpdGgiLCIkeC1hbXotbWV0YS10aW1lX3N0YW1wIiwiIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLXB1Ymxpc2hfbWVjaGFuaXNtIiwiIl0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJyZXNvdXJjZXNcL2Vudmlyb25tZW50c1wvbG9nc1wvIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLWJhdGNoX2lkIiwiIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLWZpbGVfbmFtZSIsIiJdLFsic3RhcnRzLXdpdGgiLCIkeC1hbXotc2VjdXJpdHktdG9rZW4iLCIiXSxbInN0YXJ0cy13aXRoIiwiJENvbnRlbnQtVHlwZSIsIiJdLFsiZXEiLCIkYnVja2V0IiwiZWxhc3RpY2JlYW5zdGFsay1hcC1zb3V0aGVhc3QtMS0zNjEzOTgxMzAxMjUiXSxbImVxIiwiJGFjbCIsInByaXZhdGUiXV19\"}","instance_ids":["i-92d39d36"],"data":"ffb9e85b-b6f3-11e5-bfc0-d9fc190f3ed5","command_name":"CMD-TailLogs","api_version":"1.0","resource_name":"AWSEBAutoScalingGroup","request_id":"ffb9e85b-b6f3-11e5-bfc0-d9fc190f3ed5","command_timeout":"600"}
-[2016-01-09T17:11:20.675Z] INFO  [3388]  : Command processor should execute command.
-[2016-01-09T17:11:20.675Z] DEBUG [3388]  : Storing current stage..
-[2016-01-09T17:11:20.675Z] DEBUG [3388]  : Stage_num does not exist. Not saving null stage. Returning..
-[2016-01-09T17:11:20.675Z] INFO  [3388]  : Executing CMD-TailLogs - stage 
-[2016-01-09T17:11:20.675Z] INFO  [3388]  : Executing command: CMD-TailLogs...
-[2016-01-09T17:11:20.675Z] DEBUG [3388]  : Reading config file: /etc/elasticbeanstalk/.aws-eb-stack.properties
-[2016-01-09T17:11:20.675Z] DEBUG [3388]  : Refreshing metadata..
-[2016-01-09T17:11:20.889Z] DEBUG [3388]  : Refreshed environment metadata.
-[2016-01-09T17:11:20.889Z] DEBUG [3388]  : Retrieving metadata for key: AWS::ElasticBeanstalk::Ext||_ContainerConfigFileContent||commands..
-[2016-01-09T17:11:20.889Z] DEBUG [3388]  : Retrieving metadata for key: AWS::ElasticBeanstalk::Ext||_API||_Commands..
-[2016-01-09T17:11:20.890Z] INFO  [3388]  : Found enabled addons: ["logpublish"].
-[2016-01-09T17:11:20.890Z] INFO  [3388]  : Updating Command definition of addon logpublish.
-[2016-01-09T17:11:20.891Z] DEBUG [3388]  : Loaded definition of Command CMD-TailLogs.
-[2016-01-09T17:11:20.891Z] INFO  [3388]  : Executing command CMD-TailLogs activities...
-[2016-01-09T17:11:20.891Z] DEBUG [3388]  : Setting environment variables..
-[2016-01-09T17:11:20.891Z] INFO  [3388]  : Running AddonsBefore for command CMD-TailLogs...
-[2016-01-09T17:11:20.891Z] DEBUG [3388]  : Running stages of Command CMD-TailLogs from stage 0 to stage 0...
-[2016-01-09T17:11:20.891Z] INFO  [3388]  : Running stage 0 of command CMD-TailLogs...
-[2016-01-09T17:11:20.891Z] DEBUG [3388]  : Loaded 1 actions for stage 0.
-[2016-01-09T17:11:20.891Z] INFO  [3388]  : Running 1 of 1 actions: TailLogs...
-[2016-01-09T17:11:21.098Z] INFO  [3388]  : Running AddonsAfter for command CMD-TailLogs...
-[2016-01-09T17:11:21.098Z] INFO  [3388]  : Command CMD-TailLogs succeeded!
-[2016-01-09T17:11:21.099Z] INFO  [3388]  : Command processor returning results: 
-{"status":"SUCCESS","api_version":"1.0","results":[{"status":"SUCCESS","msg":"","returncode":0,"events":[{"msg":"[Instance: i-92d39d36] Successfully finished tailing 6 log(s)","severity":"INFO","timestamp":1452359481099}]}]}
-[2016-01-09T17:12:47.899Z] DEBUG [3430]  : Reading config file: /etc/elasticbeanstalk/.aws-eb-stack.properties
-[2016-01-09T17:12:47.899Z] DEBUG [3430]  : Checking if the command processor should execute...
-[2016-01-09T17:12:47.902Z] DEBUG [3430]  : Checking whether the command is applicable to instance (i-92d39d36)..
-[2016-01-09T17:12:47.902Z] INFO  [3430]  : Command is applicable to this instance (i-92d39d36)..
-[2016-01-09T17:12:47.902Z] DEBUG [3430]  : Checking if the received command stage is valid..
-[2016-01-09T17:12:47.902Z] INFO  [3430]  : No stage_num in command. Valid stage..
-[2016-01-09T17:12:47.903Z] INFO  [3430]  : Received command CMD-TailLogs: {"execution_data":"{\"aws_access_key_id\":\"ASIAISSZTR54N7BNGJ2A\",\"signature\":\"by8KvQBaK\\\/BrbkHeZRSklGhz+YE=\",\"security_token\":\"AQoDYXdzEML\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/wEawAII2PH2mg4uXblBaSg\\\/wYz2DL888x+Le+qRGQmz28+1WlYeL893G6m6WZwYBwZTvZKIpMkHC+krDlMl9r8NaPCCER2rmSUjwEmphkG6xQSOhnpm0GT2YMdb7pczF8K3fmwgtqWfePe4S24JT\\\/AAakE5N2p70n3eH+AzALWAxeeSRmGSZwjcm22jVeHfIYDytkQQqWh6PPsxcFvF\\\/0LRcm9icSst\\\/k\\\/kQW1xyog5MAhTs0o\\\/1bUPQQbwZn9dKbb5DCm85\\\/ESFfig4JEowVhTuoaHSuzjM8kfcCnIm2BKb+r6whfQnf1Aha5gzZDBrpJU+VjgIG9OOLFsFha+AG0wOMAq1iQs8fZIoBOlG2SQRqfyvV0K3GSTX4\\\/ridl7gY73ZTDA8\\\/OHf7zsGqvTn9Bo8v46PL4dUHMC1NMtem2uFk4cSiCN\\\/8S0BQ==\",\"policy\":\"eyJleHBpcmF0aW9uIjoiMjAxNi0wMS0wOVQxNzo0Mjo0NS44NjBaIiwiY29uZGl0aW9ucyI6W1sic3RhcnRzLXdpdGgiLCIkeC1hbXotbWV0YS10aW1lX3N0YW1wIiwiIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLXB1Ymxpc2hfbWVjaGFuaXNtIiwiIl0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJyZXNvdXJjZXNcL2Vudmlyb25tZW50c1wvbG9nc1wvIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLWJhdGNoX2lkIiwiIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLWZpbGVfbmFtZSIsIiJdLFsic3RhcnRzLXdpdGgiLCIkeC1hbXotc2VjdXJpdHktdG9rZW4iLCIiXSxbInN0YXJ0cy13aXRoIiwiJENvbnRlbnQtVHlwZSIsIiJdLFsiZXEiLCIkYnVja2V0IiwiZWxhc3RpY2JlYW5zdGFsay1hcC1zb3V0aGVhc3QtMS0zNjEzOTgxMzAxMjUiXSxbImVxIiwiJGFjbCIsInByaXZhdGUiXV19\"}","instance_ids":["i-92d39d36"],"data":"337aa845-b6f4-11e5-bdc7-015a3d7cb259","command_name":"CMD-TailLogs","api_version":"1.0","resource_name":"AWSEBAutoScalingGroup","request_id":"337aa845-b6f4-11e5-bdc7-015a3d7cb259","command_timeout":"600"}
-[2016-01-09T17:12:47.903Z] INFO  [3430]  : Command processor should execute command.
-[2016-01-09T17:12:47.903Z] DEBUG [3430]  : Storing current stage..
-[2016-01-09T17:12:47.903Z] DEBUG [3430]  : Stage_num does not exist. Not saving null stage. Returning..
-[2016-01-09T17:12:47.903Z] INFO  [3430]  : Executing CMD-TailLogs - stage 
-[2016-01-09T17:12:47.903Z] INFO  [3430]  : Executing command: CMD-TailLogs...
-[2016-01-09T17:12:47.903Z] DEBUG [3430]  : Reading config file: /etc/elasticbeanstalk/.aws-eb-stack.properties
-[2016-01-09T17:12:47.903Z] DEBUG [3430]  : Refreshing metadata..
-[2016-01-09T17:12:48.123Z] DEBUG [3430]  : Refreshed environment metadata.
-[2016-01-09T17:12:48.123Z] DEBUG [3430]  : Retrieving metadata for key: AWS::ElasticBeanstalk::Ext||_ContainerConfigFileContent||commands..
-[2016-01-09T17:12:48.123Z] DEBUG [3430]  : Retrieving metadata for key: AWS::ElasticBeanstalk::Ext||_API||_Commands..
-[2016-01-09T17:12:48.124Z] INFO  [3430]  : Found enabled addons: ["logpublish"].
-[2016-01-09T17:12:48.125Z] INFO  [3430]  : Updating Command definition of addon logpublish.
-[2016-01-09T17:12:48.125Z] DEBUG [3430]  : Loaded definition of Command CMD-TailLogs.
-[2016-01-09T17:12:48.125Z] INFO  [3430]  : Executing command CMD-TailLogs activities...
-[2016-01-09T17:12:48.125Z] DEBUG [3430]  : Setting environment variables..
-[2016-01-09T17:12:48.125Z] INFO  [3430]  : Running AddonsBefore for command CMD-TailLogs...
-[2016-01-09T17:12:48.125Z] DEBUG [3430]  : Running stages of Command CMD-TailLogs from stage 0 to stage 0...
-[2016-01-09T17:12:48.125Z] INFO  [3430]  : Running stage 0 of command CMD-TailLogs...
-[2016-01-09T17:12:48.125Z] DEBUG [3430]  : Loaded 1 actions for stage 0.
-[2016-01-09T17:12:48.125Z] INFO  [3430]  : Running 1 of 1 actions: TailLogs...
+      src/lxml/lxml.etree.c:228312: error: expected declaration specifiers or ‘...’ before ‘xmlXPathContext’
+      src/lxml/lxml.etree.c:228324: error: expected declaration specifiers or ‘...’ before ‘xmlXPathContext’
+      src/lxml/lxml.etree.c:228330: error: expected declaration specifiers or ‘...’ before ‘xmlXPathObject’
+      src/lxml/lxml.etree.c:228408: error: expected declaration specifiers or ‘...’ before ‘xsltSecurityOption’
+      src/lxml/lxml.etree.c:228409: error: expected declaration specifiers or ‘...’ before ‘xsltTransformContext’
+      src/lxml/lxml.etree.c:228410: error: expected declaration specifiers or ‘...’ before ‘xsltSecurityOption’
+      src/lxml/lxml.etree.c:228419: error: expected declaration specifiers or ‘...’ before ‘xsltTransformContext’
+      src/lxml/lxml.etree.c:228430: error: ‘struct __pyx_vtabstruct_4lxml_5etree_XSLT’ has no member named ‘_run_transform’
+      src/lxml/lxml.etree.c:228430: error: expected expression before ‘)’ token
+      src/lxml/lxml.etree.c:228430: error: expected ‘;’ before ‘__pyx_f_4lxml_5etree_4XSLT__run_transform’
+      src/lxml/lxml.etree.c:228448: error: expected declaration specifiers or ‘...’ before ‘xmlChar’
+      src/lxml/lxml.etree.c:228464: error: expected declaration specifiers or ‘...’ before ‘xmlNode’
+      src/lxml/lxml.etree.c:230192: error: ‘xmlParserVersion’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:230355: error: ‘LIBXML_VERSION’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231435: error: ‘__pyx_v_4lxml_5etree___DEFAULT_ENTITY_LOADER’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231445: error: ‘xmlExternalEntityLoader’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231445: error: expected ‘)’ before ‘__pyx_f_4lxml_5etree__local_resolver’
+      src/lxml/lxml.etree.c:231455: error: ‘XML_PARSE_NOENT’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231455: error: ‘XML_PARSE_NOCDATA’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231455: error: ‘XML_PARSE_NONET’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231455: error: ‘XML_PARSE_COMPACT’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231530: error: ‘HTML_PARSE_RECOVER’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231530: error: ‘HTML_PARSE_NONET’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:231530: error: ‘HTML_PARSE_COMPACT’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232227: error: ‘XML_XPATH_NUMBER_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232238: error: ‘XML_XPATH_UNFINISHED_LITERAL_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232249: error: ‘XML_XPATH_VARIABLE_REF_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232260: error: ‘XML_XPATH_INVALID_PREDICATE_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232271: error: ‘XML_XPATH_UNCLOSED_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232282: error: ‘XML_XPATH_INVALID_CHAR_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232326: error: ‘XML_XPATH_UNDEF_VARIABLE_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232337: error: ‘XML_XPATH_UNDEF_PREFIX_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232348: error: ‘XML_XPATH_UNKNOWN_FUNC_ERROR’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232359: error: ‘XML_XPATH_INVALID_OPERAND’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232370: error: ‘XML_XPATH_INVALID_TYPE’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232381: error: ‘XML_XPATH_INVALID_ARITY’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232392: error: ‘XML_XPATH_INVALID_CTXT_SIZE’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232403: error: ‘XML_XPATH_INVALID_CTXT_POSITION’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232651: error: ‘LIBXSLT_VERSION’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232664: error: ‘xsltLibxsltVersion’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232677: error: ‘__pyx_v_4lxml_5etree_XSLT_DOC_DEFAULT_LOADER’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232677: error: ‘xsltDocDefaultLoader’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232687: error: ‘xsltDocLoaderFunc’ undeclared (first use in this function)
+      src/lxml/lxml.etree.c:232687: error: expected ‘)’ before ‘__pyx_f_4lxml_5etree__xslt_doc_loader’
+      src/lxml/lxml.etree.c: At top level:
+      src/lxml/lxml.etree.c:237283: error: expected ‘)’ before ‘value’
+      src/lxml/lxml.etree.c:237739: error: expected ‘)’ before ‘value’
+      src/lxml/lxml.etree.c:237975: error: expected ‘)’ before ‘value’
+      Compile failed: command 'gcc' failed with exit status 1
+      creating tmp
+      cc -I/usr/include/libxml2 -c /tmp/xmlXPathInit3kqCOA.c -o tmp/xmlXPathInit3kqCOA.o
+      /tmp/xmlXPathInit3kqCOA.c:1:26: error: libxml/xpath.h: No such file or directory
+      *********************************************************************************
+      Could not find function xmlCheckVersion in library libxml2. Is libxml2 installed?
+      *********************************************************************************
+      error: command 'gcc' failed with exit status 1
+      
+      ----------------------------------------
+  Command "/opt/python/run/venv/bin/python2.7 -c "import setuptools, tokenize;__file__='/tmp/pip-build-Ld_Xs3/lxml/setup.py';exec(compile(getattr(tokenize, 'open', open)(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-BeWnzI-record/install-record.txt --single-version-externally-managed --compile --install-headers /opt/python/run/venv/include/site/python2.7/lxml" failed with error code 1 in /tmp/pip-build-Ld_Xs3/lxml
+  2016-01-09 17:20:58,357 ERROR    Error installing dependencies: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1
+  Traceback (most recent call last):
+    File "/opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py", line 22, in main
+      install_dependencies()
+    File "/opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py", line 18, in install_dependencies
+      check_call('%s install -r %s' % (os.path.join(APP_VIRTUAL_ENV, 'bin', 'pip'), requirements_file), shell=True)
+    File "/usr/lib64/python2.7/subprocess.py", line 540, in check_call
+      raise CalledProcessError(retcode, cmd)
+  CalledProcessError: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1 (Executor::NonZeroExitStatus)
+
+
+[2016-01-09T17:20:58.393Z] ERROR [25677] : Command CMD-AppDeploy failed!
+[2016-01-09T17:20:58.394Z] INFO  [25677] : Command processor returning results: 
+{"status":"FAILURE","api_version":"1.0","results":[{"status":"FAILURE","msg":"(TRUNCATED)...)\n  File \"/usr/lib64/python2.7/subprocess.py\", line 540, in check_call\n    raise CalledProcessError(retcode, cmd)\nCalledProcessError: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1. \nHook /opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py failed. For more detail, check /var/log/eb-activity.log using console or EB CLI","returncode":1,"events":[{"msg":"Your requirements.txt is invalid. Snapshot your logs for details.","severity":"ERROR","timestamp":1452360058},{"msg":"Error installing dependencies: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1","severity":"SYSTEM","timestamp":1452360058}]}],"truncated":"true"}
+[2016-01-09T17:21:59.840Z] DEBUG [10388] : Reading config file: /etc/elasticbeanstalk/.aws-eb-stack.properties
+[2016-01-09T17:21:59.840Z] DEBUG [10388] : Checking if the command processor should execute...
+[2016-01-09T17:21:59.842Z] DEBUG [10388] : Checking whether the command is applicable to instance (i-92d39d36)..
+[2016-01-09T17:21:59.842Z] INFO  [10388] : Command is applicable to this instance (i-92d39d36)..
+[2016-01-09T17:21:59.842Z] DEBUG [10388] : Checking if the received command stage is valid..
+[2016-01-09T17:21:59.842Z] INFO  [10388] : No stage_num in command. Valid stage..
+[2016-01-09T17:21:59.842Z] INFO  [10388] : Received command CMD-TailLogs: {"execution_data":"{\"aws_access_key_id\":\"ASIAIU3Y2EHENBOAF36A\",\"signature\":\"r38Lo77Vfmy5up5WZJ11MataMzw=\",\"security_token\":\"AQoDYXdzEMP\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/wEawAKfxiW+J9iPTfb60tEzB4WYttM8WjG4Qpl8fm\\\/HBbHeDu8SmJMnWobAwppnSvYYCwg0Uzpgrkya7hawqqCstXwlyxWLI9sroAgu0b9htoabbzcSJIsEI2iXiefloU5gwQBRLmQe6oVfMQfvFHXw1CXO\\\/Is8tvsqSGeG6uJ+SF7iEGkZkB0qnB3waBE\\\/bZumySVUDjMiDqqXWiK+CPfFmqtH2HKAijt+40Hzg5xqCN5CMgbZmVIqW\\\/Tl0hO1y7u6Vv3+QIrIRP93vnND6RijT6cmAM3z2uT62UYF4PUuGt8KzOSl6mMNaLJ\\\/eApI5aaIhdmVicmQRW9V1z4oYgOnn4uKwi\\\/2vf\\\/+4zJxi9FeNqGxJGShRCVliasx\\\/VUxL6BLUSoiDZNhDP\\\/z5ov+z\\\/Dtff6gxFjvjrxDN8ANfH2IAm\\\/C\\\/CC1g8W0BQ==\",\"policy\":\"eyJleHBpcmF0aW9uIjoiMjAxNi0wMS0wOVQxNzo1MTo1Ny42NDdaIiwiY29uZGl0aW9ucyI6W1sic3RhcnRzLXdpdGgiLCIkeC1hbXotbWV0YS10aW1lX3N0YW1wIiwiIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLXB1Ymxpc2hfbWVjaGFuaXNtIiwiIl0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJyZXNvdXJjZXNcL2Vudmlyb25tZW50c1wvbG9nc1wvIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLWJhdGNoX2lkIiwiIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLWZpbGVfbmFtZSIsIiJdLFsic3RhcnRzLXdpdGgiLCIkeC1hbXotc2VjdXJpdHktdG9rZW4iLCIiXSxbInN0YXJ0cy13aXRoIiwiJENvbnRlbnQtVHlwZSIsIiJdLFsiZXEiLCIkYnVja2V0IiwiZWxhc3RpY2JlYW5zdGFsay1hcC1zb3V0aGVhc3QtMS0zNjEzOTgxMzAxMjUiXSxbImVxIiwiJGFjbCIsInByaXZhdGUiXV19\"}","instance_ids":["i-92d39d36"],"data":"7c5d24f6-b6f5-11e5-bc87-95042267b0f4","command_name":"CMD-TailLogs","api_version":"1.0","resource_name":"AWSEBAutoScalingGroup","request_id":"7c5d24f6-b6f5-11e5-bc87-95042267b0f4","command_timeout":"600"}
+[2016-01-09T17:21:59.842Z] INFO  [10388] : Command processor should execute command.
+[2016-01-09T17:21:59.842Z] DEBUG [10388] : Storing current stage..
+[2016-01-09T17:21:59.842Z] DEBUG [10388] : Stage_num does not exist. Not saving null stage. Returning..
+[2016-01-09T17:21:59.842Z] INFO  [10388] : Executing CMD-TailLogs - stage 
+[2016-01-09T17:21:59.842Z] INFO  [10388] : Executing command: CMD-TailLogs...
+[2016-01-09T17:21:59.842Z] DEBUG [10388] : Reading config file: /etc/elasticbeanstalk/.aws-eb-stack.properties
+[2016-01-09T17:21:59.843Z] DEBUG [10388] : Refreshing metadata..
+[2016-01-09T17:22:00.084Z] DEBUG [10388] : Refreshed environment metadata.
+[2016-01-09T17:22:00.084Z] DEBUG [10388] : Retrieving metadata for key: AWS::ElasticBeanstalk::Ext||_ContainerConfigFileContent||commands..
+[2016-01-09T17:22:00.085Z] DEBUG [10388] : Retrieving metadata for key: AWS::ElasticBeanstalk::Ext||_API||_Commands..
+[2016-01-09T17:22:00.085Z] INFO  [10388] : Found enabled addons: ["logpublish"].
+[2016-01-09T17:22:00.086Z] INFO  [10388] : Updating Command definition of addon logpublish.
+[2016-01-09T17:22:00.086Z] DEBUG [10388] : Loaded definition of Command CMD-TailLogs.
+[2016-01-09T17:22:00.086Z] INFO  [10388] : Executing command CMD-TailLogs activities...
+[2016-01-09T17:22:00.086Z] DEBUG [10388] : Setting environment variables..
+[2016-01-09T17:22:00.087Z] INFO  [10388] : Running AddonsBefore for command CMD-TailLogs...
+[2016-01-09T17:22:00.087Z] DEBUG [10388] : Running stages of Command CMD-TailLogs from stage 0 to stage 0...
+[2016-01-09T17:22:00.087Z] INFO  [10388] : Running stage 0 of command CMD-TailLogs...
+[2016-01-09T17:22:00.087Z] DEBUG [10388] : Loaded 1 actions for stage 0.
+[2016-01-09T17:22:00.087Z] INFO  [10388] : Running 1 of 1 actions: TailLogs...
 
 
 
