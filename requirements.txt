@@ -5,7 +5,6 @@ django-social-share==0.3.0
 gevent==1.0.2
 greenlet==0.4.9
 grequests==0.2.0
-lxml==3.5.0
 mechanize==0.2.5
 MySQL-python==1.2.5
 oauthlib==1.0.3
