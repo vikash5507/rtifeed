@@ -12,13 +12,15 @@ Retrieving logs...
 2016-01-09 17:58:45,217 [INFO] Version manifest file name already known. The latest version manifest file key is resources/environments/e-zcae5pz8sz/_runtime/versions/manifest_1452362321120
 2016-01-09 17:58:45,278 [INFO] Downloaded the manifest file to /tmp/version_file_manifest
 2016-01-09 17:58:46,838 [INFO] Downloaded version label app-43e4-160109_232650 from s3 key <Key: elasticbeanstalk-ap-southeast-1-361398130125,resources/environments/e-zcae5pz8sz/_runtime/_versions/RTIFeed/app-43e4-160109_232650>
+2016-01-09 18:15:36,249 [INFO] Version manifest file name already known. The latest version manifest file key is resources/environments/e-zcae5pz8sz/_runtime/versions/manifest_1452363331429
+2016-01-09 18:15:36,314 [INFO] Downloaded the manifest file to /tmp/version_file_manifest
+2016-01-09 18:15:37,786 [INFO] Downloaded version label app-4d4d-160109_234306 from s3 key <Key: elasticbeanstalk-ap-southeast-1-361398130125,resources/environments/e-zcae5pz8sz/_runtime/_versions/RTIFeed/app-4d4d-160109_234306>
 
 
 
 -------------------------------------
 /var/log/httpd/error_log
 -------------------------------------
-[Sat Jan 09 17:35:00.237533 2016] [:error] [pid 2862] [client 127.0.0.1:60825] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
 [Sat Jan 09 17:35:05.241201 2016] [:error] [pid 2870] [client 127.0.0.1:60826] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
 [Sat Jan 09 17:35:10.244354 2016] [:error] [pid 2831] [client 127.0.0.1:60827] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
 [Sat Jan 09 17:35:15.249352 2016] [:error] [pid 2830] [client 127.0.0.1:60828] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
@@ -118,6 +120,7 @@ Retrieving logs...
 [Sat Jan 09 17:46:41.829724 2016] [:error] [pid 3045] [client 127.0.0.1:60934] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
 [Sat Jan 09 17:46:46.835831 2016] [:error] [pid 3046] [client 127.0.0.1:60935] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
 [Sat Jan 09 17:48:41.018926 2016] [:error] [pid 3070] [client 172.31.20.255:47115] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 18:08:37.340482 2016] [cgi:error] [pid 3046] [client 172.31.20.255:47638] AH02811: script not found or unable to stat: /var/www/cgi-bin/chs
 
 
 
@@ -142,7 +145,6 @@ Retrieving logs...
 -------------------------------------
 /var/log/httpd/access_log
 -------------------------------------
-127.0.0.1 (-) - - [09/Jan/2016:17:34:20 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
 127.0.0.1 (-) - - [09/Jan/2016:17:34:25 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
 127.0.0.1 (-) - - [09/Jan/2016:17:34:30 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
 127.0.0.1 (-) - - [09/Jan/2016:17:34:35 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
@@ -242,92 +244,93 @@ Retrieving logs...
 127.0.0.1 (-) - - [09/Jan/2016:17:46:46 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
 172.31.20.255 (103.37.201.95) - - [09/Jan/2016:17:48:41 +0000] "GET / HTTP/1.1" 404 198 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
 ::1 (-) - - [09/Jan/2016:17:49:46 +0000] "OPTIONS * HTTP/1.0" 200 - "-" "Apache/2.4.16 (Amazon) mod_wsgi/3.5 Python/2.7.10 (internal dummy connection)"
+172.31.20.255 (61.160.213.33) - - [09/Jan/2016:18:08:37 +0000] "GET /cgi-bin/chs/numreg/init? HTTP/1.1" 404 221 "-" "-"
 
 
 
 -------------------------------------
 /var/log/eb-activity.log
 -------------------------------------
-      src/lxml/lxml.etree.c:228101: error: ‘struct __pyx_vtabstruct_4lxml_5etree__BaseParser’ has no member named ‘_parseDocFromFile’
-      src/lxml/lxml.etree.c:228101: error: expected expression before ‘)’ token
-      src/lxml/lxml.etree.c:228101: error: expected ‘;’ before ‘__pyx_f_4lxml_5etree_11_BaseParser__parseDocFromFile’
-      src/lxml/lxml.etree.c:228102: error: ‘struct __pyx_vtabstruct_4lxml_5etree__BaseParser’ has no member named ‘_parseDocFromFilelike’
-      src/lxml/lxml.etree.c:228102: error: expected expression before ‘)’ token
-      src/lxml/lxml.etree.c:228102: error: expected ‘;’ before ‘__pyx_f_4lxml_5etree_11_BaseParser__parseDocFromFilelike’
-      src/lxml/lxml.etree.c:228200: error: ‘struct __pyx_vtabstruct_4lxml_5etree__FilelikeWriter’ has no member named ‘_createOutputBuffer’
-      src/lxml/lxml.etree.c:228200: error: ‘xmlOutputBuffer’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:228200: error: expected expression before ‘)’ token
-      src/lxml/lxml.etree.c:228200: error: expected ‘;’ before ‘__pyx_f_4lxml_5etree_15_FilelikeWriter__createOutputBuffer’
-      src/lxml/lxml.etree.c:228201: error: ‘struct __pyx_vtabstruct_4lxml_5etree__FilelikeWriter’ has no member named ‘write’
-      src/lxml/lxml.etree.c:228202: error: ‘struct __pyx_vtabstruct_4lxml_5etree__FilelikeWriter’ has no member named ‘close’
-      src/lxml/lxml.etree.c:228282: error: expected declaration specifiers or ‘...’ before ‘xmlXPathContext’
-      src/lxml/lxml.etree.c:228297: error: ‘struct __pyx_vtabstruct_4lxml_5etree__BaseContext’ has no member named ‘_find_cached_function’
-      src/lxml/lxml.etree.c:228297: error: expected ‘;’, ‘,’ or ‘)’ before ‘*’ token
-      src/lxml/lxml.etree.c:228297: error: expected ‘;’ before ‘__pyx_f_4lxml_5etree_12_BaseContext__find_cached_function’
-      src/lxml/lxml.etree.c:228298: error: ‘struct __pyx_vtabstruct_4lxml_5etree__BaseContext’ has no member named ‘_release_temp_refs’
-      src/lxml/lxml.etree.c:228299: error: ‘struct __pyx_vtabstruct_4lxml_5etree__BaseContext’ has no member named ‘_hold’
-      src/lxml/lxml.etree.c:228300: error: ‘struct __pyx_vtabstruct_4lxml_5etree__BaseContext’ has no member named ‘_findDocumentForNode’
-      src/lxml/lxml.etree.c:228300: error: expected declaration specifiers or ‘...’ before ‘xmlNode’
-      src/lxml/lxml.etree.c:228312: error: expected declaration specifiers or ‘...’ before ‘xmlXPathContext’
-      src/lxml/lxml.etree.c:228324: error: expected declaration specifiers or ‘...’ before ‘xmlXPathContext’
-      src/lxml/lxml.etree.c:228330: error: expected declaration specifiers or ‘...’ before ‘xmlXPathObject’
-      src/lxml/lxml.etree.c:228408: error: expected declaration specifiers or ‘...’ before ‘xsltSecurityOption’
-      src/lxml/lxml.etree.c:228409: error: expected declaration specifiers or ‘...’ before ‘xsltTransformContext’
-      src/lxml/lxml.etree.c:228410: error: expected declaration specifiers or ‘...’ before ‘xsltSecurityOption’
-      src/lxml/lxml.etree.c:228419: error: expected declaration specifiers or ‘...’ before ‘xsltTransformContext’
-      src/lxml/lxml.etree.c:228430: error: ‘struct __pyx_vtabstruct_4lxml_5etree_XSLT’ has no member named ‘_run_transform’
-      src/lxml/lxml.etree.c:228430: error: expected expression before ‘)’ token
-      src/lxml/lxml.etree.c:228430: error: expected ‘;’ before ‘__pyx_f_4lxml_5etree_4XSLT__run_transform’
-      src/lxml/lxml.etree.c:228448: error: expected declaration specifiers or ‘...’ before ‘xmlChar’
-      src/lxml/lxml.etree.c:228464: error: expected declaration specifiers or ‘...’ before ‘xmlNode’
-      src/lxml/lxml.etree.c:230192: error: ‘xmlParserVersion’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:230355: error: ‘LIBXML_VERSION’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231435: error: ‘__pyx_v_4lxml_5etree___DEFAULT_ENTITY_LOADER’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231445: error: ‘xmlExternalEntityLoader’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231445: error: expected ‘)’ before ‘__pyx_f_4lxml_5etree__local_resolver’
-      src/lxml/lxml.etree.c:231455: error: ‘XML_PARSE_NOENT’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231455: error: ‘XML_PARSE_NOCDATA’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231455: error: ‘XML_PARSE_NONET’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231455: error: ‘XML_PARSE_COMPACT’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231530: error: ‘HTML_PARSE_RECOVER’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231530: error: ‘HTML_PARSE_NONET’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231530: error: ‘HTML_PARSE_COMPACT’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232227: error: ‘XML_XPATH_NUMBER_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232238: error: ‘XML_XPATH_UNFINISHED_LITERAL_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232249: error: ‘XML_XPATH_VARIABLE_REF_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232260: error: ‘XML_XPATH_INVALID_PREDICATE_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232271: error: ‘XML_XPATH_UNCLOSED_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232282: error: ‘XML_XPATH_INVALID_CHAR_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232326: error: ‘XML_XPATH_UNDEF_VARIABLE_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232337: error: ‘XML_XPATH_UNDEF_PREFIX_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232348: error: ‘XML_XPATH_UNKNOWN_FUNC_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232359: error: ‘XML_XPATH_INVALID_OPERAND’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232370: error: ‘XML_XPATH_INVALID_TYPE’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232381: error: ‘XML_XPATH_INVALID_ARITY’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232392: error: ‘XML_XPATH_INVALID_CTXT_SIZE’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232403: error: ‘XML_XPATH_INVALID_CTXT_POSITION’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232651: error: ‘LIBXSLT_VERSION’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232664: error: ‘xsltLibxsltVersion’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232677: error: ‘__pyx_v_4lxml_5etree_XSLT_DOC_DEFAULT_LOADER’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232677: error: ‘xsltDocDefaultLoader’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232687: error: ‘xsltDocLoaderFunc’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232687: error: expected ‘)’ before ‘__pyx_f_4lxml_5etree__xslt_doc_loader’
-      src/lxml/lxml.etree.c: At top level:
-      src/lxml/lxml.etree.c:237283: error: expected ‘)’ before ‘value’
-      src/lxml/lxml.etree.c:237739: error: expected ‘)’ before ‘value’
-      src/lxml/lxml.etree.c:237975: error: expected ‘)’ before ‘value’
-      Compile failed: command 'gcc' failed with exit status 1
-      creating tmp
-      cc -I/usr/include/libxml2 -c /tmp/xmlXPathInit4oG_SJ.c -o tmp/xmlXPathInit4oG_SJ.o
-      /tmp/xmlXPathInit4oG_SJ.c:1:26: error: libxml/xpath.h: No such file or directory
-      *********************************************************************************
-      Could not find function xmlCheckVersion in library libxml2. Is libxml2 installed?
-      *********************************************************************************
-      error: command 'gcc' failed with exit status 1
+      copying PIL/XpmImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/ImtImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/PalmImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/MpegImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/TiffTags.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/TgaImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/ImageShow.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/ImImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/PpmImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/ExifTags.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/BufrStubImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/IptcImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/GribStubImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/PSDraw.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/MpoImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/DcxImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/FliImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/ImageDraw.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/ContainerIO.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/__init__.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/FontFile.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/PcxImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/features.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/ImagePath.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/ImageFont.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/ImageMode.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/XbmImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/MspImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/MicImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/Hdf5StubImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/ImageQt.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/PdfImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/BdfFontFile.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/ImageTransform.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/PaletteFile.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/GimpGradientFile.py -> build/lib.linux-x86_64-2.7/PIL
+      running egg_info
+      writing Pillow.egg-info/PKG-INFO
+      writing top-level names to Pillow.egg-info/top_level.txt
+      writing dependency_links to Pillow.egg-info/dependency_links.txt
+      warning: manifest_maker: standard file '-c' not found
+      
+      reading manifest file 'Pillow.egg-info/SOURCES.txt'
+      reading manifest template 'MANIFEST.in'
+      writing manifest file 'Pillow.egg-info/SOURCES.txt'
+      copying PIL/OleFileIO-README.md -> build/lib.linux-x86_64-2.7/PIL
+      running build_ext
+      Traceback (most recent call last):
+        File "<string>", line 1, in <module>
+        File "/tmp/pip-build-mnNait/Pillow/setup.py", line 767, in <module>
+          zip_safe=not debug_build(),
+        File "/usr/lib64/python2.7/distutils/core.py", line 151, in setup
+          dist.run_commands()
+        File "/usr/lib64/python2.7/distutils/dist.py", line 953, in run_commands
+          self.run_command(cmd)
+        File "/usr/lib64/python2.7/distutils/dist.py", line 972, in run_command
+          cmd_obj.run()
+        File "/opt/python/run/venv/local/lib/python2.7/site-packages/setuptools/command/install.py", line 61, in run
+          return orig.install.run(self)
+        File "/usr/lib64/python2.7/distutils/command/install.py", line 604, in run
+          self.run_command('build')
+        File "/usr/lib64/python2.7/distutils/cmd.py", line 326, in run_command
+          self.distribution.run_command(command)
+        File "/usr/lib64/python2.7/distutils/dist.py", line 972, in run_command
+          cmd_obj.run()
+        File "/usr/lib64/python2.7/distutils/command/build.py", line 127, in run
+          self.run_command(cmd_name)
+        File "/usr/lib64/python2.7/distutils/cmd.py", line 326, in run_command
+          self.distribution.run_command(command)
+        File "/usr/lib64/python2.7/distutils/dist.py", line 972, in run_command
+          cmd_obj.run()
+        File "/usr/lib64/python2.7/distutils/command/build_ext.py", line 337, in run
+          self.build_extensions()
+        File "/tmp/pip-build-mnNait/Pillow/setup.py", line 515, in build_extensions
+          % (f, f))
+      ValueError: --enable-jpeg requested but jpeg not found, aborting.
       
       ----------------------------------------
-  Command "/opt/python/run/venv/bin/python2.7 -c "import setuptools, tokenize;__file__='/tmp/pip-build-E4cVA_/lxml/setup.py';exec(compile(getattr(tokenize, 'open', open)(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-4bx5KD-record/install-record.txt --single-version-externally-managed --compile --install-headers /opt/python/run/venv/include/site/python2.7/lxml" failed with error code 1 in /tmp/pip-build-E4cVA_/lxml
-  2016-01-09 17:58:54,385 ERROR    Error installing dependencies: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1
+  Command "/opt/python/run/venv/bin/python2.7 -c "import setuptools, tokenize;__file__='/tmp/pip-build-mnNait/Pillow/setup.py';exec(compile(getattr(tokenize, 'open', open)(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-6ofwb7-record/install-record.txt --single-version-externally-managed --compile --install-headers /opt/python/run/venv/include/site/python2.7/Pillow" failed with error code 1 in /tmp/pip-build-mnNait/Pillow
+  2016-01-09 18:15:44,769 ERROR    Error installing dependencies: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1
   Traceback (most recent call last):
     File "/opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py", line 22, in main
       install_dependencies()
@@ -338,82 +341,82 @@ Retrieving logs...
   CalledProcessError: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1 (Executor::NonZeroExitStatus)
 
 
-[2016-01-09T17:58:54.405Z] INFO  [20342] - [Application update/AppDeployStage0/AppDeployPreHook/03deploy.py] : Activity failed.
-[2016-01-09T17:58:54.406Z] INFO  [20342] - [Application update/AppDeployStage0/AppDeployPreHook] : Activity failed.
-[2016-01-09T17:58:54.406Z] INFO  [20342] - [Application update/AppDeployStage0] : Activity failed.
-[2016-01-09T17:58:54.422Z] INFO  [20342] - [Application update] : Completed activity. Result:
+[2016-01-09T18:15:44.775Z] INFO  [21151] - [Application update/AppDeployStage0/AppDeployPreHook/03deploy.py] : Activity failed.
+[2016-01-09T18:15:44.775Z] INFO  [21151] - [Application update/AppDeployStage0/AppDeployPreHook] : Activity failed.
+[2016-01-09T18:15:44.775Z] INFO  [21151] - [Application update/AppDeployStage0] : Activity failed.
+[2016-01-09T18:15:44.776Z] INFO  [21151] - [Application update] : Completed activity. Result:
   Application update - Command CMD-AppDeploy failed
-[2016-01-09T18:05:40.284Z] INFO  [21006] - [CMD-TailLogs - stage ] : Starting activity...
-[2016-01-09T18:05:40.508Z] INFO  [21006] - [CMD-TailLogs - stage /AddonsBefore] : Starting activity...
-[2016-01-09T18:05:40.508Z] INFO  [21006] - [CMD-TailLogs - stage /AddonsBefore] : Completed activity.
-[2016-01-09T18:05:40.508Z] INFO  [21006] - [CMD-TailLogs - stage /TailLogs] : Starting activity...
-[2016-01-09T18:05:40.508Z] INFO  [21006] - [CMD-TailLogs - stage /TailLogs/TailLogs] : Starting activity...
+[2016-01-09T18:16:16.329Z] INFO  [22037] - [CMD-TailLogs - stage ] : Starting activity...
+[2016-01-09T18:16:16.599Z] INFO  [22037] - [CMD-TailLogs - stage /AddonsBefore] : Starting activity...
+[2016-01-09T18:16:16.599Z] INFO  [22037] - [CMD-TailLogs - stage /AddonsBefore] : Completed activity.
+[2016-01-09T18:16:16.599Z] INFO  [22037] - [CMD-TailLogs - stage /TailLogs] : Starting activity...
+[2016-01-09T18:16:16.599Z] INFO  [22037] - [CMD-TailLogs - stage /TailLogs/TailLogs] : Starting activity...
 
 
 
 -------------------------------------
 /var/log/eb-commandprocessor.log
 -------------------------------------
-      src/lxml/lxml.etree.c:228312: error: expected declaration specifiers or ‘...’ before ‘xmlXPathContext’
-      src/lxml/lxml.etree.c:228324: error: expected declaration specifiers or ‘...’ before ‘xmlXPathContext’
-      src/lxml/lxml.etree.c:228330: error: expected declaration specifiers or ‘...’ before ‘xmlXPathObject’
-      src/lxml/lxml.etree.c:228408: error: expected declaration specifiers or ‘...’ before ‘xsltSecurityOption’
-      src/lxml/lxml.etree.c:228409: error: expected declaration specifiers or ‘...’ before ‘xsltTransformContext’
-      src/lxml/lxml.etree.c:228410: error: expected declaration specifiers or ‘...’ before ‘xsltSecurityOption’
-      src/lxml/lxml.etree.c:228419: error: expected declaration specifiers or ‘...’ before ‘xsltTransformContext’
-      src/lxml/lxml.etree.c:228430: error: ‘struct __pyx_vtabstruct_4lxml_5etree_XSLT’ has no member named ‘_run_transform’
-      src/lxml/lxml.etree.c:228430: error: expected expression before ‘)’ token
-      src/lxml/lxml.etree.c:228430: error: expected ‘;’ before ‘__pyx_f_4lxml_5etree_4XSLT__run_transform’
-      src/lxml/lxml.etree.c:228448: error: expected declaration specifiers or ‘...’ before ‘xmlChar’
-      src/lxml/lxml.etree.c:228464: error: expected declaration specifiers or ‘...’ before ‘xmlNode’
-      src/lxml/lxml.etree.c:230192: error: ‘xmlParserVersion’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:230355: error: ‘LIBXML_VERSION’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231435: error: ‘__pyx_v_4lxml_5etree___DEFAULT_ENTITY_LOADER’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231445: error: ‘xmlExternalEntityLoader’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231445: error: expected ‘)’ before ‘__pyx_f_4lxml_5etree__local_resolver’
-      src/lxml/lxml.etree.c:231455: error: ‘XML_PARSE_NOENT’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231455: error: ‘XML_PARSE_NOCDATA’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231455: error: ‘XML_PARSE_NONET’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231455: error: ‘XML_PARSE_COMPACT’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231530: error: ‘HTML_PARSE_RECOVER’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231530: error: ‘HTML_PARSE_NONET’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:231530: error: ‘HTML_PARSE_COMPACT’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232227: error: ‘XML_XPATH_NUMBER_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232238: error: ‘XML_XPATH_UNFINISHED_LITERAL_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232249: error: ‘XML_XPATH_VARIABLE_REF_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232260: error: ‘XML_XPATH_INVALID_PREDICATE_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232271: error: ‘XML_XPATH_UNCLOSED_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232282: error: ‘XML_XPATH_INVALID_CHAR_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232326: error: ‘XML_XPATH_UNDEF_VARIABLE_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232337: error: ‘XML_XPATH_UNDEF_PREFIX_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232348: error: ‘XML_XPATH_UNKNOWN_FUNC_ERROR’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232359: error: ‘XML_XPATH_INVALID_OPERAND’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232370: error: ‘XML_XPATH_INVALID_TYPE’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232381: error: ‘XML_XPATH_INVALID_ARITY’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232392: error: ‘XML_XPATH_INVALID_CTXT_SIZE’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232403: error: ‘XML_XPATH_INVALID_CTXT_POSITION’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232651: error: ‘LIBXSLT_VERSION’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232664: error: ‘xsltLibxsltVersion’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232677: error: ‘__pyx_v_4lxml_5etree_XSLT_DOC_DEFAULT_LOADER’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232677: error: ‘xsltDocDefaultLoader’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232687: error: ‘xsltDocLoaderFunc’ undeclared (first use in this function)
-      src/lxml/lxml.etree.c:232687: error: expected ‘)’ before ‘__pyx_f_4lxml_5etree__xslt_doc_loader’
-      src/lxml/lxml.etree.c: At top level:
-      src/lxml/lxml.etree.c:237283: error: expected ‘)’ before ‘value’
-      src/lxml/lxml.etree.c:237739: error: expected ‘)’ before ‘value’
-      src/lxml/lxml.etree.c:237975: error: expected ‘)’ before ‘value’
-      Compile failed: command 'gcc' failed with exit status 1
-      creating tmp
-      cc -I/usr/include/libxml2 -c /tmp/xmlXPathInit4oG_SJ.c -o tmp/xmlXPathInit4oG_SJ.o
-      /tmp/xmlXPathInit4oG_SJ.c:1:26: error: libxml/xpath.h: No such file or directory
-      *********************************************************************************
-      Could not find function xmlCheckVersion in library libxml2. Is libxml2 installed?
-      *********************************************************************************
-      error: command 'gcc' failed with exit status 1
+      copying PIL/FontFile.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/PcxImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/features.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/ImagePath.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/ImageFont.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/ImageMode.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/XbmImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/MspImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/MicImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/Hdf5StubImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/ImageQt.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/PdfImagePlugin.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/BdfFontFile.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/ImageTransform.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/PaletteFile.py -> build/lib.linux-x86_64-2.7/PIL
+      copying PIL/GimpGradientFile.py -> build/lib.linux-x86_64-2.7/PIL
+      running egg_info
+      writing Pillow.egg-info/PKG-INFO
+      writing top-level names to Pillow.egg-info/top_level.txt
+      writing dependency_links to Pillow.egg-info/dependency_links.txt
+      warning: manifest_maker: standard file '-c' not found
+      
+      reading manifest file 'Pillow.egg-info/SOURCES.txt'
+      reading manifest template 'MANIFEST.in'
+      writing manifest file 'Pillow.egg-info/SOURCES.txt'
+      copying PIL/OleFileIO-README.md -> build/lib.linux-x86_64-2.7/PIL
+      running build_ext
+      Traceback (most recent call last):
+        File "<string>", line 1, in <module>
+        File "/tmp/pip-build-mnNait/Pillow/setup.py", line 767, in <module>
+          zip_safe=not debug_build(),
+        File "/usr/lib64/python2.7/distutils/core.py", line 151, in setup
+          dist.run_commands()
+        File "/usr/lib64/python2.7/distutils/dist.py", line 953, in run_commands
+          self.run_command(cmd)
+        File "/usr/lib64/python2.7/distutils/dist.py", line 972, in run_command
+          cmd_obj.run()
+        File "/opt/python/run/venv/local/lib/python2.7/site-packages/setuptools/command/install.py", line 61, in run
+          return orig.install.run(self)
+        File "/usr/lib64/python2.7/distutils/command/install.py", line 604, in run
+          self.run_command('build')
+        File "/usr/lib64/python2.7/distutils/cmd.py", line 326, in run_command
+          self.distribution.run_command(command)
+        File "/usr/lib64/python2.7/distutils/dist.py", line 972, in run_command
+          cmd_obj.run()
+        File "/usr/lib64/python2.7/distutils/command/build.py", line 127, in run
+          self.run_command(cmd_name)
+        File "/usr/lib64/python2.7/distutils/cmd.py", line 326, in run_command
+          self.distribution.run_command(command)
+        File "/usr/lib64/python2.7/distutils/dist.py", line 972, in run_command
+          cmd_obj.run()
+        File "/usr/lib64/python2.7/distutils/command/build_ext.py", line 337, in run
+          self.build_extensions()
+        File "/tmp/pip-build-mnNait/Pillow/setup.py", line 515, in build_extensions
+          % (f, f))
+      ValueError: --enable-jpeg requested but jpeg not found, aborting.
       
       ----------------------------------------
-  Command "/opt/python/run/venv/bin/python2.7 -c "import setuptools, tokenize;__file__='/tmp/pip-build-E4cVA_/lxml/setup.py';exec(compile(getattr(tokenize, 'open', open)(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-4bx5KD-record/install-record.txt --single-version-externally-managed --compile --install-headers /opt/python/run/venv/include/site/python2.7/lxml" failed with error code 1 in /tmp/pip-build-E4cVA_/lxml
-  2016-01-09 17:58:54,385 ERROR    Error installing dependencies: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1
+  Command "/opt/python/run/venv/bin/python2.7 -c "import setuptools, tokenize;__file__='/tmp/pip-build-mnNait/Pillow/setup.py';exec(compile(getattr(tokenize, 'open', open)(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-6ofwb7-record/install-record.txt --single-version-externally-managed --compile --install-headers /opt/python/run/venv/include/site/python2.7/Pillow" failed with error code 1 in /tmp/pip-build-mnNait/Pillow
+  2016-01-09 18:15:44,769 ERROR    Error installing dependencies: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1
   Traceback (most recent call last):
     File "/opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py", line 22, in main
       install_dependencies()
@@ -424,36 +427,36 @@ Retrieving logs...
   CalledProcessError: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1 (Executor::NonZeroExitStatus)
 
 
-[2016-01-09T17:58:54.422Z] ERROR [20342] : Command CMD-AppDeploy failed!
-[2016-01-09T17:58:54.423Z] INFO  [20342] : Command processor returning results: 
-{"status":"FAILURE","api_version":"1.0","results":[{"status":"FAILURE","msg":"(TRUNCATED)...)\n  File \"/usr/lib64/python2.7/subprocess.py\", line 540, in check_call\n    raise CalledProcessError(retcode, cmd)\nCalledProcessError: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1. \nHook /opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py failed. For more detail, check /var/log/eb-activity.log using console or EB CLI","returncode":1,"events":[{"msg":"Your requirements.txt is invalid. Snapshot your logs for details.","severity":"ERROR","timestamp":1452362334},{"msg":"Error installing dependencies: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1","severity":"SYSTEM","timestamp":1452362334}]}],"truncated":"true"}
-[2016-01-09T18:05:40.281Z] DEBUG [21006] : Reading config file: /etc/elasticbeanstalk/.aws-eb-stack.properties
-[2016-01-09T18:05:40.281Z] DEBUG [21006] : Checking if the command processor should execute...
-[2016-01-09T18:05:40.284Z] DEBUG [21006] : Checking whether the command is applicable to instance (i-47f79ac9)..
-[2016-01-09T18:05:40.284Z] INFO  [21006] : Command is applicable to this instance (i-47f79ac9)..
-[2016-01-09T18:05:40.284Z] DEBUG [21006] : Checking if the received command stage is valid..
-[2016-01-09T18:05:40.284Z] INFO  [21006] : No stage_num in command. Valid stage..
-[2016-01-09T18:05:40.284Z] INFO  [21006] : Received command CMD-TailLogs: {"execution_data":"{\"aws_access_key_id\":\"ASIAJBNFA7T37RHNROWA\",\"signature\":\"wAtAkrR51ev+3k1R71c6g8qkknI=\",\"security_token\":\"AQoDYXdzEMP\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/wEawALsAHDWMgZGnUAWQhfBrUjcot2B1MJ7F2oo3Es2v9W5yP+mCeFAR7zdMymp8yjhEDrRtTn0Zd05YZ11ZkSoRUWBoGHqZnsPeNWNnHTI24Gn7o1PcjYoOeARzdGmXMty7vvQp1nSl4tBFV+aCsW8K6MpouPn35qMjcEEOUB1uje6ZSbjqYU+Y5w8JMz7r+PwKw7aa1iVhfUdJffbFsmC4LXCyxUUlLJk19byUjmtFZuTvpwIyewhk7QrgQFOJNrQpCVDnHjWFoyszlkMmFw4gIoq0TDc\\\/5Y5t5cClHRtsWetdW4Z8JO0zeflTXmpYMYwhHrtdusFuBXKkV\\\/y3DMHH+eaWYJezBfg60goQh0J+2IsFw+OvO6rI2HZEKoG0oM+eibYBU0GMLRtglS4Otkky\\\/6k\\\/EHwOPEBUsKmN46vL2ZUrSDxl8W0BQ==\",\"policy\":\"eyJleHBpcmF0aW9uIjoiMjAxNi0wMS0wOVQxODozNTozOC4xMzhaIiwiY29uZGl0aW9ucyI6W1sic3RhcnRzLXdpdGgiLCIkeC1hbXotbWV0YS10aW1lX3N0YW1wIiwiIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLXB1Ymxpc2hfbWVjaGFuaXNtIiwiIl0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJyZXNvdXJjZXNcL2Vudmlyb25tZW50c1wvbG9nc1wvIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLWJhdGNoX2lkIiwiIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLWZpbGVfbmFtZSIsIiJdLFsic3RhcnRzLXdpdGgiLCIkeC1hbXotc2VjdXJpdHktdG9rZW4iLCIiXSxbInN0YXJ0cy13aXRoIiwiJENvbnRlbnQtVHlwZSIsIiJdLFsiZXEiLCIkYnVja2V0IiwiZWxhc3RpY2JlYW5zdGFsay1hcC1zb3V0aGVhc3QtMS0zNjEzOTgxMzAxMjUiXSxbImVxIiwiJGFjbCIsInByaXZhdGUiXV19\"}","instance_ids":["i-47f79ac9"],"data":"964ad0ca-b6fb-11e5-bd04-a1df6b12a115","command_name":"CMD-TailLogs","api_version":"1.0","resource_name":"AWSEBAutoScalingGroup","request_id":"964ad0ca-b6fb-11e5-bd04-a1df6b12a115","command_timeout":"600"}
-[2016-01-09T18:05:40.284Z] INFO  [21006] : Command processor should execute command.
-[2016-01-09T18:05:40.284Z] DEBUG [21006] : Storing current stage..
-[2016-01-09T18:05:40.284Z] DEBUG [21006] : Stage_num does not exist. Not saving null stage. Returning..
-[2016-01-09T18:05:40.284Z] INFO  [21006] : Executing CMD-TailLogs - stage 
-[2016-01-09T18:05:40.284Z] INFO  [21006] : Executing command: CMD-TailLogs...
-[2016-01-09T18:05:40.284Z] DEBUG [21006] : Reading config file: /etc/elasticbeanstalk/.aws-eb-stack.properties
-[2016-01-09T18:05:40.284Z] DEBUG [21006] : Refreshing metadata..
-[2016-01-09T18:05:40.505Z] DEBUG [21006] : Refreshed environment metadata.
-[2016-01-09T18:05:40.505Z] DEBUG [21006] : Retrieving metadata for key: AWS::ElasticBeanstalk::Ext||_ContainerConfigFileContent||commands..
-[2016-01-09T18:05:40.506Z] DEBUG [21006] : Retrieving metadata for key: AWS::ElasticBeanstalk::Ext||_API||_Commands..
-[2016-01-09T18:05:40.506Z] INFO  [21006] : Found enabled addons: ["logpublish"].
-[2016-01-09T18:05:40.507Z] INFO  [21006] : Updating Command definition of addon logpublish.
-[2016-01-09T18:05:40.507Z] DEBUG [21006] : Loaded definition of Command CMD-TailLogs.
-[2016-01-09T18:05:40.507Z] INFO  [21006] : Executing command CMD-TailLogs activities...
-[2016-01-09T18:05:40.507Z] DEBUG [21006] : Setting environment variables..
-[2016-01-09T18:05:40.507Z] INFO  [21006] : Running AddonsBefore for command CMD-TailLogs...
-[2016-01-09T18:05:40.508Z] DEBUG [21006] : Running stages of Command CMD-TailLogs from stage 0 to stage 0...
-[2016-01-09T18:05:40.508Z] INFO  [21006] : Running stage 0 of command CMD-TailLogs...
-[2016-01-09T18:05:40.508Z] DEBUG [21006] : Loaded 1 actions for stage 0.
-[2016-01-09T18:05:40.508Z] INFO  [21006] : Running 1 of 1 actions: TailLogs...
+[2016-01-09T18:15:44.776Z] ERROR [21151] : Command CMD-AppDeploy failed!
+[2016-01-09T18:15:44.776Z] INFO  [21151] : Command processor returning results: 
+{"status":"FAILURE","api_version":"1.0","results":[{"status":"FAILURE","msg":"(TRUNCATED)...)\n  File \"/usr/lib64/python2.7/subprocess.py\", line 540, in check_call\n    raise CalledProcessError(retcode, cmd)\nCalledProcessError: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1. \nHook /opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py failed. For more detail, check /var/log/eb-activity.log using console or EB CLI","returncode":1,"events":[{"msg":"Your requirements.txt is invalid. Snapshot your logs for details.","severity":"ERROR","timestamp":1452363344},{"msg":"Error installing dependencies: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1","severity":"SYSTEM","timestamp":1452363344}]}],"truncated":"true"}
+[2016-01-09T18:16:16.326Z] DEBUG [22037] : Reading config file: /etc/elasticbeanstalk/.aws-eb-stack.properties
+[2016-01-09T18:16:16.327Z] DEBUG [22037] : Checking if the command processor should execute...
+[2016-01-09T18:16:16.329Z] DEBUG [22037] : Checking whether the command is applicable to instance (i-47f79ac9)..
+[2016-01-09T18:16:16.329Z] INFO  [22037] : Command is applicable to this instance (i-47f79ac9)..
+[2016-01-09T18:16:16.329Z] DEBUG [22037] : Checking if the received command stage is valid..
+[2016-01-09T18:16:16.329Z] INFO  [22037] : No stage_num in command. Valid stage..
+[2016-01-09T18:16:16.329Z] INFO  [22037] : Received command CMD-TailLogs: {"execution_data":"{\"aws_access_key_id\":\"ASIAIAFEPQZQ66YX2ZRQ\",\"signature\":\"\\\/zKozBc+4Ozf+hwB77njfOy6rM0=\",\"security_token\":\"AQoDYXdzEMP\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/wEawAKgz7MvHFq4GtoJxLDpQkTK9hyMwA0g76eQBcRIURq7ng4LT0mlXgNOhXwo6\\\/ovSZmsEZ4dad\\\/kJAlL+Wf6pCA3mq26jtcRpYUjb4dMnQJz5h7gBdGWOFgNSDqEMqZvmgdK29Yae2mVUY\\\/NTR0zp\\\/kpT69EAwue3wbQu30ZvBD623Hk0kbmtgtoGzl7uy98135QS+p4Cj1hQwrQO9euFoXx9J7Wze4Bo3XLnD\\\/WwvCQK6r9uaUSwtLvszAuHMUfRF9QKDQa+UQeR7ubghHroe1d9BAXoMfRGMt9VLnn3HD6nVXNc6msk2nLjWCeFehEj1VHJp+aizJo4Tlsjl3iRhNCzzyJqVA\\\/\\\/Rd5SHGbv5yu54aCiPq\\\/RT9wLJHwidpc\\\/1WtJVC4lQtf5vLGIY7xg7DMa05cYurWlO2Y\\\/aIyHJNY2SDunMW0BQ==\",\"policy\":\"eyJleHBpcmF0aW9uIjoiMjAxNi0wMS0wOVQxODo0NjoxNC40MjZaIiwiY29uZGl0aW9ucyI6W1sic3RhcnRzLXdpdGgiLCIkeC1hbXotbWV0YS10aW1lX3N0YW1wIiwiIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLXB1Ymxpc2hfbWVjaGFuaXNtIiwiIl0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJyZXNvdXJjZXNcL2Vudmlyb25tZW50c1wvbG9nc1wvIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLWJhdGNoX2lkIiwiIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLWZpbGVfbmFtZSIsIiJdLFsic3RhcnRzLXdpdGgiLCIkeC1hbXotc2VjdXJpdHktdG9rZW4iLCIiXSxbInN0YXJ0cy13aXRoIiwiJENvbnRlbnQtVHlwZSIsIiJdLFsiZXEiLCIkYnVja2V0IiwiZWxhc3RpY2JlYW5zdGFsay1hcC1zb3V0aGVhc3QtMS0zNjEzOTgxMzAxMjUiXSxbImVxIiwiJGFjbCIsInByaXZhdGUiXV19\"}","instance_ids":["i-47f79ac9"],"data":"118973fa-b6fd-11e5-bdc7-015a3d7cb259","command_name":"CMD-TailLogs","api_version":"1.0","resource_name":"AWSEBAutoScalingGroup","request_id":"118973fa-b6fd-11e5-bdc7-015a3d7cb259","command_timeout":"600"}
+[2016-01-09T18:16:16.329Z] INFO  [22037] : Command processor should execute command.
+[2016-01-09T18:16:16.329Z] DEBUG [22037] : Storing current stage..
+[2016-01-09T18:16:16.329Z] DEBUG [22037] : Stage_num does not exist. Not saving null stage. Returning..
+[2016-01-09T18:16:16.329Z] INFO  [22037] : Executing CMD-TailLogs - stage 
+[2016-01-09T18:16:16.329Z] INFO  [22037] : Executing command: CMD-TailLogs...
+[2016-01-09T18:16:16.329Z] DEBUG [22037] : Reading config file: /etc/elasticbeanstalk/.aws-eb-stack.properties
+[2016-01-09T18:16:16.329Z] DEBUG [22037] : Refreshing metadata..
+[2016-01-09T18:16:16.597Z] DEBUG [22037] : Refreshed environment metadata.
+[2016-01-09T18:16:16.597Z] DEBUG [22037] : Retrieving metadata for key: AWS::ElasticBeanstalk::Ext||_ContainerConfigFileContent||commands..
+[2016-01-09T18:16:16.597Z] DEBUG [22037] : Retrieving metadata for key: AWS::ElasticBeanstalk::Ext||_API||_Commands..
+[2016-01-09T18:16:16.598Z] INFO  [22037] : Found enabled addons: ["logpublish"].
+[2016-01-09T18:16:16.599Z] INFO  [22037] : Updating Command definition of addon logpublish.
+[2016-01-09T18:16:16.599Z] DEBUG [22037] : Loaded definition of Command CMD-TailLogs.
+[2016-01-09T18:16:16.599Z] INFO  [22037] : Executing command CMD-TailLogs activities...
+[2016-01-09T18:16:16.599Z] DEBUG [22037] : Setting environment variables..
+[2016-01-09T18:16:16.599Z] INFO  [22037] : Running AddonsBefore for command CMD-TailLogs...
+[2016-01-09T18:16:16.599Z] DEBUG [22037] : Running stages of Command CMD-TailLogs from stage 0 to stage 0...
+[2016-01-09T18:16:16.599Z] INFO  [22037] : Running stage 0 of command CMD-TailLogs...
+[2016-01-09T18:16:16.599Z] DEBUG [22037] : Loaded 1 actions for stage 0.
+[2016-01-09T18:16:16.599Z] INFO  [22037] : Running 1 of 1 actions: TailLogs...
 
 
 
