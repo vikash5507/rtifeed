@@ -1,247 +1,247 @@
 Retrieving logs...
-============= i-92d39d36 ==============
+============= i-47f79ac9 ==============
 -------------------------------------
 /var/log/eb-version-deployment.log
 -------------------------------------
-2016-01-09 16:47:58,503 [INFO] Found the latest version manifest file <Key: elasticbeanstalk-ap-southeast-1-361398130125,resources/environments/e-zcae5pz8sz/_runtime/versions/manifest_1452357885352> from bucket elasticbeanstalk-ap-southeast-1-361398130125 and prefix resources/environments/e-zcae5pz8sz/_runtime/versions/
-2016-01-09 16:47:58,557 [INFO] Downloaded the manifest file to /tmp/version_file_manifest
-2016-01-09 16:48:00,017 [INFO] Downloaded version label app-e742-160109_221225 from s3 key <Key: elasticbeanstalk-ap-southeast-1-361398130125,resources/environments/e-zcae5pz8sz/_runtime/_versions/RTIFeed/app-e742-160109_221225>
-2016-01-09 17:03:03,124 [INFO] Version manifest file name already known. The latest version manifest file key is resources/environments/e-zcae5pz8sz/_runtime/versions/manifest_1452358978083
-2016-01-09 17:03:03,181 [INFO] Downloaded the manifest file to /tmp/version_file_manifest
-2016-01-09 17:03:04,417 [INFO] Downloaded version label app-e742-160109_223147 from s3 key <Key: elasticbeanstalk-ap-southeast-1-361398130125,resources/environments/e-zcae5pz8sz/_runtime/_versions/RTIFeed/app-e742-160109_223147>
-2016-01-09 17:19:45,395 [INFO] Version manifest file name already known. The latest version manifest file key is resources/environments/e-zcae5pz8sz/_runtime/versions/manifest_1452359981209
-2016-01-09 17:19:45,449 [INFO] Downloaded the manifest file to /tmp/version_file_manifest
-2016-01-09 17:19:46,985 [INFO] Downloaded version label app-c048-160109_224743 from s3 key <Key: elasticbeanstalk-ap-southeast-1-361398130125,resources/environments/e-zcae5pz8sz/_runtime/_versions/RTIFeed/app-c048-160109_224743>
+2016-01-09 17:31:39,842 [INFO] Found the latest version manifest file <Key: elasticbeanstalk-ap-southeast-1-361398130125,resources/environments/e-zcae5pz8sz/_runtime/versions/manifest_1452360539861> from bucket elasticbeanstalk-ap-southeast-1-361398130125 and prefix resources/environments/e-zcae5pz8sz/_runtime/versions/
+2016-01-09 17:31:39,906 [INFO] Downloaded the manifest file to /tmp/version_file_manifest
+2016-01-09 17:31:41,188 [INFO] Downloaded version label app-e742-160109_223147 from s3 key <Key: elasticbeanstalk-ap-southeast-1-361398130125,resources/environments/e-zcae5pz8sz/_runtime/_versions/RTIFeed/app-e742-160109_223147>
+2016-01-09 17:53:56,633 [INFO] Version manifest file name already known. The latest version manifest file key is resources/environments/e-zcae5pz8sz/_runtime/versions/manifest_1452362032084
+2016-01-09 17:53:56,691 [INFO] Downloaded the manifest file to /tmp/version_file_manifest
+2016-01-09 17:53:58,171 [INFO] Downloaded version label app-aaea-160109_232151 from s3 key <Key: elasticbeanstalk-ap-southeast-1-361398130125,resources/environments/e-zcae5pz8sz/_runtime/_versions/RTIFeed/app-aaea-160109_232151>
+2016-01-09 17:58:45,217 [INFO] Version manifest file name already known. The latest version manifest file key is resources/environments/e-zcae5pz8sz/_runtime/versions/manifest_1452362321120
+2016-01-09 17:58:45,278 [INFO] Downloaded the manifest file to /tmp/version_file_manifest
+2016-01-09 17:58:46,838 [INFO] Downloaded version label app-43e4-160109_232650 from s3 key <Key: elasticbeanstalk-ap-southeast-1-361398130125,resources/environments/e-zcae5pz8sz/_runtime/_versions/RTIFeed/app-43e4-160109_232650>
 
 
 
 -------------------------------------
 /var/log/httpd/error_log
 -------------------------------------
-[Sat Jan 09 16:51:33.504786 2016] [:error] [pid 2841] [client 127.0.0.1:50531] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:51:38.509911 2016] [:error] [pid 2874] [client 127.0.0.1:50532] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:51:43.512880 2016] [:error] [pid 2844] [client 127.0.0.1:50533] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:51:48.517532 2016] [:error] [pid 2843] [client 127.0.0.1:50534] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:51:53.521088 2016] [:error] [pid 2866] [client 127.0.0.1:50535] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:51:58.525482 2016] [:error] [pid 2887] [client 127.0.0.1:50536] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:52:03.530977 2016] [:error] [pid 2842] [client 127.0.0.1:50537] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:52:08.536921 2016] [:error] [pid 2843] [client 127.0.0.1:50538] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:52:13.540208 2016] [:error] [pid 2866] [client 127.0.0.1:50539] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:52:18.544947 2016] [:error] [pid 2887] [client 127.0.0.1:50540] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:52:23.549621 2016] [:error] [pid 2874] [client 127.0.0.1:50541] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:52:28.554525 2016] [:error] [pid 2845] [client 127.0.0.1:50542] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:52:33.558477 2016] [:error] [pid 2866] [client 127.0.0.1:50543] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:52:38.563049 2016] [:error] [pid 2887] [client 127.0.0.1:50544] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:52:43.567134 2016] [:error] [pid 2874] [client 127.0.0.1:50545] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:52:48.571634 2016] [:error] [pid 2841] [client 127.0.0.1:50546] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:52:53.575889 2016] [:error] [pid 2843] [client 127.0.0.1:50547] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:52:58.580429 2016] [:error] [pid 2844] [client 127.0.0.1:50548] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:53:03.586455 2016] [:error] [pid 2842] [client 127.0.0.1:50549] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:53:08.592423 2016] [:error] [pid 2841] [client 127.0.0.1:50550] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:53:13.596726 2016] [:error] [pid 2843] [client 127.0.0.1:50551] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:53:18.601925 2016] [:error] [pid 2844] [client 127.0.0.1:50552] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:53:23.604661 2016] [:error] [pid 2887] [client 127.0.0.1:50553] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:53:28.609030 2016] [:error] [pid 2845] [client 127.0.0.1:50554] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:53:33.613146 2016] [:error] [pid 2843] [client 127.0.0.1:50555] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 16:53:38.618745 2016] [:error] [pid 2844] [client 127.0.0.1:50556] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:03:08.446731 2016] [mpm_prefork:notice] [pid 2837] AH00169: caught SIGTERM, shutting down
-[Sat Jan 09 17:03:09.497557 2016] [suexec:notice] [pid 3222] AH01232: suEXEC mechanism enabled (wrapper: /usr/sbin/suexec)
-[Sat Jan 09 17:03:09.507190 2016] [so:warn] [pid 3222] AH01574: module wsgi_module is already loaded, skipping
-[Sat Jan 09 17:03:09.509985 2016] [auth_digest:notice] [pid 3222] AH01757: generating secret for digest authentication ...
-[Sat Jan 09 17:03:09.510582 2016] [lbmethod_heartbeat:notice] [pid 3222] AH02282: No slotmem from mod_heartmonitor
-[Sat Jan 09 17:03:09.510616 2016] [:warn] [pid 3222] mod_wsgi: Compiled for Python/2.7.9.
-[Sat Jan 09 17:03:09.510619 2016] [:warn] [pid 3222] mod_wsgi: Runtime using Python/2.7.10.
-[Sat Jan 09 17:03:09.512383 2016] [mpm_prefork:notice] [pid 3222] AH00163: Apache/2.4.16 (Amazon) mod_wsgi/3.5 Python/2.7.10 configured -- resuming normal operations
-[Sat Jan 09 17:03:09.512395 2016] [core:notice] [pid 3222] AH00094: Command line: '/usr/sbin/httpd -D FOREGROUND'
-[Sat Jan 09 17:03:12.096945 2016] [:error] [pid 3226] [client 127.0.0.1:50617] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:03:17.103081 2016] [:error] [pid 3229] [client 127.0.0.1:50618] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:03:22.109260 2016] [:error] [pid 3227] [client 127.0.0.1:50619] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:03:27.115348 2016] [:error] [pid 3226] [client 127.0.0.1:50620] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:03:32.121327 2016] [:error] [pid 3229] [client 127.0.0.1:50621] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:03:37.127292 2016] [:error] [pid 3227] [client 127.0.0.1:50622] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:03:42.133296 2016] [:error] [pid 3226] [client 127.0.0.1:50623] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:03:47.139441 2016] [:error] [pid 3229] [client 127.0.0.1:50624] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:03:52.145516 2016] [:error] [pid 3227] [client 127.0.0.1:50625] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:03:57.146542 2016] [:error] [pid 3226] [client 127.0.0.1:50626] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:04:02.149802 2016] [:error] [pid 3229] [client 127.0.0.1:50627] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:04:07.155420 2016] [:error] [pid 3227] [client 127.0.0.1:50628] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:04:12.161553 2016] [:error] [pid 3226] [client 127.0.0.1:50629] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:04:17.167482 2016] [:error] [pid 3229] [client 127.0.0.1:50630] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:04:22.173826 2016] [:error] [pid 3251] [client 127.0.0.1:50631] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:04:27.179871 2016] [:error] [pid 3228] [client 127.0.0.1:50632] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:04:32.186121 2016] [:error] [pid 3230] [client 127.0.0.1:50633] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:04:37.192182 2016] [:error] [pid 3251] [client 127.0.0.1:50634] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:04:42.198366 2016] [:error] [pid 3229] [client 127.0.0.1:50635] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:04:47.202808 2016] [:error] [pid 3261] [client 127.0.0.1:50636] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:04:52.206760 2016] [:error] [pid 3228] [client 127.0.0.1:50637] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:04:57.212769 2016] [:error] [pid 3229] [client 127.0.0.1:50638] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:05:02.218221 2016] [:error] [pid 3261] [client 127.0.0.1:50639] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:05:07.224280 2016] [:error] [pid 3251] [client 127.0.0.1:50640] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:05:12.230423 2016] [:error] [pid 3264] [client 127.0.0.1:50641] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:05:17.236520 2016] [:error] [pid 3230] [client 127.0.0.1:50642] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:05:22.242650 2016] [:error] [pid 3226] [client 127.0.0.1:50643] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:05:27.248644 2016] [:error] [pid 3228] [client 127.0.0.1:50644] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:05:32.254751 2016] [:error] [pid 3229] [client 127.0.0.1:50645] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:05:37.260772 2016] [:error] [pid 3261] [client 127.0.0.1:50646] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:05:42.265975 2016] [:error] [pid 3228] [client 127.0.0.1:50647] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:05:47.271962 2016] [:error] [pid 3229] [client 127.0.0.1:50648] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:05:52.278072 2016] [:error] [pid 3261] [client 127.0.0.1:50649] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:05:57.281854 2016] [:error] [pid 3228] [client 127.0.0.1:50650] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:06:02.287879 2016] [:error] [pid 3229] [client 127.0.0.1:50651] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:06:07.291562 2016] [:error] [pid 3230] [client 127.0.0.1:50652] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:06:12.297501 2016] [:error] [pid 3251] [client 127.0.0.1:50653] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:06:17.303507 2016] [:error] [pid 3264] [client 127.0.0.1:50654] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:06:22.309507 2016] [:error] [pid 3226] [client 127.0.0.1:50655] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:06:27.315494 2016] [:error] [pid 3261] [client 127.0.0.1:50656] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:06:32.320119 2016] [:error] [pid 3228] [client 127.0.0.1:50657] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:06:37.325736 2016] [:error] [pid 3229] [client 127.0.0.1:50658] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:06:42.331734 2016] [:error] [pid 3261] [client 127.0.0.1:50659] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:06:47.337711 2016] [:error] [pid 3228] [client 127.0.0.1:50660] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:06:52.343692 2016] [:error] [pid 3229] [client 127.0.0.1:50661] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:06:57.346819 2016] [:error] [pid 3261] [client 127.0.0.1:50662] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:07:02.352826 2016] [:error] [pid 3228] [client 127.0.0.1:50663] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:07:07.358805 2016] [:error] [pid 3264] [client 127.0.0.1:50664] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:07:12.363063 2016] [:error] [pid 3230] [client 127.0.0.1:50665] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:07:17.366649 2016] [:error] [pid 3251] [client 127.0.0.1:50666] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:07:22.371638 2016] [:error] [pid 3226] [client 127.0.0.1:50667] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:07:27.375319 2016] [:error] [pid 3229] [client 127.0.0.1:50668] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:07:32.380181 2016] [:error] [pid 3261] [client 127.0.0.1:50669] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:07:37.383831 2016] [:error] [pid 3228] [client 127.0.0.1:50670] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:07:42.388695 2016] [:error] [pid 3229] [client 127.0.0.1:50671] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:07:47.392443 2016] [:error] [pid 3261] [client 127.0.0.1:50672] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:07:52.397479 2016] [:error] [pid 3228] [client 127.0.0.1:50673] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:07:57.401055 2016] [:error] [pid 3229] [client 127.0.0.1:50674] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:08:02.406998 2016] [:error] [pid 3261] [client 127.0.0.1:50675] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:08:07.412921 2016] [:error] [pid 3251] [client 127.0.0.1:50676] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:08:12.417702 2016] [:error] [pid 3264] [client 127.0.0.1:50677] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:11:54.639596 2016] [:error] [pid 3228] [client 172.31.1.237:62257] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
-[Sat Jan 09 17:11:56.416973 2016] [:error] [pid 3228] [client 172.31.1.237:62257] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py, referer: http://rtifeed-dev.elasticbeanstalk.com/
-[Sat Jan 09 17:11:56.417364 2016] [:error] [pid 3226] [client 172.31.1.237:62270] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py, referer: http://rtifeed-dev.elasticbeanstalk.com/
-[Sat Jan 09 17:11:56.421787 2016] [:error] [pid 3226] [client 172.31.1.237:62270] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py, referer: http://rtifeed-dev.elasticbeanstalk.com/
+[Sat Jan 09 17:35:00.237533 2016] [:error] [pid 2862] [client 127.0.0.1:60825] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:35:05.241201 2016] [:error] [pid 2870] [client 127.0.0.1:60826] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:35:10.244354 2016] [:error] [pid 2831] [client 127.0.0.1:60827] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:35:15.249352 2016] [:error] [pid 2830] [client 127.0.0.1:60828] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:35:20.250248 2016] [:error] [pid 2862] [client 127.0.0.1:60829] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:35:25.252049 2016] [:error] [pid 2855] [client 127.0.0.1:60830] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:35:30.258052 2016] [:error] [pid 2831] [client 127.0.0.1:60831] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:35:35.261063 2016] [:error] [pid 2870] [client 127.0.0.1:60832] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:35:40.267082 2016] [:error] [pid 2855] [client 127.0.0.1:60833] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:35:45.273121 2016] [:error] [pid 2830] [client 127.0.0.1:60834] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:35:50.279111 2016] [:error] [pid 2870] [client 127.0.0.1:60835] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:35:55.281059 2016] [:error] [pid 2832] [client 127.0.0.1:60836] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:36:00.287054 2016] [:error] [pid 2830] [client 127.0.0.1:60837] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:36:05.292781 2016] [:error] [pid 2831] [client 127.0.0.1:60838] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:36:10.298833 2016] [:error] [pid 2870] [client 127.0.0.1:60839] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:36:15.304796 2016] [:error] [pid 2855] [client 127.0.0.1:60840] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:36:20.310771 2016] [:error] [pid 2830] [client 127.0.0.1:60841] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:36:25.316723 2016] [:error] [pid 2862] [client 127.0.0.1:60842] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:36:30.322541 2016] [:error] [pid 2870] [client 127.0.0.1:60843] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:36:35.328562 2016] [:error] [pid 2831] [client 127.0.0.1:60844] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:36:40.334539 2016] [:error] [pid 2862] [client 127.0.0.1:60845] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:36:45.340528 2016] [:error] [pid 2855] [client 127.0.0.1:60846] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:36:50.346514 2016] [:error] [pid 2831] [client 127.0.0.1:60847] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:36:55.349568 2016] [:error] [pid 2832] [client 127.0.0.1:60848] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:37:00.355601 2016] [:error] [pid 2855] [client 127.0.0.1:60849] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:37:05.361573 2016] [:error] [pid 2870] [client 127.0.0.1:60850] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:37:10.363083 2016] [:error] [pid 2831] [client 127.0.0.1:60851] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:37:15.369158 2016] [:error] [pid 2862] [client 127.0.0.1:60852] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:37:20.375197 2016] [:error] [pid 2855] [client 127.0.0.1:60853] Target WSGI script not found or unable to stat: /opt/python/current/app/application.py
+[Sat Jan 09 17:41:42.851639 2016] [mpm_prefork:notice] [pid 2826] AH00169: caught SIGTERM, shutting down
+[Sat Jan 09 17:41:43.899500 2016] [suexec:notice] [pid 3040] AH01232: suEXEC mechanism enabled (wrapper: /usr/sbin/suexec)
+[Sat Jan 09 17:41:43.909628 2016] [so:warn] [pid 3040] AH01574: module wsgi_module is already loaded, skipping
+[Sat Jan 09 17:41:43.911792 2016] [auth_digest:notice] [pid 3040] AH01757: generating secret for digest authentication ...
+[Sat Jan 09 17:41:43.912369 2016] [lbmethod_heartbeat:notice] [pid 3040] AH02282: No slotmem from mod_heartmonitor
+[Sat Jan 09 17:41:43.912427 2016] [:warn] [pid 3040] mod_wsgi: Compiled for Python/2.7.9.
+[Sat Jan 09 17:41:43.912443 2016] [:warn] [pid 3040] mod_wsgi: Runtime using Python/2.7.10.
+[Sat Jan 09 17:41:43.914233 2016] [mpm_prefork:notice] [pid 3040] AH00163: Apache/2.4.16 (Amazon) mod_wsgi/3.5 Python/2.7.10 configured -- resuming normal operations
+[Sat Jan 09 17:41:43.914246 2016] [core:notice] [pid 3040] AH00094: Command line: '/usr/sbin/httpd -D FOREGROUND'
+[Sat Jan 09 17:41:46.501472 2016] [:error] [pid 3045] [client 127.0.0.1:60875] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:41:51.507605 2016] [:error] [pid 3047] [client 127.0.0.1:60876] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:41:56.513802 2016] [:error] [pid 3048] [client 127.0.0.1:60877] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:42:01.522790 2016] [:error] [pid 3045] [client 127.0.0.1:60878] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:42:06.528735 2016] [:error] [pid 3046] [client 127.0.0.1:60879] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:42:11.534786 2016] [:error] [pid 3048] [client 127.0.0.1:60880] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:42:16.538717 2016] [:error] [pid 3044] [client 127.0.0.1:60881] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:42:21.544752 2016] [:error] [pid 3046] [client 127.0.0.1:60882] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:42:26.547955 2016] [:error] [pid 3070] [client 127.0.0.1:60883] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:42:31.553963 2016] [:error] [pid 3044] [client 127.0.0.1:60884] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:42:36.560156 2016] [:error] [pid 3047] [client 127.0.0.1:60885] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:42:41.566113 2016] [:error] [pid 3070] [client 127.0.0.1:60886] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:42:46.572106 2016] [:error] [pid 3045] [client 127.0.0.1:60887] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:42:51.578076 2016] [:error] [pid 3047] [client 127.0.0.1:60888] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:42:56.582762 2016] [:error] [pid 3048] [client 127.0.0.1:60889] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:43:01.588811 2016] [:error] [pid 3045] [client 127.0.0.1:60890] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:43:06.594789 2016] [:error] [pid 3046] [client 127.0.0.1:60891] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:43:11.598840 2016] [:error] [pid 3048] [client 127.0.0.1:60892] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:43:16.603859 2016] [:error] [pid 3046] [client 127.0.0.1:60893] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:43:21.609873 2016] [:error] [pid 3070] [client 127.0.0.1:60894] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:43:26.615912 2016] [:error] [pid 3081] [client 127.0.0.1:60895] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:43:31.621911 2016] [:error] [pid 3046] [client 127.0.0.1:60896] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:43:36.627948 2016] [:error] [pid 3048] [client 127.0.0.1:60897] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:43:41.633698 2016] [:error] [pid 3083] [client 127.0.0.1:60898] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:43:46.639740 2016] [:error] [pid 3047] [client 127.0.0.1:60899] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:43:51.645907 2016] [:error] [pid 3070] [client 127.0.0.1:60900] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:43:56.651959 2016] [:error] [pid 3081] [client 127.0.0.1:60901] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:44:01.658042 2016] [:error] [pid 3045] [client 127.0.0.1:60902] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:44:06.659008 2016] [:error] [pid 3046] [client 127.0.0.1:60903] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:44:11.660073 2016] [:error] [pid 3048] [client 127.0.0.1:60904] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:44:16.664761 2016] [:error] [pid 3083] [client 127.0.0.1:60905] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:44:21.668187 2016] [:error] [pid 3047] [client 127.0.0.1:60906] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:44:26.674080 2016] [:error] [pid 3070] [client 127.0.0.1:60907] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:44:31.680111 2016] [:error] [pid 3045] [client 127.0.0.1:60908] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:44:36.686075 2016] [:error] [pid 3046] [client 127.0.0.1:60909] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:44:41.691845 2016] [:error] [pid 3048] [client 127.0.0.1:60910] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:44:46.697796 2016] [:error] [pid 3083] [client 127.0.0.1:60911] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:44:51.703895 2016] [:error] [pid 3047] [client 127.0.0.1:60912] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:44:56.709867 2016] [:error] [pid 3070] [client 127.0.0.1:60913] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:45:01.715969 2016] [:error] [pid 3081] [client 127.0.0.1:60914] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:45:06.721626 2016] [:error] [pid 3045] [client 127.0.0.1:60915] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:45:11.727567 2016] [:error] [pid 3046] [client 127.0.0.1:60916] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:45:16.732630 2016] [:error] [pid 3048] [client 127.0.0.1:60917] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:45:21.735661 2016] [:error] [pid 3083] [client 127.0.0.1:60918] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:45:26.741262 2016] [:error] [pid 3047] [client 127.0.0.1:60919] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:45:31.747177 2016] [:error] [pid 3081] [client 127.0.0.1:60920] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:45:36.753186 2016] [:error] [pid 3045] [client 127.0.0.1:60921] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:45:41.759255 2016] [:error] [pid 3046] [client 127.0.0.1:60922] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:45:46.764349 2016] [:error] [pid 3048] [client 127.0.0.1:60923] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:45:51.770315 2016] [:error] [pid 3083] [client 127.0.0.1:60924] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:45:56.776242 2016] [:error] [pid 3047] [client 127.0.0.1:60925] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:46:01.784529 2016] [:error] [pid 3070] [client 127.0.0.1:60926] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:46:06.787715 2016] [:error] [pid 3081] [client 127.0.0.1:60927] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:46:11.793636 2016] [:error] [pid 3045] [client 127.0.0.1:60928] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:46:16.799734 2016] [:error] [pid 3046] [client 127.0.0.1:60929] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:46:21.805744 2016] [:error] [pid 3048] [client 127.0.0.1:60930] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:46:26.811750 2016] [:error] [pid 3083] [client 127.0.0.1:60931] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:46:31.817722 2016] [:error] [pid 3070] [client 127.0.0.1:60932] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:46:36.823796 2016] [:error] [pid 3081] [client 127.0.0.1:60933] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:46:41.829724 2016] [:error] [pid 3045] [client 127.0.0.1:60934] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:46:46.835831 2016] [:error] [pid 3046] [client 127.0.0.1:60935] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
+[Sat Jan 09 17:48:41.018926 2016] [:error] [pid 3070] [client 172.31.20.255:47115] Target WSGI script not found or unable to stat: /opt/python/current/app/RTIFeed/RTIFeed
 
 
 
 -------------------------------------
 /opt/python/log/supervisord.log
 -------------------------------------
-2016-01-09 16:48:07,152 CRIT Supervisor running as root (no user in config file)
-2016-01-09 16:48:07,201 INFO RPC interface 'supervisor' initialized
-2016-01-09 16:48:07,201 CRIT Server 'unix_http_server' running without any HTTP authentication checking
-2016-01-09 16:48:07,201 INFO supervisord started with pid 2628
-2016-01-09 16:48:08,203 INFO spawned: 'httpd' with pid 2709
-2016-01-09 16:48:10,005 INFO success: httpd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
-2016-01-09 16:48:34,685 INFO stopped: httpd (exit status 0)
-2016-01-09 16:48:35,689 INFO spawned: 'httpd' with pid 2837
-2016-01-09 16:48:36,721 INFO success: httpd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
-2016-01-09 17:03:08,458 INFO stopped: httpd (exit status 0)
-2016-01-09 17:03:09,462 INFO spawned: 'httpd' with pid 3222
-2016-01-09 17:03:10,497 INFO success: httpd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-01-09 17:31:46,928 CRIT Supervisor running as root (no user in config file)
+2016-01-09 17:31:46,942 INFO RPC interface 'supervisor' initialized
+2016-01-09 17:31:46,942 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2016-01-09 17:31:46,943 INFO supervisord started with pid 2618
+2016-01-09 17:31:47,945 INFO spawned: 'httpd' with pid 2698
+2016-01-09 17:31:49,335 INFO success: httpd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-01-09 17:32:16,460 INFO stopped: httpd (exit status 0)
+2016-01-09 17:32:17,464 INFO spawned: 'httpd' with pid 2826
+2016-01-09 17:32:18,497 INFO success: httpd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-01-09 17:41:42,863 INFO stopped: httpd (exit status 0)
+2016-01-09 17:41:43,867 INFO spawned: 'httpd' with pid 3040
+2016-01-09 17:41:44,899 INFO success: httpd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 
 
 
 -------------------------------------
 /var/log/httpd/access_log
 -------------------------------------
-127.0.0.1 (-) - - [09/Jan/2016:16:51:13 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:51:18 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:51:23 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:51:28 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:51:33 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:51:38 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:51:43 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:51:48 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:51:53 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:51:58 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:52:03 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:52:08 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:52:13 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:52:18 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:52:23 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:52:28 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:52:33 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:52:38 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:52:43 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:52:48 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:52:53 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:52:58 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:53:03 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:53:08 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:53:13 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:53:18 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:53:23 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:53:28 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:53:33 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:16:53:38 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:03:12 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:03:17 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:03:22 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:03:27 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:03:32 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:03:37 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:03:42 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:03:47 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:03:52 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:03:57 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:04:02 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:04:07 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:04:12 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:04:17 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:04:22 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:04:27 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:04:32 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:04:37 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:04:42 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:04:47 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:04:52 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:04:57 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:05:02 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:05:07 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:05:12 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:05:17 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:05:22 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:05:27 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:05:32 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:05:37 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:05:42 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:05:47 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:05:52 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:05:57 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:06:02 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:06:07 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:06:12 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:06:17 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:06:22 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:06:27 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:06:32 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:06:37 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:06:42 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:06:47 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:06:52 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:06:57 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:07:02 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:07:07 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:07:12 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:07:17 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:07:22 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:07:27 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:07:32 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:07:37 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:07:42 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:07:47 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:07:52 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:07:57 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:08:02 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:08:07 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-127.0.0.1 (-) - - [09/Jan/2016:17:08:12 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
-172.31.1.237 (103.37.201.95) - - [09/Jan/2016:17:11:54 +0000] "GET / HTTP/1.1" 404 198 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
-172.31.1.237 (103.37.201.95) - - [09/Jan/2016:17:11:56 +0000] "GET /favicon.ico HTTP/1.1" 404 209 "http://rtifeed-dev.elasticbeanstalk.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
-172.31.1.237 (103.37.201.95) - - [09/Jan/2016:17:11:56 +0000] "GET /favicon.ico HTTP/1.1" 404 209 "http://rtifeed-dev.elasticbeanstalk.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
-172.31.1.237 (103.37.201.95) - - [09/Jan/2016:17:11:56 +0000] "GET /favicon.ico HTTP/1.1" 404 209 "http://rtifeed-dev.elasticbeanstalk.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
-::1 (-) - - [09/Jan/2016:17:12:56 +0000] "OPTIONS * HTTP/1.0" 200 - "-" "Apache/2.4.16 (Amazon) mod_wsgi/3.5 Python/2.7.10 (internal dummy connection)"
-::1 (-) - - [09/Jan/2016:17:12:57 +0000] "OPTIONS * HTTP/1.0" 200 - "-" "Apache/2.4.16 (Amazon) mod_wsgi/3.5 Python/2.7.10 (internal dummy connection)"
-::1 (-) - - [09/Jan/2016:17:12:58 +0000] "OPTIONS * HTTP/1.0" 200 - "-" "Apache/2.4.16 (Amazon) mod_wsgi/3.5 Python/2.7.10 (internal dummy connection)"
-::1 (-) - - [09/Jan/2016:17:13:01 +0000] "OPTIONS * HTTP/1.0" 200 - "-" "Apache/2.4.16 (Amazon) mod_wsgi/3.5 Python/2.7.10 (internal dummy connection)"
-::1 (-) - - [09/Jan/2016:17:13:02 +0000] "OPTIONS * HTTP/1.0" 200 - "-" "Apache/2.4.16 (Amazon) mod_wsgi/3.5 Python/2.7.10 (internal dummy connection)"
+127.0.0.1 (-) - - [09/Jan/2016:17:34:20 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:34:25 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:34:30 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:34:35 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:34:40 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:34:45 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:34:50 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:34:55 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:35:00 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:35:05 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:35:10 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:35:15 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:35:20 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:35:25 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:35:30 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:35:35 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:35:40 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:35:45 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:35:50 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:35:55 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:36:00 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:36:05 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:36:10 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:36:15 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:36:20 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:36:25 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:36:30 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:36:35 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:36:40 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:36:45 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:36:50 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:36:55 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:37:00 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:37:05 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:37:10 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:37:15 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:37:20 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:41:46 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:41:51 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:41:56 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:42:01 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:42:06 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:42:11 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:42:16 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:42:21 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:42:26 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:42:31 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:42:36 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:42:41 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:42:46 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:42:51 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:42:56 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:43:01 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:43:06 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:43:11 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:43:16 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:43:21 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:43:26 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:43:31 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:43:36 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:43:41 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:43:46 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:43:51 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:43:56 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:44:01 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:44:06 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:44:11 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:44:16 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:44:21 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:44:26 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:44:31 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:44:36 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:44:41 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:44:46 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:44:51 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:44:56 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:45:01 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:45:06 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:45:11 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:45:16 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:45:21 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:45:26 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:45:31 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:45:36 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:45:41 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:45:46 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:45:51 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:45:56 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:46:01 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:46:06 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:46:11 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:46:16 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:46:21 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:46:26 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:46:31 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:46:36 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:46:41 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+127.0.0.1 (-) - - [09/Jan/2016:17:46:46 +0000] "GET / HTTP/1.1" 404 198 "-" "Python-urllib/2.7"
+172.31.20.255 (103.37.201.95) - - [09/Jan/2016:17:48:41 +0000] "GET / HTTP/1.1" 404 198 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
+::1 (-) - - [09/Jan/2016:17:49:46 +0000] "OPTIONS * HTTP/1.0" 200 - "-" "Apache/2.4.16 (Amazon) mod_wsgi/3.5 Python/2.7.10 (internal dummy connection)"
 
 
 
@@ -318,16 +318,16 @@ Retrieving logs...
       src/lxml/lxml.etree.c:237975: error: expected ‘)’ before ‘value’
       Compile failed: command 'gcc' failed with exit status 1
       creating tmp
-      cc -I/usr/include/libxml2 -c /tmp/xmlXPathInit3kqCOA.c -o tmp/xmlXPathInit3kqCOA.o
-      /tmp/xmlXPathInit3kqCOA.c:1:26: error: libxml/xpath.h: No such file or directory
+      cc -I/usr/include/libxml2 -c /tmp/xmlXPathInit4oG_SJ.c -o tmp/xmlXPathInit4oG_SJ.o
+      /tmp/xmlXPathInit4oG_SJ.c:1:26: error: libxml/xpath.h: No such file or directory
       *********************************************************************************
       Could not find function xmlCheckVersion in library libxml2. Is libxml2 installed?
       *********************************************************************************
       error: command 'gcc' failed with exit status 1
       
       ----------------------------------------
-  Command "/opt/python/run/venv/bin/python2.7 -c "import setuptools, tokenize;__file__='/tmp/pip-build-Ld_Xs3/lxml/setup.py';exec(compile(getattr(tokenize, 'open', open)(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-BeWnzI-record/install-record.txt --single-version-externally-managed --compile --install-headers /opt/python/run/venv/include/site/python2.7/lxml" failed with error code 1 in /tmp/pip-build-Ld_Xs3/lxml
-  2016-01-09 17:20:58,357 ERROR    Error installing dependencies: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1
+  Command "/opt/python/run/venv/bin/python2.7 -c "import setuptools, tokenize;__file__='/tmp/pip-build-E4cVA_/lxml/setup.py';exec(compile(getattr(tokenize, 'open', open)(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-4bx5KD-record/install-record.txt --single-version-externally-managed --compile --install-headers /opt/python/run/venv/include/site/python2.7/lxml" failed with error code 1 in /tmp/pip-build-E4cVA_/lxml
+  2016-01-09 17:58:54,385 ERROR    Error installing dependencies: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1
   Traceback (most recent call last):
     File "/opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py", line 22, in main
       install_dependencies()
@@ -338,16 +338,16 @@ Retrieving logs...
   CalledProcessError: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1 (Executor::NonZeroExitStatus)
 
 
-[2016-01-09T17:20:58.377Z] INFO  [25677] - [Application update/AppDeployStage0/AppDeployPreHook/03deploy.py] : Activity failed.
-[2016-01-09T17:20:58.377Z] INFO  [25677] - [Application update/AppDeployStage0/AppDeployPreHook] : Activity failed.
-[2016-01-09T17:20:58.377Z] INFO  [25677] - [Application update/AppDeployStage0] : Activity failed.
-[2016-01-09T17:20:58.393Z] INFO  [25677] - [Application update] : Completed activity. Result:
+[2016-01-09T17:58:54.405Z] INFO  [20342] - [Application update/AppDeployStage0/AppDeployPreHook/03deploy.py] : Activity failed.
+[2016-01-09T17:58:54.406Z] INFO  [20342] - [Application update/AppDeployStage0/AppDeployPreHook] : Activity failed.
+[2016-01-09T17:58:54.406Z] INFO  [20342] - [Application update/AppDeployStage0] : Activity failed.
+[2016-01-09T17:58:54.422Z] INFO  [20342] - [Application update] : Completed activity. Result:
   Application update - Command CMD-AppDeploy failed
-[2016-01-09T17:21:59.842Z] INFO  [10388] - [CMD-TailLogs - stage ] : Starting activity...
-[2016-01-09T17:22:00.087Z] INFO  [10388] - [CMD-TailLogs - stage /AddonsBefore] : Starting activity...
-[2016-01-09T17:22:00.087Z] INFO  [10388] - [CMD-TailLogs - stage /AddonsBefore] : Completed activity.
-[2016-01-09T17:22:00.087Z] INFO  [10388] - [CMD-TailLogs - stage /TailLogs] : Starting activity...
-[2016-01-09T17:22:00.087Z] INFO  [10388] - [CMD-TailLogs - stage /TailLogs/TailLogs] : Starting activity...
+[2016-01-09T18:05:40.284Z] INFO  [21006] - [CMD-TailLogs - stage ] : Starting activity...
+[2016-01-09T18:05:40.508Z] INFO  [21006] - [CMD-TailLogs - stage /AddonsBefore] : Starting activity...
+[2016-01-09T18:05:40.508Z] INFO  [21006] - [CMD-TailLogs - stage /AddonsBefore] : Completed activity.
+[2016-01-09T18:05:40.508Z] INFO  [21006] - [CMD-TailLogs - stage /TailLogs] : Starting activity...
+[2016-01-09T18:05:40.508Z] INFO  [21006] - [CMD-TailLogs - stage /TailLogs/TailLogs] : Starting activity...
 
 
 
@@ -404,16 +404,16 @@ Retrieving logs...
       src/lxml/lxml.etree.c:237975: error: expected ‘)’ before ‘value’
       Compile failed: command 'gcc' failed with exit status 1
       creating tmp
-      cc -I/usr/include/libxml2 -c /tmp/xmlXPathInit3kqCOA.c -o tmp/xmlXPathInit3kqCOA.o
-      /tmp/xmlXPathInit3kqCOA.c:1:26: error: libxml/xpath.h: No such file or directory
+      cc -I/usr/include/libxml2 -c /tmp/xmlXPathInit4oG_SJ.c -o tmp/xmlXPathInit4oG_SJ.o
+      /tmp/xmlXPathInit4oG_SJ.c:1:26: error: libxml/xpath.h: No such file or directory
       *********************************************************************************
       Could not find function xmlCheckVersion in library libxml2. Is libxml2 installed?
       *********************************************************************************
       error: command 'gcc' failed with exit status 1
       
       ----------------------------------------
-  Command "/opt/python/run/venv/bin/python2.7 -c "import setuptools, tokenize;__file__='/tmp/pip-build-Ld_Xs3/lxml/setup.py';exec(compile(getattr(tokenize, 'open', open)(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-BeWnzI-record/install-record.txt --single-version-externally-managed --compile --install-headers /opt/python/run/venv/include/site/python2.7/lxml" failed with error code 1 in /tmp/pip-build-Ld_Xs3/lxml
-  2016-01-09 17:20:58,357 ERROR    Error installing dependencies: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1
+  Command "/opt/python/run/venv/bin/python2.7 -c "import setuptools, tokenize;__file__='/tmp/pip-build-E4cVA_/lxml/setup.py';exec(compile(getattr(tokenize, 'open', open)(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-4bx5KD-record/install-record.txt --single-version-externally-managed --compile --install-headers /opt/python/run/venv/include/site/python2.7/lxml" failed with error code 1 in /tmp/pip-build-E4cVA_/lxml
+  2016-01-09 17:58:54,385 ERROR    Error installing dependencies: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1
   Traceback (most recent call last):
     File "/opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py", line 22, in main
       install_dependencies()
@@ -424,36 +424,36 @@ Retrieving logs...
   CalledProcessError: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1 (Executor::NonZeroExitStatus)
 
 
-[2016-01-09T17:20:58.393Z] ERROR [25677] : Command CMD-AppDeploy failed!
-[2016-01-09T17:20:58.394Z] INFO  [25677] : Command processor returning results: 
-{"status":"FAILURE","api_version":"1.0","results":[{"status":"FAILURE","msg":"(TRUNCATED)...)\n  File \"/usr/lib64/python2.7/subprocess.py\", line 540, in check_call\n    raise CalledProcessError(retcode, cmd)\nCalledProcessError: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1. \nHook /opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py failed. For more detail, check /var/log/eb-activity.log using console or EB CLI","returncode":1,"events":[{"msg":"Your requirements.txt is invalid. Snapshot your logs for details.","severity":"ERROR","timestamp":1452360058},{"msg":"Error installing dependencies: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1","severity":"SYSTEM","timestamp":1452360058}]}],"truncated":"true"}
-[2016-01-09T17:21:59.840Z] DEBUG [10388] : Reading config file: /etc/elasticbeanstalk/.aws-eb-stack.properties
-[2016-01-09T17:21:59.840Z] DEBUG [10388] : Checking if the command processor should execute...
-[2016-01-09T17:21:59.842Z] DEBUG [10388] : Checking whether the command is applicable to instance (i-92d39d36)..
-[2016-01-09T17:21:59.842Z] INFO  [10388] : Command is applicable to this instance (i-92d39d36)..
-[2016-01-09T17:21:59.842Z] DEBUG [10388] : Checking if the received command stage is valid..
-[2016-01-09T17:21:59.842Z] INFO  [10388] : No stage_num in command. Valid stage..
-[2016-01-09T17:21:59.842Z] INFO  [10388] : Received command CMD-TailLogs: {"execution_data":"{\"aws_access_key_id\":\"ASIAIU3Y2EHENBOAF36A\",\"signature\":\"r38Lo77Vfmy5up5WZJ11MataMzw=\",\"security_token\":\"AQoDYXdzEMP\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/wEawAKfxiW+J9iPTfb60tEzB4WYttM8WjG4Qpl8fm\\\/HBbHeDu8SmJMnWobAwppnSvYYCwg0Uzpgrkya7hawqqCstXwlyxWLI9sroAgu0b9htoabbzcSJIsEI2iXiefloU5gwQBRLmQe6oVfMQfvFHXw1CXO\\\/Is8tvsqSGeG6uJ+SF7iEGkZkB0qnB3waBE\\\/bZumySVUDjMiDqqXWiK+CPfFmqtH2HKAijt+40Hzg5xqCN5CMgbZmVIqW\\\/Tl0hO1y7u6Vv3+QIrIRP93vnND6RijT6cmAM3z2uT62UYF4PUuGt8KzOSl6mMNaLJ\\\/eApI5aaIhdmVicmQRW9V1z4oYgOnn4uKwi\\\/2vf\\\/+4zJxi9FeNqGxJGShRCVliasx\\\/VUxL6BLUSoiDZNhDP\\\/z5ov+z\\\/Dtff6gxFjvjrxDN8ANfH2IAm\\\/C\\\/CC1g8W0BQ==\",\"policy\":\"eyJleHBpcmF0aW9uIjoiMjAxNi0wMS0wOVQxNzo1MTo1Ny42NDdaIiwiY29uZGl0aW9ucyI6W1sic3RhcnRzLXdpdGgiLCIkeC1hbXotbWV0YS10aW1lX3N0YW1wIiwiIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLXB1Ymxpc2hfbWVjaGFuaXNtIiwiIl0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJyZXNvdXJjZXNcL2Vudmlyb25tZW50c1wvbG9nc1wvIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLWJhdGNoX2lkIiwiIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLWZpbGVfbmFtZSIsIiJdLFsic3RhcnRzLXdpdGgiLCIkeC1hbXotc2VjdXJpdHktdG9rZW4iLCIiXSxbInN0YXJ0cy13aXRoIiwiJENvbnRlbnQtVHlwZSIsIiJdLFsiZXEiLCIkYnVja2V0IiwiZWxhc3RpY2JlYW5zdGFsay1hcC1zb3V0aGVhc3QtMS0zNjEzOTgxMzAxMjUiXSxbImVxIiwiJGFjbCIsInByaXZhdGUiXV19\"}","instance_ids":["i-92d39d36"],"data":"7c5d24f6-b6f5-11e5-bc87-95042267b0f4","command_name":"CMD-TailLogs","api_version":"1.0","resource_name":"AWSEBAutoScalingGroup","request_id":"7c5d24f6-b6f5-11e5-bc87-95042267b0f4","command_timeout":"600"}
-[2016-01-09T17:21:59.842Z] INFO  [10388] : Command processor should execute command.
-[2016-01-09T17:21:59.842Z] DEBUG [10388] : Storing current stage..
-[2016-01-09T17:21:59.842Z] DEBUG [10388] : Stage_num does not exist. Not saving null stage. Returning..
-[2016-01-09T17:21:59.842Z] INFO  [10388] : Executing CMD-TailLogs - stage 
-[2016-01-09T17:21:59.842Z] INFO  [10388] : Executing command: CMD-TailLogs...
-[2016-01-09T17:21:59.842Z] DEBUG [10388] : Reading config file: /etc/elasticbeanstalk/.aws-eb-stack.properties
-[2016-01-09T17:21:59.843Z] DEBUG [10388] : Refreshing metadata..
-[2016-01-09T17:22:00.084Z] DEBUG [10388] : Refreshed environment metadata.
-[2016-01-09T17:22:00.084Z] DEBUG [10388] : Retrieving metadata for key: AWS::ElasticBeanstalk::Ext||_ContainerConfigFileContent||commands..
-[2016-01-09T17:22:00.085Z] DEBUG [10388] : Retrieving metadata for key: AWS::ElasticBeanstalk::Ext||_API||_Commands..
-[2016-01-09T17:22:00.085Z] INFO  [10388] : Found enabled addons: ["logpublish"].
-[2016-01-09T17:22:00.086Z] INFO  [10388] : Updating Command definition of addon logpublish.
-[2016-01-09T17:22:00.086Z] DEBUG [10388] : Loaded definition of Command CMD-TailLogs.
-[2016-01-09T17:22:00.086Z] INFO  [10388] : Executing command CMD-TailLogs activities...
-[2016-01-09T17:22:00.086Z] DEBUG [10388] : Setting environment variables..
-[2016-01-09T17:22:00.087Z] INFO  [10388] : Running AddonsBefore for command CMD-TailLogs...
-[2016-01-09T17:22:00.087Z] DEBUG [10388] : Running stages of Command CMD-TailLogs from stage 0 to stage 0...
-[2016-01-09T17:22:00.087Z] INFO  [10388] : Running stage 0 of command CMD-TailLogs...
-[2016-01-09T17:22:00.087Z] DEBUG [10388] : Loaded 1 actions for stage 0.
-[2016-01-09T17:22:00.087Z] INFO  [10388] : Running 1 of 1 actions: TailLogs...
+[2016-01-09T17:58:54.422Z] ERROR [20342] : Command CMD-AppDeploy failed!
+[2016-01-09T17:58:54.423Z] INFO  [20342] : Command processor returning results: 
+{"status":"FAILURE","api_version":"1.0","results":[{"status":"FAILURE","msg":"(TRUNCATED)...)\n  File \"/usr/lib64/python2.7/subprocess.py\", line 540, in check_call\n    raise CalledProcessError(retcode, cmd)\nCalledProcessError: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1. \nHook /opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py failed. For more detail, check /var/log/eb-activity.log using console or EB CLI","returncode":1,"events":[{"msg":"Your requirements.txt is invalid. Snapshot your logs for details.","severity":"ERROR","timestamp":1452362334},{"msg":"Error installing dependencies: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1","severity":"SYSTEM","timestamp":1452362334}]}],"truncated":"true"}
+[2016-01-09T18:05:40.281Z] DEBUG [21006] : Reading config file: /etc/elasticbeanstalk/.aws-eb-stack.properties
+[2016-01-09T18:05:40.281Z] DEBUG [21006] : Checking if the command processor should execute...
+[2016-01-09T18:05:40.284Z] DEBUG [21006] : Checking whether the command is applicable to instance (i-47f79ac9)..
+[2016-01-09T18:05:40.284Z] INFO  [21006] : Command is applicable to this instance (i-47f79ac9)..
+[2016-01-09T18:05:40.284Z] DEBUG [21006] : Checking if the received command stage is valid..
+[2016-01-09T18:05:40.284Z] INFO  [21006] : No stage_num in command. Valid stage..
+[2016-01-09T18:05:40.284Z] INFO  [21006] : Received command CMD-TailLogs: {"execution_data":"{\"aws_access_key_id\":\"ASIAJBNFA7T37RHNROWA\",\"signature\":\"wAtAkrR51ev+3k1R71c6g8qkknI=\",\"security_token\":\"AQoDYXdzEMP\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/wEawALsAHDWMgZGnUAWQhfBrUjcot2B1MJ7F2oo3Es2v9W5yP+mCeFAR7zdMymp8yjhEDrRtTn0Zd05YZ11ZkSoRUWBoGHqZnsPeNWNnHTI24Gn7o1PcjYoOeARzdGmXMty7vvQp1nSl4tBFV+aCsW8K6MpouPn35qMjcEEOUB1uje6ZSbjqYU+Y5w8JMz7r+PwKw7aa1iVhfUdJffbFsmC4LXCyxUUlLJk19byUjmtFZuTvpwIyewhk7QrgQFOJNrQpCVDnHjWFoyszlkMmFw4gIoq0TDc\\\/5Y5t5cClHRtsWetdW4Z8JO0zeflTXmpYMYwhHrtdusFuBXKkV\\\/y3DMHH+eaWYJezBfg60goQh0J+2IsFw+OvO6rI2HZEKoG0oM+eibYBU0GMLRtglS4Otkky\\\/6k\\\/EHwOPEBUsKmN46vL2ZUrSDxl8W0BQ==\",\"policy\":\"eyJleHBpcmF0aW9uIjoiMjAxNi0wMS0wOVQxODozNTozOC4xMzhaIiwiY29uZGl0aW9ucyI6W1sic3RhcnRzLXdpdGgiLCIkeC1hbXotbWV0YS10aW1lX3N0YW1wIiwiIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLXB1Ymxpc2hfbWVjaGFuaXNtIiwiIl0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJyZXNvdXJjZXNcL2Vudmlyb25tZW50c1wvbG9nc1wvIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLWJhdGNoX2lkIiwiIl0sWyJzdGFydHMtd2l0aCIsIiR4LWFtei1tZXRhLWZpbGVfbmFtZSIsIiJdLFsic3RhcnRzLXdpdGgiLCIkeC1hbXotc2VjdXJpdHktdG9rZW4iLCIiXSxbInN0YXJ0cy13aXRoIiwiJENvbnRlbnQtVHlwZSIsIiJdLFsiZXEiLCIkYnVja2V0IiwiZWxhc3RpY2JlYW5zdGFsay1hcC1zb3V0aGVhc3QtMS0zNjEzOTgxMzAxMjUiXSxbImVxIiwiJGFjbCIsInByaXZhdGUiXV19\"}","instance_ids":["i-47f79ac9"],"data":"964ad0ca-b6fb-11e5-bd04-a1df6b12a115","command_name":"CMD-TailLogs","api_version":"1.0","resource_name":"AWSEBAutoScalingGroup","request_id":"964ad0ca-b6fb-11e5-bd04-a1df6b12a115","command_timeout":"600"}
+[2016-01-09T18:05:40.284Z] INFO  [21006] : Command processor should execute command.
+[2016-01-09T18:05:40.284Z] DEBUG [21006] : Storing current stage..
+[2016-01-09T18:05:40.284Z] DEBUG [21006] : Stage_num does not exist. Not saving null stage. Returning..
+[2016-01-09T18:05:40.284Z] INFO  [21006] : Executing CMD-TailLogs - stage 
+[2016-01-09T18:05:40.284Z] INFO  [21006] : Executing command: CMD-TailLogs...
+[2016-01-09T18:05:40.284Z] DEBUG [21006] : Reading config file: /etc/elasticbeanstalk/.aws-eb-stack.properties
+[2016-01-09T18:05:40.284Z] DEBUG [21006] : Refreshing metadata..
+[2016-01-09T18:05:40.505Z] DEBUG [21006] : Refreshed environment metadata.
+[2016-01-09T18:05:40.505Z] DEBUG [21006] : Retrieving metadata for key: AWS::ElasticBeanstalk::Ext||_ContainerConfigFileContent||commands..
+[2016-01-09T18:05:40.506Z] DEBUG [21006] : Retrieving metadata for key: AWS::ElasticBeanstalk::Ext||_API||_Commands..
+[2016-01-09T18:05:40.506Z] INFO  [21006] : Found enabled addons: ["logpublish"].
+[2016-01-09T18:05:40.507Z] INFO  [21006] : Updating Command definition of addon logpublish.
+[2016-01-09T18:05:40.507Z] DEBUG [21006] : Loaded definition of Command CMD-TailLogs.
+[2016-01-09T18:05:40.507Z] INFO  [21006] : Executing command CMD-TailLogs activities...
+[2016-01-09T18:05:40.507Z] DEBUG [21006] : Setting environment variables..
+[2016-01-09T18:05:40.507Z] INFO  [21006] : Running AddonsBefore for command CMD-TailLogs...
+[2016-01-09T18:05:40.508Z] DEBUG [21006] : Running stages of Command CMD-TailLogs from stage 0 to stage 0...
+[2016-01-09T18:05:40.508Z] INFO  [21006] : Running stage 0 of command CMD-TailLogs...
+[2016-01-09T18:05:40.508Z] DEBUG [21006] : Loaded 1 actions for stage 0.
+[2016-01-09T18:05:40.508Z] INFO  [21006] : Running 1 of 1 actions: TailLogs...
 
 
 
