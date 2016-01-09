@@ -39,6 +39,8 @@ def get_notifications(user, page = 1, notification_type = 'all'):
 	unread_notifications = models.Notification.objects.filter(user = user, read_status = 0).order_by('-entry_date')
 	read_notifications = models.Notification.objects.filter(user = user, read_status = 1).order_by('-entry_date')
 	all_notifications = models.Notification.objects.filter(user = user).order_by('-entry_date')
+
+	last_fetched_id = all_notifications[len(all_notifications) - 1].id
 	if notification_type == 'all':
 		paginator = Paginator(all_notifications, max_notifications)
 	else:

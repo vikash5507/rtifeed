@@ -26,13 +26,17 @@
             
             
             <h5 class="widget-user-desc"><a href= "{{ tds_subline }}">{{ tds_subline }}</a></h5>
-            <div >
+            {% if not user_anonymous %}
+            <div>
+            
             {% if not follow_status %}
               <a href="#" class="btn btn-primary btn-block tds_follow_btn" id = "follow_btn"><b>Follow</b></a>
             {% else %}
               <a href="#" class="btn btn-danger btn-block tds_unfollow_btn" id = "unfollow_btn"><b>Unfollow</b></a>
             {%  endif %}
             </div>
+
+            {% endif %}
           
         </div>
         

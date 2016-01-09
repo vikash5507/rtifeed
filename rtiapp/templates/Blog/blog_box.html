@@ -1,0 +1,93 @@
+<div class = "row">
+{% if single_blog %}
+
+	<div class="col-md-8">
+{% else %}
+	
+	<div class="col-md-offset-1 col-md-10">
+{% endif %}
+
+		<div class="box box-widget widget-user" >
+			<div class="box-header with-border">
+				<div class="user-block">
+					<!-- <blockquote> -->
+						<center>
+							<a href="{{ blog.blog_url }}">
+								<h3 class="username" style="font-size:30px;"> {{ blog.blog_heading }}</h3>
+							</a>
+							<small>{{ blog.blog_date }}</small>
+							<h5 style=""><a href="/profile/{{ blog.blog_user_username }}">{{ blog.blog_user_nameuser }}</a></h5>
+							<hr style="width:200px;color:blue;margin-bottom:0px;border-top:3px solid #3c8cBB;">
+						</center>
+					<!-- </blockquote>	 -->
+					
+				</div>
+				
+			</div>
+			<div class="box-body">
+				<center>
+					{% if blog.blog_image %}
+					<img class="img-responsive pad" src="{{ blog.blog_image }}" style="height:400px;" alt="Photo">
+					{% endif %}
+					{{ blog.blog_text | safe }}
+				</center>
+
+			</div>
+			<div class="box-footer">
+				<div class="col-md-6 col-md-offset-3">
+					<div class="col-xs-3 border-right">
+						<center><a href="#" class="btn-team-social btn-team"><i class="fa fa-lg fa-facebook"></i></a></center>
+					</div>
+					<div class="col-xs-3 border-right">
+						<center><a href="#" class="btn-team-social btn-team"><i class="fa fa-lg fa-twitter"></i></a></center>
+					</div>
+					<div class="col-xs-3 border-right">
+						<center><a href="#" class="btn-team-social btn-team"><i class="fa fa-lg fa-google"></i></a></center>
+					</div>
+					<div class="col-xs-3 ">
+						<center><a href="#" class="btn-team-social btn-team"><i class="fa fa-lg fa-linkedin"></i></a></center>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% if single_blog %}
+	<div class = "col-md-3">
+		<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Recently added articles</h3>
+
+              <!-- <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div> -->
+            </div>
+            
+            <div class="box-body">
+              <ul class="products-list product-list-in-box">
+              	{% for bg in trending_list %}
+                <li class="item">
+                  <div class="product-img">
+                    <img src="{{ bg.blog_picture }}" alt="Product Image">
+                  </div>
+                  <div class="product-info">
+                    <a href="{{ bg.blog_url }}" class="product-title">{{ blog.blog_heading }}</a>
+                        <!-- <span class="product-description">
+                          Samsung 32" 1080p 60Hz LED Smart HDTV.
+                        </span> -->
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            
+            <div class="box-footer text-center">
+              <a href="/blog" class="uppercase">View All Blogs</a>
+            </div>
+        </div>
+	</div>
+	{% endif %}
+
+</div>

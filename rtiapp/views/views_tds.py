@@ -13,7 +13,7 @@ from django.core.paginator import Paginator
 from rtiapp.common import XOR_KEY
 
 
-@login_required
+
 def display_department_details(request, department_slug, details_required):
 	department = models.Department.objects.filter(slug = department_slug).first()
 
@@ -23,6 +23,8 @@ def display_department_details(request, department_slug, details_required):
 	department_id = department.id
 	context = make_department_context(department, request.user)
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
+	if request.user.is_anonymous():
+		context['user_anonymous'] = True
 	context['details_required'] = 'following'
 	if details_required == 'followers':
 		page = 1
@@ -34,7 +36,7 @@ def display_department_details(request, department_slug, details_required):
 	else:
 		raise Http404("Department Does Not Exist")
 
-@login_required
+
 def display_state_details(request, state_slug, details_required):
 	state = models.State.objects.filter(slug = state_slug).first()
 	if not state:
@@ -43,6 +45,8 @@ def display_state_details(request, state_slug, details_required):
 	state_id = state.id
 	context = make_state_context(state, request.user)
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
+	if request.user.is_anonymous():
+		context['user_anonymous'] = True
 	context['details_required'] = 'following'
 	if details_required == 'followers':
 		page = 1
@@ -60,7 +64,7 @@ def display_state_details(request, state_slug, details_required):
 	else:
 		raise Http404("Department Does Not Exist")
 
-@login_required
+
 def display_topic_details(request, topic_slug, details_required):
 	topic = models.Tag.objects.filter(slug = topic_slug).first()
 	if not topic:
@@ -68,6 +72,8 @@ def display_topic_details(request, topic_slug, details_required):
 	topic_id = topic.id
 	context = make_topic_context(topic, request.user)
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
+	if request.user.is_anonymous():
+		context['user_anonymous'] = True
 	context['details_required'] = 'following'
 	if details_required == 'followers':
 		page = 1
@@ -110,27 +116,33 @@ def tds_follow_context(tds_type, tds_id, page = 1):
 			})
 	return follower_list, page_url_list, (len(page_url_list) > 1)
 
-@login_required
+
 def display_department_profile(request, department_slug):
 	department = models.Department.objects.filter(slug = department_slug).first()
 	context = make_department_context(department, request.user)
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
+	if request.user.is_anonymous():
+		context['user_anonymous'] = True
 	return render_to_response('TDS/tds_profile.html', context)
 
-@login_required
+
 def display_topic_profile(request, topic_slug):
 	print "hello it's me"
 	topic = models.Tag.objects.filter(slug = topic_slug).first()
 	context = make_topic_context(topic, request.user)
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
+	if request.user.is_anonymous():
+		context['user_anonymous'] = True
 	return render_to_response('TDS/tds_profile.html', context)
 
 
-@login_required
+
 def display_state_profile(request, state_slug):
 	state = models.State.objects.filter(slug = state_slug).first()
 	context = make_state_context(state, request.user)
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
+	if request.user.is_anonymous():
+		context['user_anonymous'] = True
 	return render_to_response('TDS/tds_profile.html', context)
 	
 
@@ -151,13 +163,15 @@ def make_department_context(department, user):
 	if department.department_type == 'state':
 		context['tds_state'] = department.state.state_name
 		context['tds_state_url'] = '/state/' + department.state.slug
-	context['follow_status'] = len(models.Follow_department.objects.filter(followee = department, follower = user)) > 0
+	if not user.is_anonymous():
+		context['follow_status'] = len(models.Follow_department.objects.filter(followee = department, follower = user)) > 0
+
 	context['tds_no_followers'] = len(models.Follow_department.objects.filter(followee = department))
 	rti_queries = models.RTI_query.objects.filter(department = department)
 	rti_responses = models.RTI_response.objects.filter(rti_query = rti_queries)
 	context['tds_no_rti_queries'] = len(rti_queries)
 	context['tds_no_rti_responses'] = len(rti_responses)
-	print "FOLLOW STATUS", context['follow_status']
+	
 	return context
 
 def make_state_context(state, user):
@@ -173,7 +187,8 @@ def make_state_context(state, user):
 	rti_responses = models.RTI_response.objects.filter(rti_query = rti_queries)
 	context['tds_no_rti_queries'] = len(rti_queries)
 	context['tds_no_rti_responses'] = len(rti_responses)
-	context['follow_status'] = len(models.Follow_state.objects.filter(followee = state, follower = user)) > 0
+	if not user.is_anonymous():
+		context['follow_status'] = len(models.Follow_state.objects.filter(followee = state, follower = user)) > 0
 	context['tds_no_followers'] = len(models.Follow_state.objects.filter(followee = state))
 	context['tds_no_departments'] = len(state_departments)
 	return context
@@ -191,7 +206,8 @@ def make_topic_context(topic, user):
 	rti_responses = models.RTI_response.objects.filter(rti_query = rti_queries)
 	context['tds_no_rti_queries'] = len(rti_queries)
 	context['tds_no_rti_responses'] = len(rti_responses)
-	context['follow_status'] = len(models.Follow_topic.objects.filter(followee = topic, follower = user)) > 0
+	if not user.is_anonymous():
+		context['follow_status'] = len(models.Follow_topic.objects.filter(followee = topic, follower = user)) > 0
 	context['tds_no_followers'] = len(models.Follow_topic.objects.filter(followee = topic))
 	
 	return context
@@ -249,7 +265,7 @@ def post_unfollow_tds(request):
 
 	return HttpResponse(json.dumps(context))
 
-@login_required
+
 def get_tds_feed(request):
 	tds_id = request.GET['tds_id']
 	fetched_rti_list = json.loads(request.GET['fetched_rti_list'])

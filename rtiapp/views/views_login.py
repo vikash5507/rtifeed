@@ -121,9 +121,9 @@ def email_signup(request):
 		"subject": "Verify Your Account",
 		"body": emailText,
 		"from_email": "rtifeedteam@rtifeed.com",
-		"to": ["paarth.n@gmail.com", email_user.email],
+		"to": [email_user.email],
 	}
-	emailHTML = render_to_response('Login/email.html', {'verfication_url' : verify_url}).content
+	emailHTML = render_to_response('Login/email.html', {'verfication_url' : verify_url, 'first_name' : first_name}).content
 	email = EmailMultiAlternatives(**kwargs)
 	email.attach_alternative(emailHTML, "text/html")
 	email.send()
@@ -225,7 +225,7 @@ def forgot_password(request):
 		"subject": "Verify Your Account",
 		"body": emailText,
 		"from_email": "rtifeedteam@rtifeed.com",
-		"to": ["paarth.n@gmail.com", user.email],
+		"to": [user.email],
 	}
 	email = EmailMultiAlternatives(**kwargs)
 	email.send()

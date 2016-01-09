@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content-wrapper">
+	<section class = "content">
+		<br>
+		{% for blog in blog_list %}
+		{% include 'Blog/blog_box.html' %}
+		{% endfor %}
+		<br>
+	</section>
+</div>
+{% endblock %}

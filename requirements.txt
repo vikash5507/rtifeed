@@ -1,0 +1,21 @@
+-f /usr/share/pip-wheels
+Django==1.7.5
+django-haystack==2.4.0
+django-smtp-ssl==1.0
+django-social-share==0.3.0
+gevent==1.0.2
+greenlet==0.4.9
+grequests==0.2.0
+lxml==3.5.0
+mechanize==0.2.5
+MySQL-python==1.2.5
+oauthlib==1.0.3
+Pillow==3.0.0
+PyJWT==1.4.0
+python-openid==2.2.5
+python-social-auth==0.2.13
+requests==2.8.1
+requests-oauthlib==0.5.0
+six==1.10.0
+wheel==0.24.0
+Whoosh==2.7.0

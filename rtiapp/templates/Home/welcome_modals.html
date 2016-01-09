@@ -1,0 +1,64 @@
+<div id="follow_state_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        <h4 class="modal-title">Which states would you like to follow?</h4>
+      </div>
+      <div class="modal-body" style = "height : 300px; overflow:auto;">
+        <table class = "table welcome_table"  id = "state_table">
+          <thead>
+            <th>States</th>
+            <th> </th>
+          </thead>
+          {% for state in state_list %}
+          <tr>
+            <td> {{ state.state_name }}</td>
+            <td>
+            	<input value = "{{ state.state_id }}" type="checkbox" class = "state_check_box">
+						</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#follow_users_modal">Next</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="follow_users_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        <h4 class="modal-title">These are some very active RTI activists. You might want to follow them.</h4>
+      </div>
+      <div class="modal-body" style = "height : 300px; overflow:auto;">
+        <table class = "table welcome_table">
+        {% for ur in user_list  %}
+        <tr>
+          <td style="width : 36px;" ><img height="36" width="36" class="img-circle" src="/media/{{ ur.profile_picture }}"></td>
+          <td><a href="/profile/{{ ur.username }}" target = "_blank">{{ ur.name_user }}</a></td>
+          <td>Followers {{ ur.num_followers }}</td>
+          <td>RTIs {{ ur.num_rtis }}</td>
+          <td>
+            	<input value = "{{ ur.user_id }}" type="checkbox" class = "user_check_box">
+					</td>
+        </tr>
+        {% endfor %}
+      </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#follow_users_modal" id = "save_user_data">Next</button>
+      </div>
+    </div>
+
+  </div>
+</div>

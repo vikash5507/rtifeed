@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 from rtiapp.views import views_test, views_profile
-from rtiapp.views import views_login, views_home
-from rtiapp.views import views_tds, views_settings, views_message
+from rtiapp.views import views_login, views_home, views_blog, views_sitemap
+from rtiapp.views import views_tds, views_settings, views_message, views_about
 from rtiapp.views import views_shareRTI, views_search, views_statistics
 
 urlpatterns = patterns('',
@@ -20,9 +20,18 @@ urlpatterns = patterns('',
 	# url(r'^home$', views_home.home_page, name = 'homepage'),
 	url(r'^base$', views_test.base, name = 'basepage'),
 	url(r'^home$', views_home.home_page, name = 'homepage'),
+	url(r'^about$', views_about.about, name = 'about'),
+	url(r'^faq$', views_about.faq, name = 'faq'),
+	url(r'^save_user_preference$', views_home.save_user_preference, name = 'save_user_preference'),
+	url(r'^view_likes$', views_home.view_likes, name = 'view_likes'),
 	url(r'^feedback$', views_home.feedback, name = 'feedback'),
 	url(r'^proposed_rtis$', views_home.proposed_rtis, name = 'proposed_rtis'),
 	url(r'^statistics$', views_statistics.statistics, name = 'statistics'),
+	
+	url(r'^blog$', views_blog.blog, name = 'blog'),
+	url(r'^blog/(?P<blog_slug>[-\w.]+)$', views_blog.blog_page, name = 'blog_page'),
+	url(r'^share_blog$', views_blog.share_blog, name = 'share_blog'),
+	url(r'^post_blog$', views_blog.post_blog, name = 'post_blog'),
 
 	url(r'^rti_page/(?P<rti_slug>[-\w.]+)/$', views_home.rti_page, name = 'rti_page'),
 	url(r'^get_feed$', views_home.get_feed, name = 'get_feed'),
@@ -50,6 +59,7 @@ urlpatterns = patterns('',
 	url(r'^post_rti_activity$', views_home.post_rti_activity, name = 'post_rti_activity'),
 	url(r'^post_comment_activity$', views_home.post_comment_activity, name = 'post_comment_activity'),
 	url(r'^get_departments_of$', views_shareRTI.get_departments_of, name = 'get_departments_of'),
+	url(r'^get_authorities_of$', views_shareRTI.get_authorities_of, name = 'get_authorities_of'),
 	url(r'^get_rti_tag$', views_shareRTI.get_rti_tag, name = 'get_rti_tag'),
 	url(r'^post_rti_query$', views_shareRTI.post_rti_query, name = 'post_rti_query'),
 	url(r'^post_rti_response$', views_shareRTI.post_rti_response, name = 'post_rti_response'),
@@ -58,10 +68,9 @@ urlpatterns = patterns('',
 	url(r'^edit_rti_query/(?P<rti_id>[-\w.]+)/$', views_shareRTI.edit_rti_query, name = 'edit_rti_query'),
 	url(r'^logout$', views_login.u_logout, name = 'logout'),
 	url(r'^register', views_login.register, name = 'register'),
-	
-	
-	url(r'^profile/(?P<username>[-\w.]+)/$', views_profile.display_user_profile, name="detail_profile"),
-	url(r'^profile/(?P<username>[-\w.]+)/(?P<details_required>\w+)/$', views_profile.display_user_details, name="user_details"),
+	url(r'^update_relevance_for_activity$', views_home.update_relevance_for_activity, name = 'update_relevance_for_activity'),
+	url(r'^profile/(?P<username>[-\w. ]+)/$', views_profile.display_user_profile, name="detail_profile"),
+	url(r'^profile/(?P<username>[-\w. ]+)/(?P<details_required>\w+)/$', views_profile.display_user_details, name="user_details"),
 	url(r'^post_follow_user$', views_profile.post_follow_user, name = 'post_follow_user'),
 	url(r'^post_unfollow_user$', views_profile.post_unfollow_user, name = 'post_unfollow_user'),
 	url(r'^submit_profile_photo$', views_profile.submit_profile_photo, name = 'submit_profile_photo'),
@@ -90,5 +99,10 @@ urlpatterns = patterns('',
 	url(r'^messages/(?P<username>[-\w.]+)/$', views_message.private_chat, name = 'private_chat'),
 	url(r'^fetch_messages/(?P<username>[-\w.]+)/$', views_message.fetch_messages, name = 'fetch_messages'),
 	url(r'^send_message/(?P<username>[-\w.]+)/$', views_message.send_message, name = 'send_message'),
+
+	url(r'^sitemap$', views_sitemap.sitemap, name = 'sitemap'),
+	url(r'^sitemap/rtis$', views_sitemap.sitemap_rtis, name = 'rtis'),
+	url(r'^sitemap/users$', views_sitemap.sitemap_users, name = 'users'),
+	url(r'^sitemap/tds$', views_sitemap.sitemap_tdss, name = 'tdss'),
 
 )

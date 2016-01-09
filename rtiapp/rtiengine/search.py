@@ -89,10 +89,10 @@ def make_search_context(s_model, model_type):
 		
 		search_context = {
 			'rti_id' : s_model.id,
-			'search_link' : '/rti_page/' + str(XOR_KEY ^ s_model.id) + '/',
+			'search_link' : '/rti_page/' + s_model.slug + '/',
 			}
 		if len(s_model.description) < 3:
-			search_context['rti_description'] = s_model.query_text
+			search_context['rti_description'] = s_model.query_text[0:50] + "..."
 		else:
 			search_context['rti_description'] = s_model.description
 		meta_data = newsfeed.get_rti_meta_data(s_model)

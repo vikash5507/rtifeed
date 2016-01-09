@@ -113,6 +113,16 @@ $('#rti_response_form').on('submit',(function(e) {
         $("#rti_response_form :input").prop("disabled", true);
       },
       success : function(data){
+          $.ajax({
+            url : '/update_relevance_for_activity',
+            data : { activity_id : data.activity_id },
+            success : function(){
+              console.log('done');
+            },
+            error : function(err){
+              console.log(err);
+            }
+          });
           
           swal({    
             title: "RTI Response saved successfully!",  

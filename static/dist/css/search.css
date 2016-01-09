@@ -192,7 +192,7 @@ input[type=text]::-ms-clear {
 .Typeahead {
   position: relative;
   *z-index: 1;
-  width: 500px;
+  
   margin: 50px auto 0 auto;
   padding: 15px;
   text-align: left;
@@ -285,7 +285,7 @@ input[type=text]::-ms-clear {
   position: relative;
   padding: 8px;
   background-color: white;
-  border: 1px solid #ccd6dd;
+  border-bottom: 1px solid #ccd6dd;
   
 }
 
@@ -361,6 +361,77 @@ input[type=text]::-ms-clear {
 .ProfileCard.is-active .ProfileCard-stat-label {
   background: #55acee;
   color: white;
+}
+
+.typeahead,
+.tt-query,
+.tt-hint {
+  
+  /*height: 30px;
+  padding: 8px 12px;
+  
+  line-height: 30px;
+  border: 2px solid #ccc;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  outline: none;*/
+}
+
+.typeahead {
+  background-color: #fff;
+}
+
+.typeahead:focus {
+  border: 2px solid #0097cf;
+}
+
+.tt-query {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+  color: #999
+}
+
+.tt-menu {
+  
+  margin: 12px 0;
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+  width: 300px;
+  padding: 3px 20px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.tt-suggestion:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #0097cf;
+}
+
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: #0097cf;
+
+}
+
+.tt-suggestion p {
+  margin: 0;
 }
 
 /* EmptyMessage */

@@ -82,7 +82,7 @@ def search_model(request):
 		}
 
 	else:
-		context = search.search_model(sTerm, model_type, search_type)
+		context = search.search_model(sTerm, model_type, search_type)[0:3]
 
 	if data_type == 'json':
 		return HttpResponse(json.dumps(context))

@@ -1,3 +1,4 @@
+var last_fetched_id = null;
 function get_notifications(notification_type){
 	$.ajax({
 		url : '/get_notifications',
@@ -48,3 +49,4 @@ get_notifications('all');
 window.setInterval(function(){
   get_notifications('unread');
 }, 5000);
+

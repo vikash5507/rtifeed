@@ -54,7 +54,7 @@
       {% endif %}
     {% endif %}
     <script src="/static/plugins/chosen/chosen.jquery.min.js"></script>
-
+    <script src="/static/scripts/tagpeople.js"></script>
     <link href="/static/plugins/chosen/chosen.min.css" rel="stylesheet" type="text/css">
     <style type="text/css">
       @media only screen and (max-width: 767px) {
@@ -106,6 +106,14 @@
       }
 
     </style>
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+<!-- polyfiller file to detect and load polyfills -->
+<script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+<script>
+  webshims.setOptions('waitReady', false);
+  webshims.setOptions('forms-ext', {types: 'date'});
+  webshims.polyfill('forms forms-ext');
+</script>
   </head>
 
   <body class="hold-transition skin-blue-light sidebar-mini fixed" id = "bodyid">
@@ -115,8 +123,10 @@
       <!-- {% block nav_bar %} -->
       <header class="main-header">
         <!-- Logo -->
+        
         <a href="/home" class="logo" id = "logoheader">
           <!-- mini logo for sidebar mini 50x50 pixels -->
+          
           <span class="logo-mini"><b>RTI</b>Feed</span>
           <!-- logo for regular state and mobile devices -->
           <span class="logo-lg"><b>RTI</b>Feed <small class="label bg-yellow">BETA</small></span>
@@ -134,7 +144,7 @@
           {% else %}
           <form class="navbar-form navbar-left" role="search" id = "search_form">
             <div>
-              <input type="text" class="form-control navbar-search-input" id="navbar-search-input" placeholder="Search" style = "width : 300px;">
+              <input type="text" class="form-control navbar-search-input" id="navbar-search-input" placeholder="Search across RTIs, Users, States, Topics, Departments" style = "width : 400px; background-color : white; color: black;">
             </div>
           </form>
           {% endif %}
@@ -160,7 +170,7 @@
               <!-- Messages: style can be found in dropdown.less-->
               
               <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown messages-menu" >
+              <li class="dropdown messages-menu" id = "tour_message">
                 <a href="/messages" aria-expanded="false">
                   <i class="fa fa-envelope-o"></i>
                   <span class="label label-success" id = "num_new_messages"></span>
@@ -186,7 +196,7 @@
               <!-- Tasks: style can be found in dropdown.less -->
               
               <!-- User Account: style can be found in dropdown.less -->
-              <li class="dropdown user user-menu">
+              <li class="dropdown user user-menu" id = "tour_profile">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="/media/{{ my_profile.profile_picture }}" class="user-image display_pic" alt="User Image" class = "display_pic">
                   <span class="hidden-xs rti_name">{{ my_profile.name_user }}</span>
@@ -274,39 +284,39 @@
           <ul class="sidebar-menu">
             <li class="header"></li>
             
-            <li>
+            <li id = "tour_news_feed">
               <a href="/home">
                 <i class="fa fa-newspaper-o"></i> <span>News Feed</span> <!-- <small class="label pull-right bg-green">Hot</small> -->
               </a>
             </li>
-            <li>
+            <li id = "tour_rti_query">
               <a href="/share_rti_query">
                 <i class="fa fa-file-text-o"></i> <span>Share new RTI</span> 
               </a>
             </li>
-            <li>
+            <li id = "tour_rti_response">
               <a href="/share_rti_response">
                 <i class="fa fa-file-text"></i> <span>Share new RTI Response</span> 
               </a>
             </li>
 
-            <li>
+            <li id = "tour_propose_query">
               <a href="/propose_query">
                 <i class="fa fa-hand-paper-o"></i> <span>Propose an RTI</span> 
               </a>
             </li>
 
-            <li>
+            <li id = "tour_proposed_queries">
               <a href="/proposed_rtis">
                 <i class="fa fa-newspaper-o"></i> <span>Proposed RTIs</span> 
               </a>
             </li>
 
-            <li>
+            <!-- <li id = "tour_statistics">
               <a href="/statistics">
                 <i class="fa fa-bar-chart"></i> <span>Statistics</span> 
               </a>
-            </li>
+            </li> -->
             <li>
               <!-- <a href="dashboard.html">
                 <i class="fa fa-th"></i> <span>Statistics</span> 
@@ -321,6 +331,8 @@
       <!-- =============================================== -->
 
       <!-- Content Wrapper. Contains page content -->
+      <script src="/static/plugins/typeahead/typeahead.js"></script>
+      <script src="/static/scripts/search.js"></script>
       {% block content %}
       
       {% endblock %}
@@ -329,9 +341,10 @@
 
     <footer class="main-footer fixed">
       <div class="pull-right hidden-xs">
-        <b>RTIFeed</b>
+        <b><a href = "/about">About Us</a></b>
+        <b style = "padding-left : 30px; padding-right : 30px"><a href = "/faq">FAQ</a></b>
       </div>
-      <strong><a href="#" data-toggle = "modal" data-target = "#feedbackmodal">We are in beta! We would love to hear your feedback</a>.</strong>
+      <strong><a href="#" data-toggle = "modal" data-target = "#feedbackmodal" id = "tour_feedback">Submit Feedback. We are in Beta, we would love to hear from you</a>.</strong>
     </footer>
 
     <div id="feedbackmodal" class="modal fade" role="dialog">
@@ -363,8 +376,8 @@
     
     <script src="/static/scripts/feedback.js"></script>
     <script src="/static/scripts/notification.js"></script>
-    <script src="/static/plugins/typeahead/typeahead.js"></script>
-    <script src="/static/scripts/search.js"></script>
+    
+    
     <script src="/static/scripts/lightbox.js"></script>
     
 <script type="text/javascript">

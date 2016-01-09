@@ -12,6 +12,7 @@ from django.core.paginator import Paginator
 from django.http import Http404
 from django.db.models import Q
 
+@login_required
 def messenger_page(request):
 	contacts = find_contacts(request.user)
 	context = {
@@ -36,6 +37,7 @@ def private_chat(request, username):
 
 	return render_to_response('Messenger/messenger_page.html', context)
 
+@login_required
 def send_message(request, username):
 	user = request.user
 	other_user = models.User.objects.filter(username = username).first()
@@ -53,6 +55,7 @@ def send_message(request, username):
 	}
 	return HttpResponse(json.dumps(context))
 
+@login_required
 def fetch_messages(request, username):
 	user = request.user
 	other_user = models.User.objects.filter(username = username).first()
@@ -94,6 +97,7 @@ def fetch_messages(request, username):
 
 	return HttpResponse(json.dumps(context))
 
+
 def make_message_context(message):
 	sender_profile = models.User_profile.objects.filter(user = message.sender).first()
 	context = {
@@ -103,6 +107,7 @@ def make_message_context(message):
 		'message_text'	 : message.message_text,
 	}
 	return context
+
 
 def find_contacts(user):
 	contacts = []

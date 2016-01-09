@@ -89,7 +89,7 @@ $(document).ready(function() {
       displayKey: 'search_username',
       templates: {
         suggestion: function(data){
-          return make_user_template(data);
+          return make_user_msg_template(data);
         },
         
       }
@@ -206,10 +206,28 @@ function make_user_template(data){
   return user_template;
 }
 
+function make_user_msg_template(data){
+
+  var user_template = '<div class="ProfileCard u-cf">'+
+    '<img class="ProfileCard-avatar" src="'+ data.profile_picture +'">'+
+    '<a href = "#!"> </a>'+
+    '<div class="ProfileCard-details">'+
+      '<div class="ProfileCard-realName"><a href = "#!">  '+ data.name_user +' </a></div>'+
+    '</div>'+
+
+    '<div class="ProfileCard-stats">'+
+      '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Following:</span>'+ data.num_following +'</div>'+
+      '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Followers:</span>'+ data.num_followers +'</div>'+
+    '</div>'+
+  '</div>';
+  return user_template;
+}
+
 function make_rti_template(data){
   var rti_template = '<div class="ProfileCard u-cf">'+
     // '<img class="ProfileCard-avatar" src="'+ data.rti_picture +'">'+
     '<a href = "' + data.search_link + '"> </a>'+
+    '<img class="ProfileCard-avatar" src="/static/dist/img/rti.jpg">'+
     '<div class="ProfileCard-details">'+
       '<div class="ProfileCard-realName"><a href = "' + data.search_link + '">  '+ data.rti_description +' </a></div>'+
     '</div>'+
@@ -227,22 +245,27 @@ function make_rti_template(data){
 }
 
 function make_tds_template(data, tds_type){
+  var tds_image = ""
+  if(tds_type == 'department')
+    tds_image = '<img class="ProfileCard-avatar" src="/static/dist/img/department.jpg">'
+  else if(tds_type == 'state')
+    tds_image = '<img class="ProfileCard-avatar" src="/static/dist/img/department.jpg">'
+  else if(tds_type == 'topic')
+    tds_image = '<img class="ProfileCard-avatar" src="/static/dist/img/topic.jpg">'
+
   var tds_template = '<div class="ProfileCard u-cf">'+
     // '<img class="ProfileCard-avatar" src="'+ data.rti_picture +'">'+
-    '<a href = "' + data.search_link + '"> </a>'+
+   '<a href = "' + data.search_link + '"> </a>'+
+    tds_image+
     '<div class="ProfileCard-details">'+
       '<div class="ProfileCard-realName"><a href = "' + data.search_link + '">  '+ data.tds_name +' </a></div>'+
     '</div>'+
-
     '<div class="ProfileCard-stats">'+
       '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Queries:</span>'+ data.tds_no_rti_queries +'</div>'+
       '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Responses:</span>'+ data.tds_no_rti_responses +'</div>'+
       '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Followers:</span>'+ data.tds_no_followers +'</div>'+
     '</div>'+
   '</div>';
-
-
-
   return tds_template;
 }
 // .bind('typeahead:selected', function (obj, datum) {

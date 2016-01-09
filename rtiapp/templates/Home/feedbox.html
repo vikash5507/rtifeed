@@ -152,7 +152,7 @@
     {% endif %}
     <!-- <div class="fb-share-button" data-href="home" data-layout="button_count"></div> -->
     
-    <span class="pull-right text-muted lc_count{{ rti_id }}" id = "lc_count{{ rti_id }}">{{ no_likes}} likes - {{ no_comments }} comments</span>
+    <span class="pull-right text-muted lc_count{{ rti_id }}" id = "lc_count{{ rti_id }}"><a href="#" data-toggle="modal" data-target="#query_liked_by{{ rti_id }}" class = "view_likes{{ rti_id }}"> {{ no_likes}} likes - {{ no_comments }} comments</a></span>
     <!-- {% if more_comments %} -->
       
     <!-- {% endif %} -->
@@ -183,7 +183,7 @@
   </div><!-- /.box-footer -->
   {% endif %}
 </div>
-
+{% include "Home/likes.html" %}
 <script type="text/javascript">
   var proposed_flag = false;
   {% if rti_proposed %}
@@ -195,5 +195,6 @@
     profile_picture : '/media/{{ my_profile.profile_picture }}'
   }
   make_handlers_for({{ rti_id }}, user_context, proposed_flag);
+  // create_tagging_for('#comment{{ rti_id }}');
 </script>
 

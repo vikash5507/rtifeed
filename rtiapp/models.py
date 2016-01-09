@@ -134,7 +134,7 @@ class RTI_query(models.Model):
 
 class RTI_query_file(models.Model):
 	def __unicode__(self):
-		return self.rti_query
+		return str(self.id)
 
 	rti_query = models.ForeignKey(RTI_query, on_delete = models.CASCADE)
 	query_picture = models.ImageField(upload_to  = 'query_pictures', default = 'query_pictures/default.jpg')
@@ -158,7 +158,7 @@ class RTI_response(models.Model):
 
 class RTI_response_file(models.Model):
 	def __unicode__(self):
-		return self.rti_response
+		return str(self.id)
 
 	rti_response = models.ForeignKey(RTI_response, on_delete = models.CASCADE)
 	response_picture = models.ImageField(upload_to  = 'response_pictures', default = 'response_pictures/default.jpg')
@@ -184,7 +184,7 @@ class Tag(models.Model):
 
 class RTI_tag(models.Model):
 	def __unicode__(self):
-		return self.tag
+		return str(self.id)
 
 	rti_query = models.ForeignKey(RTI_query, on_delete = models.CASCADE)
 	tag = models.ForeignKey(Tag, on_delete = models.CASCADE)
@@ -192,7 +192,7 @@ class RTI_tag(models.Model):
 
 class User_tag(models.Model):
 	def __unicode__(self):
-		return self.tag
+		return self(self.id)
 
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	tag = models.ForeignKey(Tag, on_delete = models.CASCADE)
@@ -218,7 +218,7 @@ class Activity(models.Model):
 
 class Follow_user(models.Model):
 	def __unicode__(self):
-		return self.follower
+		return str(self.id)
 
 	follower = models.ForeignKey(User, on_delete = models.CASCADE, related_name='user_follower')
 	followee = models.ForeignKey(User, on_delete = models.CASCADE, related_name='user_followee')
@@ -227,7 +227,7 @@ class Follow_user(models.Model):
 
 class Follow_state(models.Model):
 	def __unicode__(self):
-		return self.follower
+		return str(self.id)
 
 	follower = models.ForeignKey(User, on_delete = models.CASCADE, related_name='state_follower')
 	followee = models.ForeignKey(State, on_delete = models.CASCADE, related_name='state_followee')
@@ -236,7 +236,7 @@ class Follow_state(models.Model):
 
 class Follow_topic(models.Model):
 	def __unicode__(self):
-		return self.follower
+		return str(self.id)
 
 	follower = models.ForeignKey(User, on_delete = models.CASCADE, related_name='topic_follower')
 	followee = models.ForeignKey(Tag, on_delete = models.CASCADE, related_name='topic_followee')
@@ -244,7 +244,7 @@ class Follow_topic(models.Model):
 
 class Follow_department(models.Model):
 	def __unicode__(self):
-		return self.follower
+		return str(self.id)
 
 	follower = models.ForeignKey(User, on_delete = models.CASCADE, related_name='department_follower')
 	followee = models.ForeignKey(Department, on_delete = models.CASCADE, related_name='department_followee')
@@ -271,7 +271,7 @@ class Notification(models.Model):
 
 class Relevance(models.Model):
 	def __unicode__(self):
-		return self.relevance
+		return str(self.relevance)
 
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	rti_query = models.ForeignKey(RTI_query, on_delete = models.CASCADE)
@@ -282,7 +282,7 @@ class Relevance(models.Model):
 
 class Activity_relevance(models.Model):
 	def __unicode__(self):
-		return self.id
+		return str(self.id)
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	activity = models.ForeignKey(Activity, on_delete = models.CASCADE)
 	relevance = models.FloatField(default = 0.0)
@@ -291,7 +291,7 @@ class Activity_relevance(models.Model):
 
 class RTI_unlinked_files(models.Model):
 	def __unicode__(self):
-		return self.id
+		return str(self.id)
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	rti_hash = models.CharField(max_length = 200)
 	query_picture = models.ImageField(upload_to  = 'query_pictures')
@@ -299,7 +299,7 @@ class RTI_unlinked_files(models.Model):
 
 class Feedback(models.Model):
 	def __unicode__(self):
-		return self.id
+		return self.feedback_text
 	feedback_text = models.TextField()
 	user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
 	entry_date = models.DateTimeField(auto_now_add=True)
@@ -307,7 +307,7 @@ class Feedback(models.Model):
 
 class Message(models.Model):
 	def __unicode__(self):
-		return self.id
+		return self.message_text
 
 	sender = models.ForeignKey(User, on_delete = models.CASCADE, related_name='sender')
 	receiver = models.ForeignKey(User, on_delete = models.CASCADE, related_name='receiver')
@@ -315,6 +315,30 @@ class Message(models.Model):
 	read_status = models.BooleanField(default = False)
 	message_date = models.DateTimeField(auto_now_add=True)
 
+class Blog(models.Model):
+	def __unicode__(self):
+		return str(self.id)
+	user = models.ForeignKey(User, on_delete = models.CASCADE)
+	heading = models.CharField(max_length = 500)
+	sub_heading = models.CharField(max_length = 500, null = True)
+	blog_text = models.TextField()
+	blog_picture = models.ImageField(upload_to  = 'blog_pictures', null = True)
+	entry_date = models.DateTimeField(auto_now_add=True)
+	slug = models.SlugField(null = True, max_length = 500)
+	
+	def save(self, **kwargs):
+		slug_str = self.heading
+		slug_str = unicode(slug_str)
+		self.slug = slugify(slug_str)
+		super(Blog, self).save(**kwargs)
+
+class Faq(models.Model):
+	def __unicode__(self):
+		return str(self.question)
+	question = models.TextField()
+	answer = models.TextField()
+	priority = models.IntegerField(default = 1)
+	entry_date = models.DateTimeField(auto_now_add=True)
 
 from django.db.models.signals import post_delete
 from django.dispatch import receiver

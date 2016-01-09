@@ -77,7 +77,6 @@ def make_profile_context(user):
 
 # 	return render_to_response('Profile/user_list.html', context)
 
-@login_required
 def profile_base_context(request, username):
 	user = models.User.objects.filter(username = username).first()
 	if not user:
@@ -90,23 +89,25 @@ def profile_base_context(request, username):
 	else:
 		context['is_me'] = False
 	context['my_profile'] = newsfeed.get_profile_context(request.user)
-	context['user_follow_status'] = len(models.Follow_user.objects.filter(follower = request.user, followee = user)) > 0
 	context['previous_messages'] = False
+	if not request.user.is_anonymous():
+		context['user_follow_status'] = len(models.Follow_user.objects.filter(follower = request.user, followee = user)) > 0
 	
-	if len(models.Message.objects.filter(sender = user, receiver = request.user)) > 0:
-		context['previous_messages'] = True
-	if len(models.Message.objects.filter(sender = request.user, receiver = user)) > 0:
-		context['previous_messages'] = True
-
+	
+		if len(models.Message.objects.filter(sender = user, receiver = request.user)) > 0:
+			context['previous_messages'] = True
+		if len(models.Message.objects.filter(sender = request.user, receiver = user)) > 0:
+			context['previous_messages'] = True
+	else:
+		context['user_anonymous'] = True
+		
 	return context
 
-@login_required
 def display_user_profile(request, username):
 	context = profile_base_context(request, username)
 	# return HttpResponse(json.dumps(context))
 	return render_to_response('Profile/profile.html', context)
 
-@login_required
 def display_user_details(request, username, details_required):
 	max_size = 10
 	context = profile_base_context(request, username)
@@ -148,7 +149,6 @@ def display_user_details(request, username, details_required):
 
 
 # @login_required
-@login_required
 def get_profile_feed(request):
 	# user = models.User.objects.filter(id = request.GET['user_id']).first()
 	# if not user:
@@ -181,9 +181,8 @@ def get_profile_feed(request):
 				'rti_head_line' : newsfeed.make_head_line(activity, user)
 			})
 
-	return newsfeed.get_feed_for_rtis(rti_list, user)
+	return newsfeed.get_feed_for_rtis(rti_list, request.user)
 
-@login_required
 def get_profile_rtis(request):
 	user = models.User.objects.filter(id = request.GET['user_id']).first()
 	if not user:

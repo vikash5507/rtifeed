@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{% if new_profile %}
+<link rel="stylesheet" type="text/css" href="/static/plugins/bootstrap-tour/css/bootstrap-tour.min.css">
+<script src="/static/plugins/bootstrap-tour/js/bootstrap-tour.min.js"></script>
+{% endif %}
+
 <script src="/static/scripts/load_feed.js"></script>
 
 
 <div class="content-wrapper col-md-8">
 <br>
-<div id = "feedcontainer"></div>
-    
-
+	<div id = "feedcontainer"></div>
 </div>
   
 
@@ -19,4 +22,14 @@
 
 <script src="/static/scripts/feedbox.js"></script>
 
+{% if new_profile %}
+{% include 'Home/welcome_modals.html' %}
+
+<script src="/static/scripts/welcome.js"></script>
+<style type="text/css">
+	.welcome_table tr 
+	{ cursor: pointer; cursor: hand; }
+
+</style>
+{% endif %}
 {% endblock %}

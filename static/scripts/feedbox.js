@@ -87,6 +87,36 @@ function make_handlers_for(rti_id, user_context, pf){
       delete_rti(rti_id, 'response');
     });
   });
+
+  $('.view_likes'+rti_id).each(function(){
+    $(this).unbind('click');
+    $(this).on('click', function(){
+      view_likes(rti_id, 1);
+    });
+  });
+
+}
+
+function view_likes(rti_id, page_no){
+  $.ajax({
+    url : '/view_likes',
+    data : {
+      rti_id : rti_id,
+      page_no : page_no,
+    },
+    dataType : 'json',
+    beforeSend : function(){
+      $('#like_loader' + rti_id).css('display', '');
+    },
+    success : function(data){
+      $('#like_loader' + rti_id).css('display', 'none');
+      $('#like_body' + rti_id).html(data['like_list_html']);
+
+    },
+    error : function(err){
+      console.log(err);
+    }
+  })
 }
 
 function delete_rti(rti_id, rti_type){

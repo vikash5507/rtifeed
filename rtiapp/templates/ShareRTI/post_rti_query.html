@@ -20,6 +20,9 @@
     <div class="box box-primary">
       <div class = "box-header with-border">
         <h4>Share an RTI</h4>
+        <div id = "tds_loader" class = "pull-right" style = "display : none">
+        <img src="/static/dist/img/spinner2.gif" style = "height : 30px; width : 30px;">
+        </div>
       </div>
       <div class="box-body">
         <!-- <p class="login-box-msg"><u>Share a new RTI query</u></p> -->
@@ -41,26 +44,40 @@
                   <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
                 </div>
 
-                <div class="form-group col-md-6">
+               <!--  <div class="form-group col-md-6">
                   <label for="dept_id">Department</label>
                   <select type="text" class="form-control chosen-select" placeholder="Select department" id="dept_id" name = "dept_id">
-                      <!-- <option selected="selected">Select Department</option> -->
+                      
                       {% for dep in departments %}
                         <option value = "{{ dep.id }}"> {{ dep.department_name }}</option>
                       {% endfor %}
                   </select>
-                  <!-- <span class="glyphicon glyphicon-map-marker form-control-feedback"></span> -->
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="authority_name">Authority/PIO</label>
-                  <input type="text" class="form-control" placeholder="Authority/PIO" id="authority_name" name="authority_name" required>
-                  <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
-                </div>
+                  
+                </div> -->
                 <div class="form-group col-md-6">
                   <label for="date_id">Date of filing RTI</label>
                   <input type="date" class="form-control" placeholder="Date of filing RTI" id="date_id" name="rti_date" required>
                 <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
                 </div>
+
+                <div class = "row" style = "padding-left : 20px;">
+                  <div class="form-group col-md-6">
+                    <label for="dep_name">Department</label>
+                    <br>
+                    <input type="text" class="form-control" placeholder="Search or specify a new department" id="department_name" name="department_name" required style = "width : 250px; background-color : white;" >
+                    <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
+                  </div>
+                  
+                  <div class="form-group col-md-6">
+                    <label for="authority_name">Authority/PIO</label>
+                    <br>
+                    <input type="text" class="form-control" placeholder="Authority/PIO" id="authority_name" name="authority_name" required style = "width : 250px; background-color : white;">
+                    <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
+                  </div>
+                </div>
+                
+
+                
             </div>
           </div>
           <div class="row">
@@ -83,7 +100,7 @@
 
         
         <div class="form-group col-md-6">
-            <label for="descr_id">Brief Description of RTI query </label><small>(Max. 40 words)</small>
+            <label for="descr_id">Subject of RTI query </label><small>(Max. 40 words)</small>
             <textarea type="text" class="form-control" placeholder="Brief Description" id="descr_id" name = "description" required></textarea>
             <small id="descr_count">40</small> words
           
@@ -100,8 +117,8 @@
         
               
               
-          
-        <div class="form-group">
+        
+        <div class="col-md-12" style = "padding-bottom : 20px;">
           <button type="submit" class="btn btn-primary btn-block btn-flat" id="post_id">Post</button>
         </div>
         </form>
@@ -114,53 +131,8 @@
   </div><!-- /.content-wrapper -->
 
 <!--</div>-->
+<script src="/static/scripts/sharequery.js"></script>
 <script>
-var myDropzone = new Dropzone("div#rti_images", { 
-    url: "submit_rti_photos",
-    maxFiles : 5,
-    maxFilesize : 2,
-    acceptedFiles : 'image/*, application/pdf',
-    // addRemoveLinks : true,
-    dictDefaultMessage : 'Click to browse OR drag files here'
-});
-
-
-var can_submit = true;
-
-myDropzone.on('sending', function(data, xhr_obj, fd){
-  fd.append('rti_hash', '{{ rti_hash }}');
-  can_submit = false;
-  $('#post_id').prop('disabled', true);
-});
-
-myDropzone.on('complete', function(){
-  can_submit = true;
-  $('#post_id').prop('disabled', false);
-})
-
-$('#govt_id').change(function(){
-  $.ajax({
-    url : '/get_departments_of',
-    data : {
-      gov_id : $('#govt_id').val()
-    },
-    beforeSend : function(){
-      $('#dept_id').html("");
-      $('input').attr('disabled', 'disabled');
-    },
-    success : function(data){
-      // alert(data);
-
-      $('#dept_id').html(data);
-      $('input').removeAttr('disabled');
-      // $(".chosen-select").chosen({disable_search_threshold: 10});
-    },
-    error : function(err){
-      console.log(err);
-    }
-  });
-})
-
 $('#rti_form').on('submit',(function(e) {
     e.preventDefault();
     var formData =  new FormData($(this)[0]);
@@ -180,25 +152,34 @@ $('#rti_form').on('submit',(function(e) {
         $("#rti_form :input").prop("disabled", true);
       },
       success : function(data){
+          $.ajax({
+            url : '/update_relevance_for_activity',
+            data : { activity_id : data.activity_id },
+            success : function(){
+              console.log('done');
+            },
+            error : function(err){
+              console.log(err);
+            }
+          });
           swal({    
-            title: "RTI Query saved successfully!",  
-            text: "Share a response to this RTI?",   
-            type: "success",   
-            showCancelButton: true,   
+            title: "RTI Query saved successfully!",
+            text: "Share a response to this RTI?",
+            type: "success",
+            showCancelButton: true,
             cancelButtonText : 'Not Now',
-            // confirmButtonColor: "#DD6B55",   
             confirmButtonText: "Share Response",
             closeOnConfirm: false,
             closeOnCancel: false
             }, 
-            function(isConfirm){   
+            function(isConfirm){
+              
               if(isConfirm){
-                window.location.href = '/share_rti_response?rti_id=' + data.rti_id;
+                window.location.href = '/share_rti_response?rti_id=' + data.rti_slug;
               }
               else{
                 window.location.href = '/rti_page/' + data.rti_slug;  
               }
-              
             }
           );
       },
@@ -210,75 +191,6 @@ $('#rti_form').on('submit',(function(e) {
       contentType: false,
       processData: false
     });
-    //  $.post(domain_name + 'rtiapp/save_rti_query', formData, function(data) {
-    //     alert(data);
-    // });
 }));
-
-$(".textarea").wysihtml5();
-
-
-  $("#descr_id").on('keyup', function() {
-        var words = this.value.match(/\S+/g).length;
-        if (words > 40) {
-            // Split the string on first 200 words and rejoin on spaces
-            var trimmed = $(this).val().split(/\s+/, 40).join(" ");
-            // Add a space at the end to keep new typing making new words
-            $(this).val(trimmed + " ");
-        }
-        else {
-            // $('#display_count').text(words);
-            $('#descr_count').text(40-words);
-        }
-    });
-  </script>
-
-<script>
-//***************************************Script to get tag from database*******************************////////////
-var sampletag=[];
-$.ajax({
-    url : '/get_rti_tag',
-    dataType:'json',
-    data : {
-    },
-    success : function(data){
-      for (var i=0;i<data.length;i++)
-      {
-        sampletag.push(data[i]['tag_name']);
-      }
-
-    },
-    error : function(err){
-      console.log(err);
-    }
-  });
-var sampleTags = sampletag;
-//-------------------------------
-// Preloading data in markup
-//-------------------------------
-$('#rti_tags').tagit({
-    availableTags: sampleTags, // this param is of course optional. it's for autocomplete.
-    // configure the name of the input field (will be submitted with form), default: item[tags]
-    itemName: 'item',
-    fieldName: 'tags'
-});
-
-if(typeof(String.prototype.trim) === "undefined")
-{
-    String.prototype.trim = function() 
-    {
-        return String(this).replace(/^\s+|\s+$/g, '');
-    };
-}
-
-$(document).ready(function(){
-  $('.wysihtml5-sandbox').contents().find('body').on("keydown",function(e) {
-    if(e.which == 9){
-      e.preventDefault();
-      e.returnValue = false;
-      $('#descr_id').focus();
-    }
-  });
-});
 </script>
 {% endblock %}

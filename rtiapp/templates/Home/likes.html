@@ -1,0 +1,21 @@
+<div id="query_liked_by{{ rti_id }}" class="modal" role="dialog"  data-backdrop="false" style="padding-top : 50px;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">People who liked this</h4>
+      </div>
+      <div class="modal-body" >
+        <center>
+        <img id = "like_loader{{ rti_id }}" height="40" width = "40" src = "/static/dist/img/spinner.gif"></img>
+        </center>
+        <div id = "like_body{{ rti_id }}">
+          
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

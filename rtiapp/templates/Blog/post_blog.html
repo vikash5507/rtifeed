@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+{% block content %}
+<link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<script src="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<link href="/static/dist/css/jquery.tagit.css" rel="stylesheet" type="text/css">
+<link href="/static/dist/css/tagit.ui-zendesk.css" rel="stylesheet" type="text/css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/plugins/tagging/tag-it.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script src="/static/plugins/dropzone/dropzone.js"></script>
+<link href="/static/dist/css/dropzone.css" rel="stylesheet" type="text/css">
+
+
+
+ <div class="content-wrapper col-md-8"> 
+  <!-- <div class = "col-md-12"> -->
+    <br>
+    <div class="box box-primary">
+      <div class = "box-header with-border">
+        <h4>Blog Post</h4>
+      </div>
+      <div class="box-body">
+        <!-- <p class="login-box-msg"><u>Share a new RTI query</u></p> -->
+        <form action="" method="post" id = "blog_form">
+        <div class="form-group col-md-12">
+          <label for="Images">Upload Images/PDF If any (max 5)</label>
+            <input type="file" class="form-control" data-show-preview="false" accept="image/*" id="blog_image" name = "photo">
+        </div>
+          <div class="form-group col-md-12">
+            <label for="descr_id">Blog Heading</label><small>(Max. 40 words)</small>
+            <textarea type="text" class="form-control" placeholder="Blog Heading" id="blog_head" name = "blog_head" required></textarea>
+            <small id="descr_count">40</small> words
+          
+        </div>
+        <div class="form-group col-md-12">
+            <label for="query_id">Blog Detail text</label>
+            <textarea type="text" class="form-control textarea" rows="8"  placeholder="Blog detail Text" id="blog_text" name = "blog_text" required></textarea>
+          <!-- <span class="glyphicon glyphicon-envelope form-control-feedback"></span> -->
+        </div>
+
+        
+      
+        
+        <div class="form-group col-md-12">
+            <label for="Tags">Blog Tags<i> (Type Slowly for Auto suggestion...)</i></label>
+             <ul id="blog_tags">
+              <!-- Existing list items will be pre-added to the tags. -->
+            </ul>
+          <!-- <span class="glyphicon glyphicon-envelope form-control-feedback"></span> -->
+        </div>
+        
+        
+              
+              
+          
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block btn-flat" id="post_id">Post</button>
+        </div>
+        </form>
+        
+      </div><!-- /.box-body -->
+    </div><!-- /.box -->
+
+
+    <!-- </div> -->   
+  </div><!-- /.content-wrapper -->
+
+<!--</div>-->
+<script>
+// var myDropzone = new Dropzone("div#rti_images", { 
+//     url: "submit_rti_photos",
+//     maxFiles : 5,
+//     maxFilesize : 2,
+//     acceptedFiles : 'image/*, application/pdf',
+//     // addRemoveLinks : true,
+//     dictDefaultMessage : 'Click to browse OR drag files here'
+// });
+
+
+// var can_submit = true;
+
+// myDropzone.on('sending', function(data, xhr_obj, fd){
+//   fd.append('rti_hash', '{{ rti_hash }}');
+//   can_submit = false;
+//   $('#post_id').prop('disabled', true);
+// });
+
+// myDropzone.on('complete', function(){
+//   can_submit = true;
+//   $('#post_id').prop('disabled', false);
+// })
+
+
+
+$('#blog_form').on('submit',(function(e) {
+    e.preventDefault();
+    var formData =  new FormData($(this)[0]);
+    // alert(formData['query_text']);
+    
+    var tags_data=$("#blog_tags").tagit('assignedTags');
+    tags_data = JSON.stringify(tags_data);
+    formData.append('tags', tags_data);
+    
+    $.ajax({
+      url : '/post_blog',
+      type : 'POST',
+      data : formData,
+      beforeSend: function(){
+        $('#post_id').html("Please wait..");
+        $("#blog_form :input").prop("disabled", true);
+      },
+      success : function(data){
+          swal('done!', 'Blog saved', 'success');
+          // swal({   
+          //   title: "Blog saved successfully!",  
+          //   text: "Share a response to this RTI?",   
+          //   type: "success",   
+          //   showCancelButton: true,   
+          //   cancelButtonText : 'Not Now',
+          //   // confirmButtonColor: "#DD6B55",   
+          //   confirmButtonText: "Share Response",
+          //   closeOnConfirm: false,
+          //   closeOnCancel: false
+          //   }, 
+          //   function(isConfirm){   
+          //     if(isConfirm){
+          //       window.location.href = '/share_rti_response?rti_id=' + data.rti_id;
+          //     }
+          //     else{
+          //       window.location.href = '/rti_page/' + data.rti_slug;  
+          //     }
+              
+          //   }
+          // );
+      },
+      error : function(data){
+          swal('Oops..','Something Went wrong', 'error');
+          console.log(JSON.stringify(data));
+          // $('#post_id').html("Post");
+      },
+      contentType: false,
+      processData: false
+    });
+    //  $.post(domain_name + 'rtiapp/save_rti_query', formData, function(data) {
+    //     alert(data);
+    // });
+}));
+
+$(".textarea").wysihtml5();
+
+
+  $("#blog_text").on('keyup', function() {
+        var words = this.value.match(/\S+/g).length;
+        if (words > 40) {
+            // Split the string on first 200 words and rejoin on spaces
+            var trimmed = $(this).val().split(/\s+/, 40).join(" ");
+            // Add a space at the end to keep new typing making new words
+            $(this).val(trimmed + " ");
+        }
+        else {
+            // $('#display_count').text(words);
+            $('#descr_count').text(40-words);
+        }
+    });
+  </script>
+
+<script>
+//***************************************Script to get tag from database*******************************////////////
+var sampletag=[];
+$.ajax({
+    url : '/get_rti_tag',
+    dataType:'json',
+    data : {
+    },
+    success : function(data){
+      for (var i=0;i<data.length;i++)
+      {
+        sampletag.push(data[i]['tag_name']);
+      }
+
+    },
+    error : function(err){
+      console.log(err);
+    }
+  });
+var sampleTags = sampletag;
+//-------------------------------
+// Preloading data in markup
+//-------------------------------
+$('#blog_tags').tagit({
+    availableTags: sampleTags,
+    itemName: 'item',
+    fieldName: 'tags'
+});
+
+if(typeof(String.prototype.trim) === "undefined")
+{
+    String.prototype.trim = function() 
+    {
+        return String(this).replace(/^\s+|\s+$/g, '');
+    };
+}
+
+$(document).ready(function(){
+  $('.wysihtml5-sandbox').contents().find('body').on("keydown",function(e) {
+    if(e.which == 9){
+      e.preventDefault();
+      e.returnValue = false;
+      $('#descr_id').focus();
+    }
+  });
+});
+
+</script>
+{% endblock %}

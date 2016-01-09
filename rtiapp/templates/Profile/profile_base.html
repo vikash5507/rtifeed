@@ -44,20 +44,22 @@
                 <b><a href="/profile/{{ username }}/rtis">RTIs</a></b> <a class="pull-right" id = 'num_following'>{{ num_rtis }}</a>
               </li>
             </ul>
-            {% if not is_me %}
-              {% if not user_follow_status %}
-                <a href="#" class="btn btn-primary btn-block user_follow_btn" id = "follow_btn"><b>Follow</b></a>
-              {% else %}
-                <a href="#" class="btn btn-danger btn-block user_unfollow_btn" id = "unfollow_btn"><b>Unfollow</b></a>
-              {%  endif %}
-              <br>
-              {% if previous_messages %}
-                <a href="/messages/{{ username }}"><b>MESSAGES</b></a>
-              {% else %}
-                <a href="/messages/{{ username }}" id = "messages_link" style = "display : none"><b>MESSAGES</b></a>
-                <a href="#!" id = "message_modal_link" data-toggle="modal" data-target="#messagemodal"><b>MESSAGE</b></a>
-              {% endif %}
+            {% if not user_anonymous %}
+              {% if not is_me %}
+                {% if not user_follow_status %}
+                  <a href="#" class="btn btn-primary btn-block user_follow_btn" id = "follow_btn"><b>Follow</b></a>
+                {% else %}
+                  <a href="#" class="btn btn-danger btn-block user_unfollow_btn" id = "unfollow_btn"><b>Unfollow</b></a>
+                {%  endif %}
+                <br>
+                {% if previous_messages %}
+                  <a href="/messages/{{ username }}"><b>MESSAGES</b></a>
+                {% else %}
+                  <a href="/messages/{{ username }}" id = "messages_link" style = "display : none"><b>MESSAGES</b></a>
+                  <a href="#!" id = "message_modal_link" data-toggle="modal" data-target="#messagemodal"><b>MESSAGE</b></a>
+                {% endif %}
 
+              {% endif %}
             {% endif %}
           </div><!-- /.box-body -->
         </div><!-- /.box -->
@@ -68,11 +70,13 @@
             <h3 class="box-title">About Me</h3>
           </div><!-- /.box-header -->
           <div class="box-body">
+            {% if not user_anonymous %}
             <strong><i class="fa fa-book margin-r-5"></i>Email</strong>
+            
             <p class="text-muted">
               {{ email }}
             </p>
-
+            {% endif %}
             <hr>
 
             <strong><i class="fa fa-map-marker margin-r-5"></i> State</strong>
@@ -143,10 +147,10 @@
   var myDropzone = new Dropzone("div#update_profile_photo", { 
     url: "/submit_profile_photo",
     maxFiles : 1,
-    maxFilesize : 2,
+    maxFilesize : 5,
     acceptedFiles : 'image/*',
     // addRemoveLinks : true,
-    dictDefaultMessage : 'Click to browse OR drag files here'
+    dictDefaultMessage : 'Click to browse OR drag file here'
   });
 
   myDropzone.on('complete', function(){

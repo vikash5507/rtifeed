@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content-wrapper col-md-8">
+{% for tds in tds_list %}
+<a href="{{ tds.tds_url }}">{{ tds.tds_url }}</a>
+<br>
+{% endfor %}
+
+Page No
+{% for page in page_list %}
+<a href="{{ page.url }}">{{ page.page_no }}</a>
+{% endfor %}
+</div>
+{% endblock %}

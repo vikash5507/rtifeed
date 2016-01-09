@@ -32,11 +32,13 @@
   </head>
   <body class="hold-transition login-page">
 
+
     <div class="login-box" style = "padding :0px; margin-bottom : 0px; margin-top : 50px;">
-      <div class="login-logo">
+      <div class="login-logo" style="font-size : 60px;">
+        <img src="/static/dist/img/rtiblack.png" style = "height:120px;margin-top : -20px;">
         <b>RTI</b>Feed
       </div><!-- /.login-logo -->
-      <div class="login-box-body" id="sign_in">
+      <div class="login-box-body" id="sign_in" style = "">
 
         <p class="login-box-msg">Welcome to RTIFeed</p>
         {% if error %}
@@ -55,11 +57,8 @@
           </div>
           <div class="row">
             <div class="col-xs-8">
-              <!-- <div class="checkbox icheck">
-                <label>
-                  <input type="checkbox"> Remember Me
-                </label>
-              </div> -->
+              <a href="#" id = "forgot_password">I forgot my password</a><br>
+              <a href="#" class="text-center" onclick="switchVisible();" >Register a new membership</a>
             </div><!-- /.col -->
             <div class="col-xs-4">
               <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
@@ -73,12 +72,24 @@
           <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}" class="btn btn-block btn-social btn-twitter btn-flat"><i class="fa fa-twitter"></i> Sign in using Twitter</a>
         </div><!-- /.social-auth-links -->
 
-        <a href="#" id = "forgot_password">I forgot my password</a><br>
-        <a href="#" class="text-center" onclick="switchVisible();" >Register a new membership</a>
-
+        <hr>
+        <div style = "padding-left : 20px; padding-bottom:20px;">
+          <div class = "col-md-3">
+            <a href="/about">About</a>
+          </div>
+          <div class = "col-md-3">
+            <a href="/about#team">Team</a>
+          </div>
+          <div class = "col-md-3">
+            <a href="/about#contact">Contact</a>
+          </div>
+          <div class = "col-md-3">
+            <a href="/faq">FAQ</a>
+          </div>
+        </div>
       </div><!-- /.login-box-body -->
 
-      <div class="login-box-body" id="sign_up" style="display:none">
+      <div class="login-box-body" id="sign_up" style="display:none;">
         <p class="login-box-msg">Sign up</p>
         <form action="" method="post" onsubmit="return validate_signup_form()" id = "signup_form">
           
@@ -126,8 +137,9 @@
         <a href="#!" class="text-center" onclick="switchVisible();">Sign In</a>
 
       </div><!-- /.login-box-body -->
-
+        
     </div><!-- /.login-box -->
+    
 
     <!-- jQuery 2.1.4 -->
     <script src="/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
@@ -135,100 +147,11 @@
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <!-- iCheck -->
     <script src="/static/plugins/iCheck/icheck.min.js"></script>
-    <script>
-      $(function () {
-        $('input').iCheck({
-          checkboxClass: 'icheckbox_square-blue',
-          radioClass: 'iradio_square-blue',
-          increaseArea: '20%' // optional
-        });
-      });
-
-      function switchVisible(){
-        if(document.getElementById('sign_in')){
-          if(document.getElementById('sign_in').style.display == 'none'){
-            document.getElementById('sign_in').style.display = 'block';
-            document.getElementById('sign_up').style.display = 'none';
-          }
-          else{
-            document.getElementById('sign_in').style.display = 'none';
-            document.getElementById('sign_up').style.display = 'block'; 
-          }
-        }
-      }
-
-      function validate_signup_form(){
-        
-      }
-
-      $('#signup_form').on('submit', function(e){
-        var password = $('#password').val();
-        var re_password = $('#re_password').val();
-        if(password != re_password){
-          swal('Oops', 'Passwords do not match', 'error');
-          return false;
-        }
-        
-        e.preventDefault();
-        var formData = new FormData($(this)[0]);
-        
-        $.ajax({
-          url : '/email_signup',
-          type : 'POST',
-          data : formData,
-          dataType : 'json',
-          beforeSend : function(){
-            $('#signup_form :input').prop("disabled", true);
-            // alert('HMM');
-          },
-          success : function(data){
-            swal(data['message'], data['message_long'], data['message_type']);
-            switchVisible();
-          },
-          error : function(err){
-            console.log(JSON.stringify(err));
-          },
-          contentType : false,
-          processData : false
-        });
-      });
-
-      $('#forgot_password').on('click', function(){
-        swal({   
-          title: "Please enter your email address and we will send you a new password",   
-          // text: "Write something interesting:",   
-          type: "input",   
-          showCancelButton: true,   
-          closeOnConfirm: false,   
-          animation: "slide-from-top",
-          showLoaderOnConfirm : true,   
-          inputPlaceholder: "Email" },
-          function(inputValue){
-            if (inputValue === false) 
-              return false;    
-            if (inputValue === "") {     
-              swal.showInputError("Please specify an email address");     
-              return false;
-            }      
-            $.ajax({
-              url : '/forgot_password',
-              data : {
-                'email' : inputValue
-              },
-              dataType : 'json',
-              success : function(data){
-                swal(data['message'], data['message_long'], data['message_type']);
-              },
-              error : function(){
-                swal('Oops', 'Something went wrong', 'error');
-              }
-            });
-          });
-      });
-    </script>
+    <script src="/static/scripts/login.js"></script>
+    
     <script src="/static/plugins/backstrech/backstrech.min.js"></script>
     <script type="text/javascript">
-      $.backstretch("/static/dist/img/background.jpg");
+      $.backstretch("/static/dist/img/gandhi2.jpg");
     </script>
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

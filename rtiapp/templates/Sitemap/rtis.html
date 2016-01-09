@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content-wrapper col-md-8">
+
+{% for rti in rti_list %}
+<a href="{{ rti.rti_url }}">{{ rti.rti_url }}</a>
+<br>
+
+{% endfor %}
+Page No
+{% for page in page_list %}
+<a href="{{ page.url }}">{{ page.page_no }}</a>
+{% endfor %}
+
+</div>
+{% endblock %}

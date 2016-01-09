@@ -107,13 +107,42 @@ def get_departments_of(request):
 	else:
 		state = models.State.objects.filter(id = request.GET['gov_id']).first()
 		departments = models.Department.objects.filter(state = state)
-		
+	
+	dep_list = []
+	for department in departments:
+		dep_list.append(department.department_name)
+
 	context= {
-		'departments' : departments
+		'departments' : render_to_response('ShareRTI/departments.html', { 'departments' : departments}).content,
+		'department_list' : dep_list
 	}
 
+	return HttpResponse(json.dumps(context))
+
+@login_required
+def get_authorities_of(request):
+	gov_id = request.GET['gov_id']
+	department_name = request.GET['department_name']
+	print "whhhhhhh", gov_id, department_name
+	if int(gov_id) == 0:
+		department = models.Department.objects.filter(department_type = 'centre', department_name = department_name).first()
+	else:
+		state = models.State.objects.filter(id = request.GET['gov_id']).first()
+		department = models.Department.objects.filter(state = state, department_name = department_name).first()
 	
-	return render_to_response('ShareRTI/departments.html', context);
+	authorities = models.Authority.objects.filter(department = department)
+	
+	authority_list = []
+	for authority in authorities:
+		authority_list.append(authority.authority_name)
+
+	context= {
+		'authority_list' : authority_list
+	}
+	
+	return HttpResponse(json.dumps(context))
+	
+	# return render_to_response('ShareRTI/departments.html', context);
 
 @login_required
 def get_rti_tag(request):
@@ -140,8 +169,27 @@ def post_rti_query(request):
 
 		description= request.POST['description']
 		authority_name=request.POST['authority_name']
-		dept_id=request.POST['dept_id']
+		# dept_id=request.POST['dept_id']
+		state_id = int(request.POST['govt_id'])
+		department_name = request.POST['department_name'].strip()
 		
+		if state_id == 0:
+			department = models.Department.objects.filter(state = None, department_name = department_name).first()
+			if not department:
+				department = models.Department()
+				department.department_name = department_name
+				department.department_type = 'centre'
+				department.save()
+		else:
+			state = models.State.objects.filter(id = state_id).first()
+			department = models.Department.objects.filter(state = state, department_name = department_name).first()
+			if not department:
+				department = models.Department()
+				department.state = state
+				department.department_name = department_name
+				department.department_type = 'state'
+				department.save()
+
 		proposed = False
 		if 'proposed' in request.POST:
 			proposed = True
@@ -150,11 +198,11 @@ def post_rti_query(request):
 		if 'rti_date' in request.POST:
 			rti_file_date = request.POST['rti_date']
 		
-		authority = models.Authority.objects.filter(authority_name = authority_name).first()
+		authority = models.Authority.objects.filter(authority_name = authority_name, department = department).first()
 		if not authority:
 			authority = models.Authority()
 			authority.authority_name = authority_name
-			authority.department_id = dept_id
+			authority.department = department
 			authority.save()
 
 		rti_query=models.RTI_query()
@@ -177,7 +225,7 @@ def post_rti_query(request):
 			rti_query.query_type = 'state'
 		
 		rti_query.authority = authority
-		rti_query.department_id = dept_id
+		rti_query.department = department
 		rti_query.proposed = proposed
 
 		rti_query.save()
@@ -212,11 +260,12 @@ def post_rti_query(request):
 		activity.activity_type = 'rti_query'
 		activity.save()
 
-		activity_relevance.update_activity_relevance(activity)
+		# activity_relevance.update_activity_relevance(activity)
 
 		context = {
 			'rti_id' : json.dumps(rti_query.id),
-			'rti_slug' : rti_query.slug
+			'rti_slug' : rti_query.slug,
+			'activity_id' : activity.id
 		}
 
 		return HttpResponse(json.dumps(context))
@@ -256,11 +305,12 @@ def post_rti_response(request):
 		activity.activity_type = 'rti_response'
 		activity.save()
 
-		activity_relevance.update_activity_relevance(activity)
+		# activity_relevance.update_activity_relevance(activity)
 
 		context = {
 			'rti_id' : json.dumps(rti_query.id),
-			'rti_slug' : rti_query.slug
+			'rti_slug' : rti_query.slug,
+			'activity_id' : activity.id
 		}
 
 		return HttpResponse(json.dumps(context))

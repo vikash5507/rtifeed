@@ -10,21 +10,28 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from django.http import Http404
+from rtiapp.views import views_profile
+from rtiapp.rtiengine import welcome
 
 @login_required
 def home_page(request):
 
 	user = request.user
 	user_profile = models.User_profile.objects.filter(user = user).first()
-	if user_profile.profile_status == 'incomplete':
-		user_profile.profile_status = 'complete'
-		user_profile.save()
-		activity_relevance.make_initial_relevance(user)
-		return HttpResponseRedirect('/profile/' + user.username)	
 	context = {}
+	context['new_profile'] = False
+	print "profile_status", user_profile.profile_status
+	if user_profile.profile_status == 'incomplete':
+		context['new_profile'] = True
+		context['state_list'] = welcome.get_states_list()
+		context['user_list'] = welcome.get_trending_users()
 	context['my_profile'] = newsfeed.get_profile_context(user)
 	context['full_feed'] = True
 	return render_to_response('Home/home.html', context)
+
+@login_required
+def save_user_preference(request):
+	return welcome.save_user_preference(request)
 
 @login_required
 def proposed_rtis(request):
@@ -239,3 +246,31 @@ def notification_page(request):
 def mark_all_notifications(request):
 	notification.mark_all_notifications(request.user)
 	return HttpResponse('OK')
+
+def view_likes(request):
+	rti_id = request.GET['rti_id']
+	rti_query = models.RTI_query.objects.filter(id = rti_id).first()
+	likes = models.Activity.objects.filter(rti_query = rti_query, activity_type = 'like').order_by('-entry_date')
+	like_list = []
+	for like in likes:
+		like_list.append(views_profile.make_profile_context(like.user))
+
+	print like_list
+
+	like_list_html = render_to_response('Home/like_list.html', {'like_list' : like_list}).content
+	
+	context = {
+		'like_list_html' : like_list_html
+	}
+	
+	return HttpResponse(json.dumps(context))
+
+@login_required
+def update_relevance_for_activity(request):
+	activity_id = int(request.GET['activity_id'])
+	activity = models.Activity.objects.filter(id = activity_id).first()
+	if activity:
+		activity_relevance.update_activity_relevance(activity)
+	
+	return HttpResponse('done')
+

@@ -2,6 +2,7 @@ from rtiapp import models
 from datetime import timedelta,datetime
 import math
 
+
 def calc_relevance(user, activity):
 	rti_query = activity.rti_query
 	activity_user = activity.user
@@ -53,7 +54,11 @@ def calc_relevance(user, activity):
 	time_decay = (datetime.now().replace(tzinfo=None) - activity_entry_date.replace(tzinfo=None)  ).total_seconds() 
 	time_decay = math.log(time_decay / 60.0 / 60.0)
 
-	relevance = (fact_all + 10) / time_decay
+	date = datetime.strptime('26 Sep 2012', '%d %b %Y')
+	base_date = date.replace(hour=11, minute=59)
+	time_elapsed = (activity_entry_date.replace(tzinfo=None) - base_date.replace(tzinfo=None) ).total_seconds()
+	time_elapsed = time_elapsed / 60.0 / 60.0 / 24.0 / 30.0
+	relevance = (fact_all + 10) * time_elapsed
 	activity_relevance = models.Activity_relevance.objects.filter(user = user, activity = activity).first()
 	if not activity_relevance:
 		activity_relevance = models.Activity_relevance()
