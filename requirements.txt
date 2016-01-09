@@ -1,5 +1,5 @@
 Django==1.7.5
-django-haystack==2.4.0
+django-haystack==2.4.1
 django-smtp-ssl==1.0
 django-social-share==0.3.0
 gevent==1.0.2
