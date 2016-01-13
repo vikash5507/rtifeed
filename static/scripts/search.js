@@ -68,7 +68,17 @@ $(document).ready(function() {
     }
   });
 
+  blog_engine = new Bloodhound({
+    identify: function(o) { return o.search_link; },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('blog_name', 'blog_name'),
+    dupDetector: function(a, b) { return a.search_link === b.search_link; },
 
+    remote: {
+      url: '/search_model?query=%QUERY&model_type=blog&search_type=autocomplete&data_type=json',
+      wildcard: '%QUERY'
+    }
+  });
 
   // ensure default users are read on initialization
   // engine.get('1090217586', '58502284', '10273252', '24477185')
@@ -167,6 +177,17 @@ $(document).ready(function() {
         }
         // empty: empty
         }
+    },
+    {
+      source: blog_engine,
+      displayKey: 'blog_name',
+      templates: {
+        // header: '<h3 style = "background-color:white;">RTI</h3>',
+        suggestion: function(data){
+          return make_blog_template(data);
+        }
+        // empty: empty
+        }
     }
 
 
@@ -204,6 +225,20 @@ function make_user_template(data){
 
 
   return user_template;
+}
+
+function make_blog_template(data){
+
+  var blog_template = '<div class="ProfileCard u-cf">'+
+    '<img class="ProfileCard-avatar" src="'+ data.blog_picture +'">'+
+    '<a href = "' + data.search_link + '"> </a>'+
+    '<div class="ProfileCard-details">'+
+      '<div class="ProfileCard-realName"><a href = "' + data.search_link + '">  '+ data.blog_heading +' </a></div>'+
+    '</div>'+
+  '</div>';
+
+
+  return blog_template;
 }
 
 function make_user_msg_template(data){
@@ -249,7 +284,7 @@ function make_tds_template(data, tds_type){
   if(tds_type == 'department')
     tds_image = '<img class="ProfileCard-avatar" src="/static/dist/img/department.jpg">'
   else if(tds_type == 'state')
-    tds_image = '<img class="ProfileCard-avatar" src="/static/dist/img/department.jpg">'
+    tds_image = '<img class="ProfileCard-avatar" src="/static/dist/img/state.jpg">'
   else if(tds_type == 'topic')
     tds_image = '<img class="ProfileCard-avatar" src="/static/dist/img/topic.jpg">'
 

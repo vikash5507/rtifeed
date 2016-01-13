@@ -111,7 +111,7 @@ def make_notification_context(notification):
 		context['notification_text'] = ' followed you'
 	user_profile = models.User_profile.objects.filter(user = not_user).first()
 	if user_profile:
-		context['notification_image'] = '/media/' + str(user_profile.profile_picture)
+		context['notification_image'] = user_profile.profile_picture.url
 	return context
 
 def make_notification_html(notification):

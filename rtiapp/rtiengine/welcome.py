@@ -22,15 +22,10 @@ def get_states_list():
 
 def get_trending_users():
 	users = models.User.objects.all()
-	follower_list = []
-	for user in users:
-		num_followers = len(models.Follow_user.objects.filter(followee = user))
-		follower_list.append((-num_followers, user))
-	follower_list.sort()
-	follower_list = follower_list[0:10]
+	user_profiles = models.User_profile.objects.order_by('-reputation')[0:10]
 	context = []
-	for f in follower_list:
-		context.append(views_profile.make_profile_context(f[1]))
+	for u in user_profiles:
+		context.append(views_profile.make_profile_context( u.user ))
 	return context
 
 def save_user_preference(request):
@@ -70,7 +65,8 @@ def save_user_preference(request):
 		fu.follower = request.user
 		fu.followee = f_user
 		fu.save()
-
+		notification.make_follow_notification(fu)
+		
 		activities = models.Activity.objects.filter(user = f_user).order_by('-entry_date')
 		if len(activities) > 0:
 			activities = activities[0:50]

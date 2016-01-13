@@ -53,6 +53,18 @@
       <meta property="og:image"         content="{{ rti_image_url }}" />
       {% endif %}
     {% endif %}
+    
+
+    {% if blog %}
+      <meta property="og:title"         content="RTIFeed" />
+      <meta property="og:description"   content="{{ blog.blog_heading }}" />
+      <meta property="og:image"         content="{{ blog.blog_image }}" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:site" content="@RTIFeed" />
+      <meta name="twitter:title" content="RTIFeed">
+      <meta name="twitter:description" content="{{ blog.blog_heading }}">
+      <meta name="twitter:image" content="{{ blog.blog_image }}">
+    {% endif %}
     <script src="/static/plugins/chosen/chosen.jquery.min.js"></script>
     <script src="/static/scripts/tagpeople.js"></script>
     <link href="/static/plugins/chosen/chosen.min.css" rel="stylesheet" type="text/css">
@@ -198,14 +210,14 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu" id = "tour_profile">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="/media/{{ my_profile.profile_picture }}" class="user-image display_pic" alt="User Image" class = "display_pic">
+                  <img src="{{ my_profile.profile_picture.url }}" class="user-image display_pic" alt="User Image" class = "display_pic">
                   <span class="hidden-xs rti_name">{{ my_profile.name_user }}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
                     
-                      <img src="/media/{{ my_profile.profile_picture }}" class="img-circle display_pic" alt="User Image" class = "display_pic">
+                      <img src="{{ my_profile.profile_picture.url }}" class="img-circle display_pic" alt="User Image" class = "display_pic">
                     
                     <p class = "rti_name">
                     

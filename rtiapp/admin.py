@@ -9,4 +9,7 @@ admin.site.register(models.Department)
 admin.site.register(models.Tag)
 admin.site.register(models.Feedback)
 admin.site.register(models.Faq)
+admin.site.register(models.Blog)
+admin.site.register(models.Activity)
+admin.site.register(models.Email_user)
 # Register your models here.

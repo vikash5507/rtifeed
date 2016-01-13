@@ -11,7 +11,7 @@ var myDropzone = new Dropzone("div#rti_images", {
 var can_submit = true;
 
 myDropzone.on('sending', function(data, xhr_obj, fd){
-  fd.append('rti_hash', '{{ rti_hash }}');
+  fd.append('rti_hash', rti_hash);
   can_submit = false;
   $('#post_id').prop('disabled', true);
 });

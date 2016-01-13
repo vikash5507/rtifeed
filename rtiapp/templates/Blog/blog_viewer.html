@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content-wrapper">
+<section class = "content">
+	<br>
+	<div class = "row">
+{% if single_blog %}
+
+	<div class="col-md-12">
+		<div class="box box-widget widget-user" >
+			<div class="box-header with-border">
+				<div class="user-block">
+					<!-- <blockquote> -->
+						<center>
+							<a href="{{ blog.blog_url }}">
+								<h3 class="username" style="font-size:30px; margin-left : 0px;"> Blog Heading </h3>
+							</a>
+							<small>{{ blog.blog_date }}</small>
+							<h5 style=""><a href="/profile/{{ blog.blog_user_username }}">{{ blog.blog_user_nameuser }}</a></h5>
+							<hr style="width:200px;color:blue;margin-bottom:0px;border-top:3px solid #3c8cBB;">
+						</center>
+					<!-- </blockquote>	 -->
+
+				</div>
+
+			</div>
+			<div class="box-body">
+
+					{% if blog.blog_image %}
+					<center>
+					    <img class="img-responsive pad" src="{{ blog.blog_image }}" style="height:400px;" alt="Photo">
+					</center>
+					{% endif %}
+					<div class = "col-md-8 col-md-offset-2" style = "font-size : 20px; text-align:justify;">
+					{{ blog.blog_text | safe }}
+					</div>
+
+
+			</div>
+			<div class="box-footer">
+
+				<div class="col-md-6 col-md-offset-3">
+					<div class="col-xs-6 border-right">
+						<center><a href="https://www.facebook.com/sharer/sharer.php?u=rtifeed.com{{ blog.blog_url }}" class="btn-team-social btn-team"><i class="fa fa-lg fa-facebook"></i> Share</a></center>
+					</div>
+					<div class="col-xs-6 border-right">
+						<center><a href="https://twitter.com/intent/tweet?text={{ blog.blog_heading }}&url=http://rtifeed.com{{ blog.blog_url }}" class="btn-team-social btn-team"><i class="fa fa-lg fa-twitter"></i> Tweet</a></center>
+					</div>
+					<!-- <div class="col-xs-3 border-right">
+						<center><a href="#" class="btn-team-social btn-team"><i class="fa fa-lg fa-google"></i></a></center>
+					</div>
+					<div class="col-xs-3 ">
+						<center><a href="#" class="btn-team-social btn-team"><i class="fa fa-lg fa-linkedin"></i></a></center>
+					</div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+</div>
+	<br>
+<div id="fb-root"></div>
+
+
+
+<br>
+<br>
+</section>
+</div>
+
+{% endblock %}

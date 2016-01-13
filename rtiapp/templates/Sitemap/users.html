@@ -2,15 +2,17 @@
 {% block content %}
 <div class="content-wrapper col-md-8">
 
-
-{% for user in user_list %}
-<a href="{{ rti.rti_url }}">{{ user.user_url }}</a>
-<br>
-
-{% endfor %}
 Page No
 {% for page in page_list %}
 <a href="{{ page.url }}">{{ page.page_no }}</a>
 {% endfor %}
+
+<br>
+{% for user in user_list %}
+<a href="{{ rti.rti_url }}">{{ user.name_user }}</a>
+<br>
+
+{% endfor %}
+
 </div>
 {% endblock %}

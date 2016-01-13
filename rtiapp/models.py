@@ -38,6 +38,9 @@ class Address(models.Model):
 	update_date = models.DateTimeField(auto_now_add=True)
 
 class Email_user(models.Model):
+	def __unicode__(self):
+		return self.email
+
 	email = models.CharField(max_length = 200, primary_key = True)
 	first_name = models.CharField(max_length = 200)
 	last_name = models.CharField(max_length = 200)
@@ -51,16 +54,16 @@ class User_profile(models.Model):
 
 	user = models.OneToOneField(User, primary_key = True)
 	profile_picture = models.ImageField(upload_to  = 'profile_pictures', default = 'profile_pictures/default.jpg')
-	reputation = models.FloatField(default = 10)
+	reputation = models.FloatField(default = 0)
 	gender = models.CharField(max_length = 200, null = True)
 	date_of_birth = models.DateTimeField(null = True)
-	address = models.ForeignKey(Address, null = True)
 	bio_description = models.CharField(max_length = 200, default = "")
 	entry_date = models.DateTimeField()
 	update_date = models.DateTimeField(auto_now_add=True)
 	email_signed_up = models.BooleanField(default = False)
 	verification_url = models.CharField(max_length = 500, null = True)
 	profile_status = models.CharField(max_length = 200, default = 'incomplete')
+	is_blogger = models.BooleanField(default = False)
 	# email_password = models.CharField(max_length = 200, null = True)
 
 class Department(models.Model):
@@ -130,7 +133,13 @@ class RTI_query(models.Model):
 		slug_str = unicode(slug_str)
 		print "slug", slug_str
 		self.slug = slugify(slug_str)
+		user_profile = User_profile.objects.filter(user = self.user).first()
+		if user_profile:
+			user_profile.reputation += 1
+			user_profile.save()
+
 		super(RTI_query, self).save(**kwargs)
+
 
 class RTI_query_file(models.Model):
 	def __unicode__(self):
@@ -224,6 +233,12 @@ class Follow_user(models.Model):
 	followee = models.ForeignKey(User, on_delete = models.CASCADE, related_name='user_followee')
 	entry_date = models.DateTimeField(auto_now_add=True)
 	
+	def save(self, **kwargs):
+		followee_profile = User_profile.objects.filter(user = self.followee).first()
+		followee_profile.reputation += 1
+		if followee_profile:
+			followee_profile.save()
+		super(Follow_user, self).save(**kwargs)
 
 class Follow_state(models.Model):
 	def __unicode__(self):
@@ -317,13 +332,14 @@ class Message(models.Model):
 
 class Blog(models.Model):
 	def __unicode__(self):
-		return str(self.id)
+		return str(self.heading)
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	heading = models.CharField(max_length = 500)
 	sub_heading = models.CharField(max_length = 500, null = True)
 	blog_text = models.TextField()
 	blog_picture = models.ImageField(upload_to  = 'blog_pictures', null = True)
 	entry_date = models.DateTimeField(auto_now_add=True)
+	num_views = models.IntegerField(default = 0)
 	slug = models.SlugField(null = True, max_length = 500)
 	
 	def save(self, **kwargs):
@@ -343,11 +359,11 @@ class Faq(models.Model):
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 
-@receiver(post_delete, sender=RTI_unlinked_files)
-def photo_post_delete_handler(sender, **kwargs):
-
-    uf = kwargs['instance']
-    storage, path = uf.query_picture.storage, uf.query_picture.path
-    print "delete"
-    if not uf.linked:
-    	storage.delete(path)
+@receiver(post_delete, sender=RTI_query)
+def rti_delete(sender, **kwargs):
+	uf = kwargs['instance']
+	user_profile = User_profile.objects.filter(user = uf.user).first()
+	if user_profile and user_profile.reputation > 0:
+		user_profile.reputation -= 1
+		user_profile.save()
+	user_profile.save()

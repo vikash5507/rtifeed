@@ -103,7 +103,7 @@ def make_message_context(message):
 	context = {
 		'message_sender' : message.sender.first_name + " " + message.sender.last_name,
 		'message_time' 	 : message.message_date,
-		'message_photo'	 : '/media/' + str(sender_profile.profile_picture),
+		'message_photo'	 : sender_profile.profile_picture.url,
 		'message_text'	 : message.message_text,
 	}
 	return context
@@ -140,6 +140,6 @@ def make_contact_context(message, user):
 		'contact_url' : '/messages/' + other_user.username,
 		'contact_message_text' : message.message_text[0:20] + '....',
 		'contact_message_date' : message.message_date,
-		'contact_photo' : '/media/' + str(other_user_profile.profile_picture)
+		'contact_photo' : other_user_profile.profile_picture.url
 	}
 	return context

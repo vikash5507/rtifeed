@@ -80,7 +80,7 @@ def rti_page(request, rti_slug):
 
 	rti_image = models.RTI_query_file.objects.filter(rti_query = rti_query).first()
 	if rti_image and rti_image.query_picture:
-		context['rti_image_url'] = 'http://www.rtifeed.com/media/' + str(rti_image.query_picture)
+		context['rti_image_url'] = rti_image.query_picture.url
 
 	return render_to_response('Home/rtipage.html', context)
 

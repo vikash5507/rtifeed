@@ -3,7 +3,7 @@
     <div class = "rti_headline"><h6><samll> {{ rti_head_line | safe}} </samll></h6> </div>
     <div class="user-block">
       
-      <img class="img-circle" src="/media/{{ rti_user_pic }}" alt="user image">
+      <img class="img-circle" src="{{ rti_user_pic.url }}" alt="user image">
       <span class="username"><a href="{{ rti_user_url }}">{{ rti_user }}</a></span>
       <span class="description">Shared publicly on {{rti_entry_date}}</span>
       {% if rti_query_type == "centre" %}
@@ -174,7 +174,7 @@
   {% if not my_profile.no_user %}
   <div class="box-footer">
     <!-- <form action="#" method="post"> -->
-      <img class="img-responsive img-circle img-sm" src="/media/{{ my_profile.profile_picture }}" alt="alt text">
+      <img class="img-responsive img-circle img-sm" src="{{ my_profile.profile_picture.url }}" alt="alt text">
       <!-- .img-push is used to add margin to elements next to floating images -->
       <div class="img-push">
         <textarea type="text" class="form-control input-sm comment{{ rti_id }}" placeholder="Press enter to post comment" id = "comment{{ rti_id }}"></textarea>
@@ -192,7 +192,7 @@
 
   var user_context = {
     name_user : '{{ my_profile.name_user }}',
-    profile_picture : '/media/{{ my_profile.profile_picture }}'
+    profile_picture : '{{ my_profile.profile_picture.url }}'
   }
   make_handlers_for({{ rti_id }}, user_context, proposed_flag);
   // create_tagging_for('#comment{{ rti_id }}');

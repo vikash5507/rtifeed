@@ -1,0 +1,15 @@
+<div class="box box-widget widget-user" >
+	<div class="box-header with-border">
+		<div class = "col-xs-5">
+			<img class="" src="{{ blog.blog_image }}" style="width : 100%;" alt="Photo">
+		</div>
+		<div class="user-block col-xs-7">
+			<a href="{{ blog.blog_url }}">
+				<h3 class="username" style="font-size:30px; margin-left : 0px;"> {{ blog.blog_heading | safe }}</h3>
+			</a>
+			<small>{{ blog.blog_date }}</small>
+			<h5 style=""><a href="/profile/{{ blog.blog_user_username }}">{{ blog.blog_user_nameuser }}</a></h5>
+				
+		</div>
+	</div>
+</div>

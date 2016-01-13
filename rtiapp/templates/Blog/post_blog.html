@@ -69,28 +69,7 @@
 
 <!--</div>-->
 <script>
-// var myDropzone = new Dropzone("div#rti_images", { 
-//     url: "submit_rti_photos",
-//     maxFiles : 5,
-//     maxFilesize : 2,
-//     acceptedFiles : 'image/*, application/pdf',
-//     // addRemoveLinks : true,
-//     dictDefaultMessage : 'Click to browse OR drag files here'
-// });
 
-
-// var can_submit = true;
-
-// myDropzone.on('sending', function(data, xhr_obj, fd){
-//   fd.append('rti_hash', '{{ rti_hash }}');
-//   can_submit = false;
-//   $('#post_id').prop('disabled', true);
-// });
-
-// myDropzone.on('complete', function(){
-//   can_submit = true;
-//   $('#post_id').prop('disabled', false);
-// })
 
 
 
@@ -112,33 +91,11 @@ $('#blog_form').on('submit',(function(e) {
         $("#blog_form :input").prop("disabled", true);
       },
       success : function(data){
-          swal('done!', 'Blog saved', 'success');
-          // swal({   
-          //   title: "Blog saved successfully!",  
-          //   text: "Share a response to this RTI?",   
-          //   type: "success",   
-          //   showCancelButton: true,   
-          //   cancelButtonText : 'Not Now',
-          //   // confirmButtonColor: "#DD6B55",   
-          //   confirmButtonText: "Share Response",
-          //   closeOnConfirm: false,
-          //   closeOnCancel: false
-          //   }, 
-          //   function(isConfirm){   
-          //     if(isConfirm){
-          //       window.location.href = '/share_rti_response?rti_id=' + data.rti_id;
-          //     }
-          //     else{
-          //       window.location.href = '/rti_page/' + data.rti_slug;  
-          //     }
-              
-          //   }
-          // );
+        swal('done!', 'Blog saved', 'success');
       },
       error : function(data){
           swal('Oops..','Something Went wrong', 'error');
           console.log(JSON.stringify(data));
-          // $('#post_id').html("Post");
       },
       contentType: false,
       processData: false
@@ -148,7 +105,7 @@ $('#blog_form').on('submit',(function(e) {
     // });
 }));
 
-$(".textarea").wysihtml5();
+// $(".textarea").wysihtml5();
 
 
   $("#blog_text").on('keyup', function() {

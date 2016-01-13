@@ -1,6 +1,6 @@
 <div class="box-comment comment_readbox{{ comment_id }}" id = "comment_readbox{{ comment_id }}">
       <!-- User image -->
-  <img class="img-circle img-sm" src="/media/{{ comment_user_pic }}" alt="user image">
+  <img class="img-circle img-sm" src="{{ comment_user_pic.url }}" alt="user image">
   <div class="comment-text" >
     <span class="username">
       <a href = "{{ comment_user_url }}">{{ comment_name_user }}</a>

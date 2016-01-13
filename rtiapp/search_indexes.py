@@ -1,7 +1,7 @@
 import datetime
 from haystack import indexes
 from rtiapp import models
-from rtiapp.models import User_profile,RTI_query,RTI_response,Department,State, Tag
+from rtiapp.models import User_profile,RTI_query,RTI_response,Department,State, Tag, Blog
 from django.contrib.auth.models import User
 
 class user_index(indexes.SearchIndex, indexes.Indexable):
@@ -61,6 +61,17 @@ class state_Index(indexes.SearchIndex, indexes.Indexable):
 
     def get_model(self):
         return State
+
+    def index_queryset(self, using=None):
+        """Used when the entire index for model is updated."""
+        return self.get_model().objects.all()
+
+class blog_Index(indexes.SearchIndex, indexes.Indexable):
+    #this suggests states only based on name and not on capital
+    text = indexes.EdgeNgramField(document=True, model_attr='heading') 
+
+    def get_model(self):
+        return Blog
 
     def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""

@@ -12,6 +12,8 @@ def search_model(sTerm, model_type, search_type):
 		search_model = models.Department
 	elif model_type == 'topic':
 		search_model = models.Tag
+	elif model_type == 'blog':
+		search_model = models.Blog
 	elif model_type == 'user':
 		search_model = models.User
 	elif model_type == 'rti':
@@ -81,7 +83,7 @@ def make_search_context(s_model, model_type):
 			'search_username' : s_model.username
 		}
 		user_profile = models.User_profile.objects.filter(user = s_model).first()
-		search_context['profile_picture'] = '/media/' +  str(user_profile.profile_picture)
+		search_context['profile_picture'] = user_profile.profile_picture.url
 		search_context['num_followers'] = len(models.Follow_user.objects.filter(followee = s_model))
 		search_context['num_following'] = len(models.Follow_user.objects.filter(follower = s_model))
 
@@ -99,5 +101,15 @@ def make_search_context(s_model, model_type):
 		search_context['no_likes'] = meta_data['no_likes']
 		search_context['no_comments'] = meta_data['no_comments']
 
+	elif model_type == 'blog':
+		
+		search_context = {
+			'blog_id' : s_model.id,
+			'search_link' : '/blog/' + s_model.slug,
+			}
+		search_context['blog_heading'] = s_model.heading
+		search_context['blog_picture'] = s_model.blog_picture.url
+		meta_data = newsfeed.get_rti_meta_data(s_model)
+		
 	search_context['model_type'] = model_type
 	return search_context

@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="content-wrapper col-md-11">
+<div class="content-wrapper">
+<section class = "content">
 	<br>
 	{% include 'Blog/blog_box.html' %}
 	<br>
-
-</div>
 <div id="fb-root"></div>
+
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
@@ -14,7 +14,51 @@
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=724628884303364";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+<div class = "row">
+<div class = "col-md-8">
+    <div class="fb-comments" data-href="{{ fb_blog_url}}" data-numposts="5" data-width="100%"></div>
+</div>
+<div class = "col-md-4">
+	    <div class = "row">
+	        <div class="box box-primary">
+		        <div class="box-header with-border">
+		          <h3 class="box-title">Recently added articles</h3>
 
-<div class="fb-comments" data-href="{{ fb_blog_url}}" data-numposts="5"></div>
+		          <!-- <div class="box-tools pull-right">
+		            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+		            </button>
+		            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+		          </div> -->
+		        </div>
+
+		        <div class="box-body">
+		          <ul class="products-list product-list-in-box">
+		          	{% for bg in trending_list %}
+		            <li class="item">
+		              <div class="product-img">
+		                <img src="{{ bg.blog_picture }}" alt="Product Image">
+		              </div>
+		              <div class="product-info">
+		                <a href="{{ bg.blog_url }}" class="product-title">{{ bg.blog_heading }}</a>
+		                    <!-- <span class="product-description">
+		                      Samsung 32" 1080p 60Hz LED Smart HDTV.
+		                    </span> -->
+		              </div>
+		            </li>
+		            {% endfor %}
+		          </ul>
+		        </div>
+
+		        <div class="box-footer text-center">
+		          <a href="/blog" class="uppercase">View All Blogs</a>
+		        </div>
+	    	</div>
+	    </div>
+</div>
+</div>
+<br>
+<br>
+</section>
+</div>
 
 {% endblock %}

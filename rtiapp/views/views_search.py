@@ -73,14 +73,16 @@ def search_model(request):
 		state_list = search.search_model(sTerm, 'state', search_type)
 		department_list = search.search_model(sTerm, 'department', search_type)
 		topic_list = search.search_model(sTerm, 'topic', search_type)
+		blog_list = search.search_model(sTerm, 'blog', search_type)
 		context = {
 			'user_list' : user_list,
 			'state_list' : state_list,
 			'department_list' : department_list,
 			'topic_list' : topic_list,
-			'rti_list' : rti_list
+			'rti_list' : rti_list,
+			'blog_list' : blog_list
 		}
-
+		print context
 	else:
 		context = search.search_model(sTerm, model_type, search_type)[0:3]
 

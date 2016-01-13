@@ -1,7 +1,7 @@
 <table class = "table">
   {% for ur in like_list  %}
   <tr>
-    <td style="width : 36px;" ><img height="36" width="36" class="img-circle" src="/media/{{ ur.profile_picture }}"></td>
+    <td style="width : 36px;" ><img height="36" width="36" class="img-circle" src="{{ ur.profile_picture.url }}"></td>
     <td><a href="/profile/{{ ur.username }}">{{ ur.name_user }}</a></td>
     <!-- <td>Followers {{ ur.num_followers }}</td>
     <td>Following {{ ur.num_following }}</td>

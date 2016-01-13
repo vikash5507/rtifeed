@@ -27,8 +27,13 @@ def sitemap_rtis(request):
 
 	rti_list = []
 	for rti in rtis:
+		query_text = rti.description
+		if len(query_text) < 5:
+			query_text = rti.query_text[0:10]
+
 		rti_list.append({
 			'rti_url' : '/rti_page/' + str(rti.slug),
+			'rti_query_text' : query_text
 		})
 	
 	page_list = []
@@ -55,7 +60,8 @@ def sitemap_users(request):
 	user_list = []
 	for user in users:
 		user_list.append({
-			'user_url' : '/profile/' + str(user.username)
+			'user_url' : '/profile/' + str(user.username),
+			'name_user' : user.first_name + " " + user.last_name
 		})
 
 	page_list = []
@@ -90,15 +96,18 @@ def sitemap_tdss(request):
 	for tds in tdss:
 		if tds_type == 'state':
 			tds_list.append({
-				'tds_url' : '/state/' +  tds.slug
+				'tds_url' : '/state/' +  tds.slug,
+				'tds_name' : tds.state_name
 			})
 		elif tds_type == 'department':
 			tds_list.append({
-				'tds_url' : '/department/' +  tds.slug
+				'tds_url' : '/department/' +  tds.slug,
+				'tds_name' : tds.department_name
 			})
 		elif tds_type == 'topic':
 			tds_list.append({
-				'tds_url' : '/topic/' +  tds.slug
+				'tds_url' : '/topic/' +  tds.slug,
+				'tds_name' : tds.tag_text
 			})
 	print tds_list	
 	page_list = []

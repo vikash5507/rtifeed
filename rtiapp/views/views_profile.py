@@ -14,6 +14,7 @@ import StringIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from rtiapp.views import views_blog
 
 def make_profile_context(user):
 	context = {
@@ -32,12 +33,15 @@ def make_profile_context(user):
 		context['date_of_birth'] = profile.date_of_birth
 		context['bio_description'] = profile.bio_description
 		context['profile_picture'] = profile.profile_picture
-		if profile.address and profile.address.state:
-			context['state'] = profile.state.state_name
+		context['is_blogger'] = profile.is_blogger
+		# if profile.address and profile.address.state:
+		# 	context['state'] = profile.state.state_name
 	
 	context['num_followers'] = len(models.Follow_user.objects.filter(followee = user))
 	context['num_following'] = len(models.Follow_user.objects.filter(follower = user))
 	context['num_rtis'] = len(models.RTI_query.objects.filter(user = user))
+	if profile.is_blogger:
+		context['num_blogs'] = len(models.Blog.objects.filter(user = user))
 
 	return context
 
@@ -144,6 +148,13 @@ def display_user_details(request, username, details_required):
 		return render_to_response('Profile/profile_follow.html', context)
 	elif details_required == 'rtis':
 		return render_to_response('Profile/profile_rtis.html', context)
+
+	elif details_required == 'blogs':
+		if context['is_blogger']:
+			return views_blog.blog(request, profile_user)
+		else:
+			raise Http404('Page Not Found')
+	
 	else:
 		raise Http404("User Does Not Exist")
 

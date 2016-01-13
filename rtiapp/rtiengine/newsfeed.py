@@ -29,6 +29,9 @@ def get_profile_context(user):
 		'username' : user.username,
 		'user_profile_link' : '/profile/' + user.username,
 		'bio_description' : user_profile.bio_description,
+		'num_followers' : len(models.Follow_user.objects.filter(followee = user)),
+		'num_rtis' : len(models.RTI_query.objects.filter(user = user)),
+		'num_blogs' : len(models.Blog.objects.filter(user = user)),
 		# 'num_new_messages' : len(models.Message.objects.filter(receiver = user, read_status = False))
 	}
 	return context
@@ -158,11 +161,11 @@ def get_feed_for_rti(rti, user, head_line = '', comment_strategy = 'time', max_c
 	for r_image in rti_query_images:
 		if r_image.query_picture and r_image.extension() != '.pdf':
 			rti_context['rti_query_images'].append({
-				'image_url' : '/media/' + str(r_image.query_picture)
+				'image_url' : r_image.query_picture.url
 				})
 		else:
 			rti_context['rti_query_files'].append({
-				'pdf_url' : '/media/' + str(r_image.query_picture)
+				'pdf_url' : r_image.query_picture.url
 				})
 	
 	total_query_photos = len(rti_context['rti_query_images'])
@@ -192,11 +195,11 @@ def get_feed_for_rti(rti, user, head_line = '', comment_strategy = 'time', max_c
 		for r_image in rti_response_images:
 			if r_image.response_picture and r_image.extension() != '.pdf':
 				rti_context['rti_response_images'].append({
-					'image_url' : '/media/' + str(r_image.response_picture)
+					'image_url' : r_image.response_picture.url
 					})
 			else:
 				rti_context['rti_response_files'].append({
-					'pdf_url' : '/media/' + str(r_image.response_picture)
+					'pdf_url' : r_image.response_picture.url
 					})
 
 
